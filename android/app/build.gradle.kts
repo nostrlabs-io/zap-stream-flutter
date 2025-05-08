@@ -1,12 +1,83 @@
+import com.android.build.api.dsl.ApkSigningConfig
+import com.android.build.api.dsl.SigningConfig
+import org.jetbrains.kotlin.gradle.targets.js.toHex
+import java.io.FileInputStream
+import java.util.Base64
+import java.security.MessageDigest
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+fun getKeystoreFile(base64String: String?, hash: String, fileName: String): File {
+    if (base64String == null) {
+        throw GradleException("Keystore is null")
+    }
+    val decodedBytes = Base64.getDecoder().decode(base64String)
+    val tempFile = File("${layout.buildDirectory}/keystores/${fileName}")
+    tempFile.parentFile.mkdirs()
+    tempFile.writeBytes(decodedBytes)
+
+    val digest = MessageDigest.getInstance("SHA-256")
+    val tmpHash = digest.digest(decodedBytes)
+    if (tmpHash.toHex() != hash) {
+        throw GradleException("Keystore hash mismatch")
+    }
+    return tempFile
+}
+
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = if (keystorePropertiesFile.exists()) {
+    Properties().apply {
+        load(FileInputStream(keystorePropertiesFile))
+    }
+} else {
+    Properties()
+}
+
 android {
-    namespace = "com.example.zap_stream_flutter"
+    signingConfigs {
+        create("env") {
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
+            storeFile = System.getenv("KEYSTORE")?.let {
+                getKeystoreFile(
+                    System.getenv("KEYSTORE"),
+                    System.getenv("KEYSTORE_SHA256"),
+                    "store.jks"
+                )
+            }
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
+        }
+        create("keyfile") {
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile =
+                keystoreProperties.getProperty("storeFile")?.let {
+                    file(this)
+                }
+            storePassword = keystoreProperties.getProperty("storePassword")
+        }
+    }
+}
+
+fun getSigningConfig(): ApkSigningConfig {
+    if (System.getenv("KEYSTORE").isNullOrEmpty()) {
+        println("Signing: using env vars")
+        return android.signingConfigs.getByName("env")
+    }
+    println("Signing: using key.properties")
+    return android.signingConfigs.getByName("keyFile")
+}
+
+// pick signing config
+val cfg = getSigningConfig()
+
+android {
+    namespace = "io.nostrlabs.zap_stream_flutter"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,10 +91,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.zap_stream_flutter"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        applicationId = "io.nostrlabs.zap_stream_flutter"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -32,9 +100,7 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = cfg
         }
     }
 }
