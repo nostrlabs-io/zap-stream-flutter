@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
@@ -20,7 +21,10 @@ class _HeaderWidget extends State<HeaderWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SvgPicture.asset("assets/svg/logo.svg", height: 23),
+          GestureDetector(
+            onTap: () => context.go("/"),
+            child: SvgPicture.asset("assets/svg/logo.svg", height: 23),
+          ),
           LoginButtonWidget(),
         ],
       ),
@@ -29,10 +33,18 @@ class _HeaderWidget extends State<HeaderWidget> {
 }
 
 class LoginButtonWidget extends StatelessWidget {
+  const LoginButtonWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     if (ndk.accounts.isLoggedIn) {
-      return AvatarWidget.pubkey(ndk.accounts.getPublicKey()!);
+      return GestureDetector(
+        onTap:
+            () => context.go(
+              "/p/${Nip19.encodePubKey(ndk.accounts.getPublicKey()!)}",
+            ),
+        child: AvatarWidget.pubkey(ndk.accounts.getPublicKey()!),
+      );
     } else {
       return GestureDetector(
         onTap: () {

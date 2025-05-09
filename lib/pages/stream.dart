@@ -1,12 +1,15 @@
-import 'package:flutter/widgets.dart';
+import 'package:chewie/chewie.dart';
+import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/chat.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
+import 'package:zap_stream_flutter/widgets/zap.dart';
 
 class StreamPage extends StatefulWidget {
   final StreamEvent stream;
@@ -19,6 +22,7 @@ class StreamPage extends StatefulWidget {
 
 class _StreamPage extends State<StreamPage> {
   VideoPlayerController? _controller;
+  ChewieController? _chewieController;
 
   @override
   void initState() {
@@ -34,10 +38,15 @@ class _StreamPage extends State<StreamPage> {
       _controller = VideoPlayerController.networkUrl(
         Uri.parse(url),
         httpHeaders: Map.from({"user-agent": userAgent}),
+        videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true),
       );
       () async {
         await _controller!.initialize();
-        await _controller!.play();
+
+        _chewieController = ChewieController(
+          videoPlayerController: _controller!,
+          autoPlay: true,
+        );
         setState(() {
           // nothing
         });
@@ -64,8 +73,8 @@ class _StreamPage extends State<StreamPage> {
         AspectRatio(
           aspectRatio: 16 / 9,
           child:
-              _controller != null
-                  ? VideoPlayer(_controller!)
+              _chewieController != null
+                  ? Chewie(controller: _chewieController!)
                   : Container(color: LAYER_1),
         ),
         Text(
@@ -76,15 +85,45 @@ class _StreamPage extends State<StreamPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ProfileWidget.pubkey(widget.stream.info.host),
-            PillWidget(
-              color: LAYER_1,
-              child: Text(
-                "${widget.stream.info.participants} viewers",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-              ),
+            Row(
+              spacing: 8,
+              children: [
+                BasicButton(
+                  Row(children: [Icon(Icons.bolt, size: 14), Text("Zap")]),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: PRIMARY_1,
+                    borderRadius: DEFAULT_BR,
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      constraints: BoxConstraints.expand(),
+                      builder: (ctx) {
+                        return ZapWidget(
+                          pubkey: widget.stream.info.host,
+                          target: widget.stream.event,
+                        );
+                      },
+                    );
+                  },
+                ),
+                if (widget.stream.info.participants != null)
+                  PillWidget(
+                    color: LAYER_1,
+                    child: Text(
+                      "${widget.stream.info.participants} viewers",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ],
         ),
+        SizedBox(height: 10),
         Expanded(child: ChatWidget(stream: widget.stream)),
       ],
     );

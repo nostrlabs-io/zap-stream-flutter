@@ -7,6 +7,7 @@ import 'package:ndk_amber/ndk_amber.dart';
 import 'package:ndk_objectbox/ndk_objectbox.dart';
 import 'package:ndk_rust_verifier/ndk_rust_verifier.dart';
 import 'package:zap_stream_flutter/pages/login.dart';
+import 'package:zap_stream_flutter/pages/profile.dart';
 import 'package:zap_stream_flutter/pages/stream.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -42,26 +43,29 @@ Future<void> main() async {
   // reload / cache login data
   loginData.addListener(() {
     if (loginData.value != null) {
-      if (!ndk.accounts.hasAccount(loginData.value!.pubkey)) {
+      final pubkey = loginData.value!.pubkey;
+      if (!ndk.accounts.hasAccount(pubkey)) {
         switch (loginData.value!.type) {
           case AccountType.privateKey:
             ndk.accounts.loginPrivateKey(
-              pubkey: loginData.value!.pubkey,
+              pubkey: pubkey,
               privkey: loginData.value!.privateKey!,
             );
           case AccountType.externalSigner:
             ndk.accounts.loginExternalSigner(
               signer: AmberEventSigner(
-                publicKey: loginData.value!.pubkey,
+                publicKey: pubkey,
                 amberFlutterDS: AmberFlutterDS(Amberflutter()),
               ),
             );
           case AccountType.publicKey:
-            ndk.accounts.loginPublicKey(pubkey: loginData.value!.pubkey);
+            ndk.accounts.loginPublicKey(pubkey: pubkey);
         }
       }
-      ndk.metadata.loadMetadata(loginData.value!.pubkey);
-      ndk.follows.getContactList(loginData.value!.pubkey);
+      ndk.metadata.loadMetadata(pubkey);
+      ndk.follows.getContactList(pubkey);
+    } else {
+      ndk.accounts.logout();
     }
   });
 
@@ -92,6 +96,12 @@ Future<void> main() async {
                       } else {
                         throw UnimplementedError();
                       }
+                    },
+                  ),
+                  GoRoute(
+                    path: "/p/:id",
+                    builder: (ctx, state) {
+                      return ProfilePage(pubkey: state.pathParameters["id"]!);
                     },
                   ),
                 ],

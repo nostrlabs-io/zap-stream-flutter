@@ -114,7 +114,11 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
     matchTag(t, 'recording', (v) => ret.recording = v);
     matchTag(t, 'url', (v) => ret.recording = v);
     matchTag(t, 'content-warning', (v) => ret.contentWarning = v);
-    matchTag(t, 'current_participants', (v) => ret.participants = int.tryParse(v));
+    matchTag(
+      t,
+      'current_participants',
+      (v) => ret.participants = int.tryParse(v),
+    );
     matchTag(t, 'goal', (v) => ret.goal = v);
     matchTag(t, 'starts', (v) => ret.starts = int.tryParse(v));
     matchTag(t, 'ends', (v) => ret.ends = int.tryParse(v));
@@ -134,6 +138,10 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
       ret.stream = 'nip94';
     } else {
       ret.stream = ret.streams.firstWhereOrNull((a) => a.contains('.m3u8'));
+    }
+    if (ret.status == StreamStatus.ended &&
+        (ret.recording?.isNotEmpty ?? false)) {
+      ret.stream = ret.recording;
     }
   }
 
@@ -213,3 +221,20 @@ class Category {
 }
 
 List<Category> AllCategories = []; // Implement as needed
+
+String formatSats(int n) {
+  if (n >= 1000000) {
+    return "${(n / 1000000).toStringAsFixed(1)}M";
+  } else if (n >= 1000) {
+    return "${(n / 1000).toStringAsFixed(1)}k";
+  } else {
+    return "$n";
+  }
+}
+
+String zapSum(List<Nip01Event> zaps) {
+  final total = zaps
+      .map((e) => ZapReceipt.fromEvent(e))
+      .fold(0, (acc, v) => acc + (v.amountSats ?? 0));
+  return formatSats(total);
+}

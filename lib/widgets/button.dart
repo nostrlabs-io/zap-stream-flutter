@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:zap_stream_flutter/theme.dart';
 
 class BasicButton extends StatelessWidget {
@@ -35,7 +35,7 @@ class BasicButton extends StatelessWidget {
         ),
       ),
       decoration: decoration,
-      padding: padding ?? EdgeInsets.symmetric(vertical: 10),
+      padding: padding ?? EdgeInsets.symmetric(vertical: 4, horizontal: 12),
       margin: margin,
       onTap: onTap,
     );
@@ -43,6 +43,7 @@ class BasicButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultBr = BorderRadius.all(Radius.circular(100));
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -50,10 +51,7 @@ class BasicButton extends StatelessWidget {
         margin: margin,
         decoration:
             decoration ??
-            BoxDecoration(
-              color: LAYER_2,
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-            ),
+            BoxDecoration(color: LAYER_2, borderRadius: defaultBr),
         child: Center(child: child),
       ),
     );

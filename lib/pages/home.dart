@@ -16,7 +16,9 @@ class HomePage extends StatelessWidget {
           children: [
             HeaderWidget(),
             RxFilter<Nip01Event>(
-              filter: Filter(kinds: [30_311], limit: 10),
+              filters: [
+                Filter(kinds: [30_311], limit: 50),
+              ],
               builder: (ctx, state) {
                 if (state == null) {
                   return SizedBox.shrink();

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/main.dart';
@@ -48,7 +49,14 @@ class ProfileNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(ProfileNameWidget.nameFromProfile(profile), style: style);
+    return GestureDetector(
+      onTap:
+          () => context.push(
+            "/p/${Nip19.encodePubKey(profile.pubKey)}",
+            extra: profile,
+          ),
+      child: Text(ProfileNameWidget.nameFromProfile(profile), style: style),
+    );
   }
 }
 
@@ -64,9 +72,12 @@ class ProfileWidget extends StatelessWidget {
     this.size,
   });
 
-  static Widget pubkey(String pubkey) {
+  static Widget pubkey(String pubkey, {double? size}) {
     return ProfileLoaderWidget(pubkey, (ctx, state) {
-      return ProfileWidget(profile: state.data ?? Metadata(pubKey: pubkey));
+      return ProfileWidget(
+        profile: state.data ?? Metadata(pubKey: pubkey),
+        size: size,
+      );
     });
   }
 

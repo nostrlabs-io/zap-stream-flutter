@@ -4,10 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
-import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _LoginPage();
 }
@@ -42,7 +43,7 @@ class _LoginPage extends State<LoginPage> {
               }
             },
           ),
-          BasicButton.text("Login with Key"),
+          /*BasicButton.text("Login with Key"),
           Container(
             margin: EdgeInsets.symmetric(vertical: 20),
             height: 1,
@@ -50,7 +51,7 @@ class _LoginPage extends State<LoginPage> {
               border: Border(bottom: BorderSide(color: LAYER_1)),
             ),
           ),
-          Text("Create Account"),
+          Text("Create Account"),*/
         ],
       ),
     );

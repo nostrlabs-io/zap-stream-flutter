@@ -24,7 +24,9 @@ class ChatWidget extends StatelessWidget {
           child: SingleChildScrollView(
             reverse: true,
             child: RxFilter<Nip01Event>(
-              filter: Filter(kinds: [1311], limit: 200, aTags: [stream.aTag]),
+              filters: [
+                Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
+              ],
               builder: (ctx, state) {
                 return Column(
                   spacing: 8,
@@ -32,14 +34,105 @@ class ChatWidget extends StatelessWidget {
                   children:
                       (state ?? [])
                           .sortedBy((c) => c.createdAt)
-                          .map((c) => ChatMessageWidget(stream: stream, msg: c))
+                          .map(
+                            (c) => switch (c.kind) {
+                              1311 => ChatMessageWidget(stream: stream, msg: c),
+                              9735 => ChatZapWidget(stream: stream, zap: c),
+                              _ => SizedBox.shrink(),
+                            },
+                          )
                           .toList(),
                 );
               },
             ),
           ),
         ),
-        WriteMessageWidget(stream: stream),
+        if (stream.info.status == StreamStatus.live)
+          WriteMessageWidget(stream: stream),
+        if (stream.info.status == StreamStatus.ended)
+          Container(
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.symmetric(vertical: 8),
+            width: double.maxFinite,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: PRIMARY_1,
+              borderRadius: DEFAULT_BR,
+            ),
+            child: Text(
+              "STREAM ENDED",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class ChatZapWidget extends StatelessWidget {
+  final StreamEvent stream;
+  final Nip01Event zap;
+
+  const ChatZapWidget({super.key, required this.stream, required this.zap});
+
+  @override
+  Widget build(BuildContext context) {
+    final parsed = ZapReceipt.fromEvent(zap);
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        border: Border.all(color: ZAP_1),
+        borderRadius: DEFAULT_BR,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _zapperRowZap(parsed),
+          if (parsed.comment?.isNotEmpty ?? false) Text(parsed.comment!),
+        ],
+      ),
+    );
+  }
+
+  Widget _zapperRowZap(ZapReceipt parsed) {
+    if (parsed.sender != null) {
+      return ProfileLoaderWidget(parsed.sender!, (ctx, state) {
+        final name = ProfileNameWidget.nameFromProfile(
+          state.data ?? Metadata(pubKey: parsed.sender!),
+        );
+        return _zapperRow(name, parsed.amountSats ?? 0, state.data);
+      });
+    } else {
+      return _zapperRow("Anon", parsed.amountSats ?? 0, null);
+    }
+  }
+
+  Widget _zapperRow(String name, int amount, Metadata? profile) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        RichText(
+          text: TextSpan(
+            style: TextStyle(color: ZAP_1),
+            children: [
+              WidgetSpan(
+                child: Icon(Icons.bolt, color: ZAP_1),
+                alignment: PlaceholderAlignment.middle,
+              ),
+              if (profile != null)
+                WidgetSpan(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: AvatarWidget(profile: profile, size: 20),
+                  ),
+                ),
+              TextSpan(text: name),
+              TextSpan(text: " zapped ", style: TextStyle(color: FONT_COLOR)),
+              TextSpan(text: formatSats(amount)),
+              TextSpan(text: " sats", style: TextStyle(color: FONT_COLOR)),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -58,12 +151,19 @@ class ChatMessageWidget extends StatelessWidget {
       return RichText(
         text: TextSpan(
           children: [
-            WidgetSpan(child: AvatarWidget(profile: profile, size: 20)),
+            WidgetSpan(
+              child: AvatarWidget(profile: profile, size: 24),
+              alignment: PlaceholderAlignment.middle,
+            ),
             TextSpan(text: " "),
-            TextSpan(
-              text: ProfileNameWidget.nameFromProfile(profile),
-              style: TextStyle(
-                color: msg.pubKey == stream.info.host ? PRIMARY_1 : SECONDARY_1,
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: ProfileNameWidget(
+                profile: profile,
+                style: TextStyle(
+                  color:
+                      msg.pubKey == stream.info.host ? PRIMARY_1 : SECONDARY_1,
+                ),
               ),
             ),
             TextSpan(text: " "),
@@ -120,6 +220,7 @@ class _WriteMessageWidget extends State<WriteMessageWidget> {
                   Expanded(
                     child: TextField(
                       controller: _controller,
+                      onSubmitted: (_) => _sendMessage(),
                       decoration: InputDecoration(
                         labelText: "Write message",
                         contentPadding: EdgeInsets.symmetric(vertical: 4),
@@ -128,7 +229,7 @@ class _WriteMessageWidget extends State<WriteMessageWidget> {
                       ),
                     ),
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.mood)),
+                  //IconButton(onPressed: () {}, icon: Icon(Icons.mood)),
                   IconButton(
                     onPressed: () {
                       _sendMessage();

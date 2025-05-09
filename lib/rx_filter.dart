@@ -8,7 +8,7 @@ import 'package:zap_stream_flutter/main.dart';
 
 /// Reactive filter which builds the widget with a snapshot of the data
 class RxFilter<T> extends StatefulWidget {
-  final Filter filter;
+  final List<Filter> filters;
   final bool leaveOpen;
   final Widget Function(BuildContext, List<T>?) builder;
   final T Function(Nip01Event)? mapper;
@@ -16,7 +16,7 @@ class RxFilter<T> extends StatefulWidget {
 
   const RxFilter({
     super.key,
-    required this.filter,
+    required this.filters,
     required this.builder,
     this.mapper,
     this.leaveOpen = true,
@@ -34,16 +34,16 @@ class _RxFilter<T> extends State<RxFilter<T>> {
   @override
   void initState() {
     super.initState();
-    developer.log("RX:SEDNING ${widget.filter}");
+    developer.log("RX:SEDNING ${widget.filters}");
     _response = ndk.requests.subscription(
-      filters: [widget.filter],
+      filters: widget.filters,
       cacheRead: true,
       cacheWrite: true,
       explicitRelays: widget.relays,
     );
     if (!widget.leaveOpen) {
       _response.future.then((_) {
-        developer.log("RX:CLOSING ${widget.filter}");
+        developer.log("RX:CLOSING ${widget.filters}");
         ndk.requests.closeSubscription(_response.requestId);
       });
     }
@@ -56,7 +56,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
         .listen((events) {
       setState(() {
         _events ??= HashMap();
-        developer.log("RX:GOT ${events.length} events for ${widget.filter}");
+        developer.log("RX:GOT ${events.length} events for ${widget.filters}");
         events.forEach(_replaceInto);
       });
     });
@@ -85,7 +85,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
   void dispose() {
     super.dispose();
 
-    developer.log("RX:CLOSING ${widget.filter}");
+    developer.log("RX:CLOSING ${widget.filters}");
     ndk.requests.closeSubscription(_response.requestId);
   }
 
@@ -98,7 +98,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
 
 /// An async filter loader into [RxFilter]
 class RxFutureFilter<T> extends StatelessWidget {
-  final Future<Filter> Function() filterBuilder;
+  final Future<List<Filter>> Function() filterBuilder;
   final bool leaveOpen;
   final Widget Function(BuildContext, List<T>?) builder;
   final Widget? loadingWidget;
@@ -115,12 +115,12 @@ class RxFutureFilter<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Filter>(
+    return FutureBuilder<List<Filter>>(
       future: filterBuilder(),
       builder: (ctx, data) {
         if (data.hasData) {
           return RxFilter<T>(
-              filter: data.data!, mapper: mapper, builder: builder);
+              filters: data.data!, mapper: mapper, builder: builder);
         } else {
           return loadingWidget ?? SizedBox.shrink();
         }

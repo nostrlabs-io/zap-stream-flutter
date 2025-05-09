@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -19,14 +20,18 @@ class Account {
         Nip19.isKey("nsec", key) ? Bip340.getPublicKey(keyData) : keyData;
     final privateKey = Nip19.isKey("npub", key) ? null : keyData;
     return Account._(
-        type: AccountType.privateKey, pubkey: pubkey, privateKey: privateKey);
+      type: AccountType.privateKey,
+      pubkey: pubkey,
+      privateKey: privateKey,
+    );
   }
 
   static Account privateKeyHex(String key) {
     return Account._(
-        type: AccountType.privateKey,
-        privateKey: key,
-        pubkey: Bip340.getPublicKey(key));
+      type: AccountType.privateKey,
+      privateKey: key,
+      pubkey: Bip340.getPublicKey(key),
+    );
   }
 
   static Account externalPublicKeyHex(String key) {
@@ -34,18 +39,20 @@ class Account {
   }
 
   static Map<String, dynamic> toJson(Account? acc) => {
-        "type": acc?.type.name,
-        "pubKey": acc?.pubkey,
-        "privateKey": acc?.privateKey
-      };
+    "type": acc?.type.name,
+    "pubKey": acc?.pubkey,
+    "privateKey": acc?.privateKey,
+  };
 
   static Account? fromJson(Map<String, dynamic> json) {
     if (json.length > 2 && json.containsKey("pubKey")) {
       return Account._(
-          type: AccountType.values
-              .firstWhere((v) => v.toString().endsWith(json["type"] as String)),
-          pubkey: json["pubKey"],
-          privateKey: json["privateKey"]);
+        type: AccountType.values.firstWhere(
+          (v) => v.toString().endsWith(json["type"] as String),
+        ),
+        pubkey: json["pubKey"],
+        privateKey: json["privateKey"],
+      );
     }
     return null;
   }
@@ -62,10 +69,19 @@ class LoginData extends ValueNotifier<Account?> {
     });
   }
 
+  Future<void> logout() async {
+    super.value = null;
+    await _storage.delete(key: _storageKey);
+  }
+
   Future<void> load() async {
     final acc = await _storage.read(key: _storageKey);
-    if (acc != null) {
-      super.value = Account.fromJson(json.decode(acc));
+    if (acc?.isNotEmpty ?? false) {
+      try {
+        super.value = Account.fromJson(json.decode(acc!));
+      } catch (e) {
+        developer.log(e.toString());
+      }
     }
   }
 }

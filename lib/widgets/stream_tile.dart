@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
@@ -34,15 +35,31 @@ class StreamTileWidget extends StatelessWidget {
               aspectRatio: 16 / 9,
               child: Stack(
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: proxyImg(context, stream.info.image ?? ""),
+                  Center(
+                    child: CachedNetworkImage(
+                      imageUrl: proxyImg(context, stream.info.image ?? ""),
+                      fit: BoxFit.cover,
+                      placeholder:
+                          (ctx, url) => SvgPicture.asset(
+                            "assets/svg/logo.svg",
+                            height: 100,
+                          ),
+                      errorWidget:
+                          (context, url, error) => SvgPicture.asset(
+                            "assets/svg/logo.svg",
+                            height: 100,
+                          ),
+                    ),
                   ),
                   if (stream.info.status != null)
                     Positioned(
                       right: 8,
                       top: 8,
                       child: PillWidget(
-                        color: Theme.of(context).highlightColor,
+                        color: switch (stream.info.status) {
+                          StreamStatus.live => Theme.of(context).highlightColor,
+                          _ => LAYER_3,
+                        },
                         child: Text(
                           stream.info.status!.name.toUpperCase(),
                           style: TextStyle(
