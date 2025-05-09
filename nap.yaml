@@ -1,0 +1,13 @@
+id: "io.nostrlabs.zap_stream_flutter"
+name: "zap.stream"
+description: "Live streaming on nostr"
+icon: "https://zap.stream/logo.png"
+images:
+  - "https://nostr.download/baf24ad818fae082cbca3ac9dc1dc132bb9d733fb6660f2128a564e3acfa7d58.webp"
+  - "https://nostr.download/5a5528627022126e54b7501f23fbd3c7bc8437faaac841ad1a98afc2268f8e6f.webp"
+repository: "https://github.com/nostrlabs-io/zap-stream-flutter"
+url: "https://zap.stream"
+license: "MIT"
+tags:
+  - "livestream"
+  - "video"
