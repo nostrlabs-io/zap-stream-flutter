@@ -40,24 +40,12 @@ val keystoreProperties = if (keystorePropertiesFile.exists()) {
 
 android {
     signingConfigs {
-        create("env") {
-            keyAlias = System.getenv("KEY_ALIAS")
-            keyPassword = System.getenv("KEY_PASSWORD")
-            storeFile = System.getenv("KEYSTORE")?.let {
-                getKeystoreFile(
-                    System.getenv("KEYSTORE"),
-                    System.getenv("KEYSTORE_SHA256"),
-                    "store.jks"
-                )
-            }
-            storePassword = System.getenv("KEYSTORE_PASSWORD")
-        }
-        create("keyfile") {
+        create("keyFile") {
             keyAlias = keystoreProperties.getProperty("keyAlias")
             keyPassword = keystoreProperties.getProperty("keyPassword")
             storeFile =
                 keystoreProperties.getProperty("storeFile")?.let {
-                    file(this)
+                    file(it)
                 }
             storePassword = keystoreProperties.getProperty("storePassword")
         }
@@ -65,9 +53,21 @@ android {
 }
 
 fun getSigningConfig(): ApkSigningConfig {
-    if (System.getenv("KEYSTORE").isNullOrEmpty()) {
+    if (!System.getenv("KEYSTORE").isNullOrEmpty()) {
         println("Signing: using env vars")
-        return android.signingConfigs.getByName("env")
+        val cfg = android.signingConfigs.create("env") {
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
+            storeFile = System.getenv("KEYSTORE")?.let {
+                getKeystoreFile(
+                    it,
+                    System.getenv("KEYSTORE_SHA256"),
+                    "store.jks"
+                )
+            }
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
+        }
+        return cfg
     }
     println("Signing: using key.properties")
     return android.signingConfigs.getByName("keyFile")
