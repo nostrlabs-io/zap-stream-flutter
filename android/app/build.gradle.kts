@@ -17,7 +17,7 @@ fun getKeystoreFile(base64String: String?, hash: String, fileName: String): File
         throw GradleException("Keystore is null")
     }
     val decodedBytes = Base64.getDecoder().decode(base64String)
-    val tempFile = File("${layout.buildDirectory}/keystores/${fileName}")
+    val tempFile = File("${layout.buildDirectory.get()}/keystores/${fileName}")
     tempFile.parentFile.mkdirs()
     tempFile.writeBytes(decodedBytes)
 
