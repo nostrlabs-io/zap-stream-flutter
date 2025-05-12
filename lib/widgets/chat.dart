@@ -9,6 +9,7 @@ import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
+import 'package:zap_stream_flutter/widgets/profile_modal.dart';
 
 class ChatWidget extends StatelessWidget {
   final StreamEvent stream;
@@ -17,91 +18,77 @@ class ChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hostMuteList = ndk.lists.getSingleNip51List(
-      Nip51List.kMute,
-      Bip340EventSigner(privateKey: null, publicKey: stream.info.host),
-      forceRefresh: true,
-    );
-    final signer = ndk.accounts.getLoggedAccount()?.signer;
-    final myMuteList =
-        signer != null
-            ? ndk.lists.getSingleNip51List(
-              Nip51List.kMute,
-              signer,
-              forceRefresh: true,
-            )
-            : Future.value(null);
+    var muteLists = [stream.info.host];
+    if (ndk.accounts.getPublicKey() != null) {
+      muteLists.add(ndk.accounts.getPublicKey()!);
+    }
 
     return RxFilter<Nip01Event>(
       filters: [
         Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
+        Filter(kinds: [Nip51List.kMute], authors: muteLists),
       ],
       builder: (ctx, state) {
-        return FutureBuilder(
-          future: Future.wait([hostMuteList, myMuteList]),
-          builder: (ctx, muteState) {
-            final mutedPubkeys =
-                muteState.data
-                    ?.map((e) => e?.pubKeys)
-                    .where((e) => e != null)
-                    .expand((e) => e!)
-                    .map((e) => e.value)
-                    .toSet() ??
-                <String>{};
+        final mutedPubkeys =
+            (state ?? [])
+                .where((e) => e.kind == Nip51List.kMute)
+                .map((e) => e.tags)
+                .expand((e) => e)
+                .where((e) => e[0] == "p")
+                .map((e) => e[1])
+                .toSet();
 
-            final filteredChat =
-                (state ?? [])
-                    .where((e) => !mutedPubkeys.contains(e.pubKey))
-                    .toList();
+        final filteredChat =
+            (state ?? [])
+                .where(
+                  (e) =>
+                      !mutedPubkeys.contains(switch (e.kind) {
+                        9735 => ZapReceipt.fromEvent(e).sender ?? e.pubKey,
+                        _ => e.pubKey,
+                      }),
+                )
+                .toList();
 
-            return Column(
-              spacing: 8,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _TopZappersWidget(events: filteredChat),
-                Expanded(
-                  child: SingleChildScrollView(
-                    reverse: true,
-                    child: Column(
-                      spacing: 8,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          filteredChat
-                              .sortedBy((c) => c.createdAt)
-                              .map(
-                                (c) => switch (c.kind) {
-                                  1311 => ChatMessageWidget(
-                                    stream: stream,
-                                    msg: c,
-                                  ),
-                                  9735 => _ChatZapWidget(
-                                    stream: stream,
-                                    zap: c,
-                                  ),
-                                  _ => SizedBox.shrink(),
-                                },
-                              )
-                              .toList(),
-                    ),
-                  ),
+        return Column(
+          spacing: 8,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _TopZappersWidget(events: filteredChat),
+            Expanded(
+              child: SingleChildScrollView(
+                reverse: true,
+                child: Column(
+                  spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:
+                      filteredChat
+                          .sortedBy((c) => c.createdAt)
+                          .map(
+                            (c) => switch (c.kind) {
+                              1311 => ChatMessageWidget(stream: stream, msg: c),
+                              9735 => _ChatZapWidget(stream: stream, zap: c),
+                              _ => SizedBox.shrink(),
+                            },
+                          )
+                          .toList(),
                 ),
-                if (stream.info.status == StreamStatus.live)
-                  WriteMessageWidget(stream: stream),
-                if (stream.info.status == StreamStatus.ended)
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    width: double.maxFinite,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(borderRadius: DEFAULT_BR),
-                    child: Text(
-                      "STREAM ENDED",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-              ],
-            );
-          },
+              ),
+            ),
+            if (stream.info.status == StreamStatus.live)
+              WriteMessageWidget(stream: stream),
+            if (stream.info.status == StreamStatus.ended)
+              Container(
+                padding: EdgeInsets.all(8),
+                margin: EdgeInsets.symmetric(vertical: 8),
+                width: double.maxFinite,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(borderRadius: DEFAULT_BR),
+                child: Text(
+                  "STREAM ENDED",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+          ],
         );
       },
     );
@@ -243,27 +230,38 @@ class ChatMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProfileLoaderWidget(msg.pubKey, (ctx, state) {
       final profile = state.data ?? Metadata(pubKey: msg.pubKey);
-      return RichText(
-        text: TextSpan(
-          children: [
-            WidgetSpan(
-              child: AvatarWidget(profile: profile, size: 24),
-              alignment: PlaceholderAlignment.middle,
-            ),
-            TextSpan(text: " "),
-            WidgetSpan(
-              alignment: PlaceholderAlignment.middle,
-              child: ProfileNameWidget(
-                profile: profile,
-                style: TextStyle(
-                  color:
-                      msg.pubKey == stream.info.host ? PRIMARY_1 : SECONDARY_1,
+      return GestureDetector(
+        onLongPress: () {
+          showModalBottomSheet(
+            context: context,
+            constraints: BoxConstraints.expand(),
+            builder: (ctx) => ProfileModalWidget(profile: profile, event: msg),
+          );
+        },
+        child: RichText(
+          text: TextSpan(
+            children: [
+              WidgetSpan(
+                child: AvatarWidget(profile: profile, size: 24),
+                alignment: PlaceholderAlignment.middle,
+              ),
+              TextSpan(text: " "),
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: ProfileNameWidget(
+                  profile: profile,
+                  style: TextStyle(
+                    color:
+                        msg.pubKey == stream.info.host
+                            ? PRIMARY_1
+                            : SECONDARY_1,
+                  ),
                 ),
               ),
-            ),
-            TextSpan(text: " "),
-            TextSpan(text: msg.content, style: TextStyle(color: FONT_COLOR)),
-          ],
+              TextSpan(text: " "),
+              TextSpan(text: msg.content, style: TextStyle(color: FONT_COLOR)),
+            ],
+          ),
         ),
       );
     });

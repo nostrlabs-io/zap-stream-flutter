@@ -1,0 +1,56 @@
+import 'package:flutter/widgets.dart';
+import 'package:ndk/domain_layer/entities/nip_51_list.dart';
+import 'package:zap_stream_flutter/main.dart';
+import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/widgets/button.dart';
+
+class MuteButton extends StatelessWidget {
+  final String pubkey;
+
+  const MuteButton({super.key, required this.pubkey});
+
+  @override
+  Widget build(BuildContext context) {
+    final signer = ndk.accounts.getLoggedAccount()?.signer;
+    if (signer == null) return SizedBox.shrink();
+
+    return FutureBuilder(
+      future: ndk.lists.getSingleNip51List(Nip51List.kMute, signer),
+      builder: (ctx, state) {
+        final mutes = (state.data?.pubKeys ?? []).map((e) => e.value).toSet();
+        final isMuted = mutes.contains(pubkey);
+        return BasicButton(
+          Text(
+            isMuted ? "Unmute" : "Mute",
+            style: TextStyle(
+              color: Color.fromARGB(255, 0, 0, 0),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+          decoration: BoxDecoration(color: WARNING, borderRadius: DEFAULT_BR),
+          onTap: () async {
+            if (isMuted) {
+              await ndk.lists.broadcastRemoveNip51ListElement(
+                Nip51List.kMute,
+                Nip51List.kPubkey,
+                pubkey,
+                null,
+              );
+            } else {
+              await ndk.lists.broadcastAddNip51ListElement(
+                Nip51List.kMute,
+                Nip51List.kPubkey,
+                pubkey,
+                null,
+              );
+            }
+            if (ctx.mounted) {
+              Navigator.pop(ctx);
+            }
+          },
+        );
+      },
+    );
+  }
+}

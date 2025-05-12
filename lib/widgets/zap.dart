@@ -147,7 +147,7 @@ class _ZapWidget extends State<ZapWidget> {
               pubKey: widget.pubkey,
               eventId: widget.target?.id,
               addressableId:
-                  widget.target != null
+                  widget.target != null && widget.target!.kind >= 30_000 && widget.target!.kind < 40_000
                       ? "${widget.target!.kind}:${widget.target!.pubKey}:${widget.target!.getDtag()!}"
                       : null,
               relays: defaultRelays,
