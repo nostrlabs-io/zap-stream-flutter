@@ -7,6 +7,8 @@ import 'package:ndk_amber/ndk_amber.dart';
 import 'package:ndk_objectbox/ndk_objectbox.dart';
 import 'package:ndk_rust_verifier/ndk_rust_verifier.dart';
 import 'package:zap_stream_flutter/pages/login.dart';
+import 'package:zap_stream_flutter/pages/login_input.dart';
+import 'package:zap_stream_flutter/pages/new_account.dart';
 import 'package:zap_stream_flutter/pages/profile.dart';
 import 'package:zap_stream_flutter/pages/stream.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -87,7 +89,43 @@ Future<void> main() async {
               StatefulShellBranch(
                 routes: [
                   GoRoute(path: "/", builder: (ctx, state) => HomePage()),
-                  GoRoute(path: "/login", builder: (ctx, state) => LoginPage()),
+                  ShellRoute(
+                    builder: (context, state, child) {
+                      return Container(
+                        margin: EdgeInsets.only(top: 50),
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 20,
+                          children: [
+                            Center(
+                              child: Image.asset(
+                                "assets/logo.png",
+                                height: 150,
+                              ),
+                            ),
+                            child,
+                          ],
+                        ),
+                      );
+                    },
+                    routes: [
+                      GoRoute(
+                        path: "/login",
+                        builder: (ctx, state) => LoginPage(),
+                        routes: [
+                          GoRoute(
+                            path: "key",
+                            builder: (ctx, state) => LoginInputPage(),
+                          ),
+                          GoRoute(
+                            path: "new",
+                            builder: (context, state) => NewAccountPage(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                   GoRoute(
                     path: "/e/:id",
                     builder: (ctx, state) {

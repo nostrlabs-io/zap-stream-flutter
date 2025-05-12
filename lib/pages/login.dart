@@ -4,56 +4,53 @@ import 'package:go_router/go_router.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
+import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _LoginPage();
-}
-
-class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 50),
-      child: Column(
-        spacing: 10,
-        children: [
-          Image.asset("assets/logo.png", height: 150),
-          FutureBuilder(
-            future: Amberflutter().isAppInstalled(),
-            builder: (ctx, state) {
-              if (state.data ?? false) {
-                return BasicButton.text(
-                  "Login with Amber",
-                  onTap: () async {
-                    final amber = Amberflutter();
-                    final result = await amber.getPublicKey();
-                    if (result['signature'] != null) {
-                      final key = Nip19.decode(result['signature']);
-                      loginData.value = Account.externalPublicKeyHex(key);
-                      ctx.go("/");
-                    }
-                  },
-                );
-              } else {
-                return SizedBox.shrink();
-              }
-            },
+    return Column(
+      spacing: 20,
+      children: [
+        FutureBuilder(
+          future: Amberflutter().isAppInstalled(),
+          builder: (ctx, state) {
+            if (state.data ?? false) {
+              return BasicButton.text(
+                "Login with Amber",
+                onTap: () async {
+                  final amber = Amberflutter();
+                  final result = await amber.getPublicKey();
+                  if (result['signature'] != null) {
+                    final key = Nip19.decode(result['signature']);
+                    loginData.value = LoginAccount.externalPublicKeyHex(key);
+                    ctx.go("/");
+                  }
+                },
+              );
+            } else {
+              return SizedBox.shrink();
+            }
+          },
+        ),
+        BasicButton.text(
+          "Login with Key",
+          onTap: () => context.push("/login/key"),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 20),
+          height: 1,
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: LAYER_2)),
           ),
-          /*BasicButton.text("Login with Key"),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
-            height: 1,
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: LAYER_1)),
-            ),
-          ),
-          Text("Create Account"),*/
-        ],
-      ),
+        ),
+        BasicButton.text(
+          "Create Account",
+          onTap: () => context.push("/login/new"),
+        ),
+      ],
     );
   }
 }

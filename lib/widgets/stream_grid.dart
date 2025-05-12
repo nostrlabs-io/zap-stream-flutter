@@ -23,8 +23,8 @@ class StreamGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final streams = events
         .map((e) => StreamEvent(e))
-        .where((e) => e.info.stream?.isNotEmpty ?? false)
-        .sortedBy((a) => a.info.starts ?? a.event.createdAt);
+        .sortedBy((a) => a.info.starts ?? a.event.createdAt)
+        .reversed;
     final live = streams.where((s) => s.info.status == StreamStatus.live);
     final ended = streams.where((s) => s.info.status == StreamStatus.ended);
     final planned = streams.where((s) => s.info.status == StreamStatus.planned);

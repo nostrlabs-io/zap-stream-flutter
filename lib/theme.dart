@@ -15,3 +15,4 @@ Color LAYER_5 = Color.fromARGB(255, 173, 173, 173);
 Color PRIMARY_1 = Color.fromARGB(255, 248, 56, 217);
 Color SECONDARY_1 = Color.fromARGB(255, 52, 210, 254);
 Color ZAP_1 = Color.fromARGB(255, 255, 141, 43);
+Color WARNING = Color.fromARGB(255, 255, 86, 63);

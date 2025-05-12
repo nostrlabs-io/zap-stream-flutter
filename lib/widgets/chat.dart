@@ -207,6 +207,7 @@ class _WriteMessageWidget extends State<WriteMessageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final canSign = ndk.accounts.canSign;
     final isLogin = ndk.accounts.isLoggedIn;
 
     return Container(
@@ -214,7 +215,7 @@ class _WriteMessageWidget extends State<WriteMessageWidget> {
       padding: EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
       child:
-          isLogin
+          canSign
               ? Row(
                 children: [
                   Expanded(
@@ -240,7 +241,15 @@ class _WriteMessageWidget extends State<WriteMessageWidget> {
               )
               : Container(
                 padding: EdgeInsets.symmetric(vertical: 12),
-                child: Row(children: [Text("Please login to send messages")]),
+                child: Row(
+                  children: [
+                    Text(
+                      isLogin
+                          ? "Can't write messages with npub login"
+                          : "Please login to send messages",
+                    ),
+                  ],
+                ),
               ),
     );
   }

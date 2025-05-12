@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -38,17 +40,20 @@ class _StreamPage extends State<StreamPage> {
       _controller = VideoPlayerController.networkUrl(
         Uri.parse(url),
         httpHeaders: Map.from({"user-agent": userAgent}),
-        videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true),
       );
       () async {
         await _controller!.initialize();
-
-        _chewieController = ChewieController(
-          videoPlayerController: _controller!,
-          autoPlay: true,
-        );
         setState(() {
-          // nothing
+          _chewieController = ChewieController(
+            videoPlayerController: _controller!,
+            autoPlay: true,
+            placeholder:
+                (widget.stream.info.image?.isNotEmpty ?? false)
+                    ? CachedNetworkImage(
+                      imageUrl: proxyImg(context, widget.stream.info.image!),
+                    )
+                    : null,
+          );
         });
       }();
     }
@@ -75,7 +80,18 @@ class _StreamPage extends State<StreamPage> {
           child:
               _chewieController != null
                   ? Chewie(controller: _chewieController!)
-                  : Container(color: LAYER_1),
+                  : Container(
+                    color: LAYER_1,
+                    child:
+                        (widget.stream.info.image?.isNotEmpty ?? false)
+                            ? CachedNetworkImage(
+                              imageUrl: proxyImg(
+                                context,
+                                widget.stream.info.image!,
+                              ),
+                            )
+                            : null,
+                  ),
         ),
         Text(
           widget.stream.info.title ?? "",
