@@ -8,6 +8,7 @@ import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
+import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/profile_modal.dart';
 
@@ -291,7 +292,7 @@ class _ChatMessageWidget extends StatelessWidget {
             ),
           ),
           TextSpan(text: " "),
-          TextSpan(text: msg.content, style: TextStyle(color: FONT_COLOR)),
+          ...textToSpans(msg.content, msg.tags, msg.pubKey),
         ],
       ),
     );
