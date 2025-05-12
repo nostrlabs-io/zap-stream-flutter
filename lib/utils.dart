@@ -1,5 +1,8 @@
+import 'package:bech32/bech32.dart';
 import 'package:collection/collection.dart';
+import 'package:convert/convert.dart';
 import 'package:ndk/ndk.dart';
+import 'package:ndk/shared/nips/nip19/nip19.dart';
 
 /// Container class over event and stream info
 class StreamEvent {
@@ -237,4 +240,57 @@ String zapSum(List<Nip01Event> zaps) {
       .map((e) => ZapReceipt.fromEvent(e))
       .fold(0, (acc, v) => acc + (v.amountSats ?? 0));
   return formatSats(total);
+}
+
+String bech32ToHex(String bech32) {
+  final decoder = Bech32Decoder();
+  final data = decoder.convert(bech32, 10_000);
+  final data8bit = Nip19.convertBits(data.data, 5, 8, false);
+  if (data.hrp == "nevent" || data.hrp == "naddr" || data.hrp == "nprofile") {
+    final tlv = parseTLV(data8bit);
+    return hex.encode(tlv.firstWhere((v) => v.type == 0).value);
+  } else {
+    return hex.encode(data8bit);
+  }
+}
+
+class TLV {
+  final int type;
+  final int length;
+  final List<int> value;
+
+  TLV(this.type, this.length, this.value);
+}
+
+List<TLV> parseTLV(List<int> data) {
+  List<TLV> result = [];
+  int index = 0;
+
+  while (index < data.length) {
+    // Check if we have enough bytes for type and length
+    if (index + 2 > data.length) {
+      throw FormatException('Incomplete TLV data');
+    }
+
+    // Read type (1 byte)
+    int type = data[index];
+    index++;
+
+    // Read length (1 byte)
+    int length = data[index];
+    index++;
+
+    // Check if we have enough bytes for value
+    if (index + length > data.length) {
+      throw FormatException('TLV value length exceeds available data');
+    }
+
+    // Read value
+    List<int> value = data.sublist(index, index + length);
+    index += length;
+
+    result.add(TLV(type, length, value));
+  }
+
+  return result;
 }

@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ndk/domain_layer/entities/account.dart';
 import 'package:ndk/shared/nips/nip01/bip340.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
+import 'package:zap_stream_flutter/utils.dart';
 
 class LoginAccount {
   final AccountType type;
@@ -15,12 +16,15 @@ class LoginAccount {
   LoginAccount._({required this.type, required this.pubkey, this.privateKey});
 
   static LoginAccount nip19(String key) {
-    final keyData = Nip19.decode(key);
+    final keyData = bech32ToHex(key);
     final pubkey =
         Nip19.isKey("nsec", key) ? Bip340.getPublicKey(keyData) : keyData;
     final privateKey = Nip19.isKey("npub", key) ? null : keyData;
     return LoginAccount._(
-      type: Nip19.isKey("npub", key) ? AccountType.publicKey : AccountType.privateKey,
+      type:
+          Nip19.isKey("npub", key)
+              ? AccountType.publicKey
+              : AccountType.privateKey,
       pubkey: pubkey,
       privateKey: privateKey,
     );
@@ -46,6 +50,13 @@ class LoginAccount {
 
   static LoginAccount? fromJson(Map<String, dynamic> json) {
     if (json.length > 2 && json.containsKey("pubKey")) {
+      if ((json["pubKey"] as String).length != 64) {
+        throw "Invalid pubkey, length != 64";
+      }
+      if (json.containsKey("privateKey") &&
+          (json["privateKey"] as String).length != 64) {
+        throw "Invalid privateKey, length != 64";
+      }
       return LoginAccount._(
         type: AccountType.values.firstWhere(
           (v) => v.toString().endsWith(json["type"] as String),

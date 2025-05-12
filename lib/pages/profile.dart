@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/header.dart';
@@ -20,7 +20,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hexPubkey = Nip19.decode(pubkey);
+    final hexPubkey = bech32ToHex(pubkey);
     return ProfileLoaderWidget(hexPubkey, (ctx, state) {
       final profile = state.data ?? Metadata(pubKey: hexPubkey);
       return SingleChildScrollView(

@@ -1,10 +1,10 @@
 import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 
 class LoginPage extends StatelessWidget {
@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
                   final amber = Amberflutter();
                   final result = await amber.getPublicKey();
                   if (result['signature'] != null) {
-                    final key = Nip19.decode(result['signature']);
+                    final key = bech32ToHex(result['signature']);
                     loginData.value = LoginAccount.externalPublicKeyHex(key);
                     ctx.go("/");
                   }

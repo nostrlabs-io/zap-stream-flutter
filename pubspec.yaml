@@ -30,6 +30,7 @@ dependencies:
   chewie: ^1.11.3
   image_picker: ^1.1.2
   emoji_picker_flutter: ^4.3.0
+  bech32: ^0.2.2
 
 dependency_overrides:
   ndk:

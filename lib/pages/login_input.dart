@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 
 class LoginInputPage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _LoginInputPage extends State<LoginInputPage> {
           "Login",
           onTap: () async {
             try {
-              final keyData = Nip19.decode(_controller.text);
+              final keyData = bech32ToHex(_controller.text);
               if (keyData.isNotEmpty) {
                 loginData.value = LoginAccount.nip19(_controller.text);
                 context.go("/");

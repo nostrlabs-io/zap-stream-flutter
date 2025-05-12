@@ -5,6 +5,7 @@ import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
 /// Converts a nostr note text containing links
@@ -62,10 +63,15 @@ InlineSpan _buildProfileOrNoteSpan(String word) {
       cleanedWord.startsWith('note') || cleanedWord.startsWith('nevent');
 
   if (isProfile) {
-    return _inlineMention(Nip19.decode(cleanedWord));
+    final hexKey = bech32ToHex(cleanedWord);
+    if (hexKey.isNotEmpty) {
+      return _inlineMention(hexKey);
+    } else {
+      return TextSpan(text: "@$cleanedWord");
+    }
   }
   if (isNote) {
-    final eventId = Nip19.decode(cleanedWord);
+    final eventId = bech32ToHex(cleanedWord);
     return TextSpan(text: eventId, style: TextStyle(color: PRIMARY_1));
   } else {
     return TextSpan(text: word);
