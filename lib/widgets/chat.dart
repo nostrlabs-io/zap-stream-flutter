@@ -17,51 +17,91 @@ class ChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hostMuteList = ndk.lists.getSingleNip51List(
+      Nip51List.kMute,
+      Bip340EventSigner(privateKey: null, publicKey: stream.info.host),
+      forceRefresh: true,
+    );
+    final signer = ndk.accounts.getLoggedAccount()?.signer;
+    final myMuteList =
+        signer != null
+            ? ndk.lists.getSingleNip51List(
+              Nip51List.kMute,
+              signer,
+              forceRefresh: true,
+            )
+            : Future.value(null);
+
     return RxFilter<Nip01Event>(
       filters: [
         Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
       ],
       builder: (ctx, state) {
-        return Column(
-          spacing: 8,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _TopZappersWidget(events: state ?? []),
-            Expanded(
-              child: SingleChildScrollView(
-                reverse: true,
-                child: Column(
-                  spacing: 8,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:
-                      (state ?? [])
-                          .sortedBy((c) => c.createdAt)
-                          .map(
-                            (c) => switch (c.kind) {
-                              1311 => ChatMessageWidget(stream: stream, msg: c),
-                              9735 => _ChatZapWidget(stream: stream, zap: c),
-                              _ => SizedBox.shrink(),
-                            },
-                          )
-                          .toList(),
+        return FutureBuilder(
+          future: Future.wait([hostMuteList, myMuteList]),
+          builder: (ctx, muteState) {
+            final mutedPubkeys =
+                muteState.data
+                    ?.map((e) => e?.pubKeys)
+                    .where((e) => e != null)
+                    .expand((e) => e!)
+                    .map((e) => e.value)
+                    .toSet() ??
+                <String>{};
+
+            final filteredChat =
+                (state ?? [])
+                    .where((e) => !mutedPubkeys.contains(e.pubKey))
+                    .toList();
+
+            return Column(
+              spacing: 8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _TopZappersWidget(events: filteredChat),
+                Expanded(
+                  child: SingleChildScrollView(
+                    reverse: true,
+                    child: Column(
+                      spacing: 8,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          filteredChat
+                              .sortedBy((c) => c.createdAt)
+                              .map(
+                                (c) => switch (c.kind) {
+                                  1311 => ChatMessageWidget(
+                                    stream: stream,
+                                    msg: c,
+                                  ),
+                                  9735 => _ChatZapWidget(
+                                    stream: stream,
+                                    zap: c,
+                                  ),
+                                  _ => SizedBox.shrink(),
+                                },
+                              )
+                              .toList(),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            if (stream.info.status == StreamStatus.live)
-              WriteMessageWidget(stream: stream),
-            if (stream.info.status == StreamStatus.ended)
-              Container(
-                padding: EdgeInsets.all(8),
-                margin: EdgeInsets.symmetric(vertical: 8),
-                width: double.maxFinite,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(borderRadius: DEFAULT_BR),
-                child: Text(
-                  "STREAM ENDED",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-          ],
+                if (stream.info.status == StreamStatus.live)
+                  WriteMessageWidget(stream: stream),
+                if (stream.info.status == StreamStatus.ended)
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    width: double.maxFinite,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(borderRadius: DEFAULT_BR),
+                    child: Text(
+                      "STREAM ENDED",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+              ],
+            );
+          },
         );
       },
     );
