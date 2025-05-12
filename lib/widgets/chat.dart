@@ -357,7 +357,13 @@ class _WriteMessageWidget extends StatefulWidget {
 }
 
 class __WriteMessageWidget extends State<_WriteMessageWidget> {
-  final TextEditingController _controller = TextEditingController();
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
 
   Future<void> _sendMessage() async {
     final login = ndk.accounts.getLoggedAccount();
@@ -371,7 +377,6 @@ class __WriteMessageWidget extends State<_WriteMessageWidget> {
         ["a", widget.stream.aTag],
       ],
     );
-    developer.log(chatMsg.toString());
     final res = ndk.broadcast.broadcast(nostrEvent: chatMsg);
     await res.broadcastDoneFuture;
     _controller.text = "";
