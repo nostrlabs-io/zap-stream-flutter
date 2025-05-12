@@ -246,39 +246,96 @@ class _ChatMessageWidget extends StatelessWidget {
       final profile = state.data ?? Metadata(pubKey: msg.pubKey);
       return GestureDetector(
         onLongPress: () {
-          showModalBottomSheet(
-            context: context,
-            constraints: BoxConstraints.expand(),
-            builder: (ctx) => ProfileModalWidget(profile: profile, event: msg),
-          );
+          if (ndk.accounts.canSign) {
+            showModalBottomSheet(
+              context: context,
+              constraints: BoxConstraints.expand(),
+              builder:
+                  (ctx) => ProfileModalWidget(profile: profile, event: msg),
+            );
+          }
         },
-        child: RichText(
-          text: TextSpan(
-            children: [
-              WidgetSpan(
-                child: AvatarWidget(profile: profile, size: 24),
-                alignment: PlaceholderAlignment.middle,
-              ),
-              TextSpan(text: " "),
-              WidgetSpan(
-                alignment: PlaceholderAlignment.middle,
-                child: ProfileNameWidget(
-                  profile: profile,
-                  style: TextStyle(
-                    color:
-                        msg.pubKey == stream.info.host
-                            ? PRIMARY_1
-                            : SECONDARY_1,
-                  ),
-                ),
-              ),
-              TextSpan(text: " "),
-              TextSpan(text: msg.content, style: TextStyle(color: FONT_COLOR)),
-            ],
-          ),
+        child: Column(
+          spacing: 2,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _chatText(profile),
+            RxFilter<Nip01Event>(
+              filters: [
+                Filter(kinds: [9735, 7], eTags: [msg.id]),
+              ],
+              builder: (ctx, data) => _chatReactions(data),
+            ),
+          ],
         ),
       );
     });
+  }
+
+  Widget _chatText(Metadata profile) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          WidgetSpan(
+            child: AvatarWidget(profile: profile, size: 24),
+            alignment: PlaceholderAlignment.middle,
+          ),
+          TextSpan(text: " "),
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: ProfileNameWidget(
+              profile: profile,
+              style: TextStyle(
+                color: msg.pubKey == stream.info.host ? PRIMARY_1 : SECONDARY_1,
+              ),
+            ),
+          ),
+          TextSpan(text: " "),
+          TextSpan(text: msg.content, style: TextStyle(color: FONT_COLOR)),
+        ],
+      ),
+    );
+  }
+
+  Widget _chatReactions(List<Nip01Event>? events) {
+    if ((events?.length ?? 0) == 0) return SizedBox.shrink();
+
+    final zaps = events!
+        .where((e) => e.kind == 9735)
+        .map((e) => ZapReceipt.fromEvent(e));
+    final reactions = events.where((e) => e.kind == 7);
+
+    return Row(
+      spacing: 8,
+      children: [
+        if (zaps.isNotEmpty)
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
+            child: Text(
+              formatSats(zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0))),
+            ),
+          ),
+        if (reactions.isNotEmpty)
+          ...reactions
+              .fold(<String, Set<String>>{}, (acc, v) {
+                acc[v.content] ??= Set();
+                acc[v.content]!.add(v.pubKey);
+                return acc;
+              })
+              .entries
+              .map(
+                (v) => Container(
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: LAYER_2,
+                    borderRadius: DEFAULT_BR,
+                  ),
+                  child: Center(child: Text(v.key)),
+                ),
+              ),
+      ],
+    );
   }
 }
 
