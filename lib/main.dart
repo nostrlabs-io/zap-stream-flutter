@@ -27,13 +27,14 @@ class NoVerify extends EventVerifier {
 
 final ndkCache = DbObjectBox();
 final eventVerifier = kDebugMode ? NoVerify() : RustEventVerifier();
-var ndk = Ndk(NdkConfig(eventVerifier: eventVerifier, cache: ndkCache));
+var ndk = Ndk(NdkConfig(eventVerifier: eventVerifier, cache: ndkCache, bootstrapRelays: defaultRelays));
 
 const userAgent = "zap.stream/1.0";
 const defaultRelays = [
   "wss://nos.lol",
   "wss://relay.damus.io",
   "wss://relay.primal.net",
+  "wss://relay.snort.social"
 ];
 const searchRelays = ["wss://relay.nostr.band", "wss://search.nos.today"];
 

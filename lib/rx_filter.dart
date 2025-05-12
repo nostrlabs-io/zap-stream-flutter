@@ -54,20 +54,24 @@ class _RxFilter<T> extends State<RxFilter<T>> {
           developer.log("RX:ERROR $e");
         })
         .listen((events) {
-      setState(() {
-        _events ??= HashMap();
-        developer.log("RX:GOT ${events.length} events for ${widget.filters}");
-        events.forEach(_replaceInto);
-      });
-    });
+          setState(() {
+            _events ??= HashMap();
+            developer.log(
+              "RX:GOT ${events.length} events for ${widget.filters}",
+            );
+            events.forEach(_replaceInto);
+          });
+        });
   }
 
   void _replaceInto(Nip01Event ev) {
     final evKey = _eventKey(ev);
     final existing = _events?[evKey];
     if (existing == null || existing.$1 < ev.createdAt) {
-      _events?[evKey] =
-          (ev.createdAt, widget.mapper != null ? widget.mapper!(ev) : ev as T);
+      _events?[evKey] = (
+        ev.createdAt,
+        widget.mapper != null ? widget.mapper!(ev) : ev as T,
+      );
     }
   }
 
@@ -91,8 +95,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context,
-        _events?.values.map((v) => v.$2).toList());
+    return widget.builder(context, _events?.values.map((v) => v.$2).toList());
   }
 }
 
@@ -120,7 +123,10 @@ class RxFutureFilter<T> extends StatelessWidget {
       builder: (ctx, data) {
         if (data.hasData) {
           return RxFilter<T>(
-              filters: data.data!, mapper: mapper, builder: builder);
+            filters: data.data!,
+            mapper: mapper,
+            builder: builder,
+          );
         } else {
           return loadingWidget ?? SizedBox.shrink();
         }
