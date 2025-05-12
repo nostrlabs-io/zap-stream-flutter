@@ -312,8 +312,15 @@ class _ChatMessageWidget extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
             decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
-            child: Text(
-              formatSats(zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0))),
+            child: Row(
+              children: [
+                Icon(Icons.bolt, color: ZAP_1, size: 16),
+                Text(
+                  formatSats(
+                    zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)),
+                  ),
+                ),
+              ],
             ),
           ),
         if (reactions.isNotEmpty)
@@ -339,16 +346,11 @@ class _ChatMessageWidget extends StatelessWidget {
   }
 }
 
-class _WriteMessageWidget extends StatefulWidget {
+class _WriteMessageWidget extends StatelessWidget {
   final StreamEvent stream;
 
-  const _WriteMessageWidget({required this.stream});
+  _WriteMessageWidget({required this.stream});
 
-  @override
-  State<StatefulWidget> createState() => __WriteMessageWidget();
-}
-
-class __WriteMessageWidget extends State<_WriteMessageWidget> {
   final TextEditingController _controller = TextEditingController();
 
   Future<void> _sendMessage() async {
@@ -360,7 +362,7 @@ class __WriteMessageWidget extends State<_WriteMessageWidget> {
       kind: 1311,
       content: _controller.text,
       tags: [
-        ["a", widget.stream.aTag],
+        ["a", stream.aTag],
       ],
     );
     developer.log(chatMsg.toString());
