@@ -12,7 +12,9 @@ class MuteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signer = ndk.accounts.getLoggedAccount()?.signer;
-    if (signer == null) return SizedBox.shrink();
+    if (signer == null || signer.getPublicKey() == pubkey) {
+      return SizedBox.shrink();
+    }
 
     return FutureBuilder(
       future: ndk.lists.getSingleNip51List(Nip51List.kMute, signer),

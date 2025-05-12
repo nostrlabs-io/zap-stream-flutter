@@ -46,6 +46,7 @@ class _StreamPage extends State<StreamPage> {
         setState(() {
           _chewieController = ChewieController(
             videoPlayerController: _controller!,
+            aspectRatio: 16 / 9,
             autoPlay: true,
             placeholder:
                 (widget.stream.info.image?.isNotEmpty ?? false)
