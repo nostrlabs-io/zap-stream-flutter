@@ -201,7 +201,7 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
 
 String getHost(Nip01Event ev) {
   return ev.tags.firstWhere(
-    (t) => t[0] == "p" && t[3] == "host",
+    (t) => t[0] == "p" && t.length > 2 && t[3] == "host",
     orElse: () => ["p", ev.pubKey], // fake p tag with event pubkey
   )[1];
 }
