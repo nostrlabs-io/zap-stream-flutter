@@ -47,6 +47,8 @@ class ChatWidget extends StatelessWidget {
                         _ => e.pubKey,
                       }),
                 )
+                .sortedBy((e) => e.createdAt)
+                .reversed
                 .toList();
 
         return Column(
@@ -55,27 +57,39 @@ class ChatWidget extends StatelessWidget {
           children: [
             _TopZappersWidget(events: filteredChat),
             Expanded(
-              child: SingleChildScrollView(
+              child: ListView.builder(
                 reverse: true,
-                child: Column(
-                  spacing: 8,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:
-                      filteredChat
-                          .sortedBy((c) => c.createdAt)
-                          .map(
-                            (c) => switch (c.kind) {
-                              1311 => ChatMessageWidget(stream: stream, msg: c),
-                              9735 => _ChatZapWidget(stream: stream, zap: c),
-                              _ => SizedBox.shrink(),
-                            },
-                          )
-                          .toList(),
-                ),
+                shrinkWrap: true,
+                primary: true,
+                itemCount: filteredChat.length,
+                itemBuilder:
+                    (ctx, idx) => switch (filteredChat[idx].kind) {
+                      1311 => Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 2,
+                          vertical: 2,
+                        ),
+                        child: _ChatMessageWidget(
+                          stream: stream,
+                          msg: filteredChat[idx],
+                        ),
+                      ),
+                      9735 => Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 2,
+                          vertical: 2,
+                        ),
+                        child: _ChatZapWidget(
+                          stream: stream,
+                          zap: filteredChat[idx],
+                        ),
+                      ),
+                      _ => SizedBox.shrink(),
+                    },
               ),
             ),
             if (stream.info.status == StreamStatus.live)
-              WriteMessageWidget(stream: stream),
+              _WriteMessageWidget(stream: stream),
             if (stream.info.status == StreamStatus.ended)
               Container(
                 padding: EdgeInsets.all(8),
@@ -220,11 +234,11 @@ class _ChatZapWidget extends StatelessWidget {
   }
 }
 
-class ChatMessageWidget extends StatelessWidget {
+class _ChatMessageWidget extends StatelessWidget {
   final StreamEvent stream;
   final Nip01Event msg;
 
-  const ChatMessageWidget({super.key, required this.stream, required this.msg});
+  const _ChatMessageWidget({required this.stream, required this.msg});
 
   @override
   Widget build(BuildContext context) {
@@ -268,16 +282,16 @@ class ChatMessageWidget extends StatelessWidget {
   }
 }
 
-class WriteMessageWidget extends StatefulWidget {
+class _WriteMessageWidget extends StatefulWidget {
   final StreamEvent stream;
 
-  const WriteMessageWidget({super.key, required this.stream});
+  const _WriteMessageWidget({required this.stream});
 
   @override
-  State<StatefulWidget> createState() => _WriteMessageWidget();
+  State<StatefulWidget> createState() => __WriteMessageWidget();
 }
 
-class _WriteMessageWidget extends State<WriteMessageWidget> {
+class __WriteMessageWidget extends State<_WriteMessageWidget> {
   final TextEditingController _controller = TextEditingController();
 
   Future<void> _sendMessage() async {
