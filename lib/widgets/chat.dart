@@ -347,11 +347,16 @@ class _ChatMessageWidget extends StatelessWidget {
   }
 }
 
-class _WriteMessageWidget extends StatelessWidget {
+class _WriteMessageWidget extends StatefulWidget {
   final StreamEvent stream;
 
-  _WriteMessageWidget({required this.stream});
+  const _WriteMessageWidget({required this.stream});
 
+  @override
+  State<StatefulWidget> createState() => __WriteMessageWidget();
+}
+
+class __WriteMessageWidget extends State<_WriteMessageWidget> {
   final TextEditingController _controller = TextEditingController();
 
   Future<void> _sendMessage() async {
@@ -363,7 +368,7 @@ class _WriteMessageWidget extends StatelessWidget {
       kind: 1311,
       content: _controller.text,
       tags: [
-        ["a", stream.aTag],
+        ["a", widget.stream.aTag],
       ],
     );
     developer.log(chatMsg.toString());
