@@ -139,7 +139,6 @@ class _StreamPage extends State<StreamPage> {
             ),
           ],
         ),
-        SizedBox(height: 10),
         Expanded(child: ChatWidget(stream: widget.stream)),
       ],
     );

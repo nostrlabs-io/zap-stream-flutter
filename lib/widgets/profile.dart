@@ -64,19 +64,34 @@ class ProfileWidget extends StatelessWidget {
   final Metadata profile;
   final TextStyle? style;
   final double? size;
+  final List<Widget>? children;
+  final bool? showName;
+  final double? spacing;
 
   const ProfileWidget({
     super.key,
     required this.profile,
     this.style,
     this.size,
+    this.children,
+    this.showName,
+    this.spacing,
   });
 
-  static Widget pubkey(String pubkey, {double? size}) {
+  static Widget pubkey(
+    String pubkey, {
+    double? size,
+    List<Widget>? children,
+    bool? showName,
+    double? spacing,
+  }) {
     return ProfileLoaderWidget(pubkey, (ctx, state) {
       return ProfileWidget(
         profile: state.data ?? Metadata(pubKey: pubkey),
         size: size,
+        showName: showName,
+        spacing: spacing,
+        children: children,
       );
     });
   }
@@ -84,10 +99,11 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 8,
+      spacing: spacing ?? 8,
       children: [
         AvatarWidget(profile: profile, size: size),
-        ProfileNameWidget(profile: profile),
+        if (showName ?? true) ProfileNameWidget(profile: profile),
+        ...(children ?? []),
       ],
     );
   }

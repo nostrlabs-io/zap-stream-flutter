@@ -17,18 +17,20 @@ class ChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            reverse: true,
-            child: RxFilter<Nip01Event>(
-              filters: [
-                Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
-              ],
-              builder: (ctx, state) {
-                return Column(
+    return RxFilter<Nip01Event>(
+      filters: [
+        Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
+      ],
+      builder: (ctx, state) {
+        return Column(
+          spacing: 8,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _TopZappersWidget(events: state ?? []),
+            Expanded(
+              child: SingleChildScrollView(
+                reverse: true,
+                child: Column(
                   spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:
@@ -37,43 +39,95 @@ class ChatWidget extends StatelessWidget {
                           .map(
                             (c) => switch (c.kind) {
                               1311 => ChatMessageWidget(stream: stream, msg: c),
-                              9735 => ChatZapWidget(stream: stream, zap: c),
+                              9735 => _ChatZapWidget(stream: stream, zap: c),
                               _ => SizedBox.shrink(),
                             },
                           )
                           .toList(),
-                );
-              },
+                ),
+              ),
             ),
-          ),
-        ),
-        if (stream.info.status == StreamStatus.live)
-          WriteMessageWidget(stream: stream),
-        if (stream.info.status == StreamStatus.ended)
-          Container(
-            padding: EdgeInsets.all(8),
-            margin: EdgeInsets.symmetric(vertical: 8),
-            width: double.maxFinite,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: PRIMARY_1,
-              borderRadius: DEFAULT_BR,
-            ),
-            child: Text(
-              "STREAM ENDED",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-      ],
+            if (stream.info.status == StreamStatus.live)
+              WriteMessageWidget(stream: stream),
+            if (stream.info.status == StreamStatus.ended)
+              Container(
+                padding: EdgeInsets.all(8),
+                margin: EdgeInsets.symmetric(vertical: 8),
+                width: double.maxFinite,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(borderRadius: DEFAULT_BR),
+                child: Text(
+                  "STREAM ENDED",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
 
-class ChatZapWidget extends StatelessWidget {
+class _TopZappersWidget extends StatelessWidget {
+  final List<Nip01Event> events;
+
+  const _TopZappersWidget({required this.events});
+
+  @override
+  Widget build(BuildContext context) {
+    final topZaps =
+        events
+            .where((e) => e.kind == 9735)
+            .map((e) => ZapReceipt.fromEvent(e))
+            .fold(<String, int>{}, (acc, e) {
+              if (e.sender != null) {
+                acc[e.sender!] = (acc[e.sender!] ?? 0) + e.amountSats!;
+              }
+              return acc;
+            })
+            .entries
+            .sortedBy((e) => e.value)
+            .reversed
+            .take(10)
+            .toList();
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      primary: false,
+      child: Row(
+        spacing: 10,
+        children:
+            topZaps
+                .map(
+                  (v) => Container(
+                    padding: EdgeInsets.only(left: 4, right: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: DEFAULT_BR,
+                      border: Border.all(color: LAYER_3),
+                    ),
+                    child: ProfileWidget.pubkey(
+                      v.key,
+                      showName: false,
+                      size: 20,
+                      spacing: 0,
+                      children: [
+                        Icon(Icons.bolt, color: ZAP_1),
+                        Text(formatSats(v.value)),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+      ),
+    );
+  }
+}
+
+class _ChatZapWidget extends StatelessWidget {
   final StreamEvent stream;
   final Nip01Event zap;
 
-  const ChatZapWidget({super.key, required this.stream, required this.zap});
+  const _ChatZapWidget({required this.stream, required this.zap});
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +179,7 @@ class ChatZapWidget extends StatelessWidget {
                     padding: EdgeInsets.only(right: 8),
                     child: AvatarWidget(profile: profile, size: 20),
                   ),
+                  alignment: PlaceholderAlignment.middle,
                 ),
               TextSpan(text: name),
               TextSpan(text: " zapped ", style: TextStyle(color: FONT_COLOR)),
