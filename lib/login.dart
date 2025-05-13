@@ -53,9 +53,11 @@ class LoginAccount {
       if ((json["pubKey"] as String).length != 64) {
         throw "Invalid pubkey, length != 64";
       }
-      if (json.containsKey("privateKey") &&
-          (json["privateKey"] as String).length != 64) {
-        throw "Invalid privateKey, length != 64";
+      if (json.containsKey("privateKey")) {
+        final privKey = json["privateKey"] as String?;
+        if (privKey != null && privKey.length != 64) {
+          throw "Invalid privateKey, length != 64";
+        }
       }
       return LoginAccount._(
         type: AccountType.values.firstWhere(
