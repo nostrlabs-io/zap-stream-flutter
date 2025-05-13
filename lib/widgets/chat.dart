@@ -365,6 +365,7 @@ class _ChatMessageWidget extends StatelessWidget {
           children: [
             _chatText(profile),
             RxFilter<Nip01Event>(
+              key: Key("chat:reactions:${msg.id}"),
               filters: [
                 Filter(kinds: [9735, 7], eTags: [msg.id]),
               ],
@@ -404,10 +405,12 @@ class _ChatMessageWidget extends StatelessWidget {
   Widget _chatReactions(List<Nip01Event>? events) {
     if ((events?.length ?? 0) == 0) return SizedBox.shrink();
 
-    final zaps = events!
+    // reactions must have e tag pointing to msg
+    final filteredEvents = events!.where((e) => e.getEId() == msg.id);
+    final zaps = filteredEvents
         .where((e) => e.kind == 9735)
         .map((e) => ZapReceipt.fromEvent(e));
-    final reactions = events.where((e) => e.kind == 7);
+    final reactions = filteredEvents.where((e) => e.kind == 7);
 
     return Row(
       spacing: 8,
