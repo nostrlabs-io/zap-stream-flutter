@@ -77,14 +77,17 @@ class LoginData extends ValueNotifier<LoginAccount?> {
 
   LoginData() : super(null) {
     super.addListener(() async {
-      final data = json.encode(LoginAccount.toJson(value));
-      await _storage.write(key: _storageKey, value: data);
+      if (value != null) {
+        final data = json.encode(LoginAccount.toJson(value));
+        await _storage.write(key: _storageKey, value: data);
+      } else {
+        await _storage.delete(key: _storageKey);
+      }
     });
   }
 
-  Future<void> logout() async {
+  void logout() {
     super.value = null;
-    await _storage.delete(key: _storageKey);
   }
 
   Future<void> load() async {
