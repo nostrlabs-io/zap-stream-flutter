@@ -21,45 +21,71 @@ class StreamGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final streams = events
-        .map((e) => StreamEvent(e))
-        .sortedBy((a) => a.info.starts ?? a.event.createdAt)
-        .reversed;
+    final streams =
+        events
+            .map((e) => StreamEvent(e))
+            .sortedBy((a) => a.info.starts ?? a.event.createdAt)
+            .reversed;
     final live = streams.where((s) => s.info.status == StreamStatus.live);
     final ended = streams.where((s) => s.info.status == StreamStatus.ended);
     final planned = streams.where((s) => s.info.status == StreamStatus.planned);
     return Column(
       spacing: 16,
       children: [
-        if (showLive && live.isNotEmpty) _streamGroup("Live", live),
-        if (showPlanned && planned.isNotEmpty) _streamGroup("Planned", planned),
-        if (showEnded && ended.isNotEmpty) _streamGroup("Ended", ended),
+        if (showLive && live.isNotEmpty) _streamGroup(context, "Live", live),
+        if (showPlanned && planned.isNotEmpty)
+          _streamGroup(context, "Planned", planned),
+        if (showEnded && ended.isNotEmpty)
+          _streamGroup(context, "Ended", ended),
       ],
     );
   }
 
-  Widget _streamGroup(String title, Iterable<StreamEvent> events) {
+  Widget _streamTitle(String title) {
+    return Row(
+      spacing: 16,
+      children: [
+        Text(
+          title,
+          style: TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
+        ),
+        Expanded(
+          child: Container(
+            height: 1,
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: LAYER_2)),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _streamGroup(
+    BuildContext context,
+    String title,
+    Iterable<StreamEvent> events,
+  ) {
+    final eventList = events.toList();
+
+    // profide fixed item size for performance
+    final q = MediaQuery.of(context);
     return Column(
       spacing: 16,
       children: [
-        Row(
-          spacing: 16,
-          children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
-            ),
-            Expanded(
-              child: Container(
-                height: 1,
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: LAYER_2)),
-                ),
-              ),
-            ),
-          ],
+        _streamTitle(title),
+        ListView.builder(
+          itemCount: eventList.length,
+          primary: false,
+          shrinkWrap: true,
+          itemBuilder: (ctx, idx) {
+            final stream = eventList[idx];
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: StreamTileWidget(stream),
+            );
+          },
         ),
-        ...events.map((e) => StreamTileWidget(e)),
       ],
     );
   }
