@@ -84,6 +84,7 @@ class _ZapWidget extends State<ZapWidget> {
       ),
       BasicButton.text(
         "Zap",
+        decoration: BoxDecoration(color: LAYER_3, borderRadius: DEFAULT_BR),
         onTap: () {
           try {
             _loadZap();
@@ -147,7 +148,9 @@ class _ZapWidget extends State<ZapWidget> {
               pubKey: widget.pubkey,
               eventId: widget.target?.id,
               addressableId:
-                  widget.target != null && widget.target!.kind >= 30_000 && widget.target!.kind < 40_000
+                  widget.target != null &&
+                          widget.target!.kind >= 30_000 &&
+                          widget.target!.kind < 40_000
                       ? "${widget.target!.kind}:${widget.target!.pubKey}:${widget.target!.getDtag()!}"
                       : null,
               relays: defaultRelays,
@@ -174,7 +177,7 @@ class _ZapWidget extends State<ZapWidget> {
           }),
       child: Container(
         decoration: BoxDecoration(
-          color: n == _amount ? LAYER_2 : LAYER_1,
+          color: n == _amount ? LAYER_4 : LAYER_3,
           borderRadius: DEFAULT_BR,
         ),
         alignment: AlignmentDirectional.center,

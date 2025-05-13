@@ -8,7 +8,7 @@ import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
-import 'package:zap_stream_flutter/widgets/profile_modal.dart';
+import 'package:zap_stream_flutter/widgets/chat_modal.dart';
 
 class ChatWidget extends StatelessWidget {
   final StreamEvent stream;
@@ -250,7 +250,7 @@ class _ChatMessageWidget extends StatelessWidget {
               context: context,
               constraints: BoxConstraints.expand(),
               builder:
-                  (ctx) => ProfileModalWidget(profile: profile, event: msg),
+                  (ctx) => ChatModalWidget(profile: profile, event: msg),
             );
           }
         },

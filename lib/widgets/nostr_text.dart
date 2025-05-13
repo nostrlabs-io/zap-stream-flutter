@@ -8,6 +8,21 @@ import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
+class NoteText extends StatelessWidget {
+  final Nip01Event event;
+
+  const NoteText({super.key, required this.event});
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: textToSpans(event.content, event.tags, event.pubKey),
+      ),
+    );
+  }
+}
+
 /// Converts a nostr note text containing links
 /// and mentions into multiple spans for rendering
 List<InlineSpan> textToSpans(
