@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:ndk/ndk.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
+import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
@@ -72,6 +74,23 @@ class _StreamPage extends State<StreamPage> {
 
   @override
   Widget build(BuildContext context) {
+    return RxFilter<Nip01Event>(
+      relays: widget.stream.info.relays,
+      filters: [
+        Filter(
+          kinds: [widget.stream.event.kind],
+          authors: [widget.stream.event.pubKey],
+          dTags: [widget.stream.event.getDtag()!],
+        ),
+      ],
+      builder: (ctx, state) {
+        final stream = StreamEvent(state?.firstOrNull ?? widget.stream.event);
+        return _buildStream(context, stream);
+      },
+    );
+  }
+
+  Widget _buildStream(BuildContext context, StreamEvent stream) {
     return Column(
       spacing: 4,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,24 +103,21 @@ class _StreamPage extends State<StreamPage> {
                   : Container(
                     color: LAYER_1,
                     child:
-                        (widget.stream.info.image?.isNotEmpty ?? false)
+                        (stream.info.image?.isNotEmpty ?? false)
                             ? CachedNetworkImage(
-                              imageUrl: proxyImg(
-                                context,
-                                widget.stream.info.image!,
-                              ),
+                              imageUrl: proxyImg(context, stream.info.image!),
                             )
                             : null,
                   ),
         ),
         Text(
-          widget.stream.info.title ?? "",
+          stream.info.title ?? "",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ProfileWidget.pubkey(widget.stream.info.host),
+            ProfileWidget.pubkey(stream.info.host),
             Row(
               spacing: 8,
               children: [
@@ -118,13 +134,13 @@ class _StreamPage extends State<StreamPage> {
                       constraints: BoxConstraints.expand(),
                       builder: (ctx) {
                         return ZapWidget(
-                          pubkey: widget.stream.info.host,
-                          target: widget.stream.event,
+                          pubkey: stream.info.host,
+                          target: stream.event,
                           zapTags:
                               // tag goal onto zap request
-                              widget.stream.info.goal != null
+                              stream.info.goal != null
                                   ? [
-                                    ["e", widget.stream.info.goal!],
+                                    ["e", stream.info.goal!],
                                   ]
                                   : null,
                         );
@@ -132,11 +148,11 @@ class _StreamPage extends State<StreamPage> {
                     );
                   },
                 ),
-                if (widget.stream.info.participants != null)
+                if (stream.info.participants != null)
                   PillWidget(
                     color: LAYER_1,
                     child: Text(
-                      "${widget.stream.info.participants} viewers",
+                      "${stream.info.participants} viewers",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -147,7 +163,7 @@ class _StreamPage extends State<StreamPage> {
             ),
           ],
         ),
-        Expanded(child: ChatWidget(stream: widget.stream)),
+        Expanded(child: ChatWidget(stream: stream)),
       ],
     );
   }

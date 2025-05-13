@@ -22,18 +22,16 @@ class ChatWidget extends StatelessWidget {
       muteLists.add(ndk.accounts.getPublicKey()!);
     }
 
+    var filters = [
+      Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
+      Filter(kinds: [Nip51List.kMute], authors: muteLists),
+    ];
+    if (stream.info.goal != null) {
+      filters.add(Filter(kinds: [9041], ids: [stream.info.goal!]));
+    }
     return RxFilter<Nip01Event>(
-      key: Key("stream:chat:${stream.aTag}"),
       relays: stream.info.relays,
-      filters: [
-        Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
-        Filter(kinds: [Nip51List.kMute], authors: muteLists),
-        ...(stream.info.goal != null
-            ? [
-              Filter(kinds: [9041], ids: [stream.info.goal!]),
-            ]
-            : []),
-      ],
+      filters: filters,
       builder: (ctx, state) {
         final mutedPubkeys =
             (state ?? [])

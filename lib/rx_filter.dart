@@ -37,8 +37,6 @@ class _RxFilter<T> extends State<RxFilter<T>> {
     developer.log("RX:SEDNING ${widget.filters}");
     _response = ndk.requests.subscription(
       filters: widget.filters,
-      cacheRead: true,
-      cacheWrite: true,
       explicitRelays: widget.relays,
     );
     if (!widget.leaveOpen) {
@@ -55,7 +53,6 @@ class _RxFilter<T> extends State<RxFilter<T>> {
         })
         .listen((events) {
           setState(() {
-            _events ??= HashMap();
             developer.log(
               "RX:GOT ${events.length} events for ${widget.filters}",
             );
@@ -66,9 +63,10 @@ class _RxFilter<T> extends State<RxFilter<T>> {
 
   void _replaceInto(Nip01Event ev) {
     final evKey = _eventKey(ev);
-    final existing = _events?[evKey];
+    _events ??= HashMap();
+    final existing = _events![evKey];
     if (existing == null || existing.$1 < ev.createdAt) {
-      _events?[evKey] = (
+      _events![evKey] = (
         ev.createdAt,
         widget.mapper != null ? widget.mapper!(ev) : ev as T,
       );
@@ -79,7 +77,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
     if ([0, 3].contains(ev.kind) || (ev.kind >= 10000 && ev.kind < 20000)) {
       return "${ev.kind}:${ev.pubKey}";
     } else if (ev.kind >= 30000 && ev.kind < 40000) {
-      return "${ev.kind}:${ev.pubKey}:${ev.getDtag()}";
+      return "${ev.kind}:${ev.pubKey}:${ev.getDtag()!}";
     } else {
       return ev.id;
     }
