@@ -77,7 +77,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
     if ([0, 3].contains(ev.kind) || (ev.kind >= 10000 && ev.kind < 20000)) {
       return "${ev.kind}:${ev.pubKey}";
     } else if (ev.kind >= 30000 && ev.kind < 40000) {
-      return "${ev.kind}:${ev.pubKey}:${ev.getDtag()!}";
+      return "${ev.kind}:${ev.pubKey}:${ev.getDtag()}";
     } else {
       return ev.id;
     }

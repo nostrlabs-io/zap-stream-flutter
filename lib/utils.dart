@@ -130,6 +130,9 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
     matchTag(t, 'service', (v) => ret.service = v);
     if (t[0] == "relays") {
       ret.relays = t.slice(1);
+      if (ret.relays!.isEmpty) {
+        ret.relays = null;
+      }
     }
   }
 
@@ -235,7 +238,7 @@ String formatSats(int n) {
   if (n >= 1000000) {
     return "${fmt.format(n / 1000000)}M";
   } else if (n >= 1500) {
-    return "${fmt.format(n / 1000)}k";
+    return "${fmt.format(n / 1000)}K";
   } else {
     return fmt.format(n);
   }

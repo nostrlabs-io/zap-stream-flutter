@@ -24,11 +24,8 @@ class ChatWidget extends StatelessWidget {
 
     var filters = [
       Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
-      Filter(kinds: [Nip51List.kMute], authors: muteLists),
+      //Filter(kinds: [Nip51List.kMute], authors: muteLists), // bugged
     ];
-    if (stream.info.goal != null) {
-      filters.add(Filter(kinds: [9041], ids: [stream.info.goal!]));
-    }
     return RxFilter<Nip01Event>(
       relays: stream.info.relays,
       filters: filters,
@@ -57,9 +54,6 @@ class ChatWidget extends StatelessWidget {
                 .reversed
                 .toList();
 
-        final goal = filteredChat.firstWhereOrNull(
-          (e) => e.id == stream.info.goal,
-        );
         final zaps =
             filteredChat
                 .where((e) => e.kind == 9735)
@@ -70,7 +64,8 @@ class ChatWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (zaps.isNotEmpty) _TopZappersWidget(events: zaps),
-            if (goal != null) _StreamGoalWidget(goal: goal),
+            if (stream.info.goal != null)
+              _StreamGoalWidget.id(stream.info.goal!),
             Expanded(
               child: ListView.builder(
                 reverse: true,
@@ -128,6 +123,18 @@ class _StreamGoalWidget extends StatelessWidget {
   final Nip01Event goal;
 
   const _StreamGoalWidget({required this.goal});
+
+  static Widget id(String id) {
+    return RxFilter<Nip01Event>(
+      filters: [
+        Filter(kinds: [9041], ids: [id]),
+      ],
+      builder: (ctx, state) {
+        final goal = state?.firstOrNull;
+        return goal != null ? _StreamGoalWidget(goal: goal) : SizedBox.shrink();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
