@@ -32,7 +32,7 @@ var ndk = Ndk(
     eventVerifier: eventVerifier,
     cache: ndkCache,
     bootstrapRelays: defaultRelays,
-    engine: NdkEngine.JIT,
+    //engine: NdkEngine.JIT,
   ),
 );
 

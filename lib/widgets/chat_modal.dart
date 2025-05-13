@@ -75,7 +75,12 @@ class _ChatModalWidget extends State<ChatModalWidget> {
             ],
           ),
           if (_showEmojiPicker) ReactionWidget(event: widget.event),
-          MuteButton(pubkey: widget.event.pubKey),
+          MuteButton(
+            pubkey: widget.event.pubKey,
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );

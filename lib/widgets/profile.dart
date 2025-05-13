@@ -14,6 +14,7 @@ class ProfileLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      key: super.key ?? Key("profile-loader:$pubkey"),
       future: ndk.metadata.loadMetadata(pubkey),
       builder: builder,
     );
@@ -26,14 +27,14 @@ class ProfileNameWidget extends StatelessWidget {
 
   const ProfileNameWidget({super.key, required this.profile, this.style});
 
-  static Widget pubkey(String pubkey, {TextStyle? style}) {
-    return FutureBuilder(
-      future: ndk.metadata.loadMetadata(pubkey),
-      builder:
-          (ctx, data) => ProfileNameWidget(
-            profile: data.data ?? Metadata(pubKey: pubkey),
-            style: style,
-          ),
+  static Widget pubkey(String pubkey, {Key? key, TextStyle? style}) {
+    return ProfileLoaderWidget(
+      pubkey,
+      (ctx, data) => ProfileNameWidget(
+        profile: data.data ?? Metadata(pubKey: pubkey),
+        style: style,
+      ),
+      key: key,
     );
   }
 
@@ -84,6 +85,7 @@ class ProfileWidget extends StatelessWidget {
     List<Widget>? children,
     bool? showName,
     double? spacing,
+    Key? key,
   }) {
     return ProfileLoaderWidget(pubkey, (ctx, state) {
       return ProfileWidget(
@@ -91,6 +93,7 @@ class ProfileWidget extends StatelessWidget {
         size: size,
         showName: showName,
         spacing: spacing,
+        key: key,
         children: children,
       );
     });
@@ -102,7 +105,7 @@ class ProfileWidget extends StatelessWidget {
       spacing: spacing ?? 8,
       children: [
         AvatarWidget(profile: profile, size: size),
-        if (showName ?? true) ProfileNameWidget(profile: profile),
+        if (showName ?? true) ProfileNameWidget(profile: profile, key: key),
         ...(children ?? []),
       ],
     );

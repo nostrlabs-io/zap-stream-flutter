@@ -6,15 +6,14 @@ import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
-import 'package:zap_stream_flutter/widgets/nostr_text.dart';
+import 'package:zap_stream_flutter/widgets/chat_message.dart';
+import 'package:zap_stream_flutter/widgets/chat_write.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
-import 'package:zap_stream_flutter/widgets/chat_modal.dart';
 
 class ChatWidget extends StatelessWidget {
   final StreamEvent stream;
 
   const ChatWidget({super.key, required this.stream});
-
   @override
   Widget build(BuildContext context) {
     var muteLists = [stream.info.host];
@@ -24,9 +23,10 @@ class ChatWidget extends StatelessWidget {
 
     var filters = [
       Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
-      //Filter(kinds: [Nip51List.kMute], authors: muteLists), // bugged
+      Filter(kinds: [Nip51List.kMute], authors: muteLists),
     ];
     return RxFilter<Nip01Event>(
+      Key("stream:chat:${stream.aTag}"),
       relays: stream.info.relays,
       filters: filters,
       builder: (ctx, state) {
@@ -69,37 +69,26 @@ class ChatWidget extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 reverse: true,
-                shrinkWrap: true,
                 primary: true,
                 itemCount: filteredChat.length,
                 itemBuilder:
                     (ctx, idx) => switch (filteredChat[idx].kind) {
-                      1311 => Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 2,
-                          vertical: 2,
-                        ),
-                        child: _ChatMessageWidget(
-                          stream: stream,
-                          msg: filteredChat[idx],
-                        ),
+                      1311 => ChatMessageWidget(
+                        key: Key("chat:${filteredChat[idx].id}"),
+                        stream: stream,
+                        msg: filteredChat[idx],
                       ),
-                      9735 => Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 2,
-                          vertical: 2,
-                        ),
-                        child: _ChatZapWidget(
-                          stream: stream,
-                          zap: filteredChat[idx],
-                        ),
+                      9735 => _ChatZapWidget(
+                        key: Key("chat:${filteredChat[idx].id}"),
+                        stream: stream,
+                        zap: filteredChat[idx],
                       ),
                       _ => SizedBox.shrink(),
                     },
               ),
             ),
             if (stream.info.status == StreamStatus.live)
-              _WriteMessageWidget(stream: stream),
+              WriteMessageWidget(stream: stream),
             if (stream.info.status == StreamStatus.ended)
               Container(
                 padding: EdgeInsets.all(8),
@@ -126,6 +115,8 @@ class _StreamGoalWidget extends StatelessWidget {
 
   static Widget id(String id) {
     return RxFilter<Nip01Event>(
+      Key("stream:goal:$id"),
+      leaveOpen: false,
       filters: [
         Filter(kinds: [9041], ids: [id]),
       ],
@@ -142,6 +133,7 @@ class _StreamGoalWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
       child: RxFilter<Nip01Event>(
+        Key("stream:goal:$id:zaps"),
         filters: [
           Filter(kinds: [9735], eTags: [goal.id]),
         ],
@@ -163,7 +155,7 @@ class _StreamGoalWidget extends StatelessWidget {
                   if (remaining > 0)
                     Text(
                       "Remaining: ${formatSats(remaining)}",
-                      style: TextStyle(fontSize: 12, color: LAYER_5),
+                      style: TextStyle(fontSize: 10, color: LAYER_5),
                     ),
                 ],
               ),
@@ -273,12 +265,13 @@ class _ChatZapWidget extends StatelessWidget {
   final StreamEvent stream;
   final Nip01Event zap;
 
-  const _ChatZapWidget({required this.stream, required this.zap});
+  const _ChatZapWidget({required this.stream, required this.zap, super.key});
 
   @override
   Widget build(BuildContext context) {
     final parsed = ZapReceipt.fromEvent(zap);
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 4),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(color: ZAP_1),
@@ -335,206 +328,6 @@ class _ChatZapWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _ChatMessageWidget extends StatelessWidget {
-  final StreamEvent stream;
-  final Nip01Event msg;
-
-  const _ChatMessageWidget({required this.stream, required this.msg});
-
-  @override
-  Widget build(BuildContext context) {
-    return ProfileLoaderWidget(msg.pubKey, (ctx, state) {
-      final profile = state.data ?? Metadata(pubKey: msg.pubKey);
-      return GestureDetector(
-        onLongPress: () {
-          if (ndk.accounts.canSign) {
-            showModalBottomSheet(
-              context: context,
-              constraints: BoxConstraints.expand(),
-              builder: (ctx) => ChatModalWidget(profile: profile, event: msg),
-            );
-          }
-        },
-        child: Column(
-          spacing: 2,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _chatText(profile),
-            RxFilter<Nip01Event>(
-              key: Key("chat:reactions:${msg.id}"),
-              filters: [
-                Filter(kinds: [9735, 7], eTags: [msg.id]),
-              ],
-              builder: (ctx, data) => _chatReactions(data),
-            ),
-          ],
-        ),
-      );
-    });
-  }
-
-  Widget _chatText(Metadata profile) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          WidgetSpan(
-            child: AvatarWidget(profile: profile, size: 24),
-            alignment: PlaceholderAlignment.middle,
-          ),
-          TextSpan(text: " "),
-          WidgetSpan(
-            alignment: PlaceholderAlignment.middle,
-            child: ProfileNameWidget(
-              profile: profile,
-              style: TextStyle(
-                color: msg.pubKey == stream.info.host ? PRIMARY_1 : SECONDARY_1,
-              ),
-            ),
-          ),
-          TextSpan(text: " "),
-          ...textToSpans(msg.content, msg.tags, msg.pubKey),
-        ],
-      ),
-    );
-  }
-
-  Widget _chatReactions(List<Nip01Event>? events) {
-    if ((events?.length ?? 0) == 0) return SizedBox.shrink();
-
-    // reactions must have e tag pointing to msg
-    final filteredEvents = events!.where((e) => e.getEId() == msg.id);
-    final zaps = filteredEvents
-        .where((e) => e.kind == 9735)
-        .map((e) => ZapReceipt.fromEvent(e));
-    final reactions = filteredEvents.where((e) => e.kind == 7);
-
-    return Row(
-      spacing: 8,
-      children: [
-        if (zaps.isNotEmpty)
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-            decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
-            child: Row(
-              children: [
-                Icon(Icons.bolt, color: ZAP_1, size: 16),
-                Text(
-                  formatSats(
-                    zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        if (reactions.isNotEmpty)
-          ...reactions
-              .fold(<String, Set<String>>{}, (acc, v) {
-                // ignore: prefer_collection_literals
-                acc[v.content] ??= Set();
-                acc[v.content]!.add(v.pubKey);
-                return acc;
-              })
-              .entries
-              .map(
-                (v) => Container(
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: LAYER_2,
-                    borderRadius: DEFAULT_BR,
-                  ),
-                  child: Center(child: Text(v.key)),
-                ),
-              ),
-      ],
-    );
-  }
-}
-
-class _WriteMessageWidget extends StatefulWidget {
-  final StreamEvent stream;
-
-  const _WriteMessageWidget({required this.stream});
-
-  @override
-  State<StatefulWidget> createState() => __WriteMessageWidget();
-}
-
-class __WriteMessageWidget extends State<_WriteMessageWidget> {
-  late final TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  Future<void> _sendMessage() async {
-    final login = ndk.accounts.getLoggedAccount();
-    if (login == null) return;
-
-    final chatMsg = Nip01Event(
-      pubKey: login.pubkey,
-      kind: 1311,
-      content: _controller.text,
-      tags: [
-        ["a", widget.stream.aTag],
-      ],
-    );
-    _controller.text = "";
-    final res = ndk.broadcast.broadcast(nostrEvent: chatMsg);
-    await res.broadcastDoneFuture;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final canSign = ndk.accounts.canSign;
-    final isLogin = ndk.accounts.isLoggedIn;
-
-    return Container(
-      margin: EdgeInsets.fromLTRB(4, 8, 4, 0),
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
-      child:
-          canSign
-              ? Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      onSubmitted: (_) => _sendMessage(),
-                      decoration: InputDecoration(
-                        labelText: "Write message",
-                        contentPadding: EdgeInsets.symmetric(vertical: 4),
-                        labelStyle: TextStyle(color: LAYER_4, fontSize: 14),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  //IconButton(onPressed: () {}, icon: Icon(Icons.mood)),
-                  IconButton(
-                    onPressed: () {
-                      _sendMessage();
-                    },
-                    icon: Icon(Icons.send),
-                  ),
-                ],
-              )
-              : Container(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Row(
-                  children: [
-                    Text(
-                      isLogin
-                          ? "Can't write messages with npub login"
-                          : "Please login to send messages",
-                    ),
-                  ],
-                ),
-              ),
     );
   }
 }

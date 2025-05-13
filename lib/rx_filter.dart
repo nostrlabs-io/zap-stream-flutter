@@ -14,14 +14,14 @@ class RxFilter<T> extends StatefulWidget {
   final T Function(Nip01Event)? mapper;
   final List<String>? relays;
 
-  const RxFilter({
-    super.key,
+  const RxFilter(
+    Key key, {
     required this.filters,
     required this.builder,
     this.mapper,
     this.leaveOpen = true,
     this.relays,
-  });
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RxFilter<T>();
@@ -105,14 +105,14 @@ class RxFutureFilter<T> extends StatelessWidget {
   final Widget? loadingWidget;
   final T Function(Nip01Event)? mapper;
 
-  const RxFutureFilter({
-    super.key,
+  const RxFutureFilter(
+    Key key, {
     required this.filterBuilder,
     required this.builder,
     this.mapper,
     this.leaveOpen = true,
     this.loadingWidget,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +121,7 @@ class RxFutureFilter<T> extends StatelessWidget {
       builder: (ctx, data) {
         if (data.hasData) {
           return RxFilter<T>(
+            super.key!,
             filters: data.data!,
             mapper: mapper,
             builder: builder,

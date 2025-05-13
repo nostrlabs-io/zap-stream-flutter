@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
             ),
 
             RxFilter<Nip01Event>(
-              key: Key("profile-streams:$hexPubkey"),
+              Key("profile-streams:$hexPubkey"),
               relays: defaultRelays,
               filters: [
                 Filter(kinds: [30_311], limit: 200, pTags: [hexPubkey]),

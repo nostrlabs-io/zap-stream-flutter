@@ -38,7 +38,17 @@ dependency_overrides:
     git:
       url: https://github.com/relaystr/ndk
       path: packages/ndk
-      ref: bbf2aa9c2468b2301de65734199649d56bb0fd74
+      ref: 919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a
+  ndk_objectbox:
+    git:
+      url: https://github.com/relaystr/ndk
+      path: packages/objectbox
+      ref: 919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a
+  ndk_amber:
+    git:
+      url: https://github.com/relaystr/ndk
+      path: packages/amber
+      ref: 919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a
 
 dev_dependencies:
   flutter_test:

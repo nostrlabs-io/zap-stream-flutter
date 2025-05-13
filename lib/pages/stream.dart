@@ -75,6 +75,7 @@ class _StreamPage extends State<StreamPage> {
   @override
   Widget build(BuildContext context) {
     return RxFilter<Nip01Event>(
+      Key("stream:event:${widget.stream.aTag}"),
       relays: widget.stream.info.relays,
       filters: [
         Filter(

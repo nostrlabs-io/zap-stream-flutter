@@ -580,26 +580,28 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/ndk"
-      ref: bbf2aa9c2468b2301de65734199649d56bb0fd74
-      resolved-ref: bbf2aa9c2468b2301de65734199649d56bb0fd74
+      ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
+      resolved-ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
       url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.3.2"
   ndk_amber:
     dependency: "direct main"
     description:
-      name: ndk_amber
-      sha256: "6f525e2bcdea08ecdd1815e2fdfc6e53c4bb86335927d8c333c1f4513dc1c099"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/amber"
+      ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
+      resolved-ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
+      url: "https://github.com/relaystr/ndk"
+    source: git
     version: "0.3.0"
   ndk_objectbox:
     dependency: "direct main"
     description:
-      name: ndk_objectbox
-      sha256: f2bd04299ed34b99a01957c46eb6ff495c0bdcde068d382cbb8b8a222f67e132
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/objectbox"
+      ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
+      resolved-ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
+      url: "https://github.com/relaystr/ndk"
+    source: git
     version: "0.2.3"
   ndk_rust_verifier:
     dependency: "direct main"
@@ -1198,6 +1200,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.5.0"
+  xxh3:
+    dependency: transitive
+    description:
+      name: xxh3
+      sha256: "399a0438f5d426785723c99da6b16e136f4953fb1e9db0bf270bd41dd4619916"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
 sdks:
   dart: ">=3.7.2 <4.0.0"
   flutter: ">=3.27.0"

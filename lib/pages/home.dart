@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
           children: [
             HeaderWidget(),
             RxFilter<Nip01Event>(
+              Key("home-page"),
               filters: [
                 Filter(kinds: [30_311], limit: 50),
               ],
