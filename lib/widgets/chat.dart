@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
@@ -327,6 +325,7 @@ class _ChatMessageWidget extends StatelessWidget {
         if (reactions.isNotEmpty)
           ...reactions
               .fold(<String, Set<String>>{}, (acc, v) {
+                // ignore: prefer_collection_literals
                 acc[v.content] ??= Set();
                 acc[v.content]!.add(v.pubKey);
                 return acc;

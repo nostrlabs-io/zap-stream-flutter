@@ -99,7 +99,9 @@ class _NewAccountPage extends State<NewAccountPage> {
                   loginData.value = LoginAccount.privateKeyHex(
                     _privateKey.privateKey!,
                   );
-                  context.go("/");
+                  if (context.mounted) {
+                    context.go("/");
+                  }
                 })
                 .catchError((e) {
                   setState(() {

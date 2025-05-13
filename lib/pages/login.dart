@@ -26,7 +26,9 @@ class LoginPage extends StatelessWidget {
                   if (result['signature'] != null) {
                     final key = bech32ToHex(result['signature']);
                     loginData.value = LoginAccount.externalPublicKeyHex(key);
-                    ctx.go("/");
+                    if (ctx.mounted) {
+                      ctx.go("/");
+                    }
                   }
                 },
               );
