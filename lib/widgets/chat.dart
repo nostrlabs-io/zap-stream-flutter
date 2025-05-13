@@ -23,9 +23,16 @@ class ChatWidget extends StatelessWidget {
     }
 
     return RxFilter<Nip01Event>(
+      key: Key("stream:chat:${stream.aTag}"),
+      relays: stream.info.relays,
       filters: [
         Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
         Filter(kinds: [Nip51List.kMute], authors: muteLists),
+        ...(stream.info.goal != null
+            ? [
+              Filter(kinds: [9041], ids: [stream.info.goal!]),
+            ]
+            : []),
       ],
       builder: (ctx, state) {
         final mutedPubkeys =
@@ -33,7 +40,9 @@ class ChatWidget extends StatelessWidget {
                 .where((e) => e.kind == Nip51List.kMute)
                 .map((e) => e.tags)
                 .expand((e) => e)
-                .where((e) => e[0] == "p")
+                .where(
+                  (e) => e[0] == "p" && e[1] != stream.info.host,
+                ) // cant mute host
                 .map((e) => e[1])
                 .toSet();
 
@@ -50,11 +59,20 @@ class ChatWidget extends StatelessWidget {
                 .reversed
                 .toList();
 
+        final goal = filteredChat.firstWhereOrNull(
+          (e) => e.id == stream.info.goal,
+        );
+        final zaps =
+            filteredChat
+                .where((e) => e.kind == 9735)
+                .map((e) => ZapReceipt.fromEvent(e))
+                .toList();
         return Column(
           spacing: 8,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _TopZappersWidget(events: filteredChat),
+            if (zaps.isNotEmpty) _TopZappersWidget(events: zaps),
+            if (goal != null) _StreamGoalWidget(goal: goal),
             Expanded(
               child: ListView.builder(
                 reverse: true,
@@ -108,8 +126,71 @@ class ChatWidget extends StatelessWidget {
   }
 }
 
+class _StreamGoalWidget extends StatelessWidget {
+  final Nip01Event goal;
+
+  const _StreamGoalWidget({required this.goal});
+
+  @override
+  Widget build(BuildContext context) {
+    final max = int.parse(goal.getFirstTag("amount") ?? "1");
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      child: Column(
+        spacing: 4,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(goal.content),
+          RxFilter<Nip01Event>(
+            filters: [
+              Filter(kinds: [9735], eTags: [goal.id]),
+            ],
+            builder: (ctx, state) {
+              final zaps = (state ?? []).map((e) => ZapReceipt.fromEvent(e));
+              final totalZaps =
+                  zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)) * 1000;
+              final progress = totalZaps / max;
+
+              final q = MediaQuery.of(ctx);
+              return Stack(
+                children: [
+                  Container(
+                    height: 10,
+                    decoration: BoxDecoration(
+                      color: LAYER_2,
+                      borderRadius: DEFAULT_BR,
+                    ),
+                  ),
+                  Container(
+                    height: 10,
+                    width: (q.size.width * progress).clamp(1, q.size.width),
+                    decoration: BoxDecoration(
+                      color: ZAP_1,
+                      borderRadius: DEFAULT_BR,
+                    ),
+                  ),
+                  Positioned(
+                    right: 2,
+                    child: Text(
+                      "Goal: ${formatSats((max / 1000).toInt())}",
+                      style: TextStyle(
+                        fontSize: 8,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _TopZappersWidget extends StatelessWidget {
-  final List<Nip01Event> events;
+  final List<ZapReceipt> events;
 
   const _TopZappersWidget({required this.events});
 
@@ -117,8 +198,6 @@ class _TopZappersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final topZaps =
         events
-            .where((e) => e.kind == 9735)
-            .map((e) => ZapReceipt.fromEvent(e))
             .fold(<String, int>{}, (acc, e) {
               if (e.sender != null) {
                 acc[e.sender!] = (acc[e.sender!] ?? 0) + e.amountSats!;
@@ -249,8 +328,7 @@ class _ChatMessageWidget extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               constraints: BoxConstraints.expand(),
-              builder:
-                  (ctx) => ChatModalWidget(profile: profile, event: msg),
+              builder: (ctx) => ChatModalWidget(profile: profile, event: msg),
             );
           }
         },

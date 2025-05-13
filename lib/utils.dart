@@ -1,6 +1,7 @@
 import 'package:bech32/bech32.dart';
 import 'package:collection/collection.dart';
 import 'package:convert/convert.dart';
+import 'package:intl/intl.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 
@@ -42,6 +43,7 @@ class StreamInfo {
   String? gameId;
   GameInfo? gameInfo;
   List<String> streams;
+  List<String>? relays;
 
   StreamInfo({
     this.id,
@@ -126,6 +128,9 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
     matchTag(t, 'starts', (v) => ret.starts = int.tryParse(v));
     matchTag(t, 'ends', (v) => ret.ends = int.tryParse(v));
     matchTag(t, 'service', (v) => ret.service = v);
+    if (t[0] == "relays") {
+      ret.relays = t.slice(1);
+    }
   }
 
   var sortedTags = sortStreamTags(ev.tags);
@@ -226,12 +231,13 @@ class Category {
 List<Category> AllCategories = []; // Implement as needed
 
 String formatSats(int n) {
+  final fmt = NumberFormat();
   if (n >= 1000000) {
-    return "${(n / 1000000).toStringAsFixed(1)}M";
+    return "${fmt.format(n / 1000000)}M";
   } else if (n >= 1000) {
-    return "${(n / 1000).toStringAsFixed(1)}k";
+    return "${fmt.format(n / 1000)}k";
   } else {
-    return "$n";
+    return fmt.format(n);
   }
 }
 
