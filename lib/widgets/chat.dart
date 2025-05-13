@@ -454,9 +454,9 @@ class __WriteMessageWidget extends State<_WriteMessageWidget> {
         ["a", widget.stream.aTag],
       ],
     );
+    _controller.text = "";
     final res = ndk.broadcast.broadcast(nostrEvent: chatMsg);
     await res.broadcastDoneFuture;
-    _controller.text = "";
   }
 
   @override
