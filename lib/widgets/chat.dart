@@ -136,23 +136,33 @@ class _StreamGoalWidget extends StatelessWidget {
     final max = int.parse(goal.getFirstTag("amount") ?? "1");
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      child: Column(
-        spacing: 4,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(goal.content),
-          RxFilter<Nip01Event>(
-            filters: [
-              Filter(kinds: [9735], eTags: [goal.id]),
-            ],
-            builder: (ctx, state) {
-              final zaps = (state ?? []).map((e) => ZapReceipt.fromEvent(e));
-              final totalZaps =
-                  zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)) * 1000;
-              final progress = totalZaps / max;
+      child: RxFilter<Nip01Event>(
+        filters: [
+          Filter(kinds: [9735], eTags: [goal.id]),
+        ],
+        builder: (ctx, state) {
+          final zaps = (state ?? []).map((e) => ZapReceipt.fromEvent(e));
+          final totalZaps =
+              zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)) * 1000;
+          final progress = totalZaps / max;
+          final remaining = ((max - totalZaps).clamp(0, max) / 1000).toInt();
 
-              final q = MediaQuery.of(ctx);
-              return Stack(
+          final q = MediaQuery.of(ctx);
+          return Column(
+            spacing: 4,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(child: Text(goal.content)),
+                  if (remaining > 0)
+                    Text(
+                      "Remaining: ${formatSats(remaining)}",
+                      style: TextStyle(fontSize: 12, color: LAYER_5),
+                    ),
+                ],
+              ),
+              Stack(
                 children: [
                   Container(
                     height: 10,
@@ -169,21 +179,33 @@ class _StreamGoalWidget extends StatelessWidget {
                       borderRadius: DEFAULT_BR,
                     ),
                   ),
-                  Positioned(
-                    right: 2,
-                    child: Text(
-                      "Goal: ${formatSats((max / 1000).toInt())}",
-                      style: TextStyle(
-                        fontSize: 8,
-                        fontWeight: FontWeight.w500,
+                  if (remaining > 0)
+                    Positioned(
+                      right: 2,
+                      child: Text(
+                        "Goal: ${formatSats((max / 1000).toInt())}",
+                        style: TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
+                  if (remaining == 0)
+                    Center(
+                      child: Text(
+                        "COMPLETE",
+                        style: TextStyle(
+                          color: LAYER_0,
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                 ],
-              );
-            },
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

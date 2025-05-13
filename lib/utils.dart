@@ -234,7 +234,7 @@ String formatSats(int n) {
   final fmt = NumberFormat();
   if (n >= 1000000) {
     return "${fmt.format(n / 1000000)}M";
-  } else if (n >= 1000) {
+  } else if (n >= 1500) {
     return "${fmt.format(n / 1000)}k";
   } else {
     return fmt.format(n);

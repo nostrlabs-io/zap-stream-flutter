@@ -120,6 +120,13 @@ class _StreamPage extends State<StreamPage> {
                         return ZapWidget(
                           pubkey: widget.stream.info.host,
                           target: widget.stream.event,
+                          zapTags:
+                              // tag goal onto zap request
+                              widget.stream.info.goal != null
+                                  ? [
+                                    ["e", widget.stream.info.goal!],
+                                  ]
+                                  : null,
                         );
                       },
                     );

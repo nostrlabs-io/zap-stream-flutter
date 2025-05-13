@@ -1,4 +1,5 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/domain_layer/usecases/lnurl/lnurl.dart';
 import 'package:ndk/ndk.dart';
@@ -13,8 +14,16 @@ import 'package:zap_stream_flutter/widgets/profile.dart';
 class ZapWidget extends StatefulWidget {
   final String pubkey;
   final Nip01Event? target;
+  final List<Nip01Event>? otherTargets;
+  final List<List<String>>? zapTags;
 
-  const ZapWidget({super.key, required this.pubkey, this.target});
+  const ZapWidget({
+    super.key,
+    required this.pubkey,
+    this.target,
+    this.zapTags,
+    this.otherTargets,
+  });
 
   @override
   State<StatefulWidget> createState() => _ZapWidget();
@@ -133,31 +142,53 @@ class _ZapWidget extends State<ZapWidget> {
     ];
   }
 
+  Future<ZapRequest?> _makeZap() async {
+    final signer = ndk.accounts.getLoggedAccount()?.signer;
+    if (signer == null) return null;
+
+    var relays = defaultRelays;
+    // if target event has relays tag, use that for zap
+    if (widget.target?.tags.any((t) => t[0] == "relays") ?? false) {
+      relays = widget.target!.tags.firstWhere((t) => t[0] == "relays").slice(1);
+    }
+    final amount = _amount! * 1000;
+
+    var tags = [
+      ["relays", ...relays],
+      ["amount", amount.toString()],
+      ["p", widget.pubkey],
+    ];
+
+    // tag targets for zap request
+    for (final t in [
+      ...(widget.target != null ? [widget.target!] : []),
+      ...(widget.otherTargets != null ? widget.otherTargets! : []),
+    ]) {
+      if (t.kind >= 30_000 && t.kind < 40_000) {
+        tags.add(["a", "${t.kind}:${t.pubKey}:${t.getDtag()!}"]);
+      } else {
+        tags.add(["e", t.id]);
+      }
+    }
+    if (widget.zapTags != null) {
+      tags.addAll(widget.zapTags!);
+    }
+    var event = ZapRequest(
+      pubKey: signer.getPublicKey(),
+      tags: tags,
+      content: _comment.text,
+    );
+    await signer.sign(event);
+    return event;
+  }
+
   Future<void> _loadZap() async {
     final profile = await ndk.metadata.loadMetadata(widget.pubkey);
     if (profile?.lud16 == null) {
       throw "No lightning address found";
     }
-    final signer = ndk.accounts.getLoggedAccount()?.signer;
 
-    final zapRequest =
-        signer != null
-            ? await ndk.zaps.createZapRequest(
-              amountSats: _amount!,
-              signer: signer,
-              pubKey: widget.pubkey,
-              eventId: widget.target?.id,
-              addressableId:
-                  widget.target != null &&
-                          widget.target!.kind >= 30_000 &&
-                          widget.target!.kind < 40_000
-                      ? "${widget.target!.kind}:${widget.target!.pubKey}:${widget.target!.getDtag()!}"
-                      : null,
-              relays: defaultRelays,
-              comment: _comment.text.isNotEmpty ? _comment.text : null,
-            )
-            : null;
-
+    final zapRequest = await _makeZap();
     final invoice = await ndk.zaps.fetchInvoice(
       lud16Link: Lnurl.getLud16LinkFromLud16(profile!.lud16!)!,
       amountSats: _amount!,
