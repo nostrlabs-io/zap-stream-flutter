@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/button_follow.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/stream_cards.dart';
 
@@ -23,6 +24,12 @@ class StreamInfoWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProfileWidget.pubkey(stream.info.host),
+          FollowButton(
+            pubkey: stream.info.host,
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
           Text(
             stream.info.title ?? "",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -39,7 +39,10 @@ class MuteButton extends StatelessWidget {
             ),
           ),
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-          decoration: BoxDecoration(color: WARNING, borderRadius: DEFAULT_BR),
+          decoration: BoxDecoration(
+            color: isMuted ? LAYER_2 : WARNING,
+            borderRadius: DEFAULT_BR,
+          ),
           onTap: () async {
             if (onTap != null) {
               onTap!();

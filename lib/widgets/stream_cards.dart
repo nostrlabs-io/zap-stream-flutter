@@ -60,26 +60,34 @@ class StreamCardsWidget extends StatelessWidget {
       decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
       child: Column(
         spacing: 8,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (title?.isNotEmpty ?? false)
-            Text(
-              title!,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Center(
+              child: Text(
+                title!,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
           if (image?.isNotEmpty ?? false)
-            link != null
-                ? GestureDetector(
-                  onTap: () {
-                    launchUrl(Uri.parse(link));
-                  },
-                  child: CachedNetworkImage(
-                    imageUrl: proxyImg(context, image!),
-                    errorWidget:
-                        (_, _, _) =>
-                            SvgPicture.asset("assets/svg/logo.svg", height: 40),
-                  ),
-                )
-                : CachedNetworkImage(imageUrl: proxyImg(context, image!)),
+            Center(
+              child:
+                  link != null
+                      ? GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse(link));
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl: proxyImg(context, image!),
+                          errorWidget:
+                              (_, _, _) => SvgPicture.asset(
+                                "assets/svg/logo.svg",
+                                height: 40,
+                              ),
+                        ),
+                      )
+                      : CachedNetworkImage(imageUrl: proxyImg(context, image!)),
+            ),
           MarkdownBody(
             data: card.content,
             onTapLink: (text, href, title) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/widgets/button_follow.dart';
 import 'package:zap_stream_flutter/widgets/mute_button.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
@@ -75,6 +76,12 @@ class _ChatModalWidget extends State<ChatModalWidget> {
             ],
           ),
           if (_showEmojiPicker) ReactionWidget(event: widget.event),
+          FollowButton(
+            pubkey: widget.event.pubKey,
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
           MuteButton(
             pubkey: widget.event.pubKey,
             onTap: () {
