@@ -24,6 +24,7 @@ class StreamGrid extends StatelessWidget {
     final streams =
         events
             .map((e) => StreamEvent(e))
+            .where((e) => e.info.stream?.contains(".m3u8") ?? false)
             .sortedBy((a) => a.info.starts ?? a.event.createdAt)
             .reversed;
     final live = streams.where((s) => s.info.status == StreamStatus.live);
@@ -32,11 +33,12 @@ class StreamGrid extends StatelessWidget {
     return Column(
       spacing: 16,
       children: [
-        if (showLive && live.isNotEmpty) _streamGroup(context, "Live", live),
+        if (showLive && live.isNotEmpty)
+          _streamGroup(context, "Live", live.toList()),
         if (showPlanned && planned.isNotEmpty)
-          _streamGroup(context, "Planned", planned),
+          _streamGroup(context, "Planned", planned.toList()),
         if (showEnded && ended.isNotEmpty)
-          _streamGroup(context, "Ended", ended),
+          _streamGroup(context, "Ended", ended.toList()),
       ],
     );
   }
@@ -64,22 +66,18 @@ class StreamGrid extends StatelessWidget {
   Widget _streamGroup(
     BuildContext context,
     String title,
-    Iterable<StreamEvent> events,
+    List<StreamEvent> events,
   ) {
-    final eventList = events.toList();
-
-    // profide fixed item size for performance
-    final q = MediaQuery.of(context);
     return Column(
       spacing: 16,
       children: [
         _streamTitle(title),
         ListView.builder(
-          itemCount: eventList.length,
+          itemCount: events.length,
           primary: false,
           shrinkWrap: true,
           itemBuilder: (ctx, idx) {
-            final stream = eventList[idx];
+            final stream = events[idx];
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
               child: StreamTileWidget(stream),
