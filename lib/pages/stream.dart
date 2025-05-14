@@ -101,7 +101,10 @@ class _StreamPage extends State<StreamPage> {
           aspectRatio: 16 / 9,
           child:
               _chewieController != null
-                  ? Chewie(controller: _chewieController!)
+                  ? Chewie(
+                    key: Key("stream:player:${stream.aTag}"),
+                    controller: _chewieController!,
+                  )
                   : Container(
                     color: LAYER_1,
                     child:
@@ -163,9 +166,8 @@ class _StreamPage extends State<StreamPage> {
                   ),
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
+                    showBottomSheet(
                       context: context,
-                      constraints: BoxConstraints.expand(),
                       builder: (context) => StreamInfoWidget(stream: stream),
                     );
                   },

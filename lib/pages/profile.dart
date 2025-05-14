@@ -10,6 +10,7 @@ import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/header.dart';
+import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/stream_grid.dart';
 
@@ -53,9 +54,15 @@ class ProfilePage extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        profile.about ?? "",
-                        style: TextStyle(color: LAYER_5),
+                      Text.rich(
+                        TextSpan(
+                          style: TextStyle(color: LAYER_5),
+                          children: textToSpans(
+                            profile.about ?? "",
+                            [],
+                            profile.pubKey,
+                          ),
+                        ),
                       ),
                     ],
                   ),

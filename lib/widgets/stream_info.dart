@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
+import 'package:zap_stream_flutter/widgets/stream_cards.dart';
 
 class StreamInfoWidget extends StatelessWidget {
   final StreamEvent stream;
@@ -38,6 +39,7 @@ class StreamInfoWidget extends StatelessWidget {
             ),
           if (stream.info.summary?.isNotEmpty ?? false)
             Text(stream.info.summary!),
+          StreamCardsWidget(stream: stream),
         ],
       ),
     );
