@@ -5,9 +5,11 @@ import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
-import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/chat_message.dart';
+import 'package:zap_stream_flutter/widgets/chat_raid.dart';
 import 'package:zap_stream_flutter/widgets/chat_write.dart';
+import 'package:zap_stream_flutter/widgets/chat_zap.dart';
+import 'package:zap_stream_flutter/widgets/goal.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
 class ChatWidget extends StatelessWidget {
@@ -23,6 +25,7 @@ class ChatWidget extends StatelessWidget {
 
     var filters = [
       Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
+      Filter(kinds: [1312], limit: 200, aTags: [stream.aTag]),
       Filter(kinds: [Nip51List.kMute], authors: muteLists),
     ];
     return RxFilter<Nip01Event>(
@@ -64,8 +67,7 @@ class ChatWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (zaps.isNotEmpty) _TopZappersWidget(events: zaps),
-            if (stream.info.goal != null)
-              _StreamGoalWidget.id(stream.info.goal!),
+            if (stream.info.goal != null) GoalWidget.id(stream.info.goal!),
             Expanded(
               child: ListView.builder(
                 reverse: true,
@@ -78,12 +80,16 @@ class ChatWidget extends StatelessWidget {
                         stream: stream,
                         msg: filteredChat[idx],
                       ),
-                      9735 => _ChatZapWidget(
+                      1312 => ChatRaidMessage(
+                        event: filteredChat[idx],
+                        stream: stream,
+                      ),
+                      9735 => ChatZapWidget(
                         key: Key("chat:${filteredChat[idx].id}"),
                         stream: stream,
                         zap: filteredChat[idx],
                       ),
-                      _ => SizedBox.shrink(),
+                      _ => SizedBox(),
                     },
               ),
             ),
@@ -92,10 +98,13 @@ class ChatWidget extends StatelessWidget {
             if (stream.info.status == StreamStatus.ended)
               Container(
                 padding: EdgeInsets.all(8),
-                margin: EdgeInsets.symmetric(vertical: 8),
+                margin: EdgeInsets.only(bottom: 8, top: 4),
                 width: double.maxFinite,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(borderRadius: DEFAULT_BR),
+                decoration: BoxDecoration(
+                  borderRadius: DEFAULT_BR,
+                  color: PRIMARY_1,
+                ),
                 child: Text(
                   "STREAM ENDED",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -104,106 +113,6 @@ class ChatWidget extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-class _StreamGoalWidget extends StatelessWidget {
-  final Nip01Event goal;
-
-  const _StreamGoalWidget({required this.goal});
-
-  static Widget id(String id) {
-    return RxFilter<Nip01Event>(
-      Key("stream:goal:$id"),
-      leaveOpen: false,
-      filters: [
-        Filter(kinds: [9041], ids: [id]),
-      ],
-      builder: (ctx, state) {
-        final goal = state?.firstOrNull;
-        return goal != null ? _StreamGoalWidget(goal: goal) : SizedBox.shrink();
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final max = int.parse(goal.getFirstTag("amount") ?? "1");
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      child: RxFilter<Nip01Event>(
-        Key("stream:goal:$id:zaps"),
-        filters: [
-          Filter(kinds: [9735], eTags: [goal.id]),
-        ],
-        builder: (ctx, state) {
-          final zaps = (state ?? []).map((e) => ZapReceipt.fromEvent(e));
-          final totalZaps =
-              zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)) * 1000;
-          final progress = totalZaps / max;
-          final remaining = ((max - totalZaps).clamp(0, max) / 1000).toInt();
-
-          final q = MediaQuery.of(ctx);
-          return Column(
-            spacing: 4,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(child: Text(goal.content)),
-                  if (remaining > 0)
-                    Text(
-                      "Remaining: ${formatSats(remaining)}",
-                      style: TextStyle(fontSize: 10, color: LAYER_5),
-                    ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: LAYER_2,
-                      borderRadius: DEFAULT_BR,
-                    ),
-                  ),
-                  Container(
-                    height: 10,
-                    width: (q.size.width * progress).clamp(1, q.size.width),
-                    decoration: BoxDecoration(
-                      color: ZAP_1,
-                      borderRadius: DEFAULT_BR,
-                    ),
-                  ),
-                  if (remaining > 0)
-                    Positioned(
-                      right: 2,
-                      child: Text(
-                        "Goal: ${formatSats((max / 1000).toInt())}",
-                        style: TextStyle(
-                          fontSize: 8,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  if (remaining == 0)
-                    Center(
-                      child: Text(
-                        "COMPLETE",
-                        style: TextStyle(
-                          color: LAYER_0,
-                          fontSize: 8,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ],
-          );
-        },
-      ),
     );
   }
 }
@@ -257,77 +166,6 @@ class _TopZappersWidget extends StatelessWidget {
                 )
                 .toList(),
       ),
-    );
-  }
-}
-
-class _ChatZapWidget extends StatelessWidget {
-  final StreamEvent stream;
-  final Nip01Event zap;
-
-  const _ChatZapWidget({required this.stream, required this.zap, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final parsed = ZapReceipt.fromEvent(zap);
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 4),
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: ZAP_1),
-        borderRadius: DEFAULT_BR,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _zapperRowZap(parsed),
-          if (parsed.comment?.isNotEmpty ?? false) Text(parsed.comment!),
-        ],
-      ),
-    );
-  }
-
-  Widget _zapperRowZap(ZapReceipt parsed) {
-    if (parsed.sender != null) {
-      return ProfileLoaderWidget(parsed.sender!, (ctx, state) {
-        final name = ProfileNameWidget.nameFromProfile(
-          state.data ?? Metadata(pubKey: parsed.sender!),
-        );
-        return _zapperRow(name, parsed.amountSats ?? 0, state.data);
-      });
-    } else {
-      return _zapperRow("Anon", parsed.amountSats ?? 0, null);
-    }
-  }
-
-  Widget _zapperRow(String name, int amount, Metadata? profile) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        RichText(
-          text: TextSpan(
-            style: TextStyle(color: ZAP_1),
-            children: [
-              WidgetSpan(
-                child: Icon(Icons.bolt, color: ZAP_1),
-                alignment: PlaceholderAlignment.middle,
-              ),
-              if (profile != null)
-                WidgetSpan(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: AvatarWidget(profile: profile, size: 20),
-                  ),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-              TextSpan(text: name),
-              TextSpan(text: " zapped ", style: TextStyle(color: FONT_COLOR)),
-              TextSpan(text: formatSats(amount)),
-              TextSpan(text: " sats", style: TextStyle(color: FONT_COLOR)),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

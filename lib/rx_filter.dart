@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:developer' as developer;
 
@@ -29,6 +30,7 @@ class RxFilter<T> extends StatefulWidget {
 
 class _RxFilter<T> extends State<RxFilter<T>> {
   late NdkResponse _response;
+  late StreamSubscription _listener;
   HashMap<String, (int, T)>? _events;
 
   @override
@@ -45,19 +47,21 @@ class _RxFilter<T> extends State<RxFilter<T>> {
         ndk.requests.closeSubscription(_response.requestId);
       });
     }
-    _response.stream
+    _listener = _response.stream
         .bufferTime(const Duration(milliseconds: 500))
         .where((events) => events.isNotEmpty)
         .handleError((e) {
           developer.log("RX:ERROR $e");
         })
         .listen((events) {
-          setState(() {
-            developer.log(
-              "RX:GOT ${events.length} events for ${widget.filters}",
-            );
-            events.forEach(_replaceInto);
-          });
+          if (context.mounted) {
+            setState(() {
+              developer.log(
+                "RX:GOT ${events.length} events for ${widget.filters}",
+              );
+              events.forEach(_replaceInto);
+            });
+          }
         });
   }
 
@@ -88,6 +92,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
     super.dispose();
 
     developer.log("RX:CLOSING ${widget.filters}");
+    _listener.cancel();
     ndk.requests.closeSubscription(_response.requestId);
   }
 

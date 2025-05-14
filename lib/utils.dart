@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bech32/bech32.dart';
 import 'package:collection/collection.dart';
 import 'package:convert/convert.dart';
@@ -13,6 +15,23 @@ class StreamEvent {
   /// Return the 'a' tag for this stream
   String get aTag {
     return "${event.kind}:${event.pubKey}:${info.id}";
+  }
+
+  /// Get the naddr for this stream
+  String get link {
+    final k = event.kind & 0xFFFFFFFF;
+    final idData = utf8.encode(info.id!);
+    final tlv = [
+      TLV(0, idData.length, idData),
+      TLV(2, 32, hex.decode(event.pubKey)),
+      TLV(3, 4, [
+        (k >> 24) & 0xFF,
+        (k >> 16) & 0xFF,
+        (k >> 8) & 0xFF,
+        k & 0xFF,
+      ]),
+    ];
+    return encodeBech32TLV("naddr", tlv);
   }
 
   StreamEvent(this.event) {
@@ -269,6 +288,25 @@ class TLV {
   final List<int> value;
 
   TLV(this.type, this.length, this.value);
+
+  void validate() {
+    if (type < 0 || type > 255) {
+      throw ArgumentError('Type must be 0-255 (1 byte)');
+    }
+    if (length < 0 || length > 255) {
+      throw ArgumentError('Length must be 0-255 (1 byte)');
+    }
+    if (length != value.length) {
+      throw ArgumentError(
+        'Length ($length) does not match value length (${value.length})',
+      );
+    }
+    for (var byte in value) {
+      if (byte < 0 || byte > 255) {
+        throw ArgumentError('Value bytes must be 0-255');
+      }
+    }
+  }
 }
 
 List<TLV> parseTLV(List<int> data) {
@@ -302,4 +340,29 @@ List<TLV> parseTLV(List<int> data) {
   }
 
   return result;
+}
+
+List<int> serializeTLV(List<TLV> tlvs) {
+  List<int> result = [];
+
+  for (var tlv in tlvs) {
+    tlv.validate();
+    result.add(tlv.type);
+    result.add(tlv.length);
+    result.addAll(tlv.value);
+  }
+
+  return result;
+}
+
+/// Encodes TLV data into a Bech32 string
+String encodeBech32TLV(String hrp, List<TLV> tlvs) {
+  try {
+    final data8bit = serializeTLV(tlvs);
+    final data5bit = Nip19.convertBits(data8bit, 8, 5, true);
+    final bech32Data = Bech32(hrp, data5bit);
+    return bech32.encode(bech32Data, 10_000);
+  } catch (e) {
+    throw FormatException('Failed to encode Bech32 or TLV: $e');
+  }
 }

@@ -38,7 +38,7 @@ class ProfileNameWidget extends StatelessWidget {
     );
   }
 
-  static nameFromProfile(Metadata profile) {
+  static String nameFromProfile(Metadata profile) {
     if ((profile.displayName?.length ?? 0) > 0) {
       return profile.displayName!;
     }

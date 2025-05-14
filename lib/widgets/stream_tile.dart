@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -19,10 +18,7 @@ class StreamTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(
-          "/e/${Nip19.encodeNoteId(stream.event.id)}",
-          extra: stream,
-        );
+        context.push("/e/${stream.link}", extra: stream);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
