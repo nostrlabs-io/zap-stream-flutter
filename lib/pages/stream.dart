@@ -13,6 +13,7 @@ import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/chat.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
+import 'package:zap_stream_flutter/widgets/stream_info.dart';
 import 'package:zap_stream_flutter/widgets/zap.dart';
 
 class StreamPage extends StatefulWidget {
@@ -160,6 +161,16 @@ class _StreamPage extends State<StreamPage> {
                       ),
                     ),
                   ),
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      constraints: BoxConstraints.expand(),
+                      builder: (context) => StreamInfoWidget(stream: stream),
+                    );
+                  },
+                  child: Icon(Icons.info),
+                ),
               ],
             ),
           ],
