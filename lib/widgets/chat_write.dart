@@ -22,19 +22,20 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
     _controller = TextEditingController();
   }
 
-  Future<void> _sendMessage() async {
+  Future<void> _sendMessage(BuildContext context) async {
     final login = ndk.accounts.getLoggedAccount();
-    if (login == null) return;
+    if (login == null || _controller.text.isEmpty) return;
 
     final chatMsg = Nip01Event(
       pubKey: login.pubkey,
       kind: 1311,
-      content: _controller.text,
+      content: _controller.text.toString(),
       tags: [
         ["a", widget.stream.aTag],
       ],
     );
-    _controller.text = "";
+    _controller.clear();
+    FocusScope.of(context).unfocus();
     final res = ndk.broadcast.broadcast(nostrEvent: chatMsg);
     await res.broadcastDoneFuture;
   }
@@ -55,7 +56,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                   Expanded(
                     child: TextField(
                       controller: _controller,
-                      onSubmitted: (_) => _sendMessage(),
+                      onSubmitted: (_) => _sendMessage(context),
                       decoration: InputDecoration(
                         labelText: "Write message",
                         contentPadding: EdgeInsets.symmetric(vertical: 4),
@@ -67,7 +68,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                   //IconButton(onPressed: () {}, icon: Icon(Icons.mood)),
                   IconButton(
                     onPressed: () {
-                      _sendMessage();
+                      _sendMessage(context);
                     },
                     icon: Icon(Icons.send),
                   ),
