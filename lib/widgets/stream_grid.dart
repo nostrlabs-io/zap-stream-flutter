@@ -25,6 +25,11 @@ class StreamGrid extends StatelessWidget {
         events
             .map((e) => StreamEvent(e))
             .where((e) => e.info.stream?.contains(".m3u8") ?? false)
+            .where(
+              (e) =>
+                  (e.info.starts ?? e.event.createdAt) <=
+                  (DateTime.now().millisecondsSinceEpoch / 1000),
+            )
             .sortedBy((a) => a.info.starts ?? a.event.createdAt)
             .reversed;
     final live = streams.where((s) => s.info.status == StreamStatus.live);

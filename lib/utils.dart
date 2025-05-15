@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bech32/bech32.dart';
 import 'package:collection/collection.dart';
 import 'package:convert/convert.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
@@ -88,16 +89,16 @@ class StreamInfo {
 }
 
 class GameInfo {
-  String id;
-  String name;
-  List<String> genres;
-  String className;
+  final String id;
+  final String name;
+  final List<String> genres;
+  final String? coverImage;
 
-  GameInfo({
+  const GameInfo({
     required this.id,
     required this.name,
     required this.genres,
-    required this.className,
+    required this.coverImage,
   });
 }
 
@@ -196,32 +197,32 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
 ({GameInfo? gameInfo, String? gameId}) extractGameTag(List<String> tags) {
   final gameId = tags.firstWhereOrNull((a) => gameTagFormat.hasMatch(a));
 
-  final internalGame = AllCategories.firstWhereOrNull(
+  final internalGame = allCategories.firstWhereOrNull(
     (a) => gameId == 'internal:${a.id}',
   );
   if (internalGame != null) {
     return (
       gameInfo: GameInfo(
-        id: internalGame.id,
+        id: "internal:${internalGame.id}",
         name: internalGame.name,
         genres: internalGame.tags,
-        className: internalGame.className,
+        coverImage: internalGame.coverImage,
       ),
       gameId: gameId,
     );
   }
 
   final lowerTags = tags.map((t) => t.toLowerCase());
-  final taggedCategory = AllCategories.firstWhereOrNull(
+  final taggedCategory = allCategories.firstWhereOrNull(
     (a) => a.tags.any(lowerTags.contains),
   );
   if (taggedCategory != null) {
     return (
       gameInfo: GameInfo(
-        id: taggedCategory.id,
+        id: "internal:${taggedCategory.id}",
         name: taggedCategory.name,
         genres: taggedCategory.tags,
-        className: taggedCategory.className,
+        coverImage: taggedCategory.coverImage,
       ),
       gameId: gameId,
     );
@@ -237,23 +238,83 @@ String getHost(Nip01Event ev) {
 }
 
 class Category {
-  String id;
-  String name;
-  List<String> tags;
-  String className;
+  final String id;
+  final String name;
+  final IconData icon;
+  final List<String> tags;
+  final int order;
+  final String? coverImage;
 
-  Category({
+  const Category({
     required this.id,
     required this.name,
+    required this.icon,
     required this.tags,
-    required this.className,
+    required this.order,
+    this.coverImage,
   });
 }
 
-List<Category> AllCategories = []; // Implement as needed
+const List<Category> allCategories = [
+  Category(
+    id: "irl",
+    name: "IRL",
+    icon: Icons.face,
+    tags: ["irl"],
+    order: 0,
+    coverImage: "assets/category/irl.jpeg",
+  ),
+  Category(
+    id: "gaming",
+    name: "Gaming",
+    icon: Icons.gamepad,
+    tags: ["gaming"],
+    order: 0,
+    coverImage: "assets/category/gaming.jpeg",
+  ),
+  Category(
+    id: "music",
+    name: "Music",
+    icon: Icons.note,
+    tags: ["music", "raido"],
+    order: 0,
+    coverImage: "assets/category/music.jpeg",
+  ),
+  Category(
+    id: "talk",
+    name: "Talk",
+    icon: Icons.mic,
+    tags: ["talk", "just-chatting"],
+    order: 0,
+    coverImage: "assets/category/talk.jpeg",
+  ),
+  Category(
+    id: "art",
+    name: "Art",
+    icon: Icons.brush,
+    tags: ["art"],
+    order: 0,
+    coverImage: "assets/category/art.jpeg",
+  ),
+  Category(
+    id: "gambling",
+    name: "Gambling",
+    icon: Icons.casino,
+    tags: ["gambling", "casino", "slots"],
+    order: 1,
+  ),
+  Category(
+    id: "science-and-technology",
+    name: "Science & Technology",
+    icon: Icons.casino,
+    tags: ["science", "tech", "technology"],
+    order: 1,
+  ),
+];
 
-String formatSats(int n) {
+String formatSats(int n, {int? maxDigits}) {
   final fmt = NumberFormat();
+  fmt.maximumFractionDigits = maxDigits ?? 2;
   if (n >= 1000000) {
     return "${fmt.format(n / 1000000)}M";
   } else if (n >= 1500) {
@@ -268,6 +329,49 @@ String zapSum(List<Nip01Event> zaps) {
       .map((e) => ZapReceipt.fromEvent(e))
       .fold(0, (acc, v) => acc + (v.amountSats ?? 0));
   return formatSats(total);
+}
+
+class TopZaps {
+  final int sum;
+  final List<ZapReceipt> zaps;
+
+  const TopZaps({required this.sum, required this.zaps});
+}
+
+Map<String, TopZaps> topZapSender(Iterable<ZapReceipt> zaps) {
+  return Map.fromEntries(
+    zaps
+        .where((e) => e.sender != null)
+        .groupListsBy((v) => v.sender!)
+        .entries
+        .map(
+          (v) => MapEntry(
+            v.key,
+            TopZaps(
+              sum: v.value.fold(0, (acc, v) => acc + (v.amountSats ?? 0)),
+              zaps: v.value,
+            ),
+          ),
+        ),
+  );
+}
+
+Map<String, TopZaps> topZapReceiver(Iterable<ZapReceipt> zaps) {
+  return Map.fromEntries(
+    zaps
+        .where((e) => e.recipient != null)
+        .groupListsBy((v) => v.recipient!)
+        .entries
+        .map(
+          (v) => MapEntry(
+            v.key,
+            TopZaps(
+              sum: v.value.fold(0, (acc, v) => acc + (v.amountSats ?? 0)),
+              zaps: v.value,
+            ),
+          ),
+        ),
+  );
 }
 
 String bech32ToHex(String bech32) {

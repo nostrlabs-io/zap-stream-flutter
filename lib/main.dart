@@ -6,6 +6,8 @@ import 'package:ndk/ndk.dart';
 import 'package:ndk_amber/ndk_amber.dart';
 import 'package:ndk_objectbox/ndk_objectbox.dart';
 import 'package:ndk_rust_verifier/ndk_rust_verifier.dart';
+import 'package:zap_stream_flutter/pages/category.dart';
+import 'package:zap_stream_flutter/pages/hashtag.dart';
 import 'package:zap_stream_flutter/pages/login.dart';
 import 'package:zap_stream_flutter/pages/login_input.dart';
 import 'package:zap_stream_flutter/pages/new_account.dart';
@@ -42,6 +44,7 @@ const defaultRelays = [
   "wss://relay.damus.io",
   "wss://relay.primal.net",
   "wss://relay.snort.social",
+  "wss://relay.fountain.fm",
 ];
 const searchRelays = ["wss://relay.nostr.band", "wss://search.nos.today"];
 
@@ -148,6 +151,21 @@ Future<void> main() async {
                     path: "/p/:id",
                     builder: (ctx, state) {
                       return ProfilePage(pubkey: state.pathParameters["id"]!);
+                    },
+                  ),
+                  GoRoute(
+                    path: "/t/:id",
+                    builder: (context, state) {
+                      return HashtagPage(tag: state.pathParameters["id"]!);
+                    },
+                  ),
+                  GoRoute(
+                    path: "/category/:id",
+                    builder: (context, state) {
+                      return CategoryPage(
+                        category: state.pathParameters["id"]!,
+                        info: state.extra as GameInfo?,
+                      );
                     },
                   ),
                 ],

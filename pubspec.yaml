@@ -61,3 +61,4 @@ flutter:
   assets:
     - "assets/svg/"
     - "assets/logo.png"
+    - "assets/category/"

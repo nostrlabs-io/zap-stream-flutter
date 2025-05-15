@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button_follow.dart';
+import 'package:zap_stream_flutter/widgets/game_info.dart';
+import 'package:zap_stream_flutter/widgets/nostr_text.dart';
+import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/stream_cards.dart';
 
@@ -45,7 +49,36 @@ class StreamInfoWidget extends StatelessWidget {
               ),
             ),
           if (stream.info.summary?.isNotEmpty ?? false)
-            Text(stream.info.summary!),
+            Text.rich(
+              TextSpan(
+                children: textToSpans(
+                  stream.info.summary!,
+                  [],
+                  stream.info.host,
+                ),
+              ),
+            ),
+
+          if (stream.info.tags.isNotEmpty || stream.info.gameInfo != null)
+            Row(
+              spacing: 2,
+              children: [
+                if (stream.info.gameInfo != null)
+                  GameInfoWidget(info: stream.info.gameInfo!),
+                ...stream.info.tags.map(
+                  (t) => PillWidget(
+                    color: LAYER_2,
+                    onTap: () {
+                      context.push("/t/${Uri.encodeComponent(t)}");
+                    },
+                    child: Text(
+                      t,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           StreamCardsWidget(stream: stream),
         ],
       ),
