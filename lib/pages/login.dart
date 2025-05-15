@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -14,29 +16,30 @@ class LoginPage extends StatelessWidget {
     return Column(
       spacing: 20,
       children: [
-        FutureBuilder(
-          future: Amberflutter().isAppInstalled(),
-          builder: (ctx, state) {
-            if (state.data ?? false) {
-              return BasicButton.text(
-                "Login with Amber",
-                onTap: () async {
-                  final amber = Amberflutter();
-                  final result = await amber.getPublicKey();
-                  if (result['signature'] != null) {
-                    final key = bech32ToHex(result['signature']);
-                    loginData.value = LoginAccount.externalPublicKeyHex(key);
-                    if (ctx.mounted) {
-                      ctx.go("/");
+        if (Platform.isAndroid)
+          FutureBuilder(
+            future: Amberflutter().isAppInstalled(),
+            builder: (ctx, state) {
+              if (state.data ?? false) {
+                return BasicButton.text(
+                  "Login with Amber",
+                  onTap: () async {
+                    final amber = Amberflutter();
+                    final result = await amber.getPublicKey();
+                    if (result['signature'] != null) {
+                      final key = bech32ToHex(result['signature']);
+                      loginData.value = LoginAccount.externalPublicKeyHex(key);
+                      if (ctx.mounted) {
+                        ctx.go("/");
+                      }
                     }
-                  }
-                },
-              );
-            } else {
-              return SizedBox.shrink();
-            }
-          },
-        ),
+                  },
+                );
+              } else {
+                return SizedBox.shrink();
+              }
+            },
+          ),
         BasicButton.text(
           "Login with Key",
           onTap: () => context.push("/login/key"),
