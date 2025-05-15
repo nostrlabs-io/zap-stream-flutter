@@ -1,14 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/chat_modal.dart';
+import 'package:zap_stream_flutter/widgets/custom_emoji.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
@@ -132,33 +130,11 @@ class ChatReactions extends StatelessWidget {
                     borderRadius: DEFAULT_BR,
                   ),
                   child: Center(
-                    child: _rectionContent(context, v.key, v.value.first),
+                    child: CustomEmoji(emoji: v.key, tags: v.value.first.tags),
                   ),
                 ),
               ),
       ],
     );
-  }
-
-  Widget _rectionContent(
-    BuildContext context,
-    String reaction,
-    Nip01Event event,
-  ) {
-    final customEmoji =
-        event.tags.firstWhereOrNull(
-          (t) =>
-              t[0] == "emoji" &&
-              t[1] == reaction.substring(1, reaction.length - 1),
-        )?[2];
-    if (customEmoji != null) {
-      return CachedNetworkImage(
-        imageUrl: proxyImg(context, customEmoji),
-        height: 15,
-        width: 15,
-      );
-    } else {
-      return Text(reaction);
-    }
   }
 }

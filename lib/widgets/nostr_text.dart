@@ -6,6 +6,7 @@ import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/custom_emoji.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
 class NoteText extends StatelessWidget {
@@ -30,12 +31,12 @@ List<InlineSpan> textToSpans(
   List<List<String>> tags,
   String pubkey,
 ) {
-  return _buildContentSpans(content);
+  return _buildContentSpans(content, tags);
 }
 
 /// Content parser from camelus
 /// https://github.com/leo-lox/camelus/blob/f58455a0ac07fcc780bdc69b8f4544fd5ea4a46d/lib/presentation_layer/components/note_card/note_card_build_split_content.dart#L262
-List<InlineSpan> _buildContentSpans(String content) {
+List<InlineSpan> _buildContentSpans(String content, List<List<String>> tags) {
   List<InlineSpan> spans = [];
   RegExp exp = RegExp(
     r'nostr:(nprofile|npub)[a-zA-Z0-9]+|'
@@ -62,7 +63,23 @@ List<InlineSpan> _buildContentSpans(String content) {
       return '';
     },
     onNonMatch: (String text) {
-      spans.add(TextSpan(text: text));
+      final textTrim = text.trim();
+      if (textTrim.startsWith(":") &&
+          textTrim.endsWith(":") &&
+          tags.any(
+            (t) =>
+                t[0] == "emoji" &&
+                t[1] == textTrim.substring(1, textTrim.length - 1),
+          )) {
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: CustomEmoji(emoji: textTrim, tags: tags, size: 24),
+          ),
+        );
+      } else {
+        spans.add(TextSpan(text: text));
+      }
       return '';
     },
   );
