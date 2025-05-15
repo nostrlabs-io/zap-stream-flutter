@@ -166,8 +166,10 @@ class _StreamPage extends State<StreamPage> {
                   ),
                 GestureDetector(
                   onTap: () {
-                    showBottomSheet(
+                    showModalBottomSheet(
                       context: context,
+                      constraints: BoxConstraints.expand(),
+                      isScrollControlled: true,
                       builder: (context) => StreamInfoWidget(stream: stream),
                     );
                   },
