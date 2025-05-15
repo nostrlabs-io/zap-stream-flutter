@@ -30,6 +30,14 @@ class _LoginInputPage extends State<LoginInputPage> {
           "Login",
           onTap: () async {
             try {
+              if (_controller.text.startsWith("bunker://")) {
+                // not supported yet in ndk
+                setState(() {
+                  _error = "Bunker login not supported yet";
+                  _controller.clear();
+                });
+                return;
+              }
               final keyData = bech32ToHex(_controller.text);
               if (keyData.isNotEmpty) {
                 loginData.value = LoginAccount.nip19(_controller.text);

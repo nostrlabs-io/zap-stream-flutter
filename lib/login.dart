@@ -12,8 +12,14 @@ class LoginAccount {
   final AccountType type;
   final String pubkey;
   final String? privateKey;
+  final List<String>? signerRelays;
 
-  LoginAccount._({required this.type, required this.pubkey, this.privateKey});
+  LoginAccount._({
+    required this.type,
+    required this.pubkey,
+    this.privateKey,
+    this.signerRelays,
+  });
 
   static LoginAccount nip19(String key) {
     final keyData = bech32ToHex(key);
@@ -40,6 +46,19 @@ class LoginAccount {
 
   static LoginAccount externalPublicKeyHex(String key) {
     return LoginAccount._(type: AccountType.externalSigner, pubkey: key);
+  }
+
+  static LoginAccount bunker(
+    String privateKey,
+    String pubkey,
+    List<String> relays,
+  ) {
+    return LoginAccount._(
+      type: AccountType.externalSigner,
+      pubkey: pubkey,
+      privateKey: privateKey,
+      signerRelays: relays,
+    );
   }
 
   static Map<String, dynamic> toJson(LoginAccount? acc) => {
