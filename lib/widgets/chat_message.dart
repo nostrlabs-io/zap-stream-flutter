@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -79,11 +82,11 @@ class ChatReactions extends StatelessWidget {
       filters: [
         Filter(kinds: [9735, 7], eTags: [msg.id]),
       ],
-      builder: (ctx, data) => _chatReactions(data),
+      builder: (ctx, data) => _chatReactions(ctx, data),
     );
   }
 
-  Widget _chatReactions(List<Nip01Event>? events) {
+  Widget _chatReactions(BuildContext context, List<Nip01Event>? events) {
     if ((events?.length ?? 0) == 0) return SizedBox.shrink();
 
     // reactions must have e tag pointing to msg
@@ -113,24 +116,49 @@ class ChatReactions extends StatelessWidget {
           ),
         if (reactions.isNotEmpty)
           ...reactions
-              .fold(<String, Set<String>>{}, (acc, v) {
+              .fold(<String, Set<Nip01Event>>{}, (acc, v) {
                 // ignore: prefer_collection_literals
                 acc[v.content] ??= Set();
-                acc[v.content]!.add(v.pubKey);
+                acc[v.content]!.add(v);
                 return acc;
               })
               .entries
               .map(
                 (v) => Container(
                   padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     color: LAYER_2,
                     borderRadius: DEFAULT_BR,
                   ),
-                  child: Center(child: Text(v.key)),
+                  child: Center(
+                    child: _rectionContent(context, v.key, v.value.first),
+                  ),
                 ),
               ),
       ],
     );
+  }
+
+  Widget _rectionContent(
+    BuildContext context,
+    String reaction,
+    Nip01Event event,
+  ) {
+    final customEmoji =
+        event.tags.firstWhereOrNull(
+          (t) =>
+              t[0] == "emoji" &&
+              t[1] == reaction.substring(1, reaction.length - 1),
+        )?[2];
+    if (customEmoji != null) {
+      return CachedNetworkImage(
+        imageUrl: proxyImg(context, customEmoji),
+        height: 15,
+        width: 15,
+      );
+    } else {
+      return Text(reaction);
+    }
   }
 }
