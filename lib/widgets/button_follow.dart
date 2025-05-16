@@ -8,8 +8,9 @@ class FollowButton extends StatelessWidget {
   final void Function()? onTap;
   final void Function()? onFollow;
   final void Function()? onUnfollow;
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 
-  const FollowButton({
+  FollowButton({
     super.key,
     required this.pubkey,
     this.onTap,
@@ -24,43 +25,63 @@ class FollowButton extends StatelessWidget {
       return SizedBox.shrink();
     }
 
-    return FutureBuilder(
-      future: ndk.follows.getContactList(signer.getPublicKey()),
-      builder: (context, state) {
-        final follows = state.data?.contacts ?? [];
-        final isFollowing = follows.contains(pubkey);
-        return BasicButton(
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 4,
-            children: [
-              Icon(isFollowing ? Icons.person_remove : Icons.person_add, size: 16),
-              Text(
-                isFollowing ? "Unfollow" : "Follow",
-                style: TextStyle(fontWeight: FontWeight.bold),
+    return ValueListenableBuilder(
+      valueListenable: _loading,
+      builder: (context, loading, _) {
+        return FutureBuilder(
+          future: ndk.follows.getContactList(signer.getPublicKey()),
+          builder: (context, state) {
+            final follows = state.data?.contacts ?? [];
+            final isFollowing = follows.contains(pubkey);
+            return BasicButton(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 8,
+                children: [
+                  loading
+                      ? SizedBox(
+                        height: 16,
+                        width: 16,
+                        child: CircularProgressIndicator(),
+                      )
+                      : Icon(
+                        isFollowing ? Icons.person_remove : Icons.person_add,
+                        size: 16,
+                      ),
+                  Text(
+                    isFollowing ? "Unfollow" : "Follow",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-            ],
-          ),
-          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-          decoration: BoxDecoration(
-            borderRadius: DEFAULT_BR,
-            color: LAYER_2,
-          ),
-          onTap: () async {
-            if (onTap != null) {
-              onTap!();
-            }
-            if (isFollowing) {
-              await ndk.follows.broadcastRemoveContact(pubkey);
-              if (onUnfollow != null) {
-                onUnfollow!();
-              }
-            } else {
-              await ndk.follows.broadcastAddContact(pubkey);
-              if (onFollow != null) {
-                onFollow!();
-              }
-            }
+              disabled: loading,
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+              decoration: BoxDecoration(
+                borderRadius: DEFAULT_BR,
+                color: LAYER_2,
+              ),
+              onTap: () async {
+                _loading.value = true;
+                try {
+                  if (onTap != null) {
+                    onTap!();
+                  }
+                  if (isFollowing) {
+                    await ndk.follows.broadcastRemoveContact(pubkey);
+                    if (onUnfollow != null) {
+                      onUnfollow!();
+                    }
+                  } else {
+                    await ndk.follows.broadcastAddContact(pubkey);
+                    if (onFollow != null) {
+                      onFollow!();
+                    }
+                  }
+                } finally {
+                  _loading.value = false;
+                }
+              },
+            );
           },
         );
       },

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
@@ -9,6 +8,7 @@ import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
+import 'package:zap_stream_flutter/widgets/button_follow.dart';
 import 'package:zap_stream_flutter/widgets/header.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
@@ -89,6 +89,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
+            if (!isMe) FollowButton(pubkey: hexPubkey),
             Text(
               "Past Streams",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

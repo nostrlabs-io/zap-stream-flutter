@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/stream_tile.dart';
@@ -35,16 +36,34 @@ class StreamGrid extends StatelessWidget {
     final live = streams.where((s) => s.info.status == StreamStatus.live);
     final ended = streams.where((s) => s.info.status == StreamStatus.ended);
     final planned = streams.where((s) => s.info.status == StreamStatus.planned);
-    return Column(
-      spacing: 16,
-      children: [
-        if (showLive && live.isNotEmpty)
-          _streamGroup(context, "Live", live.toList()),
-        if (showPlanned && planned.isNotEmpty)
-          _streamGroup(context, "Planned", planned.toList()),
-        if (showEnded && ended.isNotEmpty)
-          _streamGroup(context, "Ended", ended.toList()),
-      ],
+
+    final followList =
+        ndk.accounts.isLoggedIn
+            ? ndk.follows.getContactList(ndk.accounts.getPublicKey()!)
+            : Future.value(null);
+    return FutureBuilder(
+      future: followList,
+      builder: (context, state) {
+        final follows = state.data?.contacts ?? [];
+        final followsLive = live.where((e) => follows.contains(e.info.host));
+        final liveNotFollowing = live.where(
+          (e) => !follows.contains(e.info.host),
+        );
+
+        return Column(
+          spacing: 16,
+          children: [
+            if (followsLive.isNotEmpty)
+              _streamGroup(context, "Following", followsLive.toList()),
+            if (showLive && liveNotFollowing.isNotEmpty)
+              _streamGroup(context, "Live", liveNotFollowing.toList()),
+            if (showPlanned && planned.isNotEmpty)
+              _streamGroup(context, "Planned", planned.toList()),
+            if (showEnded && ended.isNotEmpty)
+              _streamGroup(context, "Ended", ended.toList()),
+          ],
+        );
+      },
     );
   }
 
