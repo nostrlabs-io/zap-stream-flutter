@@ -54,25 +54,28 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                     }),
                 icon: Icon(Icons.mood),
               ),
-              IconButton.filled(
-                color: ZAP_1,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateColor.resolveWith((_) => LAYER_3),
+              if (widget.profile.lud16?.isNotEmpty ?? false)
+                IconButton.filled(
+                  color: ZAP_1,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateColor.resolveWith(
+                      (_) => LAYER_3,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (ctx) {
+                        return ZapWidget(
+                          pubkey: widget.event.pubKey,
+                          target: widget.event,
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.bolt),
                 ),
-                onPressed: () {
-                  Navigator.pop(context);
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (ctx) {
-                      return ZapWidget(
-                        pubkey: widget.event.pubKey,
-                        target: widget.event,
-                      );
-                    },
-                  );
-                },
-                icon: Icon(Icons.bolt),
-              ),
             ],
           ),
           if (_showEmojiPicker) ReactionWidget(event: widget.event),
