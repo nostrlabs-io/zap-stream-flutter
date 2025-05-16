@@ -103,6 +103,8 @@ class ProxyImg extends StatelessWidget {
       width: width,
       height: height,
       fit: BoxFit.cover,
+      placeholderFadeInDuration: Duration.zero,
+      fadeOutDuration: Duration.zero,
       placeholder:
           (ctx, url) =>
               SvgPicture.asset("assets/svg/logo.svg", height: placeholderSize),

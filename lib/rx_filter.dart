@@ -40,6 +40,7 @@ class _RxFilter<T> extends State<RxFilter<T>> {
     _response = ndk.requests.subscription(
       filters: widget.filters,
       explicitRelays: widget.relays,
+      cacheWrite: true
     );
     if (!widget.leaveOpen) {
       _response.future.then((_) {
