@@ -61,7 +61,7 @@ List<InlineSpan> textToSpans(
     r'nostr:(note|nevent|naddr)[a-zA-Z0-9]+|'
     r'(#\$\$\s*[0-9]+\s*\$\$)|'
     r'(#\w+)|' // Hashtags
-    r'(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))', // URLs
+    r'(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,10}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))', // URLs
     caseSensitive: false,
   );
 
