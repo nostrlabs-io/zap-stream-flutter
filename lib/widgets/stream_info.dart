@@ -28,7 +28,7 @@ class StreamInfoWidget extends StatelessWidget {
         spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ProfileWidget.pubkey(stream.info.host),
+          ProfileWidget.pubkey(stream.info.host, linkToProfile: false),
           FollowButton(
             pubkey: stream.info.host,
             onTap: () {

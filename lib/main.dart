@@ -20,7 +20,6 @@ import 'package:zap_stream_flutter/widgets/header.dart';
 
 import 'login.dart';
 import 'pages/home.dart';
-import 'pages/layout.dart';
 
 class NoVerify extends EventVerifier {
   @override
@@ -51,6 +50,8 @@ const defaultRelays = [
 const searchRelays = ["wss://relay.nostr.band", "wss://search.nos.today"];
 
 final loginData = LoginData();
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,96 +95,93 @@ Future<void> main() async {
       ),
       routerConfig: GoRouter(
         routes: [
-          StatefulShellRoute.indexedStack(
+          ShellRoute(
+            observers: [routeObserver],
             builder:
-                (context, state, navigationShell) =>
-                    SafeArea(child: LayoutScreen(navigationShell)),
-            branches: [
-              StatefulShellBranch(
-                routes: [
-                  GoRoute(path: "/", builder: (ctx, state) => HomePage()),
-                  ShellRoute(
-                    builder: (context, state, child) {
-                      return Container(
-                        margin: EdgeInsets.only(top: 50),
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 20,
-                          children: [
-                            Center(
-                              child: Image.asset(
-                                "assets/logo.png",
-                                height: 150,
-                              ),
-                            ),
-                            child,
-                          ],
+                (context, state, child) => SafeArea(
+                  child: Scaffold(body: child, backgroundColor: Colors.black),
+                ),
+            routes: [
+              GoRoute(path: "/", builder: (ctx, state) => HomePage()),
+              ShellRoute(
+                observers: [routeObserver],
+                builder: (context, state, child) {
+                  return Container(
+                    margin: EdgeInsets.only(top: 50),
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 20,
+                      children: [
+                        Center(
+                          child: Image.asset("assets/logo.png", height: 150),
                         ),
-                      );
-                    },
+                        child,
+                      ],
+                    ),
+                  );
+                },
+                routes: [
+                  GoRoute(
+                    path: "/login",
+                    builder: (ctx, state) => LoginPage(),
                     routes: [
                       GoRoute(
-                        path: "/login",
-                        builder: (ctx, state) => LoginPage(),
-                        routes: [
-                          GoRoute(
-                            path: "key",
-                            builder: (ctx, state) => LoginInputPage(),
-                          ),
-                          GoRoute(
-                            path: "new",
-                            builder: (context, state) => NewAccountPage(),
-                          ),
-                        ],
+                        path: "key",
+                        builder: (ctx, state) => LoginInputPage(),
+                      ),
+                      GoRoute(
+                        path: "new",
+                        builder: (context, state) => NewAccountPage(),
                       ),
                     ],
                   ),
+                ],
+              ),
+              GoRoute(
+                path: StreamPage.path,
+                builder: (ctx, state) {
+                  if (state.extra is StreamEvent) {
+                    return StreamPage(stream: state.extra as StreamEvent);
+                  } else {
+                    throw UnimplementedError();
+                  }
+                },
+              ),
+              GoRoute(
+                path: "/p/:id",
+                builder: (ctx, state) {
+                  return ProfilePage(pubkey: state.pathParameters["id"]!);
+                },
+              ),
+              GoRoute(
+                path: "/t/:id",
+                builder: (context, state) {
+                  return HashtagPage(tag: state.pathParameters["id"]!);
+                },
+              ),
+              GoRoute(
+                path: "/category/:id",
+                builder: (context, state) {
+                  return CategoryPage(
+                    category: state.pathParameters["id"]!,
+                    info: state.extra as GameInfo?,
+                  );
+                },
+              ),
+              ShellRoute(
+                observers: [routeObserver],
+                builder:
+                    (context, state, child) =>
+                        Column(children: [HeaderWidget(), child]),
+                routes: [
                   GoRoute(
-                    path: "/e/:id",
-                    builder: (ctx, state) {
-                      if (state.extra is StreamEvent) {
-                        return StreamPage(stream: state.extra as StreamEvent);
-                      } else {
-                        throw UnimplementedError();
-                      }
-                    },
-                  ),
-                  GoRoute(
-                    path: "/p/:id",
-                    builder: (ctx, state) {
-                      return ProfilePage(pubkey: state.pathParameters["id"]!);
-                    },
-                  ),
-                  GoRoute(
-                    path: "/t/:id",
-                    builder: (context, state) {
-                      return HashtagPage(tag: state.pathParameters["id"]!);
-                    },
-                  ),
-                  GoRoute(
-                    path: "/category/:id",
-                    builder: (context, state) {
-                      return CategoryPage(
-                        category: state.pathParameters["id"]!,
-                        info: state.extra as GameInfo?,
-                      );
-                    },
-                  ),
-                  ShellRoute(
-                    builder:
-                        (context, state, child) =>
-                            Column(children: [HeaderWidget(), child]),
+                    path: "/settings",
+                    builder: (context, state) => SizedBox(),
                     routes: [
                       GoRoute(
-                        path: "/settings",
-                        builder: (context, state) => SizedBox(),
-                        routes: [
-                          GoRoute(
-                            path: "profile",
-                            builder: (context, state) => SettingsProfilePage(),
-                          ),
-                        ],
+                        path: "profile",
+                        builder: (context, state) => SettingsProfilePage(),
                       ),
                     ],
                   ),

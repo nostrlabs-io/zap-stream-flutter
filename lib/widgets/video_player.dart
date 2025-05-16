@@ -23,19 +23,21 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidget extends State<VideoPlayerWidget> {
+  late final VideoPlayerController _controller;
   late final ChewieController _chewieController;
 
   @override
   void initState() {
     super.initState();
 
-    final controller = VideoPlayerController.networkUrl(
+    _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.url),
       httpHeaders: Map.from({"user-agent": userAgent}),
     );
     _chewieController = ChewieController(
-      videoPlayerController: controller,
+      videoPlayerController: _controller,
       autoPlay: widget.autoPlay ?? true,
+      aspectRatio: widget.aspectRatio,
       autoInitialize: true,
       placeholder:
           (widget.placeholder?.isNotEmpty ?? false)
@@ -46,8 +48,9 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
 
   @override
   void dispose() {
-    super.dispose();
+    _controller.dispose();
     _chewieController.dispose();
+    super.dispose();
   }
 
   @override

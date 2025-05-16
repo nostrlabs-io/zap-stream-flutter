@@ -88,6 +88,7 @@ class ProfileWidget extends StatelessWidget {
   final List<Widget>? children;
   final bool? showName;
   final double? spacing;
+  final bool? linkToProfile;
 
   const ProfileWidget({
     super.key,
@@ -97,6 +98,7 @@ class ProfileWidget extends StatelessWidget {
     this.children,
     this.showName,
     this.spacing,
+    this.linkToProfile,
   });
 
   static Widget pubkey(
@@ -106,6 +108,7 @@ class ProfileWidget extends StatelessWidget {
     bool? showName,
     double? spacing,
     Key? key,
+    bool? linkToProfile,
   }) {
     return ProfileLoaderWidget(pubkey, (ctx, state) {
       return ProfileWidget(
@@ -114,6 +117,7 @@ class ProfileWidget extends StatelessWidget {
         showName: showName,
         spacing: spacing,
         key: key,
+        linkToProfile: linkToProfile,
         children: children,
       );
     });
@@ -125,7 +129,12 @@ class ProfileWidget extends StatelessWidget {
       spacing: spacing ?? 8,
       children: [
         AvatarWidget(profile: profile, size: size),
-        if (showName ?? true) ProfileNameWidget(profile: profile, key: key),
+        if (showName ?? true)
+          ProfileNameWidget(
+            profile: profile,
+            key: key,
+            linkToProfile: linkToProfile,
+          ),
         ...(children ?? []),
       ],
     );

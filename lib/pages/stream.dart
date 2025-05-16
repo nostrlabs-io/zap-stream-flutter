@@ -1,7 +1,11 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -14,6 +18,7 @@ import 'package:zap_stream_flutter/widgets/video_player.dart';
 import 'package:zap_stream_flutter/widgets/zap.dart';
 
 class StreamPage extends StatefulWidget {
+  static const String path = "/e/:id";
   final StreamEvent stream;
 
   const StreamPage({super.key, required this.stream});
@@ -22,17 +27,62 @@ class StreamPage extends StatefulWidget {
   State<StatefulWidget> createState() => _StreamPage();
 }
 
-class _StreamPage extends State<StreamPage> {
+class _StreamPage extends State<StreamPage> with RouteAware {
+  bool _offScreen = false;
+
+  bool isWidgetVisible(BuildContext context) {
+    final router = GoRouter.of(context);
+    final currentConfiguration = router.routerDelegate.currentConfiguration;
+    final match = currentConfiguration.matches.lastOrNull;
+    final lastMatch = match is ShellRouteMatch ? match.matches.lastOrNull : match;
+    return lastMatch != null &&
+        (lastMatch.route is GoRoute &&
+        (lastMatch.route as GoRoute).path == StreamPage.path);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
   @override
   void initState() {
-    super.initState();
     WakelockPlus.enable();
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     WakelockPlus.disable();
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() {
+    setState(() {
+      developer.log("STREAM: ON SCREEN");
+      _offScreen = false;
+    });
+  }
+
+  @override
+  void didPopNext() {
+    setState(() {
+      developer.log("STREAM: ON SCREEN");
+      _offScreen = false;
+    });
+  }
+
+  @override
+  void didPushNext() {
+    if (!isWidgetVisible(context)) {
+      setState(() {
+        developer.log("STREAM: OFF SCREEN");
+        _offScreen = true;
+      });
+    }
   }
 
   @override
@@ -62,10 +112,11 @@ class _StreamPage extends State<StreamPage> {
         AspectRatio(
           aspectRatio: 16 / 9,
           child:
-              stream.info.stream != null
+              (stream.info.stream != null && !_offScreen)
                   ? VideoPlayerWidget(
                     url: stream.info.stream!,
                     placeholder: stream.info.image,
+                    aspectRatio: 16 / 9,
                   )
                   : (stream.info.image?.isNotEmpty ?? false)
                   ? ProxyImg(url: stream.info.image)
@@ -75,66 +126,58 @@ class _StreamPage extends State<StreamPage> {
           stream.info.title ?? "",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ProfileWidget.pubkey(
+          stream.info.host,
           children: [
-            ProfileWidget.pubkey(stream.info.host),
-            Row(
-              spacing: 8,
-              children: [
-                BasicButton(
-                  Row(children: [Icon(Icons.bolt, size: 14), Text("Zap")]),
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: PRIMARY_1,
-                    borderRadius: DEFAULT_BR,
-                  ),
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      constraints: BoxConstraints.expand(),
-                      builder: (ctx) {
-                        return SingleChildScrollView(
-                          primary: false,
-                          child: ZapWidget(
-                            pubkey: stream.info.host,
-                            target: stream.event,
-                            zapTags:
-                                // tag goal onto zap request
-                                stream.info.goal != null
-                                    ? [
-                                      ["e", stream.info.goal!],
-                                    ]
-                                    : null,
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-                if (stream.info.participants != null)
-                  PillWidget(
-                    color: LAYER_1,
-                    child: Text(
-                      "${stream.info.participants} viewers",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+            Expanded(child: SizedBox()), // spacer
+            BasicButton(
+              Row(children: [Icon(Icons.bolt, size: 14), Text("Zap")]),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              decoration: BoxDecoration(
+                color: PRIMARY_1,
+                borderRadius: DEFAULT_BR,
+              ),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  constraints: BoxConstraints.expand(),
+                  builder: (ctx) {
+                    return SingleChildScrollView(
+                      primary: false,
+                      child: ZapWidget(
+                        pubkey: stream.info.host,
+                        target: stream.event,
+                        zapTags:
+                            // tag goal onto zap request
+                            stream.info.goal != null
+                                ? [
+                                  ["e", stream.info.goal!],
+                                ]
+                                : null,
                       ),
-                    ),
-                  ),
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      constraints: BoxConstraints.expand(),
-                      isScrollControlled: true,
-                      builder: (context) => StreamInfoWidget(stream: stream),
                     );
                   },
-                  child: Icon(Icons.info),
+                );
+              },
+            ),
+            if (stream.info.participants != null)
+              PillWidget(
+                color: LAYER_1,
+                child: Text(
+                  "${stream.info.participants} viewers",
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
-              ],
+              ),
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  constraints: BoxConstraints.expand(),
+                  isScrollControlled: true,
+                  builder: (context) => StreamInfoWidget(stream: stream),
+                );
+              },
+              child: Icon(Icons.info),
             ),
           ],
         ),
