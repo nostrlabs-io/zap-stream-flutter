@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
@@ -27,11 +26,7 @@ class CustomEmoji extends StatelessWidget {
           (t) => t[0] == "emoji" && t[1] == cleanedEmojiName,
         )?[2];
     if (customEmoji != null) {
-      return CachedNetworkImage(
-        imageUrl: proxyImg(context, customEmoji),
-        height: size ?? 16,
-        width: size ?? 16,
-      );
+      return ProxyImg(url: customEmoji, width: size ?? 16, height: size ?? 16);
     } else {
       return Text(emoji);
     }

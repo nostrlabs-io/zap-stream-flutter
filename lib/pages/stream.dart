@@ -53,9 +53,7 @@ class _StreamPage extends State<StreamPage> {
             autoPlay: true,
             placeholder:
                 (widget.stream.info.image?.isNotEmpty ?? false)
-                    ? CachedNetworkImage(
-                      imageUrl: proxyImg(context, widget.stream.info.image!),
-                    )
+                    ? ProxyImg(url: widget.stream.info.image!)
                     : null,
           );
         });
@@ -109,9 +107,7 @@ class _StreamPage extends State<StreamPage> {
                     color: LAYER_1,
                     child:
                         (stream.info.image?.isNotEmpty ?? false)
-                            ? CachedNetworkImage(
-                              imageUrl: proxyImg(context, stream.info.image!),
-                            )
+                            ? ProxyImg(url: stream.info.image!)
                             : null,
                   ),
         ),

@@ -23,17 +23,13 @@ class AvatarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final thisSize = size ?? 40;
     return ClipOval(
-      child: CachedNetworkImage(
-        fit: BoxFit.cover,
-        imageUrl: proxyImg(
-          context,
-          profile.picture ??
-              "https://nostr.api.v0l.io/api/v1/avatar/cyberpunks/${profile.pubKey}",
-          resize: thisSize.ceil(),
-        ),
-        height: thisSize,
+      child: ProxyImg(
+        url:
+            profile.picture ??
+            "https://nostr.api.v0l.io/api/v1/avatar/cyberpunks/${profile.pubKey}",
+        resize: thisSize.ceil(),
         width: thisSize,
-        errorWidget: (context, url, error) => Icon(Icons.error),
+        height: thisSize,
       ),
     );
   }

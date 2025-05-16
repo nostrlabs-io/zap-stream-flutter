@@ -44,10 +44,7 @@ class CategoryPage extends StatelessWidget {
                               info!.coverImage!,
                               fit: BoxFit.contain,
                             )
-                            : CachedNetworkImage(
-                              imageUrl: proxyImg(context, info!.coverImage!),
-                              fit: BoxFit.cover,
-                            ),
+                            : ProxyImg(url: info!.coverImage!),
                   ),
                 Expanded(
                   child: Column(

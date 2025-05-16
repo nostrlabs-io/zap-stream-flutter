@@ -31,22 +31,7 @@ class StreamTileWidget extends StatelessWidget {
               aspectRatio: 16 / 9,
               child: Stack(
                 children: [
-                  Center(
-                    child: CachedNetworkImage(
-                      imageUrl: proxyImg(context, stream.info.image ?? ""),
-                      fit: BoxFit.cover,
-                      placeholder:
-                          (ctx, url) => SvgPicture.asset(
-                            "assets/svg/logo.svg",
-                            height: 100,
-                          ),
-                      errorWidget:
-                          (context, url, error) => SvgPicture.asset(
-                            "assets/svg/logo.svg",
-                            height: 100,
-                          ),
-                    ),
-                  ),
+                  Center(child: ProxyImg(url: stream.info.image ?? "", placeholderSize: 100,)),
                   if (stream.info.status != null)
                     Positioned(
                       right: 8,

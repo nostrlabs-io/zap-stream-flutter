@@ -36,10 +36,7 @@ class ProfilePage extends StatelessWidget {
               SizedBox(
                 height: 140,
                 width: double.maxFinite,
-                child: CachedNetworkImage(
-                  imageUrl: proxyImg(context, profile.banner!),
-                  fit: BoxFit.cover,
-                ),
+                child: ProxyImg(url: profile.banner!),
               ),
             Row(
               spacing: 8,

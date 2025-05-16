@@ -77,16 +77,9 @@ class StreamCardsWidget extends StatelessWidget {
                         onTap: () {
                           launchUrl(Uri.parse(link));
                         },
-                        child: CachedNetworkImage(
-                          imageUrl: proxyImg(context, image!),
-                          errorWidget:
-                              (_, _, _) => SvgPicture.asset(
-                                "assets/svg/logo.svg",
-                                height: 40,
-                              ),
-                        ),
+                        child: ProxyImg(url: link, placeholderSize: 40),
                       )
-                      : CachedNetworkImage(imageUrl: proxyImg(context, image!)),
+                      : ProxyImg(url: link, placeholderSize: 40),
             ),
           MarkdownBody(
             data: card.content,
