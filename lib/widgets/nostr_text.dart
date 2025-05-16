@@ -31,7 +31,7 @@ List<InlineSpan> textToSpans(
   List<List<String>> tags,
   String pubkey,
 ) {
-  return _buildContentSpans(content, tags);
+  return _buildContentSpans(content.trim(), tags);
 }
 
 /// Content parser from camelus
