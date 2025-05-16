@@ -5,6 +5,7 @@ import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button_follow.dart';
 import 'package:zap_stream_flutter/widgets/game_info.dart';
+import 'package:zap_stream_flutter/widgets/live_timer.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
@@ -39,14 +40,20 @@ class StreamInfoWidget extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           if (startedDate != null)
-            RichText(
-              text: TextSpan(
-                style: TextStyle(color: LAYER_5, fontSize: 14),
-                children: [
-                  TextSpan(text: "Started "),
-                  TextSpan(text: DateFormat().format(startedDate)),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: TextStyle(color: LAYER_5, fontSize: 14),
+                    children: [
+                      TextSpan(text: "Started "),
+                      TextSpan(text: DateFormat().format(startedDate)),
+                    ],
+                  ),
+                ),
+                LiveTimerWidget(started: startedDate),
+              ],
             ),
           if (stream.info.summary?.isNotEmpty ?? false)
             Text.rich(
