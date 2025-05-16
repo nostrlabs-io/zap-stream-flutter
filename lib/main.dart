@@ -12,9 +12,11 @@ import 'package:zap_stream_flutter/pages/login.dart';
 import 'package:zap_stream_flutter/pages/login_input.dart';
 import 'package:zap_stream_flutter/pages/new_account.dart';
 import 'package:zap_stream_flutter/pages/profile.dart';
+import 'package:zap_stream_flutter/pages/settings_profile.dart';
 import 'package:zap_stream_flutter/pages/stream.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/header.dart';
 
 import 'login.dart';
 import 'pages/home.dart';
@@ -167,6 +169,23 @@ Future<void> main() async {
                         info: state.extra as GameInfo?,
                       );
                     },
+                  ),
+                  ShellRoute(
+                    builder:
+                        (context, state, child) =>
+                            Column(children: [HeaderWidget(), child]),
+                    routes: [
+                      GoRoute(
+                        path: "/settings",
+                        builder: (context, state) => SizedBox(),
+                        routes: [
+                          GoRoute(
+                            path: "profile",
+                            builder: (context, state) => SettingsProfilePage(),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),

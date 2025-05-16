@@ -1,13 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip01/bip340.dart';
 import 'package:ndk/shared/nips/nip01/key_pair.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/widgets/avatar_upload.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 
 class NewAccountPage extends StatefulWidget {
@@ -19,27 +18,11 @@ class NewAccountPage extends StatefulWidget {
 
 class _NewAccountPage extends State<NewAccountPage> {
   final TextEditingController _name = TextEditingController();
+  final FocusNode _nameFocus = FocusNode();
   String? _avatar;
   String? _error;
+  bool _loading = false;
   final KeyPair _privateKey = Bip340.generatePrivateKey();
-
-  Future<void> _uploadAvatar() async {
-    ndk.accounts.loginPrivateKey(
-      pubkey: _privateKey.publicKey,
-      privkey: _privateKey.privateKey!,
-    );
-
-    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file != null) {
-      final upload = await ndk.blossom.uploadBlob(
-        serverUrls: ["https://nostr.download"],
-        data: await file.readAsBytes(),
-      );
-      setState(() {
-        _avatar = upload.first.descriptor!.url;
-      });
-    }
-  }
 
   Future<void> _login() async {
     if (ndk.accounts.isNotLoggedIn) {
@@ -63,55 +46,58 @@ class _NewAccountPage extends State<NewAccountPage> {
     return Column(
       spacing: 20,
       children: [
-        GestureDetector(
-          onTap: () {
-            _uploadAvatar().catchError((e) {
-              setState(() {
-                if (e is String) {
-                  _error = e;
-                }
-              });
+        AvatarUpload(
+          onUploadStart: () async {
+            if (ndk.accounts.isNotLoggedIn) {
+              ndk.accounts.loginPrivateKey(
+                pubkey: _privateKey.publicKey,
+                privkey: _privateKey.privateKey!,
+              );
+            }
+          },
+          onUpload: (i) {
+            setState(() {
+              _avatar = i;
             });
           },
-          child: Container(
-            width: 200,
-            height: 200,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(200)),
-              color: Color.fromARGB(100, 50, 50, 50),
-            ),
-            child:
-                _avatar == null
-                    ? Center(child: Text("Upload Avatar"))
-                    : CachedNetworkImage(imageUrl: _avatar!),
-          ),
         ),
         TextField(
           controller: _name,
+          readOnly: _loading,
+          focusNode: _nameFocus,
           decoration: InputDecoration(labelText: "Username"),
         ),
-        BasicButton.text(
-          "Login",
-          onTap: () {
-            _login()
-                .then((_) {
-                  loginData.value = LoginAccount.privateKeyHex(
-                    _privateKey.privateKey!,
-                  );
-                  if (context.mounted) {
-                    context.go("/");
-                  }
-                })
-                .catchError((e) {
-                  setState(() {
-                    if (e is String) {
-                      _error = e;
-                    }
-                  });
+        ValueListenableBuilder(
+          valueListenable: _name,
+          builder: (context, value, child) {
+            return BasicButton.text(
+              "Login",
+              disabled: _loading || value.text.isEmpty,
+              onTap: () {
+                setState(() {
+                  _loading = true;
+                  _nameFocus.unfocus();
                 });
+                _login()
+                    .then((_) {
+                      loginData.value = LoginAccount.privateKeyHex(
+                        _privateKey.privateKey!,
+                      );
+                      if (context.mounted) {
+                        context.go("/");
+                      }
+                    })
+                    .catchError((e) {
+                      setState(() {
+                        _loading = false;
+                        _error = e is String ? e : e.toString();
+                      });
+                    });
+              },
+            );
           },
         ),
+        if (_loading) CircularProgressIndicator(),
         if (_error != null)
           Text(
             _error!,

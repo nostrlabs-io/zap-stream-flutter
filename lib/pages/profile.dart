@@ -22,6 +22,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hexPubkey = bech32ToHex(pubkey);
+    final isMe = ndk.accounts.getPublicKey() == hexPubkey;
+
     return ProfileLoaderWidget(hexPubkey, (ctx, state) {
       final profile = state.data ?? Metadata(pubKey: hexPubkey);
       return SingleChildScrollView(
@@ -70,14 +72,22 @@ class ProfilePage extends StatelessWidget {
               ],
             ),
 
-            if (ndk.accounts.getPublicKey() == hexPubkey)
+            if (isMe)
               Row(
+                spacing: 8,
                 children: [
                   BasicButton.text(
                     "Logout",
                     onTap: () {
                       loginData.logout();
+                      ndk.accounts.logout();
                       context.go("/");
+                    },
+                  ),
+                  BasicButton.text(
+                    "Edit Profile",
+                    onTap: () {
+                      context.push("/settings/profile");
                     },
                   ),
                 ],
@@ -89,10 +99,9 @@ class ProfilePage extends StatelessWidget {
 
             RxFilter<Nip01Event>(
               Key("profile-streams:$hexPubkey"),
-              relays: defaultRelays,
               filters: [
-                Filter(kinds: [30_311], limit: 200, pTags: [hexPubkey]),
-                Filter(kinds: [30_311], limit: 200, authors: [hexPubkey]),
+                Filter(kinds: [30_311], limit: 100, pTags: [hexPubkey]),
+                Filter(kinds: [30_311], limit: 100, authors: [hexPubkey]),
               ],
               builder: (ctx, state) {
                 return StreamGrid(

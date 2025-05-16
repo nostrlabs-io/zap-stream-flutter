@@ -27,7 +27,7 @@ class HashtagPage extends StatelessWidget {
             RxFilter<Nip01Event>(
               Key("tags-page:$tag"),
               filters: [
-                Filter(kinds: [30_311], limit: 50, tTags: [tag.toLowerCase()]),
+                Filter(kinds: [30_311], limit: 100, tTags: [tag.toLowerCase()]),
               ],
               builder: (ctx, state) {
                 if (state == null) {

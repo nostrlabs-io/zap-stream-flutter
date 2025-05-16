@@ -61,7 +61,7 @@ class BasicButton extends StatelessWidget {
           onTap!();
         }
       },
-      child: (disabled ?? false) ? Opacity(opacity: 0.3, child: inner) : inner,
+      child: (disabled ?? false) ? Opacity(opacity: 0.5, child: inner) : inner,
     );
   }
 }

@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
             RxFilter<Nip01Event>(
               Key("home-page"),
               filters: [
-                Filter(kinds: [30_311], limit: 50),
+                Filter(kinds: [30_311], limit: 100),
               ],
               builder: (ctx, state) {
                 if (state == null) {
