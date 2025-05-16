@@ -1,11 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
-import 'package:video_player/video_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
-import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -14,6 +10,7 @@ import 'package:zap_stream_flutter/widgets/chat.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/stream_info.dart';
+import 'package:zap_stream_flutter/widgets/video_player.dart';
 import 'package:zap_stream_flutter/widgets/zap.dart';
 
 class StreamPage extends StatefulWidget {
@@ -26,49 +23,16 @@ class StreamPage extends StatefulWidget {
 }
 
 class _StreamPage extends State<StreamPage> {
-  VideoPlayerController? _controller;
-  ChewieController? _chewieController;
-
   @override
   void initState() {
     super.initState();
-
     WakelockPlus.enable();
-    final url = widget.stream.info.stream;
-
-    if (url != null) {
-      if (_controller != null) {
-        _controller!.dispose();
-      }
-      _controller = VideoPlayerController.networkUrl(
-        Uri.parse(url),
-        httpHeaders: Map.from({"user-agent": userAgent}),
-      );
-      () async {
-        await _controller!.initialize();
-        setState(() {
-          _chewieController = ChewieController(
-            videoPlayerController: _controller!,
-            aspectRatio: 16 / 9,
-            autoPlay: true,
-            placeholder:
-                (widget.stream.info.image?.isNotEmpty ?? false)
-                    ? ProxyImg(url: widget.stream.info.image!)
-                    : null,
-          );
-        });
-      }();
-    }
   }
 
   @override
   void dispose() {
     super.dispose();
     WakelockPlus.disable();
-    if (_controller != null) {
-      _controller!.dispose();
-      _controller = null;
-    }
   }
 
   @override
@@ -98,18 +62,14 @@ class _StreamPage extends State<StreamPage> {
         AspectRatio(
           aspectRatio: 16 / 9,
           child:
-              _chewieController != null
-                  ? Chewie(
-                    key: Key("stream:player:${stream.aTag}"),
-                    controller: _chewieController!,
+              stream.info.stream != null
+                  ? VideoPlayerWidget(
+                    url: stream.info.stream!,
+                    placeholder: stream.info.image,
                   )
-                  : Container(
-                    color: LAYER_1,
-                    child:
-                        (stream.info.image?.isNotEmpty ?? false)
-                            ? ProxyImg(url: stream.info.image!)
-                            : null,
-                  ),
+                  : (stream.info.image?.isNotEmpty ?? false)
+                  ? ProxyImg(url: stream.info.image)
+                  : Container(decoration: BoxDecoration(color: LAYER_1)),
         ),
         Text(
           stream.info.title ?? "",

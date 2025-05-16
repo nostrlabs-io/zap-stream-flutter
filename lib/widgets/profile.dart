@@ -24,15 +24,27 @@ class ProfileLoaderWidget extends StatelessWidget {
 class ProfileNameWidget extends StatelessWidget {
   final Metadata profile;
   final TextStyle? style;
+  final bool? linkToProfile;
 
-  const ProfileNameWidget({super.key, required this.profile, this.style});
+  const ProfileNameWidget({
+    super.key,
+    required this.profile,
+    this.style,
+    this.linkToProfile,
+  });
 
-  static Widget pubkey(String pubkey, {Key? key, TextStyle? style}) {
+  static Widget pubkey(
+    String pubkey, {
+    Key? key,
+    TextStyle? style,
+    bool? linkToProfile,
+  }) {
     return ProfileLoaderWidget(
       pubkey,
       (ctx, data) => ProfileNameWidget(
         profile: data.data ?? Metadata(pubKey: pubkey),
         style: style,
+        linkToProfile: linkToProfile,
       ),
       key: key,
     );
@@ -50,14 +62,22 @@ class ProfileNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap:
-          () => context.push(
-            "/p/${Nip19.encodePubKey(profile.pubKey)}",
-            extra: profile,
-          ),
-      child: Text(ProfileNameWidget.nameFromProfile(profile), style: style),
+    final inner = Text(
+      ProfileNameWidget.nameFromProfile(profile),
+      style: style,
     );
+    if (linkToProfile ?? true) {
+      return GestureDetector(
+        onTap:
+            () => context.push(
+              "/p/${Nip19.encodePubKey(profile.pubKey)}",
+              extra: profile,
+            ),
+        child: inner,
+      );
+    } else {
+      return inner;
+    }
   }
 }
 

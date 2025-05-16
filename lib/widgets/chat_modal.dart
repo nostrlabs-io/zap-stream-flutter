@@ -38,7 +38,7 @@ class _ChatModalWidget extends State<ChatModalWidget> {
             width: double.maxFinite,
             decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: NoteText(event: widget.event),
+            child: NoteText(event: widget.event, showEmbeds: false),
           ),
           Row(
             spacing: 8,
