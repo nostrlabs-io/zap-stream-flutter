@@ -7,6 +7,7 @@ class BasicButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final void Function()? onTap;
+  final bool? disabled;
 
   const BasicButton(
     this.child, {
@@ -15,6 +16,7 @@ class BasicButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.onTap,
+    this.disabled,
   });
 
   static text(
@@ -24,6 +26,7 @@ class BasicButton extends StatelessWidget {
     EdgeInsetsGeometry? margin,
     void Function()? onTap,
     double? fontSize,
+    bool? disabled,
   }) {
     return BasicButton(
       Text(
@@ -34,6 +37,7 @@ class BasicButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      disabled: disabled,
       decoration: decoration,
       padding: padding ?? EdgeInsets.symmetric(vertical: 4, horizontal: 12),
       margin: margin,
@@ -44,16 +48,20 @@ class BasicButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultBr = BorderRadius.all(Radius.circular(100));
+    final inner = Container(
+      padding: padding,
+      margin: margin,
+      decoration:
+          decoration ?? BoxDecoration(color: LAYER_2, borderRadius: defaultBr),
+      child: Center(child: child),
+    );
     return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: padding,
-        margin: margin,
-        decoration:
-            decoration ??
-            BoxDecoration(color: LAYER_2, borderRadius: defaultBr),
-        child: Center(child: child),
-      ),
+      onTap: () {
+        if (!(disabled ?? false) && onTap != null) {
+          onTap!();
+        }
+      },
+      child: (disabled ?? false) ? Opacity(opacity: 0.3, child: inner) : inner,
     );
   }
 }

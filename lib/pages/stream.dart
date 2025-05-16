@@ -138,16 +138,19 @@ class _StreamPage extends State<StreamPage> {
                       context: context,
                       constraints: BoxConstraints.expand(),
                       builder: (ctx) {
-                        return ZapWidget(
-                          pubkey: stream.info.host,
-                          target: stream.event,
-                          zapTags:
-                              // tag goal onto zap request
-                              stream.info.goal != null
-                                  ? [
-                                    ["e", stream.info.goal!],
-                                  ]
-                                  : null,
+                        return SingleChildScrollView(
+                          primary: false,
+                          child: ZapWidget(
+                            pubkey: stream.info.host,
+                            target: stream.event,
+                            zapTags:
+                                // tag goal onto zap request
+                                stream.info.goal != null
+                                    ? [
+                                      ["e", stream.info.goal!],
+                                    ]
+                                    : null,
+                          ),
                         );
                       },
                     );

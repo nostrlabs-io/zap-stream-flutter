@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ndk/domain_layer/usecases/lnurl/lnurl.dart';
 import 'package:ndk/ndk.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -31,6 +32,9 @@ class ZapWidget extends StatefulWidget {
 
 class _ZapWidget extends State<ZapWidget> {
   final TextEditingController _comment = TextEditingController();
+  final TextEditingController _customAmount = TextEditingController();
+  final FocusNode _customAmountFocus = FocusNode();
+  bool _loading = false;
   String? _error;
   String? _pr;
   int? _amount;
@@ -67,8 +71,9 @@ class _ZapWidget extends State<ZapWidget> {
               ),
             ],
           ),
-          if (_pr == null) ..._inputs(),
+          if (_pr == null && !_loading) ..._inputs(),
           if (_pr != null) ..._invoice(),
+          if (_loading) CircularProgressIndicator(),
         ],
       ),
     );
@@ -83,32 +88,78 @@ class _ZapWidget extends State<ZapWidget> {
           crossAxisCount: 5,
           mainAxisSpacing: 5,
           crossAxisSpacing: 5,
-          childAspectRatio: 1.5,
+          childAspectRatio: 1.9,
         ),
         itemBuilder: (ctx, idx) => _zapAmount(_zapAmounts[idx]),
+      ),
+      Row(
+        spacing: 8,
+        children: [
+          Expanded(
+            child: TextFormField(
+              controller: _customAmount,
+              focusNode: _customAmountFocus,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: "Custom Amount"),
+            ),
+          ),
+          BasicButton.text(
+            "Confirm",
+            onTap: () {
+              final newAmount = int.tryParse(_customAmount.text);
+              if (newAmount != null) {
+                setState(() {
+                  _error = null;
+                  _amount = newAmount;
+                  _customAmountFocus.unfocus();
+                });
+              } else {
+                setState(() {
+                  _error = "Invalid custom amount";
+                  _amount = null;
+                });
+              }
+            },
+          ),
+        ],
       ),
       TextFormField(
         controller: _comment,
         decoration: InputDecoration(labelText: "Comment"),
       ),
       BasicButton.text(
-        "Zap",
+        _amount != null ? "Zap ${formatSats(_amount!)} sats" : "Zap",
+        disabled: _amount == null,
         decoration: BoxDecoration(color: LAYER_3, borderRadius: DEFAULT_BR),
-        onTap: () {
+        onTap: () async {
           try {
-            _loadZap();
+            setState(() {
+              _error = null;
+              _loading = true;
+            });
+            await _loadZap();
           } catch (e) {
             setState(() {
               _error = e.toString();
             });
+          } finally {
+            setState(() {
+              _loading = false;
+            });
           }
         },
       ),
-      if (_error != null) Text(_error!),
+      if (_error != null)
+        Text(
+          _error!,
+          style: TextStyle(color: WARNING, fontWeight: FontWeight.bold),
+        ),
     ];
   }
 
   List<Widget> _invoice() {
+    final prLink = "lightning:${_pr!}";
+
     return [
       QrImageView(
         data: _pr!,
@@ -124,21 +175,50 @@ class _ZapWidget extends State<ZapWidget> {
         onTap: () async {
           await FlutterClipboard.copy(_pr!);
         },
-        child: Text(_pr!, overflow: TextOverflow.ellipsis),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(borderRadius: DEFAULT_BR, color: LAYER_2),
+          child: Row(
+            spacing: 4,
+            children: [
+              Icon(Icons.copy, size: 16),
+              Expanded(child: Text(_pr!, overflow: TextOverflow.ellipsis)),
+            ],
+          ),
+        ),
       ),
-      BasicButton.text(
-        "Open in Wallet",
-        onTap: () async {
-          try {
-            await launchUrlString("lightning:${_pr!}");
-          } catch (e) {
-            setState(() {
-              _error = e is String ? e : e.toString();
-            });
-          }
+      FutureBuilder(
+        future: canLaunchUrlString(prLink),
+        builder: (context, v) {
+          if (!(v.data ?? false)) return SizedBox();
+          return BasicButton.text(
+            "Open in Wallet",
+            onTap: () async {
+              try {
+                await launchUrlString(prLink);
+              } catch (e) {
+                if (e is PlatformException) {
+                  if (e.code == "ACTIVITY_NOT_FOUND") {
+                    setState(() {
+                      _error = "No lightning wallet installed";
+                    });
+                    return;
+                  }
+                }
+                setState(() {
+                  _error = e is String ? e : e.toString();
+                });
+              }
+            },
+          );
         },
       ),
-      if (_error != null) Text(_error!),
+
+      if (_error != null)
+        Text(
+          _error!,
+          style: TextStyle(color: WARNING, fontWeight: FontWeight.bold),
+        ),
     ];
   }
 
@@ -204,6 +284,9 @@ class _ZapWidget extends State<ZapWidget> {
     return GestureDetector(
       onTap:
           () => setState(() {
+            _error = null;
+            _customAmount.clear();
+            _customAmountFocus.unfocus();
             _amount = n;
           }),
       child: Container(
