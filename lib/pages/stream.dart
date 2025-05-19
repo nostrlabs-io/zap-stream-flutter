@@ -131,7 +131,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
         ProfileWidget.pubkey(
           stream.info.host,
           children: [
-            Expanded(child: SizedBox()), // spacer
+            Spacer(),
             BasicButton(
               Row(children: [Icon(Icons.bolt, size: 14), Text("Zap")]),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
