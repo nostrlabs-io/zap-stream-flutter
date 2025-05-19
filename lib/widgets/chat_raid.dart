@@ -43,7 +43,7 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
                 widget.event.createdAt)
             .abs() <
         60;
-    if (isAutoRaid) {
+    if (isAutoRaid && _isRaiding) {
       final autoRaidDelay = Duration(seconds: 5);
       _raidingAt = DateTime.now().add(autoRaidDelay);
     }
