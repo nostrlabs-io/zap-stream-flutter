@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:clipboard/clipboard.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +74,7 @@ class _ZapWidget extends State<ZapWidget> {
             ],
           ),
           if (_pr == null && !_loading) ..._inputs(),
-          if (_pr != null) ..._invoice(),
+          if (_pr != null) ..._invoice(context),
           if (_loading) CircularProgressIndicator(),
         ],
       ),
@@ -157,7 +159,7 @@ class _ZapWidget extends State<ZapWidget> {
     ];
   }
 
-  List<Widget> _invoice() {
+  List<Widget> _invoice(BuildContext context) {
     final prLink = "lightning:${_pr!}";
 
     return [
@@ -174,6 +176,11 @@ class _ZapWidget extends State<ZapWidget> {
       GestureDetector(
         onTap: () async {
           await FlutterClipboard.copy(_pr!);
+          if (Platform.isIOS && context.mounted) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("Copied to clipboard")));
+          }
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
