@@ -580,3 +580,8 @@ TLVEntity decodeBech32ToTLVEntity(String input) {
     return TLVEntity(data.hrp, [TLV(0, data8bit.length, data8bit)]);
   }
 }
+
+Filter aTagToFilter(String tag) {
+  final ts = tag.split(":");
+  return Filter(kinds: [int.parse(ts[0])], authors: [ts[1]], dTags: [ts[2]]);
+}

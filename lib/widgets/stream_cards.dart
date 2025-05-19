@@ -1,14 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ndk/ndk.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
-import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 
 class StreamCardsWidget extends StatelessWidget {
   final StreamEvent stream;

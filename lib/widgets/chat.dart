@@ -5,6 +5,7 @@ import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/chat_badge.dart';
 import 'package:zap_stream_flutter/widgets/chat_message.dart';
 import 'package:zap_stream_flutter/widgets/chat_raid.dart';
 import 'package:zap_stream_flutter/widgets/chat_write.dart';
@@ -27,6 +28,7 @@ class ChatWidget extends StatelessWidget {
       Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
       Filter(kinds: [1312], limit: 200, aTags: [stream.aTag]),
       Filter(kinds: [Nip51List.kMute], authors: muteLists),
+      Filter(kinds: [8], authors: [stream.info.host]),
     ];
     return RxFilter<Nip01Event>(
       Key("stream:chat:${stream.aTag}"),
@@ -88,6 +90,10 @@ class ChatWidget extends StatelessWidget {
                         key: Key("chat:${filteredChat[idx].id}"),
                         stream: stream,
                         zap: filteredChat[idx],
+                      ),
+                      8 => ChatBadgeAwardWidget(
+                        event: filteredChat[idx],
+                        stream: stream,
                       ),
                       _ => SizedBox(),
                     },

@@ -53,16 +53,9 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
   Widget build(BuildContext context) {
     if (_from == null || _to == null) return SizedBox.shrink();
 
-    final otherLink = (_isRaiding ? _to : _from).split(":");
-    final otherEvent = ndk.requests.query(
-      filters: [
-        Filter(
-          kinds: [int.parse(otherLink[0])],
-          authors: [otherLink[1]],
-          dTags: [otherLink[2]],
-        ),
-      ],
-    );
+    final otherTag = _isRaiding ? _to : _from;
+    final otherLink = otherTag.split(":");
+    final otherEvent = ndk.requests.query(filters: [aTagToFilter(otherTag)]);
 
     return Container(
       padding: EdgeInsets.all(8),
