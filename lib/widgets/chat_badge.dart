@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/entities.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
@@ -82,7 +83,9 @@ class ChatBadgeWidget extends StatelessWidget {
     return FutureBuilder(
       future: ndk.requests.query(filters: [aTagToFilter(aTag)]).future,
       builder: (context, state) {
-        final ev = state.data?.firstOrNull;
+        final ev = state.data?.firstWhereOrNull(
+          (e) => "${e.kind}:${e.pubKey}:${e.getDtag()}" == aTag,
+        );
         if (ev == null) return SizedBox();
         return ChatBadgeWidget(badge: ev, key: key);
       },
@@ -94,6 +97,6 @@ class ChatBadgeWidget extends StatelessWidget {
     final image = badge.getFirstTag("image");
     if (image?.isEmpty ?? true) return SizedBox();
 
-    return ProxyImg(url: image, resize: 24, height: 24, key: UniqueKey());
+    return ProxyImg(url: image, resize: 24, height: 24);
   }
 }
