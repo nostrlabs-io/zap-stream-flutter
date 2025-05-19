@@ -8,6 +8,7 @@ import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/chat_badge.dart';
 import 'package:zap_stream_flutter/widgets/chat_message.dart';
 import 'package:zap_stream_flutter/widgets/chat_raid.dart';
+import 'package:zap_stream_flutter/widgets/chat_timeout.dart';
 import 'package:zap_stream_flutter/widgets/chat_write.dart';
 import 'package:zap_stream_flutter/widgets/chat_zap.dart';
 import 'package:zap_stream_flutter/widgets/goal.dart';
@@ -20,14 +21,16 @@ class ChatWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var muteLists = [stream.info.host];
-    if (ndk.accounts.getPublicKey() != null) {
-      muteLists.add(ndk.accounts.getPublicKey()!);
+    final myKey = ndk.accounts.getPublicKey();
+    if (myKey != null) {
+      muteLists.add(myKey);
     }
 
     var filters = [
       Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
-      Filter(kinds: [1312], limit: 200, aTags: [stream.aTag]),
+      Filter(kinds: [1312, 1313], limit: 200, aTags: [stream.aTag]),
       Filter(kinds: [Nip51List.kMute], authors: muteLists),
+      Filter(kinds: [1314], authors: muteLists),
       Filter(kinds: [8], authors: [stream.info.host]),
     ];
     return RxFilter<Nip01Event>(
@@ -35,26 +38,42 @@ class ChatWidget extends StatelessWidget {
       relays: stream.info.relays,
       filters: filters,
       builder: (ctx, state) {
+        final now = DateTime.now().millisecondsSinceEpoch / 1000;
+        final firstPassEvents = (state ?? []).where(
+          (e) => switch (e.kind) {
+            1314 => muteLists.contains(
+              e.pubKey,
+            ), // filter timeouts to only people allowed to mute
+            // TODO: check other kinds are valid for this stream
+            _ => true,
+          },
+        );
         final mutedPubkeys =
-            (state ?? [])
-                .where((e) => e.kind == Nip51List.kMute)
+            firstPassEvents
+                .where(
+                  (e) =>
+                      e.kind == Nip51List.kMute ||
+                      (e.kind == 1314 &&
+                          e.createdAt < now &&
+                          double.parse(e.getFirstTag("expiration")!) > now),
+                )
                 .map((e) => e.tags)
                 .expand((e) => e)
-                .where(
-                  (e) => e[0] == "p" && e[1] != stream.info.host,
-                ) // cant mute host
+                .where((e) => e[0] == "p")
                 .map((e) => e[1])
                 .toSet();
 
+        final isChatDisabled = mutedPubkeys.contains(myKey);
         final filteredChat =
-            (state ?? [])
-                .where(
-                  (e) =>
-                      !mutedPubkeys.contains(switch (e.kind) {
-                        9735 => ZapReceipt.fromEvent(e).sender ?? e.pubKey,
-                        _ => e.pubKey,
-                      }),
-                )
+            firstPassEvents
+                .where((e) {
+                  final author = switch (e.kind) {
+                    9735 => ZapReceipt.fromEvent(e).sender ?? e.pubKey,
+                    _ => e.pubKey,
+                  };
+                  return muteLists.contains(author) || // cant mute self or host
+                      !mutedPubkeys.contains(author);
+                })
                 .sortedBy((e) => e.createdAt)
                 .reversed
                 .toList();
@@ -105,6 +124,7 @@ class ChatWidget extends StatelessWidget {
                         event: filteredChat[idx],
                         stream: stream,
                       ),
+                      1314 => ChatTimeoutWidget(timeout: filteredChat[idx]),
                       9735 => ChatZapWidget(
                         key: Key("chat:${filteredChat[idx].id}"),
                         stream: stream,
@@ -118,8 +138,10 @@ class ChatWidget extends StatelessWidget {
                     },
               ),
             ),
-            if (stream.info.status == StreamStatus.live)
+            if (stream.info.status == StreamStatus.live && !isChatDisabled)
               WriteMessageWidget(stream: stream),
+            if (stream.info.status == StreamStatus.live && isChatDisabled)
+              _chatDisabled(filteredChat),
             if (stream.info.status == StreamStatus.ended)
               Container(
                 padding: EdgeInsets.all(8),
@@ -138,6 +160,37 @@ class ChatWidget extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget _chatDisabled(List<Nip01Event> events) {
+    final myKey = ndk.accounts.getPublicKey();
+    final timeoutEvent = events.firstWhereOrNull(
+      (e) => e.kind == 1314 && e.pTags.contains(myKey),
+    );
+    return Container(
+      padding: EdgeInsets.all(12),
+      width: double.maxFinite,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(color: WARNING),
+      child: Column(
+        children: [
+          Text("CHAT DISABLED", style: TextStyle(fontWeight: FontWeight.bold)),
+          if (timeoutEvent != null)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Timeout expires: "),
+                CountdownTimer(
+                  onTrigger: () => {},
+                  triggerAt: DateTime.fromMillisecondsSinceEpoch(
+                    int.parse(timeoutEvent.getFirstTag("expiration")!) * 1000,
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
     );
   }
 }

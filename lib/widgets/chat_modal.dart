@@ -1,9 +1,13 @@
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
+import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button_follow.dart';
 import 'package:zap_stream_flutter/widgets/mute_button.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
+import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/reaction.dart';
 import 'package:zap_stream_flutter/widgets/zap.dart';
@@ -11,11 +15,13 @@ import 'package:zap_stream_flutter/widgets/zap.dart';
 class ChatModalWidget extends StatefulWidget {
   final Metadata profile;
   final Nip01Event event;
+  final StreamEvent stream;
 
   const ChatModalWidget({
     super.key,
     required this.profile,
     required this.event,
+    required this.stream,
   });
 
   @override
@@ -24,9 +30,13 @@ class ChatModalWidget extends StatefulWidget {
 
 class _ChatModalWidget extends State<ChatModalWidget> {
   bool _showEmojiPicker = false;
+  bool _showTimeoutOptions = false;
 
   @override
   Widget build(BuildContext context) {
+    final isModerator =
+        widget.stream.info.host == ndk.accounts.getPublicKey();
+
     return Container(
       padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
       child: Column(
@@ -50,6 +60,7 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                 ),
                 onPressed:
                     () => setState(() {
+                      _showTimeoutOptions = false;
                       _showEmojiPicker = !_showEmojiPicker;
                     }),
                 icon: Icon(Icons.mood),
@@ -76,9 +87,78 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                   },
                   icon: Icon(Icons.bolt),
                 ),
+              if (isModerator)
+                IconButton(
+                  color: WARNING,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateColor.resolveWith(
+                      (_) => LAYER_3,
+                    ),
+                  ),
+                  onPressed:
+                      () => setState(() {
+                        _showEmojiPicker = false;
+                        _showTimeoutOptions = !_showTimeoutOptions;
+                      }),
+                  icon: Icon(Icons.timer_outlined),
+                ),
             ],
           ),
           if (_showEmojiPicker) ReactionWidget(event: widget.event),
+
+          if (_showTimeoutOptions)
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 5,
+              childAspectRatio: 3,
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+              children:
+                  [
+                        10,
+                        30,
+                        60,
+                        300,
+                        60 * 10,
+                        60 * 30,
+                        60 * 60,
+                        60 * 60 * 6,
+                        60 * 60 * 12,
+                        60 * 60 * 24,
+                        60 * 60 * 24 * 2,
+                        60 * 60 * 24 * 7,
+                        60 * 60 * 24 * 7 * 2,
+                        60 * 60 * 24 * 7 * 3,
+                        60 * 60 * 24 * 7 * 4,
+                      ]
+                      .map(
+                        (v) => PillWidget(
+                          color: LAYER_2,
+                          onTap: () {
+                            final now =
+                                (DateTime.now().millisecondsSinceEpoch / 1000)
+                                    .ceil();
+                            final timeout = Nip01Event(
+                              pubKey: ndk.accounts.getPublicKey()!,
+                              kind: 1314,
+                              createdAt: now,
+                              tags: [
+                                ["p", widget.event.pubKey],
+                                ["expiration", (now + v).toString()],
+                              ],
+                              content: "",
+                            );
+                            ndk.broadcast.broadcast(nostrEvent: timeout);
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            Duration(seconds: v).pretty(abbreviated: true),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                      .toList(),
+            ),
           FollowButton(
             pubkey: widget.event.pubKey,
             onTap: () {

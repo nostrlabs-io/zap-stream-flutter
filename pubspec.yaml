@@ -34,6 +34,7 @@ dependencies:
   intl: ^0.20.2
   flutter_markdown_plus: ^1.0.3
   share_plus: ^11.0.0
+  duration: ^4.0.3
 
 dependency_overrides:
   ndk:

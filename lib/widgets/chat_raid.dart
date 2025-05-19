@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
@@ -202,7 +203,10 @@ class _CountdownTimerState extends State<CountdownTimer>
       animation: _animation,
       builder: (context, child) {
         final secondsLeft = _animation.value.ceil();
-        return Text(secondsLeft.toString(), style: widget.style);
+        return Text(
+          Duration(seconds: secondsLeft).pretty(abbreviated: true),
+          style: widget.style,
+        );
       },
     );
   }

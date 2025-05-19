@@ -32,7 +32,12 @@ class ChatMessageWidget extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               constraints: BoxConstraints.expand(),
-              builder: (ctx) => ChatModalWidget(profile: profile, event: msg),
+              builder:
+                  (ctx) => ChatModalWidget(
+                    profile: profile,
+                    event: msg,
+                    stream: stream,
+                  ),
             );
           }
         },

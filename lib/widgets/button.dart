@@ -19,7 +19,7 @@ class BasicButton extends StatelessWidget {
     this.disabled,
   });
 
-  static text(
+  static Widget text(
     String text, {
     BoxDecoration? decoration,
     EdgeInsetsGeometry? padding,
