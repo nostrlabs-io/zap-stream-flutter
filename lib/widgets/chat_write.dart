@@ -195,7 +195,10 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
     );
     _controller.clear();
     _focusNode.unfocus();
-    final res = ndk.broadcast.broadcast(nostrEvent: chatMsg);
+    final res = ndk.broadcast.broadcast(
+      nostrEvent: chatMsg,
+      specificRelays: widget.stream.info.relays,
+    );
     await res.broadcastDoneFuture;
   }
 
