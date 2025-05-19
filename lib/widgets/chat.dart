@@ -39,15 +39,19 @@ class ChatWidget extends StatelessWidget {
       filters: filters,
       builder: (ctx, state) {
         final now = DateTime.now().millisecondsSinceEpoch / 1000;
-        final firstPassEvents = (state ?? []).where(
-          (e) => switch (e.kind) {
-            1314 => muteLists.contains(
-              e.pubKey,
-            ), // filter timeouts to only people allowed to mute
-            // TODO: check other kinds are valid for this stream
-            _ => true,
-          },
-        );
+        final firstPassEvents =
+            (state ?? [])
+                .where(
+                  (e) => switch (e.kind) {
+                    1314 =>
+                      muteLists.contains(e.pubKey) &&
+                          double.parse(e.getFirstTag("expiration")!) >
+                              now, // filter timeouts to only people allowed to mute
+                    // TODO: check other kinds are valid for this stream
+                    _ => true,
+                  },
+                )
+                .toList();
         final mutedPubkeys =
             firstPassEvents
                 .where(
@@ -74,6 +78,8 @@ class ChatWidget extends StatelessWidget {
                   return muteLists.contains(author) || // cant mute self or host
                       !mutedPubkeys.contains(author);
                 })
+                // filter events that are created before stream start time
+                .where((e) => e.createdAt >= (stream.info.starts ?? 0))
                 .sortedBy((e) => e.createdAt)
                 .reversed
                 .toList();
@@ -141,7 +147,7 @@ class ChatWidget extends StatelessWidget {
             if (stream.info.status == StreamStatus.live && !isChatDisabled)
               WriteMessageWidget(stream: stream),
             if (stream.info.status == StreamStatus.live && isChatDisabled)
-              _chatDisabled(filteredChat),
+              _chatDisabled(firstPassEvents),
             if (stream.info.status == StreamStatus.ended)
               Container(
                 padding: EdgeInsets.all(8),
