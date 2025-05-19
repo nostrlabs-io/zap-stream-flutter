@@ -64,6 +64,16 @@ class ChatWidget extends StatelessWidget {
                 .where((e) => e.kind == 9735)
                 .map((e) => ZapReceipt.fromEvent(e))
                 .toList();
+        // pubkey -> Set<badge a tag>
+        final badgeAwards = filteredChat
+            .where((e) => e.kind == 8)
+            .map((e) => e.getTags("p").map((p) => (p, e.getFirstTag("a")!)))
+            .expand((v) => v)
+            .groupFoldBy(
+              (e) => e.$1,
+              (Set<String>? acc, v) => (acc ?? {})..add(v.$2),
+            );
+
         return Column(
           spacing: 8,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,6 +91,15 @@ class ChatWidget extends StatelessWidget {
                         key: Key("chat:${filteredChat[idx].id}"),
                         stream: stream,
                         msg: filteredChat[idx],
+                        badges:
+                            badgeAwards[filteredChat[idx].pubKey]
+                                ?.map(
+                                  (a) => ChatBadgeWidget.fromATag(
+                                    a,
+                                    key: Key("${filteredChat[idx].pubKey}:$a"),
+                                  ),
+                                )
+                                .toList(),
                       ),
                       1312 => ChatRaidMessage(
                         event: filteredChat[idx],

@@ -72,3 +72,28 @@ class ChatBadgeAwardWidget extends StatelessWidget {
     );
   }
 }
+
+class ChatBadgeWidget extends StatelessWidget {
+  final Nip01Event badge;
+
+  const ChatBadgeWidget({super.key, required this.badge});
+
+  static Widget fromATag(String aTag, {Key? key}) {
+    return FutureBuilder(
+      future: ndk.requests.query(filters: [aTagToFilter(aTag)]).future,
+      builder: (context, state) {
+        final ev = state.data?.firstOrNull;
+        if (ev == null) return SizedBox();
+        return ChatBadgeWidget(badge: ev, key: key);
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final image = badge.getFirstTag("image");
+    if (image?.isEmpty ?? true) return SizedBox();
+
+    return ProxyImg(url: image, resize: 24, height: 24, key: UniqueKey());
+  }
+}

@@ -13,8 +13,14 @@ import 'package:zap_stream_flutter/widgets/profile.dart';
 class ChatMessageWidget extends StatelessWidget {
   final StreamEvent stream;
   final Nip01Event msg;
+  final List<Widget>? badges;
 
-  const ChatMessageWidget({super.key, required this.stream, required this.msg});
+  const ChatMessageWidget({
+    super.key,
+    required this.stream,
+    required this.msg,
+    this.badges,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +66,16 @@ class ChatMessageWidget extends StatelessWidget {
               ),
             ),
           ),
+          if (badges?.isNotEmpty ?? false) TextSpan(text: " "),
+          if (badges?.isNotEmpty ?? false)
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Row(
+                spacing: 4,
+                mainAxisSize: MainAxisSize.min,
+                children: badges!,
+              ),
+            ),
           TextSpan(text: " "),
           ...textToSpans(msg.content, msg.tags, msg.pubKey),
         ],
