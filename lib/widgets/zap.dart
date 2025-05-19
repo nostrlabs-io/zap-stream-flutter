@@ -187,30 +187,24 @@ class _ZapWidget extends State<ZapWidget> {
           ),
         ),
       ),
-      FutureBuilder(
-        future: canLaunchUrlString(prLink),
-        builder: (context, v) {
-          if (!(v.data ?? false)) return SizedBox();
-          return BasicButton.text(
-            "Open in Wallet",
-            onTap: () async {
-              try {
-                await launchUrlString(prLink);
-              } catch (e) {
-                if (e is PlatformException) {
-                  if (e.code == "ACTIVITY_NOT_FOUND") {
-                    setState(() {
-                      _error = "No lightning wallet installed";
-                    });
-                    return;
-                  }
-                }
+      BasicButton.text(
+        "Open in Wallet",
+        onTap: () async {
+          try {
+            await launchUrlString(prLink);
+          } catch (e) {
+            if (e is PlatformException) {
+              if (e.code == "ACTIVITY_NOT_FOUND") {
                 setState(() {
-                  _error = e is String ? e : e.toString();
+                  _error = "No lightning wallet installed";
                 });
+                return;
               }
-            },
-          );
+            }
+            setState(() {
+              _error = e is String ? e : e.toString();
+            });
+          }
         },
       ),
 
