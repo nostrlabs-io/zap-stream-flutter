@@ -20,17 +20,17 @@ class ChatWidget extends StatelessWidget {
   const ChatWidget({super.key, required this.stream});
   @override
   Widget build(BuildContext context) {
-    var muteLists = [stream.info.host];
+    var moderators = [stream.info.host];
     final myKey = ndk.accounts.getPublicKey();
     if (myKey != null) {
-      muteLists.add(myKey);
+      moderators.add(myKey);
     }
 
     var filters = [
       Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
       Filter(kinds: [1312, 1313], limit: 200, aTags: [stream.aTag]),
-      Filter(kinds: [Nip51List.kMute], authors: muteLists),
-      Filter(kinds: [1314], authors: muteLists),
+      Filter(kinds: [Nip51List.kMute], authors: moderators),
+      Filter(kinds: [1314], authors: moderators),
       Filter(kinds: [8], authors: [stream.info.host]),
     ];
     return RxFilter<Nip01Event>(
@@ -44,7 +44,7 @@ class ChatWidget extends StatelessWidget {
                 .where(
                   (e) => switch (e.kind) {
                     1314 =>
-                      muteLists.contains(e.pubKey) &&
+                      moderators.contains(e.pubKey) &&
                           double.parse(e.getFirstTag("expiration")!) >
                               now, // filter timeouts to only people allowed to mute
                     // TODO: check other kinds are valid for this stream
@@ -75,7 +75,7 @@ class ChatWidget extends StatelessWidget {
                     9735 => ZapReceipt.fromEvent(e).sender ?? e.pubKey,
                     _ => e.pubKey,
                   };
-                  return muteLists.contains(author) || // cant mute self or host
+                  return moderators.contains(author) || // cant mute self or host
                       !mutedPubkeys.contains(author);
                 })
                 // filter events that are created before stream start time
