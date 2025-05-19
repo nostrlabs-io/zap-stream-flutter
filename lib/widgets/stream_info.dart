@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/button_follow.dart';
 import 'package:zap_stream_flutter/widgets/game_info.dart';
 import 'package:zap_stream_flutter/widgets/live_timer.dart';
@@ -18,6 +21,8 @@ class StreamInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMe = ndk.accounts.getPublicKey() == stream.info.host;
+
     final startedDate =
         stream.info.starts != null
             ? DateTime.fromMillisecondsSinceEpoch(stream.info.starts! * 1000)
@@ -29,16 +34,35 @@ class StreamInfoWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProfileWidget.pubkey(stream.info.host, linkToProfile: false),
-          FollowButton(
-            pubkey: stream.info.host,
-            onTap: () {
-              Navigator.pop(context);
-            },
+          Row(
+            spacing: 8,
+            children: [
+              if (!isMe)
+                FollowButton(
+                  pubkey: stream.info.host,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              BasicButton.text(
+                "Share",
+                icon: Icon(Icons.share, size: 16),
+                onTap: () {
+                  SharePlus.instance.share(
+                    ShareParams(
+                      title: stream.info.title,
+                      uri: Uri.parse("https://zap.stream/${stream.link}"),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
-          Text(
-            stream.info.title ?? "",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+          if (stream.info.title?.isNotEmpty ?? false)
+            Text(
+              stream.info.title!,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           if (startedDate != null)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

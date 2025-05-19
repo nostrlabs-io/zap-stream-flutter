@@ -27,14 +27,22 @@ class BasicButton extends StatelessWidget {
     void Function()? onTap,
     double? fontSize,
     bool? disabled,
+    Icon? icon,
   }) {
     return BasicButton(
-      Text(
-        text,
-        style: TextStyle(
-          color: Color.fromARGB(255, 255, 255, 255),
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
+      Text.rich(
+        TextSpan(
+          style: TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+          ),
+          children: [
+            if (icon != null)
+              WidgetSpan(child: icon, alignment: PlaceholderAlignment.middle),
+            if (icon != null) TextSpan(text: " "),
+            TextSpan(text: text),
+          ],
         ),
       ),
       disabled: disabled,

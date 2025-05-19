@@ -34,10 +34,11 @@ class _StreamPage extends State<StreamPage> with RouteAware {
     final router = GoRouter.of(context);
     final currentConfiguration = router.routerDelegate.currentConfiguration;
     final match = currentConfiguration.matches.lastOrNull;
-    final lastMatch = match is ShellRouteMatch ? match.matches.lastOrNull : match;
+    final lastMatch =
+        match is ShellRouteMatch ? match.matches.lastOrNull : match;
     return lastMatch != null &&
         (lastMatch.route is GoRoute &&
-        (lastMatch.route as GoRoute).path == StreamPage.path);
+            (lastMatch.route as GoRoute).path == StreamPage.path);
   }
 
   @override
@@ -122,10 +123,11 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                   ? ProxyImg(url: stream.info.image)
                   : Container(decoration: BoxDecoration(color: LAYER_1)),
         ),
-        Text(
-          stream.info.title ?? "",
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-        ),
+        if (stream.info.title?.isNotEmpty ?? false)
+          Text(
+            stream.info.title!,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+          ),
         ProfileWidget.pubkey(
           stream.info.host,
           children: [
