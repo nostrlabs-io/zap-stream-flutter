@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/avatar_upload.dart';
@@ -19,7 +20,7 @@ class SettingsProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pubkey = ndk.accounts.getPublicKey();
-    if (pubkey == null) return Text("Cant edit profile when logged out");
+    if (pubkey == null) return Text(t.profile.edit.error.logged_out);
 
     return FutureBuilder(
       future: ndk.metadata.loadMetadata(pubkey),
@@ -51,7 +52,7 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _name,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: "Display Name",
+                    labelText: t.profile.edit.display_name,
                     fillColor: LAYER_1,
                     filled: true,
                   ),
@@ -60,7 +61,7 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _about,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: "About",
+                    labelText: t.profile.edit.about,
                     fillColor: LAYER_1,
                     filled: true,
                   ),
@@ -69,7 +70,7 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _nip5,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: "Nostr Address",
+                    labelText: t.profile.edit.nip05,
                     fillColor: LAYER_1,
                     filled: true,
                   ),
@@ -78,13 +79,13 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _lud16,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: "Lightning Address",
+                    labelText: t.profile.edit.lud16,
                     fillColor: LAYER_1,
                     filled: true,
                   ),
                 ),
                 BasicButton.text(
-                  "Save",
+                  t.button.save,
                   disabled: v,
                   onTap: () async {
                     _loading.value = true;

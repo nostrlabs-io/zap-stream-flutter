@@ -1,0 +1,125 @@
+upload_avatar: Avatar uploaden
+"@upload_avatar":
+  description: Tekst die de gebruiker vraagt om op de avatar-plaatshouder te
+    klikken om te beginnen met uploaden
+most_zapped_streamers: Meeste Zapped Streamers
+"@most_zapped_streamers":
+  description: Koers over beursgenoteerde topstreamers door zaps
+no_user_found: Geen gebruiker gevonden
+"@no_user_found":
+  description: Geen gebruiker gevonden bij het zoeken
+anon: Anon
+viewers:
+  one: 1 kijker
+  other: $n kijkers
+"@viewers":
+  description: Aantal kijkers van de stream
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: Een anonieme gebruiker
+stream:
+  status:
+    live: LIVE
+    ended: GESLOTEN
+    planned: GEPLAND
+  started: Begonnen met $timestamp
+  chat:
+    disabled: CHAT UITGESCHAKELD
+    disabled_timeout: "Time-out loopt af: $time"
+    timeout(rich): $mod timed out $user voor $time
+    "@timeout":
+      description: Chatbericht met time-outgebeurtenissen
+    ended: STREAM BEËINDIGD
+    "@ended":
+      description: Voettekst einde stream onderaan chat
+    zap(rich): $user zapped $amount sats
+    "@zap":
+      description: Chatbericht met stream zaps
+    write:
+      label: Schrijf bericht
+      "@label":
+        description: Label op het invoerveld voor chatberichten
+      no_signer: Kan geen berichten schrijven met npub login
+      "@no_signer":
+        description: Chatinvoerbericht getoond wanneer de gebruiker alleen is ingelogd
+          met pubkey
+      login: Log in om berichten te verzenden
+      "@login":
+        description: Chatinvoerbericht dat wordt weergegeven wanneer de gebruiker is
+          uitgelogd
+    badge:
+      awarded_to: "Toegekend aan:"
+      "@awarded_to":
+        description: Kop boven de lijst met gebruikers die een badge hebben gekregen
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Chat raid bericht naar een andere stream
+      from: RAID VAN $name
+      "@from":
+        description: Chat invalbericht van een andere stream
+      countdown: Overvallen in $time
+      "@countdown":
+        description: Afteltimer voor automatisch rijden
+goal:
+  title: "Doel: $amount"
+  remaining: "Overblijvend: $amount"
+  complete: COMPLETE
+button:
+  login: Inloggen
+  logout: Uitloggen
+  edit_profile: Bewerk Profiel
+  "@login":
+    description: Knoptekst voor de aanmeldknop
+  follow: Volgen
+  "@follow":
+    description: Knoptekst voor de volgknop
+  unfollow: Ontvolgen
+  "@unfollow":
+    description: Knoptekst voor de knop Ontvolgen
+  mute: Dempen
+  unmute: Niet langer negeren
+  share: Deel
+  save: Opslaan
+embed:
+  article_by: Artikel door $name
+  note_by: Opmerking door $name
+  live_stream_by: Live stream via $name
+stream_list:
+  following: Volgt
+  live: Live
+  planned: Gepland
+  ended: Beëindigd
+"@stream_list":
+  description: Rubrieken op streamlijsten per streamtype live/beëindigd/gepland etc.
+zap:
+  title: Zap $name
+  custom_amount: Aangepast bedrag
+  confirm: Bevestig
+  comment: Opmerking
+  button_zap_ready: Zap $amount sats
+  button_zap: Zap
+  button_open_wallet: Openen in portefeuille
+  copy: Gekopieerd naar klembord
+  error:
+    invalid_custom_amount: Ongeldig aangepast bedrag
+    no_wallet: Geen bliksemportemonnee geïnstalleerd
+    no_lud16: Geen bliksemadres gevonden
+profile:
+  past_streams: Afgelopen Streams
+  edit:
+    display_name: Naam weergeven
+    about: Over ons
+    nip05: Nostr Adres
+    lud16: Lightning adres
+    error:
+      logged_out: Kan profiel niet bewerken als ik ben uitgelogd
+login:
+  username: Gebruikersnaam
+  amber: Inloggen met Amber
+  key: Inloggen met sleutel
+  create: Account aanmaken
+  error:
+    invalid_key: Ongeldige sleutel

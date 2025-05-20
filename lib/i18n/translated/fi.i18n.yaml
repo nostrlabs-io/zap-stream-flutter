@@ -1,0 +1,125 @@
+upload_avatar: Lataa avatar
+"@upload_avatar":
+  description: Teksti, joka kehottaa käyttäjää painamaan avatar-merkkiä
+    aloittaakseen lataamisen.
+most_zapped_streamers: Eniten Zapped Streamers
+"@most_zapped_streamers":
+  description: Päällekkäin lueteltujen alkuun streamers by zaps
+no_user_found: Käyttäjää ei löytynyt
+"@no_user_found":
+  description: Käyttäjää ei löytynyt haun yhteydessä
+anon: Anon
+viewers:
+  one: 1 katsoja
+  other: $n katsojaa
+"@viewers":
+  description: Streamin katsojien määrä
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: Nimetön käyttäjä
+stream:
+  status:
+    live: LIVE
+    ended: ENDED
+    planned: SUUNNITELTU
+  started: Aloitettu $timestamp
+  chat:
+    disabled: CHAT POISTETTU KÄYTÖSTÄ
+    disabled_timeout: "Aikakatkaisu päättyy: $time"
+    timeout(rich): $mod ajastettu $user for $time
+    "@timeout":
+      description: Chat-viesti, joka näyttää aikakatkaisutapahtumat
+    ended: STREAM PÄÄTTYNYT
+    "@ended":
+      description: Virta päättyi alatunnisteen alareunaan chatissa
+    zap(rich): $user zappasi $amount satsia
+    "@zap":
+      description: Chat-viestin näyttäminen stream zaps
+    write:
+      label: Kirjoita viesti
+      "@label":
+        description: Chat-viestin syöttöruudun tarra
+      no_signer: Ei voi kirjoittaa viestejä npub-kirjautumisella
+      "@no_signer":
+        description: Chat-syöttöviesti näytetään, kun käyttäjä on kirjautunut sisään
+          vain pubkey-avaimella.
+      login: Kirjaudu sisään lähettääksesi viestejä
+      "@login":
+        description: Chat-syötteen viesti näytetään, kun käyttäjä on kirjautunut ulos.
+    badge:
+      awarded_to: "Myönnetty:"
+      "@awarded_to":
+        description: Merkin saaneiden käyttäjien luettelon otsikko
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Chat-viesti toiseen streamiin
+      from: RAID FROM $name
+      "@from":
+        description: Chat raid viesti toisesta virrasta
+      countdown: Ryöstöretket osoitteessa $time
+      "@countdown":
+        description: Lähtölaskenta ajastin automaattista ratsastusta varten
+goal:
+  title: "Tavoite: $amount"
+  remaining: "Jäljellä: $amount"
+  complete: TÄYDELLINEN
+button:
+  login: Kirjaudu sisään
+  logout: Kirjaudu ulos
+  edit_profile: Muokkaa profiilia
+  "@login":
+    description: Kirjautumispainikkeen teksti
+  follow: Seuraa
+  "@follow":
+    description: Seuraa-painikkeen painikkeen teksti
+  unfollow: Älä seuraa
+  "@unfollow":
+    description: Seuraa-painikkeen teksti
+  mute: Mykistä
+  unmute: Poista mykistys
+  share: Jaa
+  save: Tallenna
+embed:
+  article_by: Artikkeli $name
+  note_by: Viesti lähettäjältä $name
+  live_stream_by: Suora lähetys osoitteessa $name
+stream_list:
+  following: Seuraa
+  live: Live
+  planned: Suunniteltu
+  ended: Päättynyt
+"@stream_list":
+  description: Stream-luetteloiden otsikot stream-tyypeittäin
+    live/päättynyt/suunniteltu jne.
+zap:
+  title: Zap $name
+  custom_amount: Mukautettu määrä
+  confirm: Vahvista
+  comment: Kommentoi
+  button_zap_ready: Zap $amount satsia
+  button_zap: Zap
+  button_open_wallet: Avaa lompakossa
+  copy: Kopioitu leikepöydälle
+  error:
+    invalid_custom_amount: Virheellinen mukautettu määrä
+    no_wallet: Ei asennettua salamalompakkoa
+    no_lud16: Salamaosoitetta ei löytynyt
+profile:
+  past_streams: Aikaisemmat lähetykset
+  edit:
+    display_name: Näytön nimi
+    about: Tietoja
+    nip05: Nostr-osoite
+    lud16: Lightning-osoite
+    error:
+      logged_out: Ei voi muokata profiilia, kun on kirjautunut ulos
+login:
+  username: Käyttäjätunnus
+  amber: Kirjaudu sisään Amber kanssa
+  key: Kirjaudu sisään avaimella
+  create: Luo tili
+  error:
+    invalid_key: Virheellinen avain

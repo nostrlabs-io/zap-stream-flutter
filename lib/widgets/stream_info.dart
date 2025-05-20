@@ -68,14 +68,9 @@ class StreamInfoWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: LAYER_5, fontSize: 14),
-                    children: [
-                      TextSpan(text: "Started "),
-                      TextSpan(text: DateFormat().format(startedDate)),
-                    ],
-                  ),
+                Text(
+                  t.stream.started(timestamp: DateFormat().format(startedDate)),
+                  style: TextStyle(color: LAYER_5, fontSize: 14),
                 ),
                 LiveTimerWidget(started: startedDate),
               ],

@@ -1,0 +1,124 @@
+upload_avatar: Nahrát avatar
+"@upload_avatar":
+  description: Text vyzývající uživatele, aby stiskl zástupný symbol avatara pro
+    zahájení nahrávání
+most_zapped_streamers: Nejvíce zapnutých streamerů
+"@most_zapped_streamers":
+  description: Směřování přes uvedené horní streamery podle zaps
+no_user_found: Nebyl nalezen žádný uživatel
+"@no_user_found":
+  description: Při vyhledávání nebyl nalezen žádný uživatel
+anon: Anon
+viewers:
+  one: 1 divák
+  other: $n diváci
+"@viewers":
+  description: Počet diváků streamu
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: Anonymní uživatel
+stream:
+  status:
+    live: LIVE
+    ended: KONEC
+    planned: PLÁNOVANÉ
+  started: Založeno $timestamp
+  chat:
+    disabled: CHAT ZRUŠEN
+    disabled_timeout: "Časový limit vyprší: $time"
+    timeout(rich): $mod vypršel čas $user pro $time
+    "@timeout":
+      description: Zpráva chatu zobrazující události časového limitu
+    ended: STREAM UKONČEN
+    "@ended":
+      description: Zápatí v dolní části chatu ukončilo stream
+    zap(rich): $user Zapped $amount sats
+    "@zap":
+      description: Zpráva chatu zobrazující proud zaps
+    write:
+      label: Napište zprávu
+      "@label":
+        description: Popisek na vstupním poli zprávy chatu
+      no_signer: Nelze psát zprávy s přihlášením npub
+      "@no_signer":
+        description: Vstupní zpráva chatu se zobrazí, když je uživatel přihlášen pouze
+          pomocí pubkey
+      login: Pro odesílání zpráv se prosím přihlaste
+      "@login":
+        description: Vstupní zpráva chatu zobrazená při odhlášení uživatele
+    badge:
+      awarded_to: "Uděleno:"
+      "@awarded_to":
+        description: Záhlaví nad seznamem uživatelů, kterým byl udělen odznak
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Zpráva o nájezdu chatu do jiného proudu
+      from: RAID Z $name
+      "@from":
+        description: Zpráva o nájezdu chatu z jiného proudu
+      countdown: Nájezdy na $time
+      "@countdown":
+        description: Časovač odpočítávání pro automatický nájezd
+goal:
+  title: "Cíl: $amount"
+  remaining: "Zbývá: $amount"
+  complete: KOMPLETNÍ
+button:
+  login: Přihlášení
+  logout: Odhlášení
+  edit_profile: Upravit profil
+  "@login":
+    description: Text tlačítka pro přihlašovací tlačítko
+  follow: Sledujte
+  "@follow":
+    description: Text tlačítka pro tlačítko sledovat
+  unfollow: Zrušit sledování
+  "@unfollow":
+    description: Text tlačítka pro zrušení sledování
+  mute: Ztlumit
+  unmute: Zrušit ztlumení
+  share: Sdílet
+  save: Uložit
+embed:
+  article_by: Článek na $name
+  note_by: Poznámka $name
+  live_stream_by: Přímý přenos na adrese $name
+stream_list:
+  following: Po
+  live: Živě
+  planned: Plánované
+  ended: Ukončeno
+"@stream_list":
+  description: Nadpisy v seznamech proudů podle typu proudu živě/konec/plánovaně atd.
+zap:
+  title: Zap $name
+  custom_amount: Vlastní částka
+  confirm: Potvrďte
+  comment: "Komentář:"
+  button_zap_ready: Zap $amount sats
+  button_zap: Zap
+  button_open_wallet: Otevřít v peněžence
+  copy: Zkopírováno do schránky
+  error:
+    invalid_custom_amount: Neplatná vlastní částka
+    no_wallet: Není nainstalována blesková peněženka
+    no_lud16: Nebyla nalezena žádná adresa blesku
+profile:
+  past_streams: Minulé proudy
+  edit:
+    display_name: Zobrazení názvu
+    about: O stránkách
+    nip05: Adresa Nostr
+    lud16: Adresa blesku
+    error:
+      logged_out: Nelze upravit profil, když je odhlášený
+login:
+  username: Uživatelské jméno
+  amber: Přihlášení pomocí Amber
+  key: Přihlášení pomocí klíče
+  create: Vytvořit účet
+  error:
+    invalid_key: Neplatný klíč

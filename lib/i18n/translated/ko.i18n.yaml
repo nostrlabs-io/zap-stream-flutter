@@ -1,0 +1,122 @@
+upload_avatar: 아바타 업로드
+"@upload_avatar":
+  description: 아바타 플레이스홀더를 눌러 업로드를 시작하라는 메시지를 표시하는 텍스트
+most_zapped_streamers: 가장 많이 재핑된 스트리머
+"@most_zapped_streamers":
+  description: 나열된 상위 스트리머를 잽별로 살펴보기
+no_user_found: 사용자를 찾을 수 없습니다.
+"@no_user_found":
+  description: 검색 시 사용자를 찾을 수 없음
+anon: Anon
+viewers:
+  one: 시청자 1명
+  other: $n 시청자
+"@viewers":
+  description: 스트림 시청자 수
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: 익명 사용자
+stream:
+  status:
+    live: 라이브
+    ended: 종료
+    planned: 계획된
+  started: 시작 $timestamp
+  chat:
+    disabled: 채팅 사용 안 함
+    disabled_timeout: "시간 초과가 만료되었습니다: $time"
+    timeout(rich): $mod 시간 초과됨 $user $time
+    "@timeout":
+      description: 시간 초과 이벤트를 표시하는 채팅 메시지
+    ended: 스트림 종료
+    "@ended":
+      description: 채팅 하단의 스트림 종료 푸터
+    zap(rich): $user ZAPP $amount SATS
+    "@zap":
+      description: 채팅 메시지 스트림 끊김 표시
+    write:
+      label: 메시지 작성
+      "@label":
+        description: 채팅 메시지 입력 상자의 라벨
+      no_signer: npub 로그인으로 메시지를 작성할 수 없습니다.
+      "@no_signer":
+        description: 사용자가 공개 키로만 로그인한 경우에 표시되는 채팅 입력 메시지
+      login: 메시지를 보내려면 로그인하세요.
+      "@login":
+        description: 사용자가 로그아웃할 때 표시되는 채팅 입력 메시지
+    badge:
+      awarded_to: 수상 대상
+      "@awarded_to":
+        description: 배지를 받은 사용자 목록으로 이동하기
+    raid:
+      to: RAIDing $name
+      "@to":
+        description: 다른 스트림으로 채팅 레이드 메시지 보내기
+      from: RAID FROM $name
+      "@from":
+        description: 다른 스트림의 채팅 레이드 메시지
+      countdown: $time에서 레이드
+      "@countdown":
+        description: 자동 레이드를 위한 카운트다운 타이머
+goal:
+  title: "목표: $amount"
+  remaining: "남음: $amount"
+  complete: 완료
+button:
+  login: 로그인
+  logout: 로그아웃
+  edit_profile: 프로필 수정
+  "@login":
+    description: 로그인 버튼의 버튼 텍스트
+  follow: 팔로우
+  "@follow":
+    description: 팔로우 버튼의 버튼 텍스트
+  unfollow: 언팔로우
+  "@unfollow":
+    description: 언팔로우 버튼의 버튼 텍스트
+  mute: 뮤트
+  unmute: 뮤트 해제
+  share: 공유
+  save: 저장
+embed:
+  article_by: "작성자: $name"
+  note_by: "노트 작성됨: $name"
+  live_stream_by: "라이브 스트리밍: $name"
+stream_list:
+  following: 팔로잉
+  live: 라이브
+  planned: 계획된
+  ended: 종료됨
+"@stream_list":
+  description: 실시간/종료/예정 등 스트림 유형별로 스트림 목록의 제목을 표시합니다.
+zap:
+  title: Zap $name
+  custom_amount: 사용자 지정 금액
+  confirm: 확인
+  comment: 댓글
+  button_zap_ready: Zap $amount sats
+  button_zap: Zap
+  button_open_wallet: 지갑에서 열기
+  copy: 클립보드에 복사
+  error:
+    invalid_custom_amount: 잘못된 사용자 지정 금액
+    no_wallet: 라이트닝 월렛이 설치되지 않았습니다.
+    no_lud16: 번개 주소를 찾을 수 없습니다.
+profile:
+  past_streams: 과거 스트림
+  edit:
+    display_name: 표시 이름
+    about: 정보
+    nip05: 노스트르 주소
+    lud16: 라이트닝 주소
+    error:
+      logged_out: 로그아웃 시 프로필 수정 불가
+login:
+  username: 사용자 이름
+  amber: Amber로 로그인
+  key: 키로 로그인
+  create: 계정 만들기
+  error:
+    invalid_key: 잘못된 키

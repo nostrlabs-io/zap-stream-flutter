@@ -1,0 +1,124 @@
+upload_avatar: Avatár feltöltése
+"@upload_avatar":
+  description: Szöveg, amely arra kéri a felhasználót, hogy a feltöltés
+    megkezdéséhez nyomja meg az avatar helyőrzőt
+most_zapped_streamers: A legtöbb Zapped Streamers
+"@most_zapped_streamers":
+  description: Irány a felsorolt top streamerek fölött zaps által
+no_user_found: Nem talált felhasználó
+"@no_user_found":
+  description: Kereséskor nem talált felhasználó
+anon: Névtelen
+viewers:
+  one: 1 néző
+  other: $n néző
+"@viewers":
+  description: A stream nézőinek száma
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: Egy névtelen felhasználó
+stream:
+  status:
+    live: ÉLŐ
+    ended: ENDED
+    planned: TERVEZETT
+  started: Elindult $timestamp
+  chat:
+    disabled: CHAT KIKAPCSOLVA
+    disabled_timeout: "Az időkorlát lejár: $time"
+    timeout(rich): $mod időzített $user a $time számára
+    "@timeout":
+      description: Chat üzenet az időkorlátos események megjelenítésével
+    ended: STREAM MEGSZÜNTETETT
+    "@ended":
+      description: A stream véget ért lábléc a chat alján
+    zap(rich): $user zap-elt $amount sats
+    "@zap":
+      description: Csevegőüzenet, amely stream zapokat mutat
+    write:
+      label: Üzenet írása
+      "@label":
+        description: Címke a csevegőüzenet beviteli mezőjén
+      no_signer: Nem tud üzeneteket írni az npub bejelentkezéssel
+      "@no_signer":
+        description: A csevegés bemeneti üzenete megjelenik, ha a felhasználó csak
+          pubkey-vel van bejelentkezve
+      login: Kérjük, jelentkezzen be az üzenetek küldéséhez
+      "@login":
+        description: A felhasználó kijelentkezésekor megjelenő csevegési beviteli üzenet
+    badge:
+      awarded_to: "Elnyerte:"
+      "@awarded_to":
+        description: Fejléc a jelvényt kapott felhasználók listája fölött
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Chat raid üzenet egy másik folyamba
+      from: RAID FROM $name
+      "@from":
+        description: Chat raid üzenet egy másik folyamból
+      countdown: Raiding a $time oldalon
+      "@countdown":
+        description: Visszaszámláló időzítő az automatikus lovagláshoz
+goal:
+  title: "Cél: $amount"
+  remaining: "Maradék: $amount"
+  complete: TELJES
+button:
+  login: Bejelentkezés
+  logout: Kijelentkezés
+  edit_profile: Profil szerkesztése
+  "@login":
+    description: A bejelentkezési gomb szövege
+  follow: Követés
+  "@follow":
+    description: A követés gomb szövege
+  unfollow: Követés megszüntetése
+  "@unfollow":
+    description: A követés megszüntetése gomb szövege
+  mute: Némítás
+  unmute: Némítás visszavonása
+  share: Megosztás
+  save: Mentés
+embed:
+  article_by: A $name cikke.
+  note_by: $name bejegyzése
+  live_stream_by: Élő közvetítés a $name oldalon
+stream_list:
+  following: Követettek bejegyzései
+  live: Élő
+  planned: Tervezett
+  ended: Véget ért
+"@stream_list":
+  description: A stream-listák címsorai stream-típusonként élő/befejezett/tervezett stb.
+zap:
+  title: Zap $name
+  custom_amount: Egyéni összeg
+  confirm: Megerősítés
+  comment: Hozzászólás
+  button_zap_ready: Zap $amount satoshi
+  button_zap: Zap
+  button_open_wallet: Megnyitás a pénztárcában
+  copy: Vágólapra másolva
+  error:
+    invalid_custom_amount: Érvénytelen egyéni összeg
+    no_wallet: Nincs telepített villám tárca
+    no_lud16: Nem talált villámcím
+profile:
+  past_streams: Múltbeli Streamek
+  edit:
+    display_name: Megjelenített név
+    about: Névjegy
+    nip05: Nostr-cím
+    lud16: Lightning-cím
+    error:
+      logged_out: Kijelentkezve nem lehet profilt szerkeszteni
+login:
+  username: Felhasználónév
+  amber: Bejelentkezés Amber segítségével
+  key: Bejelentkezés kulccsal
+  create: Fiók Létrehozása
+  error:
+    invalid_key: Érvénytelen kulcs

@@ -43,29 +43,29 @@ dependencies:
 dependency_overrides:
   ndk:
     git:
-      url: https://github.com/relaystr/ndk
+      url: https://github.com/v0l/ndk
       path: packages/ndk
-      ref: 919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a
+      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
   ndk_objectbox:
     git:
-      url: https://github.com/relaystr/ndk
+      url: https://github.com/v0l/ndk
       path: packages/objectbox
-      ref: 919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a
+      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
   ndk_amber:
     git:
-      url: https://github.com/relaystr/ndk
+      url: https://github.com/v0l/ndk
       path: packages/amber
-      ref: 919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a
+      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
   slang:
     git:
       url: https://github.com/nostrlabs-io/slang
       path: slang
-      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      ref: 08c71daf08caf14990ea6381401d31ab4101fc03
   slang_flutter:
     git:
       url: https://github.com/nostrlabs-io/slang
       path: slang_flutter
-      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      ref: 08c71daf08caf14990ea6381401d31ab4101fc03
 
 dev_dependencies:
   flutter_test:

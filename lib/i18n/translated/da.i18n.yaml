@@ -1,0 +1,124 @@
+upload_avatar: Upload avatar
+"@upload_avatar":
+  description: Tekst, der beder brugeren om at trykke på avatar-pladsholderen for
+    at begynde at uploade
+most_zapped_streamers: De fleste zappede streamere
+"@most_zapped_streamers":
+  description: På vej over listede topstreamere af zaps
+no_user_found: Ingen bruger fundet
+"@no_user_found":
+  description: Ingen bruger fundet ved søgning
+anon: Anon
+viewers:
+  one: 1 seer
+  other: $n Seere
+"@viewers":
+  description: Antal seere af streamingen
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: En anonym bruger
+stream:
+  status:
+    live: LIVE
+    ended: AFSLUTTET
+    planned: PLANLAGT
+  started: Startet $timestamp
+  chat:
+    disabled: CHAT DEAKTIVERET
+    disabled_timeout: "Timeout udløber: $time"
+    timeout(rich): $mod udløbet $user for $time
+    "@timeout":
+      description: Chatbesked, der viser timeout-hændelser
+    ended: STREAM AFSLUTTET
+    "@ended":
+      description: Stream afsluttede footer i bunden af chatten
+    zap(rich): $user zappet $amount sats
+    "@zap":
+      description: Chatbesked, der viser stream-zaps
+    write:
+      label: Skriv en besked
+      "@label":
+        description: Label på chatbeskedens inputfelt
+      no_signer: Kan ikke skrive beskeder med npub-login
+      "@no_signer":
+        description: Chat-inputmeddelelse vises, når brugeren kun er logget ind med pubkey
+      login: Log ind for at sende beskeder
+      "@login":
+        description: Chat-inputmeddelelse vises, når brugeren er logget ud
+    badge:
+      awarded_to: "Tildelt til:"
+      "@awarded_to":
+        description: Overskrift over liste over brugere, der har fået tildelt et badge
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Chat raid-besked til en anden stream
+      from: RAID FRA $name
+      "@from":
+        description: Chat raid-besked fra en anden stream
+      countdown: Raiding i $time
+      "@countdown":
+        description: Nedtællingstimer til auto-raiding
+goal:
+  title: "Mål: $amount"
+  remaining: "Resterende: $amount"
+  complete: KOMPLET
+button:
+  login: Login
+  logout: Log ud
+  edit_profile: Rediger profil
+  "@login":
+    description: Knaptekst til login-knappen
+  follow: Følg med
+  "@follow":
+    description: Knaptekst til følg-knappen
+  unfollow: Ikke følge
+  "@unfollow":
+    description: Knaptekst til unfollow-knappen
+  mute: Dæmpet
+  unmute: Slå lyden fra
+  share: Del
+  save: Gemme
+embed:
+  article_by: Artikel af $name
+  note_by: Note fra $name
+  live_stream_by: Livestream på $name
+stream_list:
+  following: Efterfølgende
+  live: Live
+  planned: Planlagt
+  ended: Afsluttet
+"@stream_list":
+  description: Overskrifter på streaminglister efter streamingtype
+    live/afsluttet/planlagt osv.
+zap:
+  title: Zap $name
+  custom_amount: Brugerdefineret beløb
+  confirm: Bekræft
+  comment: Kommentar
+  button_zap_ready: Zap $amount sats
+  button_zap: Zap
+  button_open_wallet: Åbn i tegnebogen
+  copy: Kopieret til udklipsholder
+  error:
+    invalid_custom_amount: Ugyldigt brugerdefineret beløb
+    no_wallet: Ingen lightning wallet installeret
+    no_lud16: Ingen lyn-adresse fundet
+profile:
+  past_streams: Tidligere strømme
+  edit:
+    display_name: Vis navn
+    about: Omkring
+    nip05: Nostr-adresse
+    lud16: Adresse for lynnedslag
+    error:
+      logged_out: Kan ikke redigere profil, når jeg er logget ud
+login:
+  username: Brugernavn
+  amber: Log ind med Amber
+  key: Login med nøgle
+  create: Opret konto
+  error:
+    invalid_key: Ugyldig nøgle

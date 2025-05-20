@@ -1,0 +1,124 @@
+upload_avatar: Ladda upp avatar
+"@upload_avatar":
+  description: Text som uppmanar användaren att trycka på avatarplatshållaren för
+    att påbörja uppladdningen
+most_zapped_streamers: De flesta zappade streamers
+"@most_zapped_streamers":
+  description: Rubrik över listade toppstreamers av zaps
+no_user_found: Ingen användare hittades
+"@no_user_found":
+  description: Ingen användare hittades vid sökning
+anon: Anon
+viewers:
+  one: 1 tittare
+  other: $n tittare
+"@viewers":
+  description: Antal tittare på streamingen
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: En anonym användare
+stream:
+  status:
+    live: LIVE
+    ended: AVSLUTAD
+    planned: PLANERADE
+  started: Startade $timestamp
+  chat:
+    disabled: CHAT AVSTÄNGD
+    disabled_timeout: "Tidsgränsen går ut: $time"
+    timeout(rich): $mod tidsbegränsad $user för $time
+    "@timeout":
+      description: Chattmeddelande som visar timeout-händelser
+    ended: STREAM AVSLUTAD
+    "@ended":
+      description: Stream avslutade sidfoten längst ner på chatten
+    zap(rich): $user zapped $amount sats
+    "@zap":
+      description: Chattmeddelande som visar strömavbrott
+    write:
+      label: Skriv meddelande
+      "@label":
+        description: Etikett på inmatningsrutan för chattmeddelanden
+      no_signer: Det går inte att skriva meddelanden med npub-inloggning
+      "@no_signer":
+        description: Chattinmatningsmeddelande som visas när användaren endast är
+          inloggad med pubkey
+      login: Logga in för att skicka meddelanden
+      "@login":
+        description: Chattinmatningsmeddelande som visas när användaren är utloggad
+    badge:
+      awarded_to: "Tilldelas till:"
+      "@awarded_to":
+        description: Rubrik över lista över användare som tilldelats en badge
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Chatta raidmeddelande till en annan ström
+      from: RAID FRÅN $name
+      "@from":
+        description: Chat raid-meddelande från en annan ström
+      countdown: Raiding på $time
+      "@countdown":
+        description: Nedräkningstimer för auto-raiding
+goal:
+  title: "Mål: $amount"
+  remaining: "Kvarvarande: $amount"
+  complete: KOMPLETT
+button:
+  login: Logga in
+  logout: Logga ut
+  edit_profile: Redigera profil
+  "@login":
+    description: Knapptext för inloggningsknappen
+  follow: Följ
+  "@follow":
+    description: Knapptext för följ-knappen
+  unfollow: Sluta följa
+  "@unfollow":
+    description: Knapptext för avföljningsknappen
+  mute: Tysta
+  unmute: Avtysta
+  share: Dela
+  save: Spara
+embed:
+  article_by: Artikel av $name
+  note_by: Anteckning av $name
+  live_stream_by: Direktsändning via $name
+stream_list:
+  following: Följer
+  live: Live
+  planned: Planerade
+  ended: Avslutade
+"@stream_list":
+  description: Rubriker på strömlistor efter strömtyp live/avslutad/planerad etc.
+zap:
+  title: Zap $name
+  custom_amount: Anpassat belopp
+  confirm: Bekräfta
+  comment: Kommentar
+  button_zap_ready: Zap $amount sats
+  button_zap: Zap
+  button_open_wallet: Öppna i plånboken
+  copy: Kopieras till urklipp
+  error:
+    invalid_custom_amount: Ogiltigt anpassat belopp
+    no_wallet: Ingen blixtplånbok installerad
+    no_lud16: Ingen blixtadress hittades
+profile:
+  past_streams: Tidigare streamar
+  edit:
+    display_name: Visa namn
+    about: Om
+    nip05: Nostr Adress
+    lud16: Lightning-adress
+    error:
+      logged_out: Kan inte redigera profil när jag är utloggad
+login:
+  username: Användarnamn
+  amber: Logga in med Amber
+  key: Logga in med nyckel
+  create: Skapa konto
+  error:
+    invalid_key: Ogiltig nyckel

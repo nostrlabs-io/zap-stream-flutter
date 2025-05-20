@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -31,7 +32,12 @@ class StreamTileWidget extends StatelessWidget {
               aspectRatio: 16 / 9,
               child: Stack(
                 children: [
-                  Center(child: ProxyImg(url: stream.info.image ?? "", placeholderSize: 100,)),
+                  Center(
+                    child: ProxyImg(
+                      url: stream.info.image ?? "",
+                      placeholderSize: 100,
+                    ),
+                  ),
                   if (stream.info.status != null)
                     Positioned(
                       right: 8,
@@ -42,7 +48,11 @@ class StreamTileWidget extends StatelessWidget {
                           _ => LAYER_3,
                         },
                         child: Text(
-                          stream.info.status!.name.toUpperCase(),
+                          switch (stream.info.status!) {
+                            StreamStatus.live => t.stream.status.live,
+                            StreamStatus.ended => t.stream.status.ended,
+                            StreamStatus.planned => t.stream.status.planned,
+                          },
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -58,7 +68,7 @@ class StreamTileWidget extends StatelessWidget {
                       child: PillWidget(
                         color: LAYER_1.withAlpha(200),
                         child: Text(
-                          "${stream.info.participants} viewers",
+                          t.viewers(n: stream.info.participants!),
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,

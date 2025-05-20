@@ -1,0 +1,123 @@
+upload_avatar: تحميل الصورة الرمزية
+"@upload_avatar":
+  description: نص يطالب المستخدم بالضغط على العنصر النائب للصورة الرمزية لبدء التحميل
+most_zapped_streamers: معظم اللافتات التي يتم بثها
+"@most_zapped_streamers":
+  description: التوجه فوق اللافتات العلوية المدرجة من قبل zaps
+no_user_found: لم يتم العثور على مستخدم
+"@no_user_found":
+  description: لم يتم العثور على مستخدم عند البحث
+anon: هوية مخفية
+viewers:
+  one: 1 مشاهد
+  other: $n المشاهدون
+"@viewers":
+  description: عدد مشاهدي البث
+  placeholders:
+    n:
+      type: في
+"@anon":
+  description: مستخدم مجهول
+stream:
+  status:
+    live: بث مباشر
+    ended: انتهى
+    planned: مخطط
+  started: بدأ $timestamp
+  chat:
+    disabled: تم تعطيل الدردشة
+    disabled_timeout: "تنتهي المهلة: $time"
+    timeout(rich): $mod انتهى الوقت $user لـ $time
+    "@timeout":
+      description: رسالة دردشة تظهر أحداث المهلة
+    ended: انتهى البث
+    "@ended":
+      description: تيار انتهى التذييل في أسفل الدردشة
+    zap(rich): $user انطلق $amount ساتس
+    "@zap":
+      description: رسالة الدردشة التي تُظهر البث المباشر
+    write:
+      label: اكتب رسالة
+      "@label":
+        description: التسمية على مربع إدخال رسالة الدردشة
+      no_signer: لا يمكن كتابة الرسائل باستخدام تسجيل الدخول إلى npub
+      "@no_signer":
+        description: تظهر رسالة إدخال الدردشة عندما يقوم المستخدم بتسجيل الدخول باستخدام
+          مفتاح الحانة فقط
+      login: الرجاء تسجيل الدخول لإرسال الرسائل
+      "@login":
+        description: تظهر رسالة إدخال الدردشة عند تسجيل خروج المستخدم من المحادثة
+    badge:
+      awarded_to: مُنحت الجائزة لـ
+      "@awarded_to":
+        description: العنوان فوق قائمة المستخدمين الذين حصلوا على شارة
+    raid:
+      to: التصفح $name
+      "@to":
+        description: رسالة غارة الدردشة إلى دفق آخر
+      from: RAID من $name
+      "@from":
+        description: رسالة غارة الدردشة من دفق آخر
+      countdown: الإغارة في $time
+      "@countdown":
+        description: مؤقت العد التنازلي للقيادة التلقائية
+goal:
+  title: "الهدف: $amount"
+  remaining: "المتبقي: $amount"
+  complete: مكتمل
+button:
+  login: تسجيل الدخول
+  logout: تسجيل الخروج
+  edit_profile: تعديل الملف الشخصي
+  "@login":
+    description: نص الزر الخاص بزر تسجيل الدخول
+  follow: متابعة
+  "@follow":
+    description: نص الزر الخاص بزر المتابعة
+  unfollow: الغاء المتابعة
+  "@unfollow":
+    description: نص الزر لزر إلغاء المتابعة
+  mute: كتم
+  unmute: رفع الكتم
+  share: مشاركة
+  save: حفظ
+embed:
+  article_by: مقال بقلم $name
+  note_by: ملاحظة من $name
+  live_stream_by: بث مباشر من $name
+stream_list:
+  following: المتابَعون
+  live: بث مباشر
+  planned: مخطط
+  ended: انتهى
+"@stream_list":
+  description: العناوين في قوائم البث حسب نوع البث المباشر/المُنتهي/المخطط له وما إلى ذلك.
+zap:
+  title: زاب $name
+  custom_amount: المبلغ المخصص
+  confirm: تأكيد
+  comment: تعليق
+  button_zap_ready: أومض $amount ساتوشي
+  button_zap: زاب
+  button_open_wallet: فتح في المحفظة
+  copy: نسخ إلى الحافظة
+  error:
+    invalid_custom_amount: مبلغ مخصص غير صالح
+    no_wallet: لا توجد محفظة برق مثبتة
+    no_lud16: لم يتم العثور على عنوان البرق
+profile:
+  past_streams: التدفقات السابقة
+  edit:
+    display_name: اسم العرض
+    about: نبذة
+    nip05: عنوان نوستر
+    lud16: عنوان البرق
+    error:
+      logged_out: لا يمكن تحرير ملف التعريف عند تسجيل الخروج
+login:
+  username: اسم المستخدم
+  amber: تسجيل الدخول مع آمبر
+  key: تسجيل الدخول بالمفتاح
+  create: إنشاء حساب
+  error:
+    invalid_key: مفتاح غير صالح

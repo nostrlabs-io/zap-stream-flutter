@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.7.0"
+  ascii_qr:
+    dependency: transitive
+    description:
+      name: ascii_qr
+      sha256: "2046e400a0fa4ea0de5df44c87b992cdd1f76403bb15e64513b89263598750ae"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   async:
     dependency: transitive
     description:
@@ -617,27 +625,27 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/ndk"
-      ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
-      resolved-ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
-      url: "https://github.com/relaystr/ndk"
+      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
+      resolved-ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
+      url: "https://github.com/v0l/ndk"
     source: git
     version: "0.3.2"
   ndk_amber:
     dependency: "direct main"
     description:
       path: "packages/amber"
-      ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
-      resolved-ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
-      url: "https://github.com/relaystr/ndk"
+      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
+      resolved-ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
+      url: "https://github.com/v0l/ndk"
     source: git
     version: "0.3.0"
   ndk_objectbox:
     dependency: "direct main"
     description:
       path: "packages/objectbox"
-      ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
-      resolved-ref: "919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a"
-      url: "https://github.com/relaystr/ndk"
+      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
+      resolved-ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
+      url: "https://github.com/v0l/ndk"
     source: git
     version: "0.2.3"
   ndk_rust_verifier:
@@ -913,8 +921,8 @@ packages:
     dependency: "direct main"
     description:
       path: slang
-      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
-      resolved-ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
+      resolved-ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
       url: "https://github.com/nostrlabs-io/slang"
     source: git
     version: "4.7.1"
@@ -922,8 +930,8 @@ packages:
     dependency: "direct main"
     description:
       path: slang_flutter
-      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
-      resolved-ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
+      resolved-ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
       url: "https://github.com/nostrlabs-io/slang"
     source: git
     version: "4.7.0"

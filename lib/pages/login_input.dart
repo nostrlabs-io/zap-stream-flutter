@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -27,7 +28,7 @@ class _LoginInputPage extends State<LoginInputPage> {
           decoration: InputDecoration(labelText: "npub/nsec"),
         ),
         BasicButton.text(
-          "Login",
+          t.button.login,
           onTap: () async {
             try {
               if (_controller.text.startsWith("bunker://")) {
@@ -43,7 +44,7 @@ class _LoginInputPage extends State<LoginInputPage> {
                 loginData.value = LoginAccount.nip19(_controller.text);
                 context.go("/");
               } else {
-                throw "Invalid key";
+                throw t.login.error.invalid_key;
               }
             } catch (e) {
               setState(() {

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
@@ -74,7 +75,7 @@ class ProfilePage extends StatelessWidget {
                 spacing: 8,
                 children: [
                   BasicButton.text(
-                    "Logout",
+                    t.button.logout,
                     onTap: () {
                       loginData.logout();
                       ndk.accounts.logout();
@@ -82,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                     },
                   ),
                   BasicButton.text(
-                    "Edit Profile",
+                    t.button.edit_profile,
                     onTap: () {
                       context.push("/settings/profile");
                     },
@@ -91,7 +92,7 @@ class ProfilePage extends StatelessWidget {
               ),
             if (!isMe) FollowButton(pubkey: hexPubkey),
             Text(
-              "Past Streams",
+              t.profile.past_streams,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
 

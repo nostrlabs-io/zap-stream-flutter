@@ -52,12 +52,23 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// An anonymous user
 	String get anon => 'Anon';
 
+	/// Number of viewers of the stream
+	String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '1 viewer',
+		other: '${n} viewers',
+	);
+
 	late final TranslationsStreamEn stream = TranslationsStreamEn._(_root);
 	late final TranslationsGoalEn goal = TranslationsGoalEn._(_root);
 	late final TranslationsButtonEn button = TranslationsButtonEn._(_root);
 	late final TranslationsEmbedEn embed = TranslationsEmbedEn._(_root);
+
+	/// Headings on stream lists by stream type live/ended/planned etc.
 	late final TranslationsStreamListEn stream_list = TranslationsStreamListEn._(_root);
+
 	late final TranslationsZapEn zap = TranslationsZapEn._(_root);
+	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
+	late final TranslationsLoginEn login = TranslationsLoginEn._(_root);
 }
 
 // Path: stream
@@ -67,6 +78,8 @@ class TranslationsStreamEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final TranslationsStreamStatusEn status = TranslationsStreamStatusEn._(_root);
+	String started({ required Object timestamp}) => 'Started ${timestamp}';
 	late final TranslationsStreamChatEn chat = TranslationsStreamChatEn._(_root);
 }
 
@@ -93,6 +106,9 @@ class TranslationsButtonEn {
 	/// Button text for the login button
 	String get login => 'Login';
 
+	String get logout => 'Logout';
+	String get edit_profile => 'Edit Profile';
+
 	/// Button text for the follow button
 	String get follow => 'Follow';
 
@@ -102,6 +118,7 @@ class TranslationsButtonEn {
 	String get mute => 'Mute';
 	String get unmute => 'Unmute';
 	String get share => 'Share';
+	String get save => 'Save';
 }
 
 // Path: embed
@@ -145,6 +162,43 @@ class TranslationsZapEn {
 	String get button_open_wallet => 'Open in Wallet';
 	String get copy => 'Copied to clipboard';
 	late final TranslationsZapErrorEn error = TranslationsZapErrorEn._(_root);
+}
+
+// Path: profile
+class TranslationsProfileEn {
+	TranslationsProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get past_streams => 'Past Streams';
+	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn._(_root);
+}
+
+// Path: login
+class TranslationsLoginEn {
+	TranslationsLoginEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get username => 'Username';
+	String get amber => 'Login with Amber';
+	String get key => 'Login with Key';
+	String get create => 'Create Account';
+	late final TranslationsLoginErrorEn error = TranslationsLoginErrorEn._(_root);
+}
+
+// Path: stream.status
+class TranslationsStreamStatusEn {
+	TranslationsStreamStatusEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get live => 'LIVE';
+	String get ended => 'ENDED';
+	String get planned => 'PLANNED';
 }
 
 // Path: stream.chat
@@ -192,6 +246,30 @@ class TranslationsZapErrorEn {
 	String get invalid_custom_amount => 'Invalid custom amount';
 	String get no_wallet => 'No lightning wallet installed';
 	String get no_lud16 => 'No lightning address found';
+}
+
+// Path: profile.edit
+class TranslationsProfileEditEn {
+	TranslationsProfileEditEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get display_name => 'Display Name';
+	String get about => 'About';
+	String get nip05 => 'Nostr Address';
+	String get lud16 => 'Lightning Address';
+	late final TranslationsProfileEditErrorEn error = TranslationsProfileEditErrorEn._(_root);
+}
+
+// Path: login.error
+class TranslationsLoginErrorEn {
+	TranslationsLoginErrorEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get invalid_key => 'Invalid key';
 }
 
 // Path: stream.chat.write
@@ -242,6 +320,16 @@ class TranslationsStreamChatRaidEn {
 	String countdown({ required Object time}) => 'Raiding in ${time}';
 }
 
+// Path: profile.edit.error
+class TranslationsProfileEditErrorEn {
+	TranslationsProfileEditErrorEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get logged_out => 'Cant edit profile when logged out';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on Translations {
@@ -251,6 +339,14 @@ extension on Translations {
 			case 'most_zapped_streamers': return 'Most Zapped Streamers';
 			case 'no_user_found': return 'No user found';
 			case 'anon': return 'Anon';
+			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				one: '1 viewer',
+				other: '${n} viewers',
+			);
+			case 'stream.status.live': return 'LIVE';
+			case 'stream.status.ended': return 'ENDED';
+			case 'stream.status.planned': return 'PLANNED';
+			case 'stream.started': return ({ required Object timestamp}) => 'Started ${timestamp}';
 			case 'stream.chat.disabled': return 'CHAT DISABLED';
 			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'Timeout expires: ${time}';
 			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
@@ -278,11 +374,14 @@ extension on Translations {
 			case 'goal.remaining': return ({ required Object amount}) => 'Remaining: ${amount}';
 			case 'goal.complete': return 'COMPLETE';
 			case 'button.login': return 'Login';
+			case 'button.logout': return 'Logout';
+			case 'button.edit_profile': return 'Edit Profile';
 			case 'button.follow': return 'Follow';
 			case 'button.unfollow': return 'Unfollow';
 			case 'button.mute': return 'Mute';
 			case 'button.unmute': return 'Unmute';
 			case 'button.share': return 'Share';
+			case 'button.save': return 'Save';
 			case 'embed.article_by': return ({ required Object name}) => 'Article by ${name}';
 			case 'embed.note_by': return ({ required Object name}) => 'Note by ${name}';
 			case 'embed.live_stream_by': return ({ required Object name}) => 'Live stream by ${name}';
@@ -301,6 +400,17 @@ extension on Translations {
 			case 'zap.error.invalid_custom_amount': return 'Invalid custom amount';
 			case 'zap.error.no_wallet': return 'No lightning wallet installed';
 			case 'zap.error.no_lud16': return 'No lightning address found';
+			case 'profile.past_streams': return 'Past Streams';
+			case 'profile.edit.display_name': return 'Display Name';
+			case 'profile.edit.about': return 'About';
+			case 'profile.edit.nip05': return 'Nostr Address';
+			case 'profile.edit.lud16': return 'Lightning Address';
+			case 'profile.edit.error.logged_out': return 'Cant edit profile when logged out';
+			case 'login.username': return 'Username';
+			case 'login.amber': return 'Login with Amber';
+			case 'login.key': return 'Login with Key';
+			case 'login.create': return 'Create Account';
+			case 'login.error.invalid_key': return 'Invalid key';
 			default: return null;
 		}
 	}

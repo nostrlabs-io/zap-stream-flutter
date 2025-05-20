@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
@@ -133,7 +134,9 @@ class _StreamPage extends State<StreamPage> with RouteAware {
           children: [
             Spacer(),
             BasicButton(
-              Row(children: [Icon(Icons.bolt, size: 14), Text("Zap")]),
+              Row(
+                children: [Icon(Icons.bolt, size: 14), Text(t.zap.button_zap)],
+              ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               decoration: BoxDecoration(
                 color: PRIMARY_1,
@@ -166,7 +169,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
               PillWidget(
                 color: LAYER_1,
                 child: Text(
-                  "${stream.info.participants} viewers",
+                  t.viewers(n: stream.info.participants!),
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ),

@@ -1,0 +1,126 @@
+upload_avatar: Завантажити аватар
+"@upload_avatar":
+  description: Текст, що пропонує користувачеві натиснути на заповнювач аватара,
+    щоб почати завантаження
+most_zapped_streamers: Більшість стримерів, які були під напругою
+"@most_zapped_streamers":
+  description: Перехід до переліку найкращих стрімерів за запитами
+no_user_found: Користувача не знайдено
+"@no_user_found":
+  description: Користувача не знайдено при пошуку
+anon: Анонім.
+viewers:
+  one: 1 глядач
+  other: $n глядачі
+"@viewers":
+  description: Кількість глядачів стріму
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: Анонімний користувач
+stream:
+  status:
+    live: НАЖИВО
+    ended: ЗАКІНЧЕНО
+    planned: ЗАПЛАНОВАНО
+  started: Запустив $timestamp
+  chat:
+    disabled: ЧАТ ВІДКЛЮЧЕНО
+    disabled_timeout: "Тайм-аут закінчився: $time"
+    timeout(rich): $mod таймінг $user для $time
+    "@timeout":
+      description: Повідомлення в чаті про події тайм-ауту
+    ended: СТРІМ ЗАКІНЧИВСЯ
+    "@ended":
+      description: Нижній колонтитул кінця потоку внизу чату
+    zap(rich): $user zapped $amount sats
+    "@zap":
+      description: Повідомлення в чаті, що показує затримки потоку
+    write:
+      label: Написати повідомлення
+      "@label":
+        description: Мітка у вікні введення повідомлення чату
+      no_signer: Неможливо писати повідомлення з логіном npub
+      "@no_signer":
+        description: Повідомлення в чаті, що відображається, коли користувач увійшов до
+          системи лише з ключем pubkey
+      login: Будь ласка, авторизуйтесь, щоб надсилати повідомлення
+      "@login":
+        description: Повідомлення для введення в чаті, що відображається, коли
+          користувач вийшов з системи
+    badge:
+      awarded_to: "Нагороджується:"
+      "@awarded_to":
+        description: Над списком користувачів, яким присвоєно бейдж
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Повідомлення про рейд чату в інший потік
+      from: RAID FROM $name
+      "@from":
+        description: Повідомлення про наліт на чат з іншого потоку
+      countdown: Рейд у $time
+      "@countdown":
+        description: Таймер зворотного відліку для авторейду
+goal:
+  title: "Мета: $amount"
+  remaining: "Залишилося: $amount"
+  complete: ЗАВЕРШИТИ
+button:
+  login: Логін
+  logout: Вийти з системи
+  edit_profile: Редагувати профіль
+  "@login":
+    description: Текст для кнопки входу в систему
+  follow: Підпишіться
+  "@follow":
+    description: Текст для кнопки переходу
+  unfollow: Скасувати відповідь
+  "@unfollow":
+    description: Текст для кнопки відписки
+  mute: Вимкнути звук.
+  unmute: Увімкнути звук.
+  share: Поділіться
+  save: Зберегти
+embed:
+  article_by: Стаття за посиланням $name
+  note_by: Примітка $name
+  live_stream_by: Пряма трансляція на $name
+stream_list:
+  following: Після того, як
+  live: Наживо
+  planned: Заплановано
+  ended: Закінчилося
+"@stream_list":
+  description: "Заголовки у списках трансляцій за типом трансляції:
+    наживо/закінчилася/запланована тощо."
+zap:
+  title: Zap $name
+  custom_amount: Нестандартна сума
+  confirm: Підтвердити
+  comment: Коментар
+  button_zap_ready: Zap $amount sats
+  button_zap: Zap!
+  button_open_wallet: Відкрити в Гаманці
+  copy: Скопійовано в буфер обміну
+  error:
+    invalid_custom_amount: Неправильна сума замовлення
+    no_wallet: Не встановлено гаманець-блискавку
+    no_lud16: Адреса блискавки не знайдена
+profile:
+  past_streams: Минулі потоки
+  edit:
+    display_name: Ім'я користувача
+    about: Про
+    nip05: Nostr Адреса
+    lud16: Блискавична адреса
+    error:
+      logged_out: Неможливо редагувати профіль, коли ви вийшли з системи
+login:
+  username: Ім'я користувача
+  amber: Увійдіть за допомогою Amber
+  key: Увійдіть за допомогою ключа
+  create: Створити обліковий запис
+  error:
+    invalid_key: Неправильний ключ

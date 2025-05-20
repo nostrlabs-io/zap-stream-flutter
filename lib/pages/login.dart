@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -22,7 +23,7 @@ class LoginPage extends StatelessWidget {
             builder: (ctx, state) {
               if (state.data ?? false) {
                 return BasicButton.text(
-                  "Login with Amber",
+                  t.login.amber,
                   onTap: () async {
                     final amber = Amberflutter();
                     final result = await amber.getPublicKey();
@@ -40,10 +41,7 @@ class LoginPage extends StatelessWidget {
               }
             },
           ),
-        BasicButton.text(
-          "Login with Key",
-          onTap: () => context.push("/login/key"),
-        ),
+        BasicButton.text(t.login.key, onTap: () => context.push("/login/key")),
         Container(
           margin: EdgeInsets.symmetric(vertical: 20),
           height: 1,
@@ -52,7 +50,7 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         BasicButton.text(
-          "Create Account",
+          t.login.create,
           onTap: () => context.push("/login/new"),
         ),
       ],

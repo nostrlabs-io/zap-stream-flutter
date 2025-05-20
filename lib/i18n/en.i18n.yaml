@@ -1,0 +1,122 @@
+upload_avatar: Upload Avatar
+"@upload_avatar":
+  description: Text prompting user to hit avatar placeholder to begin upload
+most_zapped_streamers: Most Zapped Streamers
+"@most_zapped_streamers":
+  description: Heading over listed top streamers by zaps
+no_user_found: No user found
+"@no_user_found":
+  description: No user found when searching
+anon: Anon
+viewers:
+  one: 1 viewer
+  other: $n viewers
+"@viewers":
+  description: Number of viewers of the stream
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: An anonymous user
+stream:
+  status:
+    live: LIVE
+    ended: ENDED
+    planned: PLANNED
+  started: Started $timestamp
+  chat:
+    disabled: CHAT DISABLED
+    disabled_timeout: "Timeout expires: $time"
+    timeout(rich): $mod timed out $user for $time
+    "@timeout":
+      description: Chat message showing timeout events
+    ended: STREAM ENDED
+    "@ended":
+      description: Stream ended footer at bottom of chat
+    zap(rich): $user zapped $amount sats
+    "@zap":
+      description: Chat message showing stream zaps
+    write:
+      label: Write message
+      "@label":
+        description: Label on the chat message input box
+      no_signer: Can't write messages with npub login
+      "@no_signer":
+        description: Chat input message shown when the user is logged in only with pubkey
+      login: Please login to send messages
+      "@login":
+        description: Chat input message shown when the user is logged out
+    badge:
+      awarded_to: "Awarded to:"
+      "@awarded_to":
+        description: Heading over list of users who are awarded a badge
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Chat raid message to another stream
+      from: RAID FROM $name
+      "@from":
+        description: Chat raid message from another stream
+      countdown: Raiding in $time
+      "@countdown":
+        description: Countdown timer for auto-raiding
+goal:
+  title: "Goal: $amount"
+  remaining: "Remaining: $amount"
+  complete: COMPLETE
+button:
+  login: Login
+  logout: Logout
+  edit_profile: Edit Profile
+  "@login":
+    description: Button text for the login button
+  follow: Follow
+  "@follow":
+    description: Button text for the follow button
+  unfollow: Unfollow
+  "@unfollow":
+    description: Button text for the unfollow button
+  mute: Mute
+  unmute: Unmute
+  share: Share
+  save: Save
+embed:
+  article_by: Article by $name
+  note_by: Note by $name
+  live_stream_by: Live stream by $name
+stream_list:
+  following: Following
+  live: Live
+  planned: Planned
+  ended: Ended
+"@stream_list":
+  description: Headings on stream lists by stream type live/ended/planned etc.
+zap:
+  title: Zap $name
+  custom_amount: Custom Amount
+  confirm: Confirm
+  comment: Comment
+  button_zap_ready: Zap $amount sats
+  button_zap: Zap
+  button_open_wallet: Open in Wallet
+  copy: Copied to clipboard
+  error:
+    invalid_custom_amount: Invalid custom amount
+    no_wallet: No lightning wallet installed
+    no_lud16: No lightning address found
+profile:
+  past_streams: Past Streams
+  edit:
+    display_name: Display Name
+    about: About
+    nip05: Nostr Address
+    lud16: Lightning Address
+    error:
+      logged_out: Cant edit profile when logged out
+login:
+  username: "Username"
+  amber: Login with Amber
+  key: Login with Key
+  create: Create Account
+  error:
+    invalid_key: Invalid key

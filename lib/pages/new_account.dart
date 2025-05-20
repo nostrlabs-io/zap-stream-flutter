@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip01/bip340.dart';
 import 'package:ndk/shared/nips/nip01/key_pair.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -65,13 +66,13 @@ class _NewAccountPage extends State<NewAccountPage> {
           controller: _name,
           readOnly: _loading,
           focusNode: _nameFocus,
-          decoration: InputDecoration(labelText: "Username"),
+          decoration: InputDecoration(labelText: t.login.username),
         ),
         ValueListenableBuilder(
           valueListenable: _name,
           builder: (context, value, child) {
             return BasicButton.text(
-              "Login",
+              t.button.login,
               disabled: _loading || value.text.isEmpty,
               onTap: () {
                 setState(() {

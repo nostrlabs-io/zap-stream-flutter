@@ -1,0 +1,124 @@
+upload_avatar: Télécharger l'avatar
+"@upload_avatar":
+  description: Texte invitant l'utilisateur à cliquer sur l'espace réservé à
+    l'avatar pour commencer le téléchargement
+most_zapped_streamers: Les Streamers les plus zappés
+"@most_zapped_streamers":
+  description: Les têtes d'affiche sont listées par zaps.
+no_user_found: Aucun utilisateur trouvé
+"@no_user_found":
+  description: Aucun utilisateur n'a été trouvé lors de la recherche
+anon: Anonyme
+viewers:
+  one: 1 téléspectateur
+  other: $n spectateurs
+"@viewers":
+  description: Nombre de spectateurs du flux
+  placeholders:
+    n:
+      type: int
+"@anon":
+  description: Un utilisateur anonyme
+stream:
+  status:
+    live: VIVRE
+    ended: FINI
+    planned: PRÉVU
+  started: Commencé à $timestamp
+  chat:
+    disabled: CHAT DISABLED
+    disabled_timeout: "Le délai expire : $time"
+    timeout(rich): $mod $user a expiré dans le temps pour $time
+    "@timeout":
+      description: Message de chat indiquant les événements de dépassement de délai
+    ended: STREAM ENDED
+    "@ended":
+      description: Stream ended footer at bottom of chat
+    zap(rich): $user a zappé $amount sats
+    "@zap":
+      description: Message de chat montrant des zaps de flux
+    write:
+      label: Message écrit
+      "@label":
+        description: Étiquette sur la boîte de saisie du message de chat
+      no_signer: Impossible d'écrire des messages avec le login npub
+      "@no_signer":
+        description: Message d'entrée du chat affiché lorsque l'utilisateur n'est
+          connecté qu'avec pubkey
+      login: Veuillez vous connecter pour envoyer des messages
+      "@login":
+        description: Message d'entrée du chat affiché lorsque l'utilisateur est déconnecté
+    badge:
+      awarded_to: "Attribué à :"
+      "@awarded_to":
+        description: Titre sur la liste des utilisateurs qui ont reçu un badge
+    raid:
+      to: RAIDING $name
+      "@to":
+        description: Message de raid par chat vers un autre flux
+      from: RAID FROM $name
+      "@from":
+        description: Message de raid sur le chat à partir d'un autre flux
+      countdown: Raid sur $time
+      "@countdown":
+        description: Compte à rebours pour l'auto-raid
+goal:
+  title: "Objectif : $amount"
+  remaining: "Reste : $amount"
+  complete: COMPLET
+button:
+  login: Se Connecter
+  logout: Se déconnecter
+  edit_profile: Modifier le Profil
+  "@login":
+    description: Texte du bouton de connexion
+  follow: Suivre
+  "@follow":
+    description: Texte du bouton de suivi
+  unfollow: Ne plus suivre
+  "@unfollow":
+    description: Texte du bouton pour le bouton "unfollow
+  mute: Muet
+  unmute: Retirer sourdine
+  share: Partager
+  save: Sauvegarder
+embed:
+  article_by: Article par $name
+  note_by: Note par $name
+  live_stream_by: Retransmission en direct sur $name
+stream_list:
+  following: Abonnements
+  live: En direct
+  planned: Planifié
+  ended: Terminé
+"@stream_list":
+  description: Rubriques sur les listes de flux par type de flux en direct/fini/prévu, etc.
+zap:
+  title: Zap $name
+  custom_amount: Montant personnalisé
+  confirm: Confirmer
+  comment: Commenter
+  button_zap_ready: Zapper $amount sats
+  button_zap: Zap
+  button_open_wallet: Ouvrir dans le portefeuille
+  copy: Copié dans le presse-papiers
+  error:
+    invalid_custom_amount: Montant personnalisé non valide
+    no_wallet: Pas de porte-monnaie électronique installé
+    no_lud16: Pas d'adresse éclair trouvée
+profile:
+  past_streams: Streams passés
+  edit:
+    display_name: Nom d'affichage
+    about: À propos
+    nip05: Adresse Nostr
+    lud16: Adresse Lightning
+    error:
+      logged_out: Impossible de modifier le profil lorsque l'on est déconnecté
+login:
+  username: Nom d’utilisateur
+  amber: Se connecter avec Amber
+  key: Connexion avec la clé
+  create: Créer un Compte
+  error:
+    invalid_key: Clé non valide
