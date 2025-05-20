@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -28,7 +29,7 @@ class CategoryTopZapped extends StatelessWidget {
                 alignment: PlaceholderAlignment.middle,
               ),
               TextSpan(
-                text: " Most Zapped Streamers",
+                text: " ${t.most_zapped_streamers}",
                 style: TextStyle(color: LAYER_4, fontWeight: FontWeight.w500),
               ),
             ],

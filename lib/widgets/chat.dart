@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -11,6 +12,7 @@ import 'package:zap_stream_flutter/widgets/chat_raid.dart';
 import 'package:zap_stream_flutter/widgets/chat_timeout.dart';
 import 'package:zap_stream_flutter/widgets/chat_write.dart';
 import 'package:zap_stream_flutter/widgets/chat_zap.dart';
+import 'package:zap_stream_flutter/widgets/countdown.dart';
 import 'package:zap_stream_flutter/widgets/goal.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
@@ -75,7 +77,9 @@ class ChatWidget extends StatelessWidget {
                     9735 => ZapReceipt.fromEvent(e).sender ?? e.pubKey,
                     _ => e.pubKey,
                   };
-                  return moderators.contains(author) || // cant mute self or host
+                  return moderators.contains(
+                        author,
+                      ) || // cant mute self or host
                       !mutedPubkeys.contains(author);
                 })
                 // filter events that are created before stream start time
@@ -159,7 +163,7 @@ class ChatWidget extends StatelessWidget {
                   color: PRIMARY_1,
                 ),
                 child: Text(
-                  "STREAM ENDED",
+                  t.stream.chat.ended,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -181,19 +185,18 @@ class ChatWidget extends StatelessWidget {
       decoration: BoxDecoration(color: WARNING),
       child: Column(
         children: [
-          Text("CHAT DISABLED", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            t.stream.chat.disabled,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           if (timeoutEvent != null)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Timeout expires: "),
-                CountdownTimer(
-                  onTrigger: () => {},
-                  triggerAt: DateTime.fromMillisecondsSinceEpoch(
-                    int.parse(timeoutEvent.getFirstTag("expiration")!) * 1000,
-                  ),
-                ),
-              ],
+            CountdownTimer(
+              onTrigger: () => {},
+              format: (time) => t.stream.chat.disabled_timeout(time: time),
+              style: TextStyle(color: LAYER_5),
+              triggerAt: DateTime.fromMillisecondsSinceEpoch(
+                int.parse(timeoutEvent.getFirstTag("expiration")!) * 1000,
+              ),
             ),
         ],
       ),

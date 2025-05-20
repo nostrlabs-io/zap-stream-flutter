@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -50,7 +51,7 @@ class GoalWidget extends StatelessWidget {
                   Expanded(child: Text(goal.content)),
                   if (remaining > 0)
                     Text(
-                      "Remaining: ${formatSats(remaining)}",
+                      t.goal.remaining(amount: formatSats(remaining)),
                       style: TextStyle(fontSize: 10, color: LAYER_5),
                     ),
                 ],
@@ -76,7 +77,7 @@ class GoalWidget extends StatelessWidget {
                     Positioned(
                       right: 2,
                       child: Text(
-                        "Goal: ${formatSats((max / 1000).toInt())}",
+                        t.goal.title(amount: formatSats((max / 1000).floor())),
                         style: TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
@@ -86,7 +87,7 @@ class GoalWidget extends StatelessWidget {
                   if (remaining == 0)
                     Center(
                       child: Text(
-                        "COMPLETE",
+                        t.goal.complete,
                         style: TextStyle(
                           color: LAYER_0,
                           fontSize: 8,

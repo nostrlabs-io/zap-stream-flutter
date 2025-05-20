@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -45,7 +46,7 @@ class StreamInfoWidget extends StatelessWidget {
                   },
                 ),
               BasicButton.text(
-                "Share",
+                t.button.share,
                 icon: Icon(Icons.share, size: 16),
                 onTap: () {
                   SharePlus.instance.share(

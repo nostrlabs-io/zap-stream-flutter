@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 
@@ -90,7 +91,7 @@ class _AvatarUpload extends State<AvatarUpload> {
                       child:
                           _loading
                               ? CircularProgressIndicator()
-                              : Text("Upload Avatar"),
+                              : Text(t.upload_avatar),
                     )
                     : CachedNetworkImage(imageUrl: _avatar!),
           ),

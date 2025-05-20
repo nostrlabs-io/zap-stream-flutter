@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/entities.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -60,7 +61,7 @@ class ChatBadgeAwardWidget extends StatelessWidget {
                 ],
               ),
               Text(
-                "Awarded to: ",
+                "${t.stream.chat.badge.awarded_to} ",
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               ...event

@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -54,13 +55,21 @@ class StreamGrid extends StatelessWidget {
           spacing: 16,
           children: [
             if (followsLive.isNotEmpty)
-              _streamGroup(context, "Following", followsLive.toList()),
+              _streamGroup(
+                context,
+                t.stream_list.following,
+                followsLive.toList(),
+              ),
             if (showLive && liveNotFollowing.isNotEmpty)
-              _streamGroup(context, "Live", liveNotFollowing.toList()),
+              _streamGroup(
+                context,
+                t.stream_list.live,
+                liveNotFollowing.toList(),
+              ),
             if (showPlanned && planned.isNotEmpty)
-              _streamGroup(context, "Planned", planned.toList()),
+              _streamGroup(context, t.stream_list.planned, planned.toList()),
             if (showEnded && ended.isNotEmpty)
-              _streamGroup(context, "Ended", ended.toList()),
+              _streamGroup(context, t.stream_list.ended, ended.toList()),
           ],
         );
       },

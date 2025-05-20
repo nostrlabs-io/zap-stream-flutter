@@ -8,6 +8,7 @@ import 'package:ndk/domain_layer/usecases/lnurl/lnurl.dart';
 import 'package:ndk/ndk.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -59,20 +60,13 @@ class _ZapWidget extends State<ZapWidget> {
       child: Column(
         spacing: 10,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 5,
-            children: [
-              Text(
-                "Zap",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              ProfileNameWidget.pubkey(
-                widget.pubkey,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+          ProfileLoaderWidget(widget.pubkey, (context, state) {
+            final profile = state.data ?? Metadata(pubKey: widget.pubkey);
+            return Text(
+              t.zap.title(name: ProfileNameWidget.nameFromProfile(profile)),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            );
+          }),
           if (_pr == null && !_loading) ..._inputs(),
           if (_pr != null) ..._invoice(context),
           if (_loading) CircularProgressIndicator(),
@@ -102,11 +96,11 @@ class _ZapWidget extends State<ZapWidget> {
               controller: _customAmount,
               focusNode: _customAmountFocus,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Custom Amount"),
+              decoration: InputDecoration(labelText: t.zap.custom_amount),
             ),
           ),
           BasicButton.text(
-            "Confirm",
+            t.zap.confirm,
             onTap: () {
               final newAmount = int.tryParse(_customAmount.text);
               if (newAmount != null) {
@@ -117,7 +111,7 @@ class _ZapWidget extends State<ZapWidget> {
                 });
               } else {
                 setState(() {
-                  _error = "Invalid custom amount";
+                  _error = t.zap.error.invalid_custom_amount;
                   _amount = null;
                 });
               }
@@ -127,10 +121,12 @@ class _ZapWidget extends State<ZapWidget> {
       ),
       TextFormField(
         controller: _comment,
-        decoration: InputDecoration(labelText: "Comment"),
+        decoration: InputDecoration(labelText: t.zap.comment),
       ),
       BasicButton.text(
-        _amount != null ? "Zap ${formatSats(_amount!)} sats" : "Zap",
+        _amount != null
+            ? t.zap.button_zap_ready(amount: formatSats(_amount!))
+            : t.zap.button_zap,
         disabled: _amount == null,
         decoration: BoxDecoration(color: LAYER_3, borderRadius: DEFAULT_BR),
         onTap: () async {
@@ -179,7 +175,7 @@ class _ZapWidget extends State<ZapWidget> {
           if (Platform.isIOS && context.mounted) {
             ScaffoldMessenger.of(
               context,
-            ).showSnackBar(SnackBar(content: Text("Copied to clipboard")));
+            ).showSnackBar(SnackBar(content: Text(t.zap.copy)));
           }
         },
         child: Container(
@@ -195,7 +191,7 @@ class _ZapWidget extends State<ZapWidget> {
         ),
       ),
       BasicButton.text(
-        "Open in Wallet",
+        t.zap.button_open_wallet,
         onTap: () async {
           try {
             await launchUrlString(prLink);
@@ -203,7 +199,7 @@ class _ZapWidget extends State<ZapWidget> {
             if (e is PlatformException) {
               if (e.code == "ACTIVITY_NOT_FOUND") {
                 setState(() {
-                  _error = "No lightning wallet installed";
+                  _error = t.zap.error.no_wallet;
                 });
                 return;
               }
@@ -266,7 +262,7 @@ class _ZapWidget extends State<ZapWidget> {
   Future<void> _loadZap() async {
     final profile = await ndk.metadata.loadMetadata(widget.pubkey);
     if (profile?.lud16 == null) {
-      throw "No lightning address found";
+      throw t.zap.error.no_lud16;
     }
 
     final zapRequest = await _makeZap();

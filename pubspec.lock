@@ -161,6 +161,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  csv:
+    dependency: transitive
+    description:
+      name: csv
+      sha256: c6aa2679b2a18cb57652920f674488d89712efaf4d3fdf2e537215b35fc19d6c
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
   cupertino_icons:
     dependency: transitive
     description:
@@ -302,6 +310,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_markdown_plus:
     dependency: "direct main"
     description:
@@ -396,10 +409,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2b9ba6d4c247457c35a6622f1dee6aab6694a4e15237ff7c32320345044112b6"
+      sha256: "0b1e06223bee260dee31a171fb1153e306907563a0b0225e8c1733211911429a"
       url: "https://pub.dev"
     source: hosted
-    version: "15.1.1"
+    version: "15.1.2"
   hex:
     dependency: transitive
     description:
@@ -500,10 +513,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.20.2"
+    version: "0.19.0"
   js:
     dependency: transitive
     description:
@@ -896,6 +909,24 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  slang:
+    dependency: "direct main"
+    description:
+      path: slang
+      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      resolved-ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      url: "https://github.com/nostrlabs-io/slang"
+    source: git
+    version: "4.7.1"
+  slang_flutter:
+    dependency: "direct main"
+    description:
+      path: slang_flutter
+      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      resolved-ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+      url: "https://github.com/nostrlabs-io/slang"
+    source: git
+    version: "4.7.0"
   source_span:
     dependency: transitive
     description:
@@ -1132,10 +1163,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "1f4e8e0e02403452d699ef7cf73fe9936fac8f6f0605303d111d71acb375d1bc"
+      sha256: "28dcc4122079f40f93a0965b3679aff1a5f4251cf79611bd8011f937eb6b69de"
       url: "https://pub.dev"
     source: hosted
-    version: "2.8.3"
+    version: "2.8.4"
   video_player_avfoundation:
     dependency: transitive
     description:
@@ -1184,6 +1215,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  watcher:
+    dependency: transitive
+    description:
+      name: watcher
+      sha256: "69da27e49efa56a15f8afe8f4438c4ec02eff0a117df1b22ea4aad194fe1c104"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   web:
     dependency: transitive
     description:
@@ -1220,10 +1259,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: dc6ecaa00a7c708e5b4d10ee7bec8c270e9276dfcab1783f57e9962d7884305f
+      sha256: "329edf97fdd893e0f1e3b9e88d6a0e627128cc17cc316a8d67fda8f1451178ba"
       url: "https://pub.dev"
     source: hosted
-    version: "5.12.0"
+    version: "5.13.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -1248,6 +1287,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  yaml:
+    dependency: transitive
+    description:
+      name: yaml
+      sha256: b9da305ac7c39faa3f030eccd175340f968459dae4af175130b3fc47e40d76ce
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.3"
 sdks:
   dart: ">=3.7.2 <4.0.0"
   flutter: ">=3.27.1"

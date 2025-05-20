@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
@@ -49,7 +50,9 @@ class FollowButton extends StatelessWidget {
                         size: 16,
                       ),
                   Text(
-                    isFollowing ? "Unfollow" : "Follow",
+                    isFollowing
+                        ? t.button.unfollow
+                        : t.button.follow,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],

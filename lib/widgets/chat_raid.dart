@@ -1,11 +1,12 @@
 import 'package:collection/collection.dart';
-import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/countdown.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
 class ChatRaidMessage extends StatefulWidget {
@@ -74,140 +75,62 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
           final otherStreamEvent = StreamEvent(otherStream);
           return Column(
             children: [
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  children: [
-                    TextSpan(text: _isRaiding ? "RAIDING " : "RAID FROM "),
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: ProfileLoaderWidget(otherStreamEvent.info.host, (
-                        ctx,
-                        profile,
-                      ) {
-                        return Text(
-                          ProfileNameWidget.nameFromProfile(
-                            profile.data ??
-                                Metadata(pubKey: otherStreamEvent.info.host),
-                          ).toUpperCase(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        );
-                      }),
-                    ),
-                    if (_raidingAt == null)
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: GestureDetector(
-                          onTap: () {
-                            context.go(
-                              "/e/${otherStreamEvent.link}",
-                              extra: otherStreamEvent,
-                            );
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            child: Icon(Icons.open_in_new, size: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ProfileLoaderWidget(otherStreamEvent.info.host, (
+                    ctx,
+                    profile,
+                  ) {
+                    final otherMeta =
+                        profile.data ??
+                        Metadata(pubKey: otherStreamEvent.info.host);
+                    return Text(
+                      _isRaiding
+                          ? t.stream.chat.raid.to(
+                            name:
+                                ProfileNameWidget.nameFromProfile(
+                                  otherMeta,
+                                ).toUpperCase(),
+                          )
+                          : t.stream.chat.raid.from(
+                            name:
+                                ProfileNameWidget.nameFromProfile(
+                                  otherMeta,
+                                ).toUpperCase(),
                           ),
-                        ),
-                      ),
-                  ],
-                ),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    );
+                  }),
+                  GestureDetector(
+                    onTap: () {
+                      context.go(
+                        "/e/${otherStreamEvent.link}",
+                        extra: otherStreamEvent,
+                      );
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Icon(Icons.open_in_new, size: 15),
+                    ),
+                  ),
+                ],
               ),
               if (_raidingAt != null)
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: "Raiding in "),
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: CountdownTimer(
-                          triggerAt: _raidingAt!,
-                          onTrigger: () {
-                            context.go(
-                              "/e/${otherStreamEvent.link}",
-                              extra: otherStreamEvent,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                CountdownTimer(
+                  format: (time) => t.stream.chat.raid.countdown(time: time),
+                  triggerAt: _raidingAt!,
+                  onTrigger: () {
+                    context.go(
+                      "/e/${otherStreamEvent.link}",
+                      extra: otherStreamEvent,
+                    );
+                  },
                 ),
             ],
           );
         },
       ),
-    );
-  }
-}
-
-class CountdownTimer extends StatefulWidget {
-  final void Function() onTrigger;
-  final TextStyle? style;
-  final DateTime triggerAt;
-
-  const CountdownTimer({
-    super.key,
-    required this.onTrigger,
-    this.style,
-    required this.triggerAt,
-  });
-
-  @override
-  createState() => _CountdownTimerState();
-}
-
-class _CountdownTimerState extends State<CountdownTimer>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-  bool _actionTriggered = false;
-
-  @override
-  void initState() {
-    super.initState();
-    final now = DateTime.now();
-    final countdown =
-        widget.triggerAt.isBefore(now)
-            ? Duration()
-            : widget.triggerAt.difference(now);
-
-    _controller = AnimationController(vsync: this, duration: countdown);
-
-    // Create animation to track progress from 5 to 0
-    _animation = Tween<double>(
-      begin: countdown.inSeconds.toDouble(),
-      end: 0,
-    ).animate(_controller)..addStatusListener((status) {
-      if (status == AnimationStatus.completed && !_actionTriggered) {
-        setState(() {
-          _actionTriggered = true;
-          widget.onTrigger();
-        });
-      }
-    });
-
-    // Start the countdown immediately when widget is mounted
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose(); // Clean up the controller
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        final secondsLeft = _animation.value.ceil();
-        return Text(
-          Duration(seconds: secondsLeft).pretty(abbreviated: true),
-          style: widget.style,
-        );
-      },
     );
   }
 }

@@ -1,11 +1,13 @@
 import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk_amber/ndk_amber.dart';
 import 'package:ndk_objectbox/ndk_objectbox.dart';
 import 'package:ndk_rust_verifier/ndk_rust_verifier.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/pages/category.dart';
 import 'package:zap_stream_flutter/pages/hashtag.dart';
 import 'package:zap_stream_flutter/pages/login.dart';
@@ -55,6 +57,7 @@ final RouteObserver<ModalRoute<void>> routeObserver =
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
 
   // reload / cache login data
   loginData.addListener(() {
@@ -89,6 +92,9 @@ Future<void> main() async {
 
   runApp(
     MaterialApp.router(
+      title: "zap.stream",
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       theme: ThemeData.localize(
         ThemeData(colorScheme: ColorScheme.dark(), highlightColor: PRIMARY_1),
         TextTheme(),
@@ -104,7 +110,6 @@ Future<void> main() async {
             routes: [
               GoRoute(path: "/", builder: (ctx, state) => HomePage()),
               ShellRoute(
-                observers: [routeObserver],
                 builder: (context, state, child) {
                   return Container(
                     margin: EdgeInsets.only(top: 50),

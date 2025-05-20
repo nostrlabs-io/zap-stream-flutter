@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
@@ -58,7 +59,10 @@ class LoginButtonWidget extends StatelessWidget {
           ),
           child: Row(
             spacing: 8,
-            children: [Text("Login"), Icon(Icons.login, size: 16)],
+            children: [
+              Text(t.button.login),
+              Icon(Icons.login, size: 16),
+            ],
           ),
         ),
       );

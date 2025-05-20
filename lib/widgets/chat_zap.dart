@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
@@ -24,14 +25,14 @@ class ChatZapWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _zapperRowZap(parsed),
+          _zapperRowZap(context, parsed),
           if (parsed.comment?.isNotEmpty ?? false) Text(parsed.comment!),
         ],
       ),
     );
   }
 
-  Widget _zapperRowZap(ZapReceipt parsed) {
+  Widget _zapperRowZap(BuildContext context, ZapReceipt parsed) {
     if (parsed.sender != null) {
       return ProfileLoaderWidget(parsed.sender!, (ctx, state) {
         final name = ProfileNameWidget.nameFromProfile(
@@ -40,35 +41,23 @@ class ChatZapWidget extends StatelessWidget {
         return _zapperRow(name, parsed.amountSats ?? 0, state.data);
       });
     } else {
-      return _zapperRow("Anon", parsed.amountSats ?? 0, null);
+      return _zapperRow(t.anon, parsed.amountSats ?? 0, null);
     }
   }
 
   Widget _zapperRow(String name, int amount, Metadata? profile) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        if (profile != null) AvatarWidget(profile: profile, size: 24),
         RichText(
-          text: TextSpan(
-            style: TextStyle(color: ZAP_1),
-            children: [
-              WidgetSpan(
-                child: Icon(Icons.bolt, color: ZAP_1),
-                alignment: PlaceholderAlignment.middle,
-              ),
-              if (profile != null)
-                WidgetSpan(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: AvatarWidget(profile: profile, size: 20),
-                  ),
-                  alignment: PlaceholderAlignment.middle,
-                ),
-              TextSpan(text: name),
-              TextSpan(text: " zapped ", style: TextStyle(color: FONT_COLOR)),
-              TextSpan(text: formatSats(amount)),
-              TextSpan(text: " sats", style: TextStyle(color: FONT_COLOR)),
-            ],
+          text: t.stream.chat.zap(
+            user: TextSpan(text: name, style: TextStyle(color: ZAP_1)),
+            amount: TextSpan(
+              text: formatSats(amount),
+              style: TextStyle(color: ZAP_1),
+            ),
           ),
         ),
       ],

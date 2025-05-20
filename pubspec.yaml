@@ -1,6 +1,6 @@
 name: zap_stream_flutter
 description: "zap.stream"
-publish_to: 'none'
+publish_to: "none"
 version: 0.7.0+9
 
 environment:
@@ -31,10 +31,14 @@ dependencies:
   image_picker: ^1.1.2
   emoji_picker_flutter: ^4.3.0
   bech32: ^0.2.2
-  intl: ^0.20.2
   flutter_markdown_plus: ^1.0.3
   share_plus: ^11.0.0
   duration: ^4.0.3
+  slang: ^4.7.1
+  slang_flutter: ^4.7.0
+  intl: ^0.19.0
+  flutter_localizations:
+    sdk: flutter
 
 dependency_overrides:
   ndk:
@@ -52,6 +56,16 @@ dependency_overrides:
       url: https://github.com/relaystr/ndk
       path: packages/amber
       ref: 919f35866f4b9d84565f7f08ebbbcd5fd0ef0b6a
+  slang:
+    git:
+      url: https://github.com/nostrlabs-io/slang
+      path: slang
+      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
+  slang_flutter:
+    git:
+      url: https://github.com/nostrlabs-io/slang
+      path: slang_flutter
+      ref: f6dbb7ec212b135074e6b5eb5bef9ddf6afb75d1
 
 dev_dependencies:
   flutter_test:

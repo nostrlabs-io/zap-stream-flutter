@@ -3,6 +3,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -90,7 +91,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                       future: ndkCache.searchMetadatas(search, 5),
                       builder: (context, state) {
                         if (state.data?.isEmpty ?? true) {
-                          return Text("No user found");
+                          return Text(t.no_user_found);
                         }
 
                         return Column(
@@ -223,7 +224,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                       controller: _controller,
                       onSubmitted: (_) => _sendMessage(context),
                       decoration: InputDecoration(
-                        labelText: "Write message",
+                        labelText: t.stream.chat.write.label,
                         contentPadding: EdgeInsets.symmetric(vertical: 4),
                         labelStyle: TextStyle(color: LAYER_4, fontSize: 14),
                         border: InputBorder.none,
@@ -255,8 +256,8 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                   children: [
                     Text(
                       isLogin
-                          ? "Can't write messages with npub login"
-                          : "Please login to send messages",
+                          ? t.stream.chat.write.no_signer
+                          : t.stream.chat.write.login,
                     ),
                   ],
                 ),

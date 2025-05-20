@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -22,44 +23,45 @@ class NoteEmbedWidget extends StatelessWidget {
       filters: [entity.toFilter()],
       builder: (context, data) {
         final note = data != null && data.isNotEmpty ? data.first : null;
+        if (note == null) return SizedBox.shrink();
+
+        final author = switch (note.kind) {
+          30_311 => StreamEvent(note).info.host,
+          _ => note.pubKey,
+        };
         return PillWidget(
           onTap: () {
-            if (note != null) {
-              // redirect to the stream if its a live stream link
-              if (note.kind == 30_311) {
-                context.push("/e/$link", extra: StreamEvent(note));
-                return;
-              }
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return SingleChildScrollView(child: _NotePreview(note: note));
-                },
-              );
+            // redirect to the stream if its a live stream link
+            if (note.kind == 30_311) {
+              context.push("/e/$link", extra: StreamEvent(note));
+              return;
             }
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return SingleChildScrollView(child: _NotePreview(note: note));
+              },
+            );
           },
           color: LAYER_3,
-          child: RichText(
-            text: TextSpan(
-              children: [
-                WidgetSpan(child: Icon(Icons.link, size: 16)),
-                TextSpan(
-                  text: switch (entity.kind) {
-                    30_023 => " Article by ",
-                    30_311 => " Live Stream by ",
-                    _ => " Note by ",
-                  },
-                ),
-                if (note?.pubKey != null)
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: ProfileNameWidget.pubkey(switch (note!.kind) {
-                      30_311 => StreamEvent(note).info.host,
-                      _ => note.pubKey,
-                    }, linkToProfile: false),
+          child: Row(
+            children: [
+              Icon(Icons.link, size: 16),
+              ProfileLoaderWidget(author, (context, state) {
+                final profile = state.data ?? Metadata(pubKey: note.pubKey);
+                return Text(switch (entity.kind) {
+                  30_023 => t.embed.article_by(
+                    name: ProfileNameWidget.nameFromProfile(profile),
                   ),
-              ],
-            ),
+                  30_311 => t.embed.live_stream_by(
+                    name: ProfileNameWidget.nameFromProfile(profile),
+                  ),
+                  _ => t.embed.note_by(
+                    name: ProfileNameWidget.nameFromProfile(profile),
+                  ),
+                });
+              }),
+            ],
           ),
         );
       },
