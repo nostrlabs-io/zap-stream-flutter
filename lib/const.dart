@@ -1,6 +1,7 @@
 import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk_amber/ndk_amber.dart';
 import 'package:ndk_objectbox/ndk_objectbox.dart';
@@ -38,6 +39,7 @@ const searchRelays = ["wss://relay.nostr.band", "wss://search.nos.today"];
 final loginData = LoginData();
 final RouteObserver<ModalRoute<void>> routeObserver =
     RouteObserver<ModalRoute<void>>();
+final localNotifications = FlutterLocalNotificationsPlugin();
 
 Future<void> initLogin() async {
   // reload / cache login data
