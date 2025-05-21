@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:zap_stream_flutter/app.dart';
 import 'package:zap_stream_flutter/const.dart';
@@ -7,7 +6,7 @@ import 'package:zap_stream_flutter/i18n/strings.g.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
-  await Firebase.initializeApp();
+  // FCM DELETE
   await initLogin();
 
   runZapStream();

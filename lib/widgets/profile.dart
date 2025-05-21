@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
-import 'package:zap_stream_flutter/main.dart';
+import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 
 class ProfileLoaderWidget extends StatelessWidget {

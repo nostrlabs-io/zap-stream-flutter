@@ -5,7 +5,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/widgets.dart';
 import 'package:ndk/ndk.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:zap_stream_flutter/main.dart';
+import 'package:zap_stream_flutter/const.dart';
 
 /// Reactive filter which builds the widget with a snapshot of the data
 class RxFilter<T> extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/widgets.dart';
 import 'package:video_player/video_player.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
-import 'package:zap_stream_flutter/main.dart';
+import 'package:zap_stream_flutter/const.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final String url;
