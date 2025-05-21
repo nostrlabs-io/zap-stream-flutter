@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "953923151748",
+    "project_id": "nostrlabs",
+    "storage_bucket": "nostrlabs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953923151748:android:8536cdc7f75edc9f9e9fd1",
+        "android_client_info": {
+          "package_name": "io.nostrlabs.zap_stream_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdpxIN8DR1-mh8MCjHU0mDtaUAk6xda6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

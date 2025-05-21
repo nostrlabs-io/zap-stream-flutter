@@ -1,0 +1,25 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "nostrlabs",
+                    "appId": "1:953923151748:android:8536cdc7f75edc9f9e9fd1",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "nostrlabs",
+                    "configurations": {
+                        "android": "1:953923151748:android:8536cdc7f75edc9f9e9fd1",
+                        "ios": "1:953923151748:ios:30ec9a230e55fe139e9fd1",
+                        "macos": "1:953923151748:ios:19516d42a1cc02229e9fd1",
+                        "web": "1:953923151748:web:f04633c33f9343b19e9fd1",
+                        "windows": "1:953923151748:web:6b9a6be6798644909e9fd1"
+                    }
+                }
+            }
+        }
+    }
+}
