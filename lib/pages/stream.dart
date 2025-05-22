@@ -13,6 +13,7 @@ import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/chat.dart';
+import 'package:zap_stream_flutter/widgets/notifications_button.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/stream_info.dart';
@@ -157,6 +158,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
         ProfileWidget.pubkey(
           stream.info.host,
           children: [
+            NotificationsButtonWidget(stream: widget.stream),
             Spacer(),
             BasicButton(
               Row(
