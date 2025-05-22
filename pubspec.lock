@@ -721,27 +721,27 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/ndk"
-      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
-      resolved-ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
-      url: "https://github.com/v0l/ndk"
+      ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      resolved-ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.3.2"
   ndk_amber:
     dependency: "direct main"
     description:
       path: "packages/amber"
-      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
-      resolved-ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
-      url: "https://github.com/v0l/ndk"
+      ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      resolved-ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.3.0"
   ndk_objectbox:
     dependency: "direct main"
     description:
       path: "packages/objectbox"
-      ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
-      resolved-ref: f8766edbf95246d4e398a0e0cf570f70f4263b34
-      url: "https://github.com/v0l/ndk"
+      ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      resolved-ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.2.3"
   ndk_rust_verifier:
@@ -1016,20 +1016,18 @@ packages:
   slang:
     dependency: "direct main"
     description:
-      path: slang
-      ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
-      resolved-ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
-      url: "https://github.com/nostrlabs-io/slang"
-    source: git
+      name: slang
+      sha256: "13132690084bef34fb74dbc698a1e5496f97afbcd3eb58e20c09393e77ac46e6"
+      url: "https://pub.dev"
+    source: hosted
     version: "4.7.1"
   slang_flutter:
     dependency: "direct main"
     description:
-      path: slang_flutter
-      ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
-      resolved-ref: "08c71daf08caf14990ea6381401d31ab4101fc03"
-      url: "https://github.com/nostrlabs-io/slang"
-    source: git
+      name: slang_flutter
+      sha256: fff13b6fc8b0378ee23856c4f9fd7f8e2777b430090681f4d19ab14c47de9bc6
+      url: "https://pub.dev"
+    source: hosted
     version: "4.7.0"
   source_span:
     dependency: transitive
