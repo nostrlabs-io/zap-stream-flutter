@@ -43,6 +43,7 @@ dependencies:
   firebase_messaging: ^15.2.6
   http: ^1.4.0
   flutter_local_notifications: ^19.2.1
+  flutter_dotenv: ^5.2.1
 
 dependency_overrides:
   ndk:
@@ -79,6 +80,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - ".env"
+    - ".env.development"
     - "assets/svg/"
     - "assets/logo.png"
     - "assets/category/"

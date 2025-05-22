@@ -1,7 +1,9 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/const.dart';
@@ -19,14 +21,16 @@ class Notepush {
         "$base/user-info/$pubkey/${Uri.encodeComponent(token)}?backend=fcm";
     developer.log(url);
     final auth = await _makeAuth("PUT", url);
-    final rsp = await http.put(
-      Uri.parse(url),
-      headers: {
-        "authorization": "Nostr $auth",
-        "accept": "application/json",
-        "content-type": "application/json",
-      },
-    );
+    final rsp = await http
+        .put(
+          Uri.parse(url),
+          headers: {
+            "authorization": "Nostr $auth",
+            "accept": "application/json",
+            "content-type": "application/json",
+          },
+        )
+        .timeout(Duration(seconds: 10));
     developer.log(rsp.body);
     return rsp.body;
   }
@@ -48,9 +52,11 @@ class Notepush {
 }
 
 Future<void> setupNotifications() async {
+  await Firebase.initializeApp();
+
   final signer = ndk.accounts.getLoggedAccount()?.signer;
   if (signer != null) {
-    final pusher = Notepush("http://10.0.2.2:8000", signer: signer);
+    final pusher = Notepush(dotenv.env["NOTEPUSH_URL"]!, signer: signer);
     final fbase = FirebaseMessaging.instance;
     FirebaseMessaging.onMessage.listen((msg) {
       developer.log(msg.notification?.body ?? "");

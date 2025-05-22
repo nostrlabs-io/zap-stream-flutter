@@ -6,7 +6,6 @@ import 'package:zap_stream_flutter/i18n/strings.g.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
-  // FCM DELETE
   await initLogin();
 
   runZapStream();
