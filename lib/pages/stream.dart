@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
@@ -23,6 +24,30 @@ class StreamPage extends StatefulWidget {
   final StreamEvent stream;
 
   const StreamPage({super.key, required this.stream});
+
+  static Widget loader(String id) {
+    final entity = decodeBech32ToTLVEntity(id);
+    return RxFilter<Nip01Event>(
+      Key("stream-loader:$id"),
+      filters: [entity.toFilter()],
+      builder: (context, state) {
+        final stream = state?.firstWhereOrNull(
+          (e) => e.getDtag() == entity.specialUtf8,
+        );
+        if (stream != null) {
+          return StreamPage(stream: StreamEvent(stream));
+        } else {
+          return Center(
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
+  }
 
   @override
   State<StatefulWidget> createState() => _StreamPage();

@@ -76,7 +76,7 @@ void runZapStream() {
                   if (state.extra is StreamEvent) {
                     return StreamPage(stream: state.extra as StreamEvent);
                   } else {
-                    throw UnimplementedError();
+                    return StreamPage.loader(state.pathParameters["id"]!);
                   }
                 },
               ),
@@ -118,6 +118,21 @@ void runZapStream() {
                     ],
                   ),
                 ],
+              ),
+              GoRoute(
+                path: "/:id",
+                redirect: (context, state) {
+                  final id = state.pathParameters["id"]!;
+                  if (id.startsWith("naddr1") ||
+                      id.startsWith("nevent1") ||
+                      id.startsWith("note1")) {
+                    return "/e/$id";
+                  } else if (id.startsWith("npub1") ||
+                      id.startsWith("nprofile1")) {
+                    return "/p/$id";
+                  }
+                  return null;
+                },
               ),
             ],
           ),
