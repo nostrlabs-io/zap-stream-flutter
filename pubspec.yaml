@@ -36,7 +36,7 @@ dependencies:
   duration: ^4.0.3
   slang: ^4.7.1
   slang_flutter: ^4.7.0
-  intl: ^0.20.2
+  intl: ^0.19.0
   flutter_localizations:
     sdk: flutter
   firebase_core: ^3.13.1
