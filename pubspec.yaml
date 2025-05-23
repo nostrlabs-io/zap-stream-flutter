@@ -1,7 +1,7 @@
 name: zap_stream_flutter
 description: "zap.stream"
 publish_to: "none"
-version: 0.8.0+10
+version: 0.8.1+11
 
 environment:
   sdk: ^3.7.2
