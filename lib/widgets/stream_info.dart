@@ -87,24 +87,28 @@ class StreamInfoWidget extends StatelessWidget {
             ),
 
           if (stream.info.tags.isNotEmpty || stream.info.gameInfo != null)
-            Row(
-              spacing: 2,
-              children: [
-                if (stream.info.gameInfo != null)
-                  GameInfoWidget(info: stream.info.gameInfo!),
-                ...stream.info.tags.map(
-                  (t) => PillWidget(
-                    color: LAYER_2,
-                    onTap: () {
-                      context.push("/t/${Uri.encodeComponent(t)}");
-                    },
-                    child: Text(
-                      t,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              primary: false,
+              child: Row(
+                spacing: 2,
+                children: [
+                  if (stream.info.gameInfo != null)
+                    GameInfoWidget(info: stream.info.gameInfo!),
+                  ...stream.info.tags.map(
+                    (t) => PillWidget(
+                      color: LAYER_2,
+                      onTap: () {
+                        context.push("/t/${Uri.encodeComponent(t)}");
+                      },
+                      child: Text(
+                        t,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           StreamCardsWidget(stream: stream),
         ],
