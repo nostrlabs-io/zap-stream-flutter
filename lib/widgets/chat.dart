@@ -20,6 +20,7 @@ class ChatWidget extends StatelessWidget {
   final StreamEvent stream;
 
   const ChatWidget({super.key, required this.stream});
+
   @override
   Widget build(BuildContext context) {
     var moderators = [stream.info.host];
@@ -112,40 +113,32 @@ class ChatWidget extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 reverse: true,
-                primary: true,
                 itemCount: filteredChat.length,
-                itemBuilder:
-                    (ctx, idx) => switch (filteredChat[idx].kind) {
-                      1311 => ChatMessageWidget(
-                        key: Key("chat:${filteredChat[idx].id}"),
-                        stream: stream,
-                        msg: filteredChat[idx],
-                        badges:
-                            badgeAwards[filteredChat[idx].pubKey]
-                                ?.map(
-                                  (a) => ChatBadgeWidget.fromATag(
-                                    a,
-                                    key: Key("${filteredChat[idx].pubKey}:$a"),
-                                  ),
-                                )
-                                .toList(),
-                      ),
-                      1312 => ChatRaidMessage(
-                        event: filteredChat[idx],
-                        stream: stream,
-                      ),
-                      1314 => ChatTimeoutWidget(timeout: filteredChat[idx]),
-                      9735 => ChatZapWidget(
-                        key: Key("chat:${filteredChat[idx].id}"),
-                        stream: stream,
-                        zap: filteredChat[idx],
-                      ),
-                      8 => ChatBadgeAwardWidget(
-                        event: filteredChat[idx],
-                        stream: stream,
-                      ),
-                      _ => SizedBox(),
-                    },
+                itemBuilder: (ctx, idx) {
+                  final msg = filteredChat[idx];
+                  final widget = switch (msg.kind) {
+                    1311 => ChatMessageWidget(
+                      stream: stream,
+                      msg: msg,
+                      badges:
+                          badgeAwards[msg.pubKey]
+                              ?.map(
+                                (a) => ChatBadgeWidget.fromATag(
+                                  a,
+                                  key: Key("${msg.pubKey}:$a"),
+                                ),
+                              )
+                              .toList(),
+                    ),
+                    1312 => ChatRaidMessage(event: msg, stream: stream),
+                    1314 => ChatTimeoutWidget(timeout: msg),
+                    9735 => ChatZapWidget(stream: stream, zap: msg),
+                    8 => ChatBadgeAwardWidget(event: msg, stream: stream),
+                    _ => SizedBox(),
+                  };
+
+                  return widget;
+                },
               ),
             ),
             if (stream.info.status == StreamStatus.live && !isChatDisabled)

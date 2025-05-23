@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/const.dart';
-import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
@@ -24,33 +23,47 @@ class ChatMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProfileLoaderWidget(msg.pubKey, (ctx, state) {
-      final profile = state.data ?? Metadata(pubKey: msg.pubKey);
-      return GestureDetector(
-        onLongPress: () {
-          if (ndk.accounts.canSign) {
-            showModalBottomSheet(
-              context: context,
-              constraints: BoxConstraints.expand(),
-              builder:
-                  (ctx) => ChatModalWidget(
-                    profile: profile,
-                    event: msg,
-                    stream: stream,
-                  ),
-            );
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
-          child: Column(
-            spacing: 2,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [_chatText(profile), ChatReactions(msg: msg)],
+    return FutureBuilder(
+      future: ndk.metadata.loadMetadata(msg.pubKey),
+      builder: (ctx, state) {
+        final profile = state.data ?? Metadata(pubKey: msg.pubKey);
+        return GestureDetector(
+          onLongPress: () {
+            if (ndk.accounts.canSign) {
+              showModalBottomSheet(
+                context: context,
+                constraints: BoxConstraints.expand(),
+                builder:
+                    (ctx) => ChatModalWidget(
+                      profile: profile,
+                      event: msg,
+                      stream: stream,
+                    ),
+              );
+            }
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+            child: Column(
+              spacing: 2,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _chatText(profile),
+                /*RxFilter<Nip01Event>(
+                  Key(msg.id),
+                  filters: [
+                    Filter(kinds: [9735, 7], eTags: [msg.id]),
+                  ],
+                  builder: (context, state) {
+                    return ChatReactions(msg: msg, events: state ?? []);
+                  },
+                ),*/
+              ],
+            ),
           ),
-        ),
-      );
-    }, key: Key("chat:${msg.id}:profile"));
+        );
+      },
+    );
   }
 
   Widget _chatText(Metadata profile) {
@@ -91,25 +104,15 @@ class ChatMessageWidget extends StatelessWidget {
 
 class ChatReactions extends StatelessWidget {
   final Nip01Event msg;
+  final List<Nip01Event> events;
 
-  const ChatReactions({super.key, required this.msg});
+  const ChatReactions({super.key, required this.msg, required this.events});
 
   @override
   Widget build(BuildContext context) {
-    return RxFilter<Nip01Event>(
-      Key("chat:${msg.id}:reactions"),
-      filters: [
-        Filter(kinds: [9735, 7], eTags: [msg.id]),
-      ],
-      builder: (ctx, data) => _chatReactions(ctx, data),
-    );
-  }
-
-  Widget _chatReactions(BuildContext context, List<Nip01Event>? events) {
-    if ((events?.length ?? 0) == 0) return SizedBox.shrink();
-
     // reactions must have e tag pointing to msg
-    final filteredEvents = events!.where((e) => e.getEId() == msg.id);
+    final filteredEvents = events.where((e) => e.getEId() == msg.id);
+    if (filteredEvents.isEmpty) return SizedBox.shrink();
     final zaps = filteredEvents
         .where((e) => e.kind == 9735)
         .map((e) => ZapReceipt.fromEvent(e));

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:developer' as developer;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/ndk.dart';
 import 'package:rxdart/rxdart.dart';
@@ -16,11 +17,11 @@ class RxFilter<T> extends StatefulWidget {
   final List<String>? relays;
 
   const RxFilter(
-    Key key, {
+    Key? key, {
     required this.filters,
+    this.leaveOpen = false,
     required this.builder,
     this.mapper,
-    this.leaveOpen = true,
     this.relays,
   }) : super(key: key);
 
@@ -29,22 +30,79 @@ class RxFilter<T> extends StatefulWidget {
 }
 
 class _RxFilter<T> extends State<RxFilter<T>> {
-  late NdkResponse _response;
-  late StreamSubscription _listener;
-  HashMap<String, (int, T)>? _events;
+  late final RxFilterState<T> _state;
 
   @override
   void initState() {
-    super.initState();
-    developer.log("RX:SEDNING ${widget.filters}");
-    _response = ndk.requests.subscription(
+    _state = RxFilterState<T>(
       filters: widget.filters,
-      explicitRelays: widget.relays,
-      cacheWrite: true
+      leaveOpen: widget.leaveOpen,
+      mapper: widget.mapper,
+      relays: widget.relays,
     );
-    if (!widget.leaveOpen) {
+    /* send spam into chat
+    if (widget.key is ValueKey) {
+      final vk = (widget.key as ValueKey).value as String;
+      if (vk.startsWith("stream:chat:")) {
+        Timer.periodic(Duration(seconds: 1), (_) {
+          final spam = Nip01Event(
+            pubKey:
+                "63fe6318dc58583cfe16810f86dd09e18bfd76aabc24a0081ce2856f330504ed",
+            kind: 1311,
+            tags: [
+              ["a", vk.split(":").last],
+            ],
+            content: "SPAM ${DateTime.now()}",
+          );
+          _state.insertEvent(spam);
+        });
+      }
+    }*/
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _state.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: _state,
+      builder: (context, state, _) {
+        return widget.builder(context, state);
+      },
+    );
+  }
+}
+
+class RxFilterState<T> extends ChangeNotifier
+    implements ValueListenable<List<T>?> {
+  final List<Filter> filters;
+  final bool leaveOpen;
+  final T Function(Nip01Event)? mapper;
+  final List<String>? relays;
+  HashMap<String, (int, T)>? _events;
+  late final NdkResponse _response;
+  late final StreamSubscription _listener;
+
+  RxFilterState({
+    required this.filters,
+    this.leaveOpen = false,
+    this.mapper,
+    this.relays,
+  }) {
+    developer.log("RX:SEDNING $filters");
+    _response = ndk.requests.subscription(
+      filters: filters,
+      explicitRelays: relays,
+      cacheWrite: true,
+    );
+    if (!leaveOpen) {
       _response.future.then((_) {
-        developer.log("RX:CLOSING ${widget.filters}");
+        developer.log("RX:CLOSING $filters");
         ndk.requests.closeSubscription(_response.requestId);
       });
     }
@@ -55,27 +113,34 @@ class _RxFilter<T> extends State<RxFilter<T>> {
           developer.log("RX:ERROR $e");
         })
         .listen((events) {
-          if (context.mounted) {
-            setState(() {
-              developer.log(
-                "RX:GOT ${events.length} events for ${widget.filters}",
-              );
-              events.forEach(_replaceInto);
-            });
+          developer.log("RX:GOT ${events.length} events for $filters");
+          var didUpdate = false;
+          for (final ev in events) {
+            if (_replaceInto(ev)) {
+              didUpdate = true;
+            }
+          }
+          if (didUpdate) {
+            notifyListeners();
           }
         });
   }
 
-  void _replaceInto(Nip01Event ev) {
+  void insertEvent(Nip01Event ev) {
+    if (_replaceInto(ev)) {
+      notifyListeners();
+    }
+  }
+
+  bool _replaceInto(Nip01Event ev) {
     final evKey = _eventKey(ev);
     _events ??= HashMap();
     final existing = _events![evKey];
     if (existing == null || existing.$1 < ev.createdAt) {
-      _events![evKey] = (
-        ev.createdAt,
-        widget.mapper != null ? widget.mapper!(ev) : ev as T,
-      );
+      _events![evKey] = (ev.createdAt, mapper != null ? mapper!(ev) : ev as T);
+      return true;
     }
+    return false;
   }
 
   String _eventKey(Nip01Event ev) {
@@ -89,17 +154,15 @@ class _RxFilter<T> extends State<RxFilter<T>> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-
-    developer.log("RX:CLOSING ${widget.filters}");
-    _listener.cancel();
-    ndk.requests.closeSubscription(_response.requestId);
-  }
+  List<T>? get value =>
+      _events != null ? List<T>.from(_events!.values.map((v) => v.$2)) : null;
 
   @override
-  Widget build(BuildContext context) {
-    return widget.builder(context, _events?.values.map((v) => v.$2).toList());
+  void dispose() {
+    developer.log("RX:CLOSING $filters");
+    _listener.cancel();
+    ndk.requests.closeSubscription(_response.requestId);
+    super.dispose();
   }
 }
 
