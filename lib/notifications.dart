@@ -9,8 +9,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:http/http.dart' as http;
+import 'package:zap_stream_flutter/utils.dart';
 
 class Notepush {
   final String base;
@@ -158,9 +160,17 @@ Future<void> setupNotifications() async {
       }
     });
     FirebaseMessaging.onMessageOpenedApp.listen((msg) {
-      final notification = msg.notification;
-      if (notification != null) {
-        // TODO: redirect to stream
+      try {
+        final notification = msg.notification;
+        final String? json = msg.data["nostr_event"];
+        if (notification != null && json != null) {
+          // Just launch the URL because we support deep links
+          final event = Nip01Event.fromJson(JsonCodec().decode(json));
+          final stream = StreamEvent(event);
+          launchUrl(Uri.parse("https://zap.stream/${stream.link}"));
+        }
+      } catch (e) {
+        developer.log("Failed to process push notification\n ${e.toString()}");
       }
     });
     await fbase.setAutoInitEnabled(true);
