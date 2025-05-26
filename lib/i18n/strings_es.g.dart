@@ -67,6 +67,7 @@ class TranslationsEs extends Translations {
 
 	@override late final _TranslationsZapEs zap = _TranslationsZapEs._(_root);
 	@override late final _TranslationsProfileEs profile = _TranslationsProfileEs._(_root);
+	@override late final _TranslationsSettingsEs settings = _TranslationsSettingsEs._(_root);
 	@override late final _TranslationsLoginEs login = _TranslationsLoginEs._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonEs extends TranslationsButtonEn {
 	@override String get unmute => 'Dejar de silenciar';
 	@override String get share => 'Compartir';
 	@override String get save => 'Guardar';
+	@override String get connect => 'Conectar';
+	@override String get settings => 'Ajustes';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapEs extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zapear ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Abrir en cartera';
+	@override String get button_connect_wallet => 'Billetera Connect';
 	@override String get copy => 'Copiado al portapapeles';
 	@override late final _TranslationsZapErrorEs error = _TranslationsZapErrorEs._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileEs extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Transmisiones anteriores';
-	@override late final _TranslationsProfileEditEs edit = _TranslationsProfileEditEs._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsEs extends TranslationsSettingsEn {
+	_TranslationsSettingsEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Editar perfil';
+	@override String get button_wallet => 'Configuración de la cartera';
+	@override late final _TranslationsSettingsProfileEs profile = _TranslationsSettingsProfileEs._(_root);
+	@override late final _TranslationsSettingsWalletEs wallet = _TranslationsSettingsWalletEs._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorEs extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'No se ha encontrado ninguna dirección de rayos';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditEs extends TranslationsProfileEditEn {
-	_TranslationsProfileEditEs._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileEs extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileEs._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Mostrar nombre';
-	@override String get about => 'Sobre ti';
+	@override String get about => 'Acerca de';
 	@override String get nip05 => 'Dirección Nostr';
 	@override String get lud16 => 'Dirección del rayo';
-	@override late final _TranslationsProfileEditErrorEs error = _TranslationsProfileEditErrorEs._(_root);
+	@override late final _TranslationsSettingsProfileErrorEs error = _TranslationsSettingsProfileErrorEs._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletEs extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Cartera Connect (NWC nwc://)';
+	@override String get disconnect_wallet => 'Desconectar Cartera';
+	@override late final _TranslationsSettingsWalletErrorEs error = _TranslationsSettingsWalletErrorEs._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidEs extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Incursiones en ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorEs extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorEs._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorEs extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorEs._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'No se puede editar el perfil cuando se cierra la sesión';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorEs extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'No se puede conectar el monedero al cerrar la sesión';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsEs {
 			case 'button.unmute': return 'Dejar de silenciar';
 			case 'button.share': return 'Compartir';
 			case 'button.save': return 'Guardar';
+			case 'button.connect': return 'Conectar';
+			case 'button.settings': return 'Ajustes';
 			case 'embed.article_by': return ({required Object name}) => 'Artículo de ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Nota de ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Transmisión en directo por ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsEs {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zapear ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Abrir en cartera';
+			case 'zap.button_connect_wallet': return 'Billetera Connect';
 			case 'zap.copy': return 'Copiado al portapapeles';
 			case 'zap.error.invalid_custom_amount': return 'Importe personalizado no válido';
 			case 'zap.error.no_wallet': return 'Sin monedero relámpago instalado';
 			case 'zap.error.no_lud16': return 'No se ha encontrado ninguna dirección de rayos';
 			case 'profile.past_streams': return 'Transmisiones anteriores';
-			case 'profile.edit.display_name': return 'Mostrar nombre';
-			case 'profile.edit.about': return 'Sobre ti';
-			case 'profile.edit.nip05': return 'Dirección Nostr';
-			case 'profile.edit.lud16': return 'Dirección del rayo';
-			case 'profile.edit.error.logged_out': return 'No se puede editar el perfil cuando se cierra la sesión';
+			case 'settings.button_profile': return 'Editar perfil';
+			case 'settings.button_wallet': return 'Configuración de la cartera';
+			case 'settings.profile.display_name': return 'Mostrar nombre';
+			case 'settings.profile.about': return 'Acerca de';
+			case 'settings.profile.nip05': return 'Dirección Nostr';
+			case 'settings.profile.lud16': return 'Dirección del rayo';
+			case 'settings.profile.error.logged_out': return 'No se puede editar el perfil cuando se cierra la sesión';
+			case 'settings.wallet.connect_wallet': return 'Cartera Connect (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Desconectar Cartera';
+			case 'settings.wallet.error.logged_out': return 'No se puede conectar el monedero al cerrar la sesión';
 			case 'login.username': return 'Usuario';
 			case 'login.amber': return 'Iniciar sesión con Amber';
 			case 'login.key': return 'Inicio de sesión con clave';

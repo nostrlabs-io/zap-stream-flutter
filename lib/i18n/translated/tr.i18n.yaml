@@ -1,97 +1,101 @@
 upload_avatar: Avatar Yükle
-"@upload_avatar": 
-  description: Kullanıcının yüklemeye başlamak için avatar yer tutucusuna basmasını isteyen metin
+"@upload_avatar":
+  description: Kullanıcının yüklemeye başlamak için avatar yer tutucusuna
+    basmasını isteyen metin
 most_zapped_streamers: En Çok Zaplanan Flamalar
-"@most_zapped_streamers": 
+"@most_zapped_streamers":
   description: Zaps tarafından listelenen üst flamalar üzerinde ilerliyor
 no_user_found: Kullanıcı bulunamadı
-"@no_user_found": 
+"@no_user_found":
   description: Arama yaparken kullanıcı bulunamadı
 anon: Anon
-viewers: 
+viewers:
   one: 1 izleyici
   other: $n izleyiciler
-"@viewers": 
+"@viewers":
   description: Akışı izleyenlerin sayısı
-  placeholders: 
-    n: 
+  placeholders:
+    n:
       type: int
-"@anon": 
+"@anon":
   description: Anonim bir kullanıcı
-stream: 
-  status: 
+stream:
+  status:
     live: CANLI
     ended: SONLANDI
     planned: PLANLANMIŞ
   started: Başlatıldı $timestamp
-  chat: 
+  chat:
     disabled: SOHBET DEVRE DIŞI
     disabled_timeout: "Zaman aşımı sona eriyor: $time"
     timeout(rich): $mod zaman aşımına uğradı $user için $time
-    "@timeout": 
+    "@timeout":
       description: Zaman aşımı olaylarını gösteren sohbet mesajı
     ended: YAYIN SONLANDI
-    "@ended": 
+    "@ended":
       description: Sohbetin alt kısmında akış sona erdi altbilgisi
     zap(rich): $user zapped $amount sats
-    "@zap": 
+    "@zap":
       description: Akış zaplarını gösteren sohbet mesajı
-    write: 
+    write:
       label: Mesaj yaz
-      "@label": 
+      "@label":
         description: Sohbet mesajı giriş kutusundaki etiket
       no_signer: Npub girişi ile mesaj yazılamıyor
-      "@no_signer": 
-        description: Kullanıcı yalnızca pubkey ile oturum açtığında gösterilen sohbet giriş mesajı
+      "@no_signer":
+        description: Kullanıcı yalnızca pubkey ile oturum açtığında gösterilen sohbet
+          giriş mesajı
       login: Mesaj göndermek için lütfen giriş yapın
-      "@login": 
+      "@login":
         description: Kullanıcı oturumu kapatıldığında gösterilen sohbet giriş mesajı
-    badge: 
+    badge:
       awarded_to: "Ödüllendirildi:"
-      "@awarded_to": 
+      "@awarded_to":
         description: Rozet verilen kullanıcıların listesi üzerinde başlık
-    raid: 
-      to: RAIDING ${name}S
-      "@to": 
+    raid:
+      to: RAIDING $name
+      "@to":
         description: Başka bir akışa sohbet baskını mesajı
-      from: $name ADRESINDEN RAID
-      "@from": 
+      from: ${name}ADRESINDEN RAID
+      "@from":
         description: Başka bir akıştan sohbet baskını mesajı
-      countdown: $time adresinde baskın
-      "@countdown": 
+      countdown: ${time}adresinde baskın
+      "@countdown":
         description: Otomatik sürüş için geri sayım sayacı
-goal: 
+goal:
   title: "Hedef: $amount"
   remaining: "Kalan: $amount"
   complete: TAMAMLANDI
-button: 
+button:
   login: Giriş
   logout: Oturum Kapatma
   edit_profile: Profil Düzenle
-  "@login": 
+  "@login":
     description: Oturum açma düğmesi için düğme metni
   follow: Takip et
-  "@follow": 
+  "@follow":
     description: Takip et düğmesi için düğme metni
   unfollow: Takibi bırak
-  "@unfollow": 
+  "@unfollow":
     description: Takibi bırak düğmesi için düğme metni
   mute: Sessiz
   unmute: Sesi aç
   share: Paylaş
   save: Kaydet
-embed: 
+  connect: Bağlan
+  settings: Ayarlar
+embed:
   article_by: Makale $name
   note_by: "Not: $name"
   live_stream_by: "Canlı yayın: $name"
-stream_list: 
+stream_list:
   following: Aşağıdaki
   live: Canlı
   planned: Planlanmış
   ended: Bitti
-"@stream_list": 
+"@stream_list":
   description: Akış türüne göre akış listelerindeki başlıklar canlı/bitmiş/planlanan vb.
-zap: 
+zap:
   title: Zap $name
   custom_amount: Özel Tutar
   confirm: Onaylayın
@@ -99,24 +103,33 @@ zap:
   button_zap_ready: Zap $amount sats
   button_zap: Zap
   button_open_wallet: Cüzdanda Aç
+  button_connect_wallet: Cüzdan Bağlayın
   copy: Panoya kopyalandı
-  error: 
+  error:
     invalid_custom_amount: Geçersiz özel tutar
     no_wallet: Lightning cüzdan yüklü değil
     no_lud16: Yıldırım adresi bulunamadı
-profile: 
+profile:
   past_streams: Geçmiş Akışlar
-  edit: 
+settings:
+  button_profile: Profil Düzenle
+  button_wallet: Cüzdan Ayarları
+  profile:
     display_name: Ekran Adı
     about: Hakkında
     nip05: Nostr Adres
     lud16: Yıldırım Adres
-    error: 
+    error:
       logged_out: Çıkış yapıldığında profil düzenlenemiyor
-login: 
+  wallet:
+    connect_wallet: Cüzdanı Bağlayın (NWC nwc://)
+    disconnect_wallet: Cüzdan Bağlantısını Kes
+    error:
+      logged_out: Oturumu kapattığımda cüzdana bağlanamıyorum
+login:
   username: Kullanıcı Adı
   amber: Amber ile Giriş Yapın
   key: Anahtar ile Giriş Yapın
   create: Hesap Oluştur
-  error: 
+  error:
     invalid_key: Geçersiz anahtar

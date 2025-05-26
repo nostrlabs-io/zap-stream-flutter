@@ -67,6 +67,7 @@ class TranslationsSv extends Translations {
 
 	@override late final _TranslationsZapSv zap = _TranslationsZapSv._(_root);
 	@override late final _TranslationsProfileSv profile = _TranslationsProfileSv._(_root);
+	@override late final _TranslationsSettingsSv settings = _TranslationsSettingsSv._(_root);
 	@override late final _TranslationsLoginSv login = _TranslationsLoginSv._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonSv extends TranslationsButtonEn {
 	@override String get unmute => 'Avtysta';
 	@override String get share => 'Dela';
 	@override String get save => 'Spara';
+	@override String get connect => 'Anslut';
+	@override String get settings => 'Inställningar';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapSv extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Öppna i plånboken';
+	@override String get button_connect_wallet => 'Anslut plånbok';
 	@override String get copy => 'Kopieras till urklipp';
 	@override late final _TranslationsZapErrorSv error = _TranslationsZapErrorSv._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileSv extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Tidigare streamar';
-	@override late final _TranslationsProfileEditSv edit = _TranslationsProfileEditSv._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsSv extends TranslationsSettingsEn {
+	_TranslationsSettingsSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Redigera profil';
+	@override String get button_wallet => 'Inställningar för plånbok';
+	@override late final _TranslationsSettingsProfileSv profile = _TranslationsSettingsProfileSv._(_root);
+	@override late final _TranslationsSettingsWalletSv wallet = _TranslationsSettingsWalletSv._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorSv extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Ingen blixtadress hittades';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditSv extends TranslationsProfileEditEn {
-	_TranslationsProfileEditSv._(TranslationsSv root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileSv extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileSv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -257,8 +273,20 @@ class _TranslationsProfileEditSv extends TranslationsProfileEditEn {
 	@override String get display_name => 'Visa namn';
 	@override String get about => 'Om';
 	@override String get nip05 => 'Nostr Adress';
-	@override String get lud16 => 'Lightning-adress';
-	@override late final _TranslationsProfileEditErrorSv error = _TranslationsProfileEditErrorSv._(_root);
+	@override String get lud16 => 'Adress för blixtnedslag';
+	@override late final _TranslationsSettingsProfileErrorSv error = _TranslationsSettingsProfileErrorSv._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletSv extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Anslut plånbok (NWC nwc://)';
+	@override String get disconnect_wallet => 'Koppla bort plånboken';
+	@override late final _TranslationsSettingsWalletErrorSv error = _TranslationsSettingsWalletErrorSv._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidSv extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raiding på ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorSv extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorSv extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Kan inte redigera profil när jag är utloggad';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorSv extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Kan inte ansluta plånbok när du är inloggad';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsSv {
 			case 'button.unmute': return 'Avtysta';
 			case 'button.share': return 'Dela';
 			case 'button.save': return 'Spara';
+			case 'button.connect': return 'Anslut';
+			case 'button.settings': return 'Inställningar';
 			case 'embed.article_by': return ({required Object name}) => 'Artikel av ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Anteckning av ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Direktsändning via ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsSv {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Öppna i plånboken';
+			case 'zap.button_connect_wallet': return 'Anslut plånbok';
 			case 'zap.copy': return 'Kopieras till urklipp';
 			case 'zap.error.invalid_custom_amount': return 'Ogiltigt anpassat belopp';
 			case 'zap.error.no_wallet': return 'Ingen blixtplånbok installerad';
 			case 'zap.error.no_lud16': return 'Ingen blixtadress hittades';
 			case 'profile.past_streams': return 'Tidigare streamar';
-			case 'profile.edit.display_name': return 'Visa namn';
-			case 'profile.edit.about': return 'Om';
-			case 'profile.edit.nip05': return 'Nostr Adress';
-			case 'profile.edit.lud16': return 'Lightning-adress';
-			case 'profile.edit.error.logged_out': return 'Kan inte redigera profil när jag är utloggad';
+			case 'settings.button_profile': return 'Redigera profil';
+			case 'settings.button_wallet': return 'Inställningar för plånbok';
+			case 'settings.profile.display_name': return 'Visa namn';
+			case 'settings.profile.about': return 'Om';
+			case 'settings.profile.nip05': return 'Nostr Adress';
+			case 'settings.profile.lud16': return 'Adress för blixtnedslag';
+			case 'settings.profile.error.logged_out': return 'Kan inte redigera profil när jag är utloggad';
+			case 'settings.wallet.connect_wallet': return 'Anslut plånbok (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Koppla bort plånboken';
+			case 'settings.wallet.error.logged_out': return 'Kan inte ansluta plånbok när du är inloggad';
 			case 'login.username': return 'Användarnamn';
 			case 'login.amber': return 'Logga in med Amber';
 			case 'login.key': return 'Logga in med nyckel';

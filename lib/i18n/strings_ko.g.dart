@@ -67,6 +67,7 @@ class TranslationsKo extends Translations {
 
 	@override late final _TranslationsZapKo zap = _TranslationsZapKo._(_root);
 	@override late final _TranslationsProfileKo profile = _TranslationsProfileKo._(_root);
+	@override late final _TranslationsSettingsKo settings = _TranslationsSettingsKo._(_root);
 	@override late final _TranslationsLoginKo login = _TranslationsLoginKo._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonKo extends TranslationsButtonEn {
 	@override String get unmute => '뮤트 해제';
 	@override String get share => '공유';
 	@override String get save => '저장';
+	@override String get connect => '연결';
+	@override String get settings => '설정';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapKo extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => '지갑에서 열기';
+	@override String get button_connect_wallet => '지갑 연결';
 	@override String get copy => '클립보드에 복사';
 	@override late final _TranslationsZapErrorKo error = _TranslationsZapErrorKo._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileKo extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => '과거 스트림';
-	@override late final _TranslationsProfileEditKo edit = _TranslationsProfileEditKo._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsKo extends TranslationsSettingsEn {
+	_TranslationsSettingsKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => '프로필 수정';
+	@override String get button_wallet => '지갑 설정';
+	@override late final _TranslationsSettingsProfileKo profile = _TranslationsSettingsProfileKo._(_root);
+	@override late final _TranslationsSettingsWalletKo wallet = _TranslationsSettingsWalletKo._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorKo extends TranslationsZapErrorEn {
 	@override String get no_lud16 => '번개 주소를 찾을 수 없습니다.';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditKo extends TranslationsProfileEditEn {
-	_TranslationsProfileEditKo._(TranslationsKo root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileKo extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditKo extends TranslationsProfileEditEn {
 	@override String get about => '정보';
 	@override String get nip05 => '노스트르 주소';
 	@override String get lud16 => '라이트닝 주소';
-	@override late final _TranslationsProfileEditErrorKo error = _TranslationsProfileEditErrorKo._(_root);
+	@override late final _TranslationsSettingsProfileErrorKo error = _TranslationsSettingsProfileErrorKo._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletKo extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => '지갑 연결(NWC nwc://)';
+	@override String get disconnect_wallet => '지갑 연결 해제';
+	@override late final _TranslationsSettingsWalletErrorKo error = _TranslationsSettingsWalletErrorKo._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidKo extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => '${time}에서 레이드';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorKo extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorKo extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => '로그아웃 시 프로필 수정 불가';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorKo extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => '로그아웃 시 지갑 연결 불가';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsKo {
 			case 'button.unmute': return '뮤트 해제';
 			case 'button.share': return '공유';
 			case 'button.save': return '저장';
+			case 'button.connect': return '연결';
+			case 'button.settings': return '설정';
 			case 'embed.article_by': return ({required Object name}) => '작성자: ${name}';
 			case 'embed.note_by': return ({required Object name}) => '노트 작성됨: ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => '라이브 스트리밍: ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsKo {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return '지갑에서 열기';
+			case 'zap.button_connect_wallet': return '지갑 연결';
 			case 'zap.copy': return '클립보드에 복사';
 			case 'zap.error.invalid_custom_amount': return '잘못된 사용자 지정 금액';
 			case 'zap.error.no_wallet': return '라이트닝 월렛이 설치되지 않았습니다.';
 			case 'zap.error.no_lud16': return '번개 주소를 찾을 수 없습니다.';
 			case 'profile.past_streams': return '과거 스트림';
-			case 'profile.edit.display_name': return '표시 이름';
-			case 'profile.edit.about': return '정보';
-			case 'profile.edit.nip05': return '노스트르 주소';
-			case 'profile.edit.lud16': return '라이트닝 주소';
-			case 'profile.edit.error.logged_out': return '로그아웃 시 프로필 수정 불가';
+			case 'settings.button_profile': return '프로필 수정';
+			case 'settings.button_wallet': return '지갑 설정';
+			case 'settings.profile.display_name': return '표시 이름';
+			case 'settings.profile.about': return '정보';
+			case 'settings.profile.nip05': return '노스트르 주소';
+			case 'settings.profile.lud16': return '라이트닝 주소';
+			case 'settings.profile.error.logged_out': return '로그아웃 시 프로필 수정 불가';
+			case 'settings.wallet.connect_wallet': return '지갑 연결(NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return '지갑 연결 해제';
+			case 'settings.wallet.error.logged_out': return '로그아웃 시 지갑 연결 불가';
 			case 'login.username': return '사용자 이름';
 			case 'login.amber': return 'Amber로 로그인';
 			case 'login.key': return '키로 로그인';

@@ -67,6 +67,7 @@ class TranslationsCs extends Translations {
 
 	@override late final _TranslationsZapCs zap = _TranslationsZapCs._(_root);
 	@override late final _TranslationsProfileCs profile = _TranslationsProfileCs._(_root);
+	@override late final _TranslationsSettingsCs settings = _TranslationsSettingsCs._(_root);
 	@override late final _TranslationsLoginCs login = _TranslationsLoginCs._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonCs extends TranslationsButtonEn {
 	@override String get unmute => 'Zrušit ztlumení';
 	@override String get share => 'Sdílet';
 	@override String get save => 'Uložit';
+	@override String get connect => 'Připojení';
+	@override String get settings => 'Nastavení';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapCs extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Otevřít v peněžence';
+	@override String get button_connect_wallet => 'Připojení peněženky';
 	@override String get copy => 'Zkopírováno do schránky';
 	@override late final _TranslationsZapErrorCs error = _TranslationsZapErrorCs._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileCs extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Minulé proudy';
-	@override late final _TranslationsProfileEditCs edit = _TranslationsProfileEditCs._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsCs extends TranslationsSettingsEn {
+	_TranslationsSettingsCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Upravit profil';
+	@override String get button_wallet => 'Nastavení peněženky';
+	@override late final _TranslationsSettingsProfileCs profile = _TranslationsSettingsProfileCs._(_root);
+	@override late final _TranslationsSettingsWalletCs wallet = _TranslationsSettingsWalletCs._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorCs extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Nebyla nalezena žádná adresa blesku';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditCs extends TranslationsProfileEditEn {
-	_TranslationsProfileEditCs._(TranslationsCs root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileCs extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditCs extends TranslationsProfileEditEn {
 	@override String get about => 'O stránkách';
 	@override String get nip05 => 'Adresa Nostr';
 	@override String get lud16 => 'Adresa blesku';
-	@override late final _TranslationsProfileEditErrorCs error = _TranslationsProfileEditErrorCs._(_root);
+	@override late final _TranslationsSettingsProfileErrorCs error = _TranslationsSettingsProfileErrorCs._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletCs extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Připojení peněženky (NWC nwc://)';
+	@override String get disconnect_wallet => 'Odpojení peněženky';
+	@override late final _TranslationsSettingsWalletErrorCs error = _TranslationsSettingsWalletErrorCs._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidCs extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Nájezdy na ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorCs extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorCs extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Nelze upravit profil, když je odhlášený';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorCs extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Nelze se připojit k peněžence, když jste odhlášeni';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsCs {
 			case 'button.unmute': return 'Zrušit ztlumení';
 			case 'button.share': return 'Sdílet';
 			case 'button.save': return 'Uložit';
+			case 'button.connect': return 'Připojení';
+			case 'button.settings': return 'Nastavení';
 			case 'embed.article_by': return ({required Object name}) => 'Článek na ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Poznámka ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Přímý přenos na adrese ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsCs {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Otevřít v peněžence';
+			case 'zap.button_connect_wallet': return 'Připojení peněženky';
 			case 'zap.copy': return 'Zkopírováno do schránky';
 			case 'zap.error.invalid_custom_amount': return 'Neplatná vlastní částka';
 			case 'zap.error.no_wallet': return 'Není nainstalována blesková peněženka';
 			case 'zap.error.no_lud16': return 'Nebyla nalezena žádná adresa blesku';
 			case 'profile.past_streams': return 'Minulé proudy';
-			case 'profile.edit.display_name': return 'Zobrazení názvu';
-			case 'profile.edit.about': return 'O stránkách';
-			case 'profile.edit.nip05': return 'Adresa Nostr';
-			case 'profile.edit.lud16': return 'Adresa blesku';
-			case 'profile.edit.error.logged_out': return 'Nelze upravit profil, když je odhlášený';
+			case 'settings.button_profile': return 'Upravit profil';
+			case 'settings.button_wallet': return 'Nastavení peněženky';
+			case 'settings.profile.display_name': return 'Zobrazení názvu';
+			case 'settings.profile.about': return 'O stránkách';
+			case 'settings.profile.nip05': return 'Adresa Nostr';
+			case 'settings.profile.lud16': return 'Adresa blesku';
+			case 'settings.profile.error.logged_out': return 'Nelze upravit profil, když je odhlášený';
+			case 'settings.wallet.connect_wallet': return 'Připojení peněženky (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Odpojení peněženky';
+			case 'settings.wallet.error.logged_out': return 'Nelze se připojit k peněžence, když jste odhlášeni';
 			case 'login.username': return 'Uživatelské jméno';
 			case 'login.amber': return 'Přihlášení pomocí Amber';
 			case 'login.key': return 'Přihlášení pomocí klíče';

@@ -67,6 +67,7 @@ class TranslationsFr extends Translations {
 
 	@override late final _TranslationsZapFr zap = _TranslationsZapFr._(_root);
 	@override late final _TranslationsProfileFr profile = _TranslationsProfileFr._(_root);
+	@override late final _TranslationsSettingsFr settings = _TranslationsSettingsFr._(_root);
 	@override late final _TranslationsLoginFr login = _TranslationsLoginFr._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonFr extends TranslationsButtonEn {
 	@override String get unmute => 'Retirer sourdine';
 	@override String get share => 'Partager';
 	@override String get save => 'Sauvegarder';
+	@override String get connect => 'Connecter';
+	@override String get settings => 'Paramètres';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapFr extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zapper ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Ouvrir dans le portefeuille';
+	@override String get button_connect_wallet => 'Connecter le portefeuille';
 	@override String get copy => 'Copié dans le presse-papiers';
 	@override late final _TranslationsZapErrorFr error = _TranslationsZapErrorFr._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileFr extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Streams passés';
-	@override late final _TranslationsProfileEditFr edit = _TranslationsProfileEditFr._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsFr extends TranslationsSettingsEn {
+	_TranslationsSettingsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Modifier le profil';
+	@override String get button_wallet => 'Paramètres du portefeuille';
+	@override late final _TranslationsSettingsProfileFr profile = _TranslationsSettingsProfileFr._(_root);
+	@override late final _TranslationsSettingsWalletFr wallet = _TranslationsSettingsWalletFr._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorFr extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Pas d\'adresse éclair trouvée';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditFr extends TranslationsProfileEditEn {
-	_TranslationsProfileEditFr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileFr extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileFr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Nom d\'affichage';
-	@override String get about => 'À propos';
-	@override String get nip05 => 'Adresse Nostr';
-	@override String get lud16 => 'Adresse Lightning';
-	@override late final _TranslationsProfileEditErrorFr error = _TranslationsProfileEditErrorFr._(_root);
+	@override String get about => 'A propos de';
+	@override String get nip05 => 'Nostr Adresse';
+	@override String get lud16 => 'Adresse de la foudre';
+	@override late final _TranslationsSettingsProfileErrorFr error = _TranslationsSettingsProfileErrorFr._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletFr extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Portefeuille connecté (NWC nwc://)';
+	@override String get disconnect_wallet => 'Déconnecter le portefeuille';
+	@override late final _TranslationsSettingsWalletErrorFr error = _TranslationsSettingsWalletErrorFr._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidFr extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raid sur ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorFr extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorFr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorFr extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorFr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Impossible de modifier le profil lorsque l\'on est déconnecté';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorFr extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Impossible de se connecter au portefeuille lorsque l\'on est déconnecté';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsFr {
 			case 'button.unmute': return 'Retirer sourdine';
 			case 'button.share': return 'Partager';
 			case 'button.save': return 'Sauvegarder';
+			case 'button.connect': return 'Connecter';
+			case 'button.settings': return 'Paramètres';
 			case 'embed.article_by': return ({required Object name}) => 'Article par ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Note par ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Retransmission en direct sur ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsFr {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zapper ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Ouvrir dans le portefeuille';
+			case 'zap.button_connect_wallet': return 'Connecter le portefeuille';
 			case 'zap.copy': return 'Copié dans le presse-papiers';
 			case 'zap.error.invalid_custom_amount': return 'Montant personnalisé non valide';
 			case 'zap.error.no_wallet': return 'Pas de porte-monnaie électronique installé';
 			case 'zap.error.no_lud16': return 'Pas d\'adresse éclair trouvée';
 			case 'profile.past_streams': return 'Streams passés';
-			case 'profile.edit.display_name': return 'Nom d\'affichage';
-			case 'profile.edit.about': return 'À propos';
-			case 'profile.edit.nip05': return 'Adresse Nostr';
-			case 'profile.edit.lud16': return 'Adresse Lightning';
-			case 'profile.edit.error.logged_out': return 'Impossible de modifier le profil lorsque l\'on est déconnecté';
+			case 'settings.button_profile': return 'Modifier le profil';
+			case 'settings.button_wallet': return 'Paramètres du portefeuille';
+			case 'settings.profile.display_name': return 'Nom d\'affichage';
+			case 'settings.profile.about': return 'A propos de';
+			case 'settings.profile.nip05': return 'Nostr Adresse';
+			case 'settings.profile.lud16': return 'Adresse de la foudre';
+			case 'settings.profile.error.logged_out': return 'Impossible de modifier le profil lorsque l\'on est déconnecté';
+			case 'settings.wallet.connect_wallet': return 'Portefeuille connecté (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Déconnecter le portefeuille';
+			case 'settings.wallet.error.logged_out': return 'Impossible de se connecter au portefeuille lorsque l\'on est déconnecté';
 			case 'login.username': return 'Nom d’utilisateur';
 			case 'login.amber': return 'Se connecter avec Amber';
 			case 'login.key': return 'Connexion avec la clé';

@@ -67,6 +67,7 @@ class TranslationsPt extends Translations {
 
 	@override late final _TranslationsZapPt zap = _TranslationsZapPt._(_root);
 	@override late final _TranslationsProfilePt profile = _TranslationsProfilePt._(_root);
+	@override late final _TranslationsSettingsPt settings = _TranslationsSettingsPt._(_root);
 	@override late final _TranslationsLoginPt login = _TranslationsLoginPt._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonPt extends TranslationsButtonEn {
 	@override String get unmute => 'Desmutar';
 	@override String get share => 'Compartilhar';
 	@override String get save => 'Salvar';
+	@override String get connect => 'Conectar';
+	@override String get settings => 'Configurações';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapPt extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Enviar Zap de ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Abrir na carteira';
+	@override String get button_connect_wallet => 'Conectar carteira';
 	@override String get copy => 'Copiado para a área de transferência';
 	@override late final _TranslationsZapErrorPt error = _TranslationsZapErrorPt._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfilePt extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Transmissões Passadas';
-	@override late final _TranslationsProfileEditPt edit = _TranslationsProfileEditPt._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsPt extends TranslationsSettingsEn {
+	_TranslationsSettingsPt._(TranslationsPt root) : this._root = root, super.internal(root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Editar perfil';
+	@override String get button_wallet => 'Configurações da carteira';
+	@override late final _TranslationsSettingsProfilePt profile = _TranslationsSettingsProfilePt._(_root);
+	@override late final _TranslationsSettingsWalletPt wallet = _TranslationsSettingsWalletPt._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorPt extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Nenhum endereço de raio encontrado';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditPt extends TranslationsProfileEditEn {
-	_TranslationsProfileEditPt._(TranslationsPt root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfilePt extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfilePt._(TranslationsPt root) : this._root = root, super.internal(root);
 
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Nome de exibição';
 	@override String get about => 'Sobre';
-	@override String get nip05 => 'Endereço do Nostr';
-	@override String get lud16 => 'Endereço Lightning';
-	@override late final _TranslationsProfileEditErrorPt error = _TranslationsProfileEditErrorPt._(_root);
+	@override String get nip05 => 'Endereço Nostr';
+	@override String get lud16 => 'Endereço para relâmpagos';
+	@override late final _TranslationsSettingsProfileErrorPt error = _TranslationsSettingsProfileErrorPt._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletPt extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletPt._(TranslationsPt root) : this._root = root, super.internal(root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Conectar carteira (NWC nwc://)';
+	@override String get disconnect_wallet => 'Desconectar carteira';
+	@override late final _TranslationsSettingsWalletErrorPt error = _TranslationsSettingsWalletErrorPt._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidPt extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Incursões em ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorPt extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorPt._(TranslationsPt root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorPt extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorPt._(TranslationsPt root) : this._root = root, super.internal(root);
 
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Não é possível editar o perfil quando se está desconectado';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorPt extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorPt._(TranslationsPt root) : this._root = root, super.internal(root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Não consigo conectar a carteira quando estou desconectado';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsPt {
 			case 'button.unmute': return 'Desmutar';
 			case 'button.share': return 'Compartilhar';
 			case 'button.save': return 'Salvar';
+			case 'button.connect': return 'Conectar';
+			case 'button.settings': return 'Configurações';
 			case 'embed.article_by': return ({required Object name}) => 'Artigo de ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Nota de ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Transmissão ao vivo pelo site ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsPt {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Enviar Zap de ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Abrir na carteira';
+			case 'zap.button_connect_wallet': return 'Conectar carteira';
 			case 'zap.copy': return 'Copiado para a área de transferência';
 			case 'zap.error.invalid_custom_amount': return 'Valor personalizado inválido';
 			case 'zap.error.no_wallet': return 'Nenhuma carteira lightning instalada';
 			case 'zap.error.no_lud16': return 'Nenhum endereço de raio encontrado';
 			case 'profile.past_streams': return 'Transmissões Passadas';
-			case 'profile.edit.display_name': return 'Nome de exibição';
-			case 'profile.edit.about': return 'Sobre';
-			case 'profile.edit.nip05': return 'Endereço do Nostr';
-			case 'profile.edit.lud16': return 'Endereço Lightning';
-			case 'profile.edit.error.logged_out': return 'Não é possível editar o perfil quando se está desconectado';
+			case 'settings.button_profile': return 'Editar perfil';
+			case 'settings.button_wallet': return 'Configurações da carteira';
+			case 'settings.profile.display_name': return 'Nome de exibição';
+			case 'settings.profile.about': return 'Sobre';
+			case 'settings.profile.nip05': return 'Endereço Nostr';
+			case 'settings.profile.lud16': return 'Endereço para relâmpagos';
+			case 'settings.profile.error.logged_out': return 'Não é possível editar o perfil quando se está desconectado';
+			case 'settings.wallet.connect_wallet': return 'Conectar carteira (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Desconectar carteira';
+			case 'settings.wallet.error.logged_out': return 'Não consigo conectar a carteira quando estou desconectado';
 			case 'login.username': return 'Nome de usuário';
 			case 'login.amber': return 'Faça login com o Amber';
 			case 'login.key': return 'Login com chave';

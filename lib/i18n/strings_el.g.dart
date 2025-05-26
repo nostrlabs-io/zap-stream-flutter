@@ -67,6 +67,7 @@ class TranslationsEl extends Translations {
 
 	@override late final _TranslationsZapEl zap = _TranslationsZapEl._(_root);
 	@override late final _TranslationsProfileEl profile = _TranslationsProfileEl._(_root);
+	@override late final _TranslationsSettingsEl settings = _TranslationsSettingsEl._(_root);
 	@override late final _TranslationsLoginEl login = _TranslationsLoginEl._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonEl extends TranslationsButtonEn {
 	@override String get unmute => 'Αποσυνδέστε τη φωνή σας από το';
 	@override String get share => 'Μοιραστείτε το';
 	@override String get save => 'Αποθήκευση';
+	@override String get connect => 'Συνδέστε το';
+	@override String get settings => 'Ρυθμίσεις';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapEl extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Άνοιγμα στο πορτοφόλι';
+	@override String get button_connect_wallet => 'Connect Wallet';
 	@override String get copy => 'Αντιγραφή στο πρόχειρο';
 	@override late final _TranslationsZapErrorEl error = _TranslationsZapErrorEl._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileEl extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Προηγούμενα ρεύματα';
-	@override late final _TranslationsProfileEditEl edit = _TranslationsProfileEditEl._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsEl extends TranslationsSettingsEn {
+	_TranslationsSettingsEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Επεξεργασία προφίλ';
+	@override String get button_wallet => 'Ρυθμίσεις πορτοφολιού';
+	@override late final _TranslationsSettingsProfileEl profile = _TranslationsSettingsProfileEl._(_root);
+	@override late final _TranslationsSettingsWalletEl wallet = _TranslationsSettingsWalletEl._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorEl extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Δεν βρέθηκε διεύθυνση κεραυνού';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditEl extends TranslationsProfileEditEn {
-	_TranslationsProfileEditEl._(TranslationsEl root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileEl extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditEl extends TranslationsProfileEditEn {
 	@override String get about => 'Σχετικά με το';
 	@override String get nip05 => 'Διεύθυνση Nostr';
 	@override String get lud16 => 'Διεύθυνση Lightning';
-	@override late final _TranslationsProfileEditErrorEl error = _TranslationsProfileEditErrorEl._(_root);
+	@override late final _TranslationsSettingsProfileErrorEl error = _TranslationsSettingsProfileErrorEl._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletEl extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Σύνδεση πορτοφολιού (NWC nwc://)';
+	@override String get disconnect_wallet => 'Αποσύνδεση πορτοφολιού';
+	@override late final _TranslationsSettingsWalletErrorEl error = _TranslationsSettingsWalletErrorEl._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidEl extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Επιδρομές στο ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorEl extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorEl extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorEl extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsEl {
 			case 'button.unmute': return 'Αποσυνδέστε τη φωνή σας από το';
 			case 'button.share': return 'Μοιραστείτε το';
 			case 'button.save': return 'Αποθήκευση';
+			case 'button.connect': return 'Συνδέστε το';
+			case 'button.settings': return 'Ρυθμίσεις';
 			case 'embed.article_by': return ({required Object name}) => 'Άρθρο από ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Σημείωση του ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Ζωντανή μετάδοση από το ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsEl {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Άνοιγμα στο πορτοφόλι';
+			case 'zap.button_connect_wallet': return 'Connect Wallet';
 			case 'zap.copy': return 'Αντιγραφή στο πρόχειρο';
 			case 'zap.error.invalid_custom_amount': return 'Μη έγκυρο προσαρμοσμένο ποσό';
 			case 'zap.error.no_wallet': return 'Δεν έχει εγκατασταθεί πορτοφόλι αστραπής';
 			case 'zap.error.no_lud16': return 'Δεν βρέθηκε διεύθυνση κεραυνού';
 			case 'profile.past_streams': return 'Προηγούμενα ρεύματα';
-			case 'profile.edit.display_name': return 'Όνομα οθόνης';
-			case 'profile.edit.about': return 'Σχετικά με το';
-			case 'profile.edit.nip05': return 'Διεύθυνση Nostr';
-			case 'profile.edit.lud16': return 'Διεύθυνση Lightning';
-			case 'profile.edit.error.logged_out': return 'Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί';
+			case 'settings.button_profile': return 'Επεξεργασία προφίλ';
+			case 'settings.button_wallet': return 'Ρυθμίσεις πορτοφολιού';
+			case 'settings.profile.display_name': return 'Όνομα οθόνης';
+			case 'settings.profile.about': return 'Σχετικά με το';
+			case 'settings.profile.nip05': return 'Διεύθυνση Nostr';
+			case 'settings.profile.lud16': return 'Διεύθυνση Lightning';
+			case 'settings.profile.error.logged_out': return 'Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί';
+			case 'settings.wallet.connect_wallet': return 'Σύνδεση πορτοφολιού (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Αποσύνδεση πορτοφολιού';
+			case 'settings.wallet.error.logged_out': return 'Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί';
 			case 'login.username': return 'Όνομα χρήστη';
 			case 'login.amber': return 'Σύνδεση με Amber';
 			case 'login.key': return 'Σύνδεση με κλειδί';

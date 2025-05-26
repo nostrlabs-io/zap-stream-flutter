@@ -67,6 +67,7 @@ class TranslationsRu extends Translations {
 
 	@override late final _TranslationsZapRu zap = _TranslationsZapRu._(_root);
 	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
+	@override late final _TranslationsSettingsRu settings = _TranslationsSettingsRu._(_root);
 	@override late final _TranslationsLoginRu login = _TranslationsLoginRu._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonRu extends TranslationsButtonEn {
 	@override String get unmute => 'Включить уведомления';
 	@override String get share => 'Поделиться';
 	@override String get save => 'Сохранить';
+	@override String get connect => 'Подключайтесь';
+	@override String get settings => 'Настройки';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapRu extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Запнуть ${amount} сат';
 	@override String get button_zap => 'Зап';
 	@override String get button_open_wallet => 'Открыть в кошельке';
+	@override String get button_connect_wallet => 'Подключить кошелек';
 	@override String get copy => 'Скопировано в буфер обмена';
 	@override late final _TranslationsZapErrorRu error = _TranslationsZapErrorRu._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileRu extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Предыдущие трансляции';
-	@override late final _TranslationsProfileEditRu edit = _TranslationsProfileEditRu._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsRu extends TranslationsSettingsEn {
+	_TranslationsSettingsRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Редактировать профиль';
+	@override String get button_wallet => 'Настройки кошелька';
+	@override late final _TranslationsSettingsProfileRu profile = _TranslationsSettingsProfileRu._(_root);
+	@override late final _TranslationsSettingsWalletRu wallet = _TranslationsSettingsWalletRu._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorRu extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Адрес молнии не найден';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditRu extends TranslationsProfileEditEn {
-	_TranslationsProfileEditRu._(TranslationsRu root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileRu extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileRu._(TranslationsRu root) : this._root = root, super.internal(root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Отображаемое имя';
-	@override String get about => 'О себе';
-	@override String get nip05 => 'Nostr адрес';
-	@override String get lud16 => 'Lightning Адрес';
-	@override late final _TranslationsProfileEditErrorRu error = _TranslationsProfileEditErrorRu._(_root);
+	@override String get about => 'О сайте';
+	@override String get nip05 => 'Адрес Ностр';
+	@override String get lud16 => 'Адрес молнии';
+	@override late final _TranslationsSettingsProfileErrorRu error = _TranslationsSettingsProfileErrorRu._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletRu extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Подключите кошелек (NWC nwc://)';
+	@override String get disconnect_wallet => 'Отключить кошелек';
+	@override late final _TranslationsSettingsWalletErrorRu error = _TranslationsSettingsWalletErrorRu._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidRu extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Рейды в ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorRu extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorRu._(TranslationsRu root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorRu extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorRu._(TranslationsRu root) : this._root = root, super.internal(root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Невозможно редактировать профиль при выходе из системы';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorRu extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Невозможно подключить кошелек при выходе из системы';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsRu {
 			case 'button.unmute': return 'Включить уведомления';
 			case 'button.share': return 'Поделиться';
 			case 'button.save': return 'Сохранить';
+			case 'button.connect': return 'Подключайтесь';
+			case 'button.settings': return 'Настройки';
 			case 'embed.article_by': return ({required Object name}) => 'Статья ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Заметка на сайте ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Прямая трансляция: ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsRu {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Запнуть ${amount} сат';
 			case 'zap.button_zap': return 'Зап';
 			case 'zap.button_open_wallet': return 'Открыть в кошельке';
+			case 'zap.button_connect_wallet': return 'Подключить кошелек';
 			case 'zap.copy': return 'Скопировано в буфер обмена';
 			case 'zap.error.invalid_custom_amount': return 'Недопустимая пользовательская сумма';
 			case 'zap.error.no_wallet': return 'Кошелек молнии не установлен';
 			case 'zap.error.no_lud16': return 'Адрес молнии не найден';
 			case 'profile.past_streams': return 'Предыдущие трансляции';
-			case 'profile.edit.display_name': return 'Отображаемое имя';
-			case 'profile.edit.about': return 'О себе';
-			case 'profile.edit.nip05': return 'Nostr адрес';
-			case 'profile.edit.lud16': return 'Lightning Адрес';
-			case 'profile.edit.error.logged_out': return 'Невозможно редактировать профиль при выходе из системы';
+			case 'settings.button_profile': return 'Редактировать профиль';
+			case 'settings.button_wallet': return 'Настройки кошелька';
+			case 'settings.profile.display_name': return 'Отображаемое имя';
+			case 'settings.profile.about': return 'О сайте';
+			case 'settings.profile.nip05': return 'Адрес Ностр';
+			case 'settings.profile.lud16': return 'Адрес молнии';
+			case 'settings.profile.error.logged_out': return 'Невозможно редактировать профиль при выходе из системы';
+			case 'settings.wallet.connect_wallet': return 'Подключите кошелек (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Отключить кошелек';
+			case 'settings.wallet.error.logged_out': return 'Невозможно подключить кошелек при выходе из системы';
 			case 'login.username': return 'Имя пользователя';
 			case 'login.amber': return 'Войти с помощью Amber';
 			case 'login.key': return 'Вход в систему с помощью ключа';

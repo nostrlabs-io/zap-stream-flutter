@@ -1,97 +1,104 @@
 upload_avatar: Ανέβασμα Avatar
-"@upload_avatar": 
-  description: Κείμενο που προτρέπει τον χρήστη να πατήσει το εικονίδιο avatar για να ξεκινήσει το ανέβασμα
+"@upload_avatar":
+  description: Κείμενο που προτρέπει τον χρήστη να πατήσει το εικονίδιο avatar για
+    να ξεκινήσει το ανέβασμα
 most_zapped_streamers: Τα περισσότερα Zapped Streamers
-"@most_zapped_streamers": 
+"@most_zapped_streamers":
   description: Επικεφαλής πάνω από τα αναφερόμενα κορυφαία streamers από zaps
 no_user_found: Δεν βρέθηκε χρήστης
-"@no_user_found": 
+"@no_user_found":
   description: Δεν βρέθηκε χρήστης κατά την αναζήτηση
 anon: Anon
-viewers: 
+viewers:
   one: 1 θεατής
   other: $n θεατές
-"@viewers": 
+"@viewers":
   description: Αριθμός θεατών της ροής
-  placeholders: 
-    n: 
+  placeholders:
+    n:
       type: int
-"@anon": 
+"@anon":
   description: Ένας ανώνυμος χρήστης
-stream: 
-  status: 
+stream:
+  status:
     live: LIVE
     ended: ENDED
     planned: ΣΧΕΔΙΑΣΜΟΣ
   started: Ξεκίνησε $timestamp
-  chat: 
+  chat:
     disabled: ΑΠΕΝΕΡΓΟΠΟΙΗΜΈΝΗ ΣΥΝΟΜΙΛΊΑ
     disabled_timeout: "Το χρονικό όριο λήγει: $time"
     timeout(rich): $mod χρονομετρημένη λήξη $user για $time
-    "@timeout": 
+    "@timeout":
       description: Μήνυμα συνομιλίας που εμφανίζει συμβάντα timeout
     ended: STREAM ΤΕΛΕΙΩΣΕ
-    "@ended": 
+    "@ended":
       description: Η ροή τελείωσε το υποσέλιδο στο κάτω μέρος της συνομιλίας
     zap(rich): $user zapped $amount sats
-    "@zap": 
+    "@zap":
       description: Μήνυμα συνομιλίας που δείχνει ροή ροής zaps
-    write: 
+    write:
       label: Γράψτε μήνυμα
-      "@label": 
+      "@label":
         description: Ετικέτα στο πλαίσιο εισαγωγής μηνύματος συνομιλίας
       no_signer: Δεν μπορείτε να γράψετε μηνύματα με σύνδεση στο npub
-      "@no_signer": 
-        description: Μήνυμα εισόδου συνομιλίας που εμφανίζεται όταν ο χρήστης είναι συνδεδεμένος μόνο με το κλειδί pubkey
+      "@no_signer":
+        description: Μήνυμα εισόδου συνομιλίας που εμφανίζεται όταν ο χρήστης είναι
+          συνδεδεμένος μόνο με το κλειδί pubkey
       login: Παρακαλώ συνδεθείτε για να στείλετε μηνύματα
-      "@login": 
-        description: Μήνυμα εισόδου συνομιλίας που εμφανίζεται όταν ο χρήστης έχει αποσυνδεθεί
-    badge: 
+      "@login":
+        description: Μήνυμα εισόδου συνομιλίας που εμφανίζεται όταν ο χρήστης έχει
+          αποσυνδεθεί
+    badge:
       awarded_to: "Απονέμεται σε:"
-      "@awarded_to": 
-        description: Επικεφαλίδα πάνω από τη λίστα των χρηστών στους οποίους έχει απονεμηθεί ένα σήμα
-    raid: 
+      "@awarded_to":
+        description: Επικεφαλίδα πάνω από τη λίστα των χρηστών στους οποίους έχει
+          απονεμηθεί ένα σήμα
+    raid:
       to: RAIDING $name
-      "@to": 
+      "@to":
         description: Μήνυμα επιδρομής συνομιλίας σε άλλη ροή
       from: RAID FROM $name
-      "@from": 
+      "@from":
         description: Μήνυμα επιδρομής συνομιλίας από άλλη ροή
       countdown: Επιδρομές στο $time
-      "@countdown": 
+      "@countdown":
         description: Χρονοδιακόπτης αντίστροφης μέτρησης για αυτόματη ιππασία
-goal: 
+goal:
   title: "Στόχος: $amount"
   remaining: "Υπόλοιπο: $amount"
   complete: ΠΛΗΡΗΣ
-button: 
+button:
   login: Σύνδεση
   logout: Αποσύνδεση
   edit_profile: Επεξεργασία προφίλ
-  "@login": 
+  "@login":
     description: Κείμενο κουμπιού για το κουμπί σύνδεσης
   follow: Ακολουθήστε το
-  "@follow": 
+  "@follow":
     description: Κείμενο κουμπιού για το κουμπί follow
   unfollow: Ακολουθήστε το
-  "@unfollow": 
+  "@unfollow":
     description: Κείμενο κουμπιού για το κουμπί unfollow
   mute: Σίγαση
   unmute: Αποσυνδέστε τη φωνή σας από το
   share: Μοιραστείτε το
   save: Αποθήκευση
-embed: 
+  connect: Συνδέστε το
+  settings: Ρυθμίσεις
+embed:
   article_by: Άρθρο από $name
   note_by: Σημείωση του $name
   live_stream_by: Ζωντανή μετάδοση από το $name
-stream_list: 
+stream_list:
   following: Ακολουθώντας το
   live: Ζωντανό
   planned: Προγραμματισμένο
   ended: Τελείωσε
-"@stream_list": 
-  description: Επικεφαλίδες στις λίστες ροής ανά τύπο ροής ζωντανή/τελειωμένη/προγραμματισμένη κ.λπ.
-zap: 
+"@stream_list":
+  description: Επικεφαλίδες στις λίστες ροής ανά τύπο ροής
+    ζωντανή/τελειωμένη/προγραμματισμένη κ.λπ.
+zap:
   title: Zap $name
   custom_amount: Προσαρμοσμένο ποσό
   confirm: Επιβεβαίωση
@@ -99,24 +106,33 @@ zap:
   button_zap_ready: Zap $amount sats
   button_zap: Zap
   button_open_wallet: Άνοιγμα στο πορτοφόλι
+  button_connect_wallet: Connect Wallet
   copy: Αντιγραφή στο πρόχειρο
-  error: 
+  error:
     invalid_custom_amount: Μη έγκυρο προσαρμοσμένο ποσό
     no_wallet: Δεν έχει εγκατασταθεί πορτοφόλι αστραπής
     no_lud16: Δεν βρέθηκε διεύθυνση κεραυνού
-profile: 
+profile:
   past_streams: Προηγούμενα ρεύματα
-  edit: 
+settings:
+  button_profile: Επεξεργασία προφίλ
+  button_wallet: Ρυθμίσεις πορτοφολιού
+  profile:
     display_name: Όνομα οθόνης
     about: Σχετικά με το
     nip05: Διεύθυνση Nostr
     lud16: Διεύθυνση Lightning
-    error: 
+    error:
       logged_out: Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί
-login: 
+  wallet:
+    connect_wallet: Σύνδεση πορτοφολιού (NWC nwc://)
+    disconnect_wallet: Αποσύνδεση πορτοφολιού
+    error:
+      logged_out: Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί
+login:
   username: Όνομα χρήστη
   amber: Σύνδεση με Amber
   key: Σύνδεση με κλειδί
   create: Δημιουργία λογαριασμού
-  error: 
+  error:
     invalid_key: Μη έγκυρο κλειδί

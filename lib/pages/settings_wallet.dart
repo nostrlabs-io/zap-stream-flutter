@@ -26,7 +26,7 @@ class _Inner extends State<SettingsWalletPage> {
   @override
   Widget build(BuildContext context) {
     final pubkey = ndk.accounts.getPublicKey();
-    if (pubkey == null) return Text(t.wallet.error.logged_out);
+    if (pubkey == null) return Text(t.settings.wallet.error.logged_out);
 
     return ValueListenableBuilder(
       valueListenable: loginData,
@@ -37,7 +37,7 @@ class _Inner extends State<SettingsWalletPage> {
             children: [
               TextField(
                 controller: _uri,
-                decoration: InputDecoration(labelText: t.wallet.connect_wallet),
+                decoration: InputDecoration(labelText: t.settings.wallet.connect_wallet),
               ),
               BasicButton.text(
                 t.button.connect,
@@ -69,8 +69,23 @@ class _Inner extends State<SettingsWalletPage> {
                 Text(_error!, style: TextStyle(color: WARNING)),
             ],
           );
+        } else {
+          return BasicButton.text(
+            t.settings.wallet.disconnect_wallet,
+            onTap: (context) {
+              loginData.value = LoginAccount(
+                type: loginData.value!.type,
+                pubkey: loginData.value!.pubkey,
+                privateKey: loginData.value!.privateKey,
+                signerRelays: loginData.value!.signerRelays,
+                wallet: null,
+              );
+              if (context.mounted) {
+                context.pop();
+              }
+            },
+          );
         }
-        return SizedBox.shrink();
       },
     );
   }

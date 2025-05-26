@@ -67,6 +67,7 @@ class TranslationsIt extends Translations {
 
 	@override late final _TranslationsZapIt zap = _TranslationsZapIt._(_root);
 	@override late final _TranslationsProfileIt profile = _TranslationsProfileIt._(_root);
+	@override late final _TranslationsSettingsIt settings = _TranslationsSettingsIt._(_root);
 	@override late final _TranslationsLoginIt login = _TranslationsLoginIt._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonIt extends TranslationsButtonEn {
 	@override String get unmute => 'Riattiva';
 	@override String get share => 'Condividi';
 	@override String get save => 'Salva';
+	@override String get connect => 'Collegare';
+	@override String get settings => 'Impostazioni';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapIt extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Aprire nel portafoglio';
+	@override String get button_connect_wallet => 'Portafoglio Connect';
 	@override String get copy => 'Copiato negli appunti';
 	@override late final _TranslationsZapErrorIt error = _TranslationsZapErrorIt._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileIt extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Flussi passati';
-	@override late final _TranslationsProfileEditIt edit = _TranslationsProfileEditIt._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsIt extends TranslationsSettingsEn {
+	_TranslationsSettingsIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Modifica profilo';
+	@override String get button_wallet => 'Impostazioni del portafoglio';
+	@override late final _TranslationsSettingsProfileIt profile = _TranslationsSettingsProfileIt._(_root);
+	@override late final _TranslationsSettingsWalletIt wallet = _TranslationsSettingsWalletIt._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorIt extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Nessun indirizzo di fulmine trovato';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditIt extends TranslationsProfileEditEn {
-	_TranslationsProfileEditIt._(TranslationsIt root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileIt extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Nome visualizzato';
-	@override String get about => 'Info';
-	@override String get nip05 => 'Indirizzo Nostr';
+	@override String get about => 'Circa';
+	@override String get nip05 => 'Indirizzo';
 	@override String get lud16 => 'Indirizzo del fulmine';
-	@override late final _TranslationsProfileEditErrorIt error = _TranslationsProfileEditErrorIt._(_root);
+	@override late final _TranslationsSettingsProfileErrorIt error = _TranslationsSettingsProfileErrorIt._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletIt extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Portafoglio Connect (NWC nwc://)';
+	@override String get disconnect_wallet => 'Disconnettere il portafoglio';
+	@override late final _TranslationsSettingsWalletErrorIt error = _TranslationsSettingsWalletErrorIt._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidIt extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raid in ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorIt extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorIt._(TranslationsIt root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorIt extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Impossibile modificare il profilo quando si è disconnessi';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorIt extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Impossibile connettere il portafoglio quando si è disconnessi';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsIt {
 			case 'button.unmute': return 'Riattiva';
 			case 'button.share': return 'Condividi';
 			case 'button.save': return 'Salva';
+			case 'button.connect': return 'Collegare';
+			case 'button.settings': return 'Impostazioni';
 			case 'embed.article_by': return ({required Object name}) => 'Articolo di ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Nota di ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Streaming in diretta da ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsIt {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Aprire nel portafoglio';
+			case 'zap.button_connect_wallet': return 'Portafoglio Connect';
 			case 'zap.copy': return 'Copiato negli appunti';
 			case 'zap.error.invalid_custom_amount': return 'Importo personalizzato non valido';
 			case 'zap.error.no_wallet': return 'Nessun portafoglio Lightning installato';
 			case 'zap.error.no_lud16': return 'Nessun indirizzo di fulmine trovato';
 			case 'profile.past_streams': return 'Flussi passati';
-			case 'profile.edit.display_name': return 'Nome visualizzato';
-			case 'profile.edit.about': return 'Info';
-			case 'profile.edit.nip05': return 'Indirizzo Nostr';
-			case 'profile.edit.lud16': return 'Indirizzo del fulmine';
-			case 'profile.edit.error.logged_out': return 'Impossibile modificare il profilo quando si è disconnessi';
+			case 'settings.button_profile': return 'Modifica profilo';
+			case 'settings.button_wallet': return 'Impostazioni del portafoglio';
+			case 'settings.profile.display_name': return 'Nome visualizzato';
+			case 'settings.profile.about': return 'Circa';
+			case 'settings.profile.nip05': return 'Indirizzo';
+			case 'settings.profile.lud16': return 'Indirizzo del fulmine';
+			case 'settings.profile.error.logged_out': return 'Impossibile modificare il profilo quando si è disconnessi';
+			case 'settings.wallet.connect_wallet': return 'Portafoglio Connect (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Disconnettere il portafoglio';
+			case 'settings.wallet.error.logged_out': return 'Impossibile connettere il portafoglio quando si è disconnessi';
 			case 'login.username': return 'Nome utente';
 			case 'login.amber': return 'Accesso con Amber';
 			case 'login.key': return 'Accesso con chiave';

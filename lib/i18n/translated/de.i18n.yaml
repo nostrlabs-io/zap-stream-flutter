@@ -1,97 +1,102 @@
 upload_avatar: Avatar hochladen
-"@upload_avatar": 
-  description: Text, der den Benutzer auffordert, auf den Avatar-Platzhalter zu klicken, um den Upload zu starten
+"@upload_avatar":
+  description: Text, der den Benutzer auffordert, auf den Avatar-Platzhalter zu
+    klicken, um den Upload zu starten
 most_zapped_streamers: Meistgezappte Streamer
-"@most_zapped_streamers": 
+"@most_zapped_streamers":
   description: Überschrift über gelistete Top-Streamer von zaps
 no_user_found: Kein Benutzer gefunden
-"@no_user_found": 
+"@no_user_found":
   description: Kein Benutzer bei der Suche gefunden
 anon: Anon
-viewers: 
+viewers:
   one: 1 Zuschauer
   other: $n Zuschauer
-"@viewers": 
+"@viewers":
   description: Anzahl der Betrachter des Streams
-  placeholders: 
-    n: 
+  placeholders:
+    n:
       type: int
-"@anon": 
+"@anon":
   description: Ein anonymer Benutzer
-stream: 
-  status: 
+stream:
+  status:
     live: LIVE
     ended: ENDED
     planned: GEPLANT
   started: Gestartet $timestamp
-  chat: 
+  chat:
     disabled: CHAT DEAKTIVIERT
     disabled_timeout: "Die Zeitüberschreitung läuft ab: $time"
     timeout(rich): $mod Zeitüberschreitung $user für $time
-    "@timeout": 
+    "@timeout":
       description: Chat-Nachricht mit Zeitüberschreitungsereignissen
     ended: STREAM BEENDET
-    "@ended": 
+    "@ended":
       description: Stream beendet Fußzeile am Ende des Chats
     zap(rich): $user hat $amount sats gezappt
-    "@zap": 
+    "@zap":
       description: Chatnachricht mit Stream Zaps
-    write: 
+    write:
       label: Nachricht schreiben
-      "@label": 
+      "@label":
         description: Beschriftung des Eingabefeldes für Chatnachrichten
       no_signer: Mit npub-Login können keine Nachrichten geschrieben werden
-      "@no_signer": 
-        description: Chat-Eingabemeldung wird angezeigt, wenn der Benutzer nur mit Pubkey eingeloggt ist
+      "@no_signer":
+        description: Chat-Eingabemeldung wird angezeigt, wenn der Benutzer nur mit
+          Pubkey eingeloggt ist
       login: Bitte anmelden, um Nachrichten zu senden
-      "@login": 
+      "@login":
         description: Chat-Eingabemeldung wird angezeigt, wenn der Benutzer abgemeldet ist
-    badge: 
+    badge:
       awarded_to: "Verliehen an:"
-      "@awarded_to": 
-        description: Überschrift über der Liste der Benutzer, die ein Abzeichen erhalten haben
-    raid: 
+      "@awarded_to":
+        description: Überschrift über der Liste der Benutzer, die ein Abzeichen erhalten
+          haben
+    raid:
       to: RAIDING $name
-      "@to": 
+      "@to":
         description: Chat-Überfallnachricht an einen anderen Stream
       from: RAID VON $name
-      "@from": 
+      "@from":
         description: Chat-Raid-Nachricht aus einem anderen Stream
       countdown: Raubzüge auf $time
-      "@countdown": 
+      "@countdown":
         description: Countdown-Timer für automatisches Reiten
-goal: 
+goal:
   title: "Ziel: $amount"
   remaining: "Verbleibend: $amount"
   complete: COMPLETE
-button: 
+button:
   login: Anmelden
   logout: Abmelden
   edit_profile: Profil anpassen
-  "@login": 
+  "@login":
     description: Schaltflächentext für die Anmeldeschaltfläche
   follow: Folgen
-  "@follow": 
+  "@follow":
     description: Schaltflächentext für die Schaltfläche "Folgen
   unfollow: Entfolgen
-  "@unfollow": 
+  "@unfollow":
     description: Schaltflächentext für die "Unfollow"-Schaltfläche
   mute: Stummschalten
   unmute: Entstummen
   share: Teilen
   save: Speichern
-embed: 
+  connect: Verbinden Sie
+  settings: Einstellungen
+embed:
   article_by: Artikel von $name
   note_by: Note von $name
   live_stream_by: Live-Stream von $name
-stream_list: 
+stream_list:
   following: Folge ich
   live: Live
   planned: Geplant
   ended: Beendet
-"@stream_list": 
+"@stream_list":
   description: Überschriften auf Stream-Listen nach Stream-Typ live/beendet/geplant usw.
-zap: 
+zap:
   title: $name zappen
   custom_amount: Benutzerdefinierter Betrag
   confirm: Bestätigen
@@ -99,24 +104,33 @@ zap:
   button_zap_ready: $amount sats zappen
   button_zap: Zap
   button_open_wallet: In Brieftasche öffnen
+  button_connect_wallet: Brieftasche verbinden
   copy: In die Zwischenablage kopiert
-  error: 
+  error:
     invalid_custom_amount: Ungültiger benutzerdefinierter Betrag
     no_wallet: Keine Lightning-Brieftasche installiert
     no_lud16: Keine Blitzadresse gefunden
-profile: 
+profile:
   past_streams: Vergangene Streams
-  edit: 
+settings:
+  button_profile: Profil bearbeiten
+  button_wallet: Wallet-Einstellungen
+  profile:
     display_name: Name anzeigen
     about: Über
     nip05: Nostr-Adresse
-    lud16: Lightning-Adresse
-    error: 
+    lud16: Blitz-Adresse
+    error:
       logged_out: Profil kann nicht bearbeitet werden, wenn es abgemeldet ist
-login: 
+  wallet:
+    connect_wallet: Brieftasche verbinden (NWC nwc://)
+    disconnect_wallet: Brieftasche abtrennen
+    error:
+      logged_out: Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin
+login:
   username: Benutzername
   amber: Anmeldung mit Amber
   key: Anmeldung mit Schlüssel
   create: Konto erstellen
-  error: 
+  error:
     invalid_key: Ungültiger Schlüssel

@@ -67,6 +67,7 @@ class TranslationsAr extends Translations {
 
 	@override late final _TranslationsZapAr zap = _TranslationsZapAr._(_root);
 	@override late final _TranslationsProfileAr profile = _TranslationsProfileAr._(_root);
+	@override late final _TranslationsSettingsAr settings = _TranslationsSettingsAr._(_root);
 	@override late final _TranslationsLoginAr login = _TranslationsLoginAr._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonAr extends TranslationsButtonEn {
 	@override String get unmute => 'رفع الكتم';
 	@override String get share => 'مشاركة';
 	@override String get save => 'حفظ';
+	@override String get connect => 'الاتصال';
+	@override String get settings => 'الإعدادات';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapAr extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'أومض ${amount} ساتوشي';
 	@override String get button_zap => 'زاب';
 	@override String get button_open_wallet => 'فتح في المحفظة';
+	@override String get button_connect_wallet => 'توصيل المحفظة';
 	@override String get copy => 'نسخ إلى الحافظة';
 	@override late final _TranslationsZapErrorAr error = _TranslationsZapErrorAr._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileAr extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'التدفقات السابقة';
-	@override late final _TranslationsProfileEditAr edit = _TranslationsProfileEditAr._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsAr extends TranslationsSettingsEn {
+	_TranslationsSettingsAr._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'تعديل الملف الشخصي';
+	@override String get button_wallet => 'إعدادات المحفظة';
+	@override late final _TranslationsSettingsProfileAr profile = _TranslationsSettingsProfileAr._(_root);
+	@override late final _TranslationsSettingsWalletAr wallet = _TranslationsSettingsWalletAr._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorAr extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'لم يتم العثور على عنوان البرق';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditAr extends TranslationsProfileEditEn {
-	_TranslationsProfileEditAr._(TranslationsAr root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileAr extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'اسم العرض';
-	@override String get about => 'نبذة';
+	@override String get about => 'نبذة عن';
 	@override String get nip05 => 'عنوان نوستر';
 	@override String get lud16 => 'عنوان البرق';
-	@override late final _TranslationsProfileEditErrorAr error = _TranslationsProfileEditErrorAr._(_root);
+	@override late final _TranslationsSettingsProfileErrorAr error = _TranslationsSettingsProfileErrorAr._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletAr extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletAr._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'توصيل المحفظة (NWC nwc://)';
+	@override String get disconnect_wallet => 'محفظة قطع الاتصال';
+	@override late final _TranslationsSettingsWalletErrorAr error = _TranslationsSettingsWalletErrorAr._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidAr extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'الإغارة في ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorAr extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorAr extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'لا يمكن تحرير ملف التعريف عند تسجيل الخروج';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorAr extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'لا يمكن الاتصال بالمحفظة عند تسجيل الخروج';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsAr {
 			case 'button.unmute': return 'رفع الكتم';
 			case 'button.share': return 'مشاركة';
 			case 'button.save': return 'حفظ';
+			case 'button.connect': return 'الاتصال';
+			case 'button.settings': return 'الإعدادات';
 			case 'embed.article_by': return ({required Object name}) => 'مقال بقلم ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'ملاحظة من ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'بث مباشر من ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsAr {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'أومض ${amount} ساتوشي';
 			case 'zap.button_zap': return 'زاب';
 			case 'zap.button_open_wallet': return 'فتح في المحفظة';
+			case 'zap.button_connect_wallet': return 'توصيل المحفظة';
 			case 'zap.copy': return 'نسخ إلى الحافظة';
 			case 'zap.error.invalid_custom_amount': return 'مبلغ مخصص غير صالح';
 			case 'zap.error.no_wallet': return 'لا توجد محفظة برق مثبتة';
 			case 'zap.error.no_lud16': return 'لم يتم العثور على عنوان البرق';
 			case 'profile.past_streams': return 'التدفقات السابقة';
-			case 'profile.edit.display_name': return 'اسم العرض';
-			case 'profile.edit.about': return 'نبذة';
-			case 'profile.edit.nip05': return 'عنوان نوستر';
-			case 'profile.edit.lud16': return 'عنوان البرق';
-			case 'profile.edit.error.logged_out': return 'لا يمكن تحرير ملف التعريف عند تسجيل الخروج';
+			case 'settings.button_profile': return 'تعديل الملف الشخصي';
+			case 'settings.button_wallet': return 'إعدادات المحفظة';
+			case 'settings.profile.display_name': return 'اسم العرض';
+			case 'settings.profile.about': return 'نبذة عن';
+			case 'settings.profile.nip05': return 'عنوان نوستر';
+			case 'settings.profile.lud16': return 'عنوان البرق';
+			case 'settings.profile.error.logged_out': return 'لا يمكن تحرير ملف التعريف عند تسجيل الخروج';
+			case 'settings.wallet.connect_wallet': return 'توصيل المحفظة (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'محفظة قطع الاتصال';
+			case 'settings.wallet.error.logged_out': return 'لا يمكن الاتصال بالمحفظة عند تسجيل الخروج';
 			case 'login.username': return 'اسم المستخدم';
 			case 'login.amber': return 'تسجيل الدخول مع آمبر';
 			case 'login.key': return 'تسجيل الدخول بالمفتاح';

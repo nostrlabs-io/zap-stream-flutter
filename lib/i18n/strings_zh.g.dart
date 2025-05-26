@@ -67,6 +67,7 @@ class TranslationsZh extends Translations {
 
 	@override late final _TranslationsZapZh zap = _TranslationsZapZh._(_root);
 	@override late final _TranslationsProfileZh profile = _TranslationsProfileZh._(_root);
+	@override late final _TranslationsSettingsZh settings = _TranslationsSettingsZh._(_root);
 	@override late final _TranslationsLoginZh login = _TranslationsLoginZh._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonZh extends TranslationsButtonEn {
 	@override String get unmute => '解除静音';
 	@override String get share => '分享';
 	@override String get save => '保存';
+	@override String get connect => '連接';
+	@override String get settings => '設定';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapZh extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => '打閃 ${amount} 聰';
 	@override String get button_zap => '打閃';
 	@override String get button_open_wallet => '在錢包中開啟';
+	@override String get button_connect_wallet => '連接錢包';
 	@override String get copy => '複製到剪貼簿';
 	@override late final _TranslationsZapErrorZh error = _TranslationsZapErrorZh._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileZh extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => '過去的直播';
-	@override late final _TranslationsProfileEditZh edit = _TranslationsProfileEditZh._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsZh extends TranslationsSettingsEn {
+	_TranslationsSettingsZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => '編輯個人資料';
+	@override String get button_wallet => '錢包設定';
+	@override late final _TranslationsSettingsProfileZh profile = _TranslationsSettingsProfileZh._(_root);
+	@override late final _TranslationsSettingsWalletZh wallet = _TranslationsSettingsWalletZh._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorZh extends TranslationsZapErrorEn {
 	@override String get no_lud16 => '未找到閃電地址';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditZh extends TranslationsProfileEditEn {
-	_TranslationsProfileEditZh._(TranslationsZh root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileZh extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => '顯示名稱';
 	@override String get about => '關於';
-	@override String get nip05 => 'Nostr 地址';
+	@override String get nip05 => '地址';
 	@override String get lud16 => '閃電地址';
-	@override late final _TranslationsProfileEditErrorZh error = _TranslationsProfileEditErrorZh._(_root);
+	@override late final _TranslationsSettingsProfileErrorZh error = _TranslationsSettingsProfileErrorZh._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletZh extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => '連接錢包 (NWC nwc://)';
+	@override String get disconnect_wallet => '斷開錢包';
+	@override late final _TranslationsSettingsWalletErrorZh error = _TranslationsSettingsWalletErrorZh._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidZh extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => '突襲 ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorZh extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorZh._(TranslationsZh root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorZh extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => '登出時無法編輯個人資料';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorZh extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => '登出時無法連接錢包';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsZh {
 			case 'button.unmute': return '解除静音';
 			case 'button.share': return '分享';
 			case 'button.save': return '保存';
+			case 'button.connect': return '連接';
+			case 'button.settings': return '設定';
 			case 'embed.article_by': return ({required Object name}) => '文章來源： ${name}';
 			case 'embed.note_by': return ({required Object name}) => '${name} 的筆記';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Live stream by ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsZh {
 			case 'zap.button_zap_ready': return ({required Object amount}) => '打閃 ${amount} 聰';
 			case 'zap.button_zap': return '打閃';
 			case 'zap.button_open_wallet': return '在錢包中開啟';
+			case 'zap.button_connect_wallet': return '連接錢包';
 			case 'zap.copy': return '複製到剪貼簿';
 			case 'zap.error.invalid_custom_amount': return '無效自訂金額';
 			case 'zap.error.no_wallet': return '未安裝閃電錢夾';
 			case 'zap.error.no_lud16': return '未找到閃電地址';
 			case 'profile.past_streams': return '過去的直播';
-			case 'profile.edit.display_name': return '顯示名稱';
-			case 'profile.edit.about': return '關於';
-			case 'profile.edit.nip05': return 'Nostr 地址';
-			case 'profile.edit.lud16': return '閃電地址';
-			case 'profile.edit.error.logged_out': return '登出時無法編輯個人資料';
+			case 'settings.button_profile': return '編輯個人資料';
+			case 'settings.button_wallet': return '錢包設定';
+			case 'settings.profile.display_name': return '顯示名稱';
+			case 'settings.profile.about': return '關於';
+			case 'settings.profile.nip05': return '地址';
+			case 'settings.profile.lud16': return '閃電地址';
+			case 'settings.profile.error.logged_out': return '登出時無法編輯個人資料';
+			case 'settings.wallet.connect_wallet': return '連接錢包 (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return '斷開錢包';
+			case 'settings.wallet.error.logged_out': return '登出時無法連接錢包';
 			case 'login.username': return '用戶名';
 			case 'login.amber': return '使用 Amber 登入';
 			case 'login.key': return '使用鑰匙登入';

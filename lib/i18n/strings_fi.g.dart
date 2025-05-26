@@ -67,6 +67,7 @@ class TranslationsFi extends Translations {
 
 	@override late final _TranslationsZapFi zap = _TranslationsZapFi._(_root);
 	@override late final _TranslationsProfileFi profile = _TranslationsProfileFi._(_root);
+	@override late final _TranslationsSettingsFi settings = _TranslationsSettingsFi._(_root);
 	@override late final _TranslationsLoginFi login = _TranslationsLoginFi._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonFi extends TranslationsButtonEn {
 	@override String get unmute => 'Poista mykistys';
 	@override String get share => 'Jaa';
 	@override String get save => 'Tallenna';
+	@override String get connect => 'Yhdistä';
+	@override String get settings => 'Asetukset';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapFi extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} satsia';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Avaa lompakossa';
+	@override String get button_connect_wallet => 'Yhdistä lompakko';
 	@override String get copy => 'Kopioitu leikepöydälle';
 	@override late final _TranslationsZapErrorFi error = _TranslationsZapErrorFi._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileFi extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Aikaisemmat lähetykset';
-	@override late final _TranslationsProfileEditFi edit = _TranslationsProfileEditFi._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsFi extends TranslationsSettingsEn {
+	_TranslationsSettingsFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Muokkaa profiilia';
+	@override String get button_wallet => 'Lompakon asetukset';
+	@override late final _TranslationsSettingsProfileFi profile = _TranslationsSettingsProfileFi._(_root);
+	@override late final _TranslationsSettingsWalletFi wallet = _TranslationsSettingsWalletFi._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorFi extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Salamaosoitetta ei löytynyt';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditFi extends TranslationsProfileEditEn {
-	_TranslationsProfileEditFi._(TranslationsFi root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileFi extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileFi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Näytön nimi';
 	@override String get about => 'Tietoja';
-	@override String get nip05 => 'Nostr-osoite';
-	@override String get lud16 => 'Lightning-osoite';
-	@override late final _TranslationsProfileEditErrorFi error = _TranslationsProfileEditErrorFi._(_root);
+	@override String get nip05 => 'Nostr Osoite';
+	@override String get lud16 => 'Salama osoite';
+	@override late final _TranslationsSettingsProfileErrorFi error = _TranslationsSettingsProfileErrorFi._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletFi extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Yhdistä lompakko (NWC nwc://)';
+	@override String get disconnect_wallet => 'Irrota lompakko';
+	@override late final _TranslationsSettingsWalletErrorFi error = _TranslationsSettingsWalletErrorFi._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidFi extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Ryöstöretket osoitteessa ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorFi extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorFi extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Ei voi muokata profiilia, kun on kirjautunut ulos';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorFi extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsFi {
 			case 'button.unmute': return 'Poista mykistys';
 			case 'button.share': return 'Jaa';
 			case 'button.save': return 'Tallenna';
+			case 'button.connect': return 'Yhdistä';
+			case 'button.settings': return 'Asetukset';
 			case 'embed.article_by': return ({required Object name}) => 'Artikkeli ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Viesti lähettäjältä ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Suora lähetys osoitteessa ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsFi {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} satsia';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Avaa lompakossa';
+			case 'zap.button_connect_wallet': return 'Yhdistä lompakko';
 			case 'zap.copy': return 'Kopioitu leikepöydälle';
 			case 'zap.error.invalid_custom_amount': return 'Virheellinen mukautettu määrä';
 			case 'zap.error.no_wallet': return 'Ei asennettua salamalompakkoa';
 			case 'zap.error.no_lud16': return 'Salamaosoitetta ei löytynyt';
 			case 'profile.past_streams': return 'Aikaisemmat lähetykset';
-			case 'profile.edit.display_name': return 'Näytön nimi';
-			case 'profile.edit.about': return 'Tietoja';
-			case 'profile.edit.nip05': return 'Nostr-osoite';
-			case 'profile.edit.lud16': return 'Lightning-osoite';
-			case 'profile.edit.error.logged_out': return 'Ei voi muokata profiilia, kun on kirjautunut ulos';
+			case 'settings.button_profile': return 'Muokkaa profiilia';
+			case 'settings.button_wallet': return 'Lompakon asetukset';
+			case 'settings.profile.display_name': return 'Näytön nimi';
+			case 'settings.profile.about': return 'Tietoja';
+			case 'settings.profile.nip05': return 'Nostr Osoite';
+			case 'settings.profile.lud16': return 'Salama osoite';
+			case 'settings.profile.error.logged_out': return 'Ei voi muokata profiilia, kun on kirjautunut ulos';
+			case 'settings.wallet.connect_wallet': return 'Yhdistä lompakko (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Irrota lompakko';
+			case 'settings.wallet.error.logged_out': return 'Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos';
 			case 'login.username': return 'Käyttäjätunnus';
 			case 'login.amber': return 'Kirjaudu sisään Amber kanssa';
 			case 'login.key': return 'Kirjaudu sisään avaimella';

@@ -83,9 +83,9 @@ class ProfilePage extends StatelessWidget {
                     },
                   ),
                   BasicButton.text(
-                    t.button.edit_profile,
+                    t.button.settings,
                     onTap: (context) {
-                      context.push("/settings/profile");
+                      context.push("/settings");
                     },
                   ),
                 ],

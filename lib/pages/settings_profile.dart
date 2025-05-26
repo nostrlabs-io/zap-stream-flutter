@@ -20,7 +20,7 @@ class SettingsProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pubkey = ndk.accounts.getPublicKey();
-    if (pubkey == null) return Text(t.profile.edit.error.logged_out);
+    if (pubkey == null) return Text(t.settings.profile.error.logged_out);
 
     return FutureBuilder(
       future: ndk.metadata.loadMetadata(pubkey),
@@ -52,7 +52,7 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _name,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: t.profile.edit.display_name,
+                    labelText: t.settings.profile.display_name,
                     fillColor: LAYER_1,
                     filled: true,
                   ),
@@ -61,7 +61,7 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _about,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: t.profile.edit.about,
+                    labelText: t.settings.profile.about,
                     fillColor: LAYER_1,
                     filled: true,
                   ),
@@ -70,7 +70,7 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _nip5,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: t.profile.edit.nip05,
+                    labelText: t.settings.profile.nip05,
                     fillColor: LAYER_1,
                     filled: true,
                   ),
@@ -79,7 +79,7 @@ class SettingsProfilePage extends StatelessWidget {
                   controller: _lud16,
                   readOnly: v,
                   decoration: InputDecoration(
-                    labelText: t.profile.edit.lud16,
+                    labelText: t.settings.profile.lud16,
                     fillColor: LAYER_1,
                     filled: true,
                   ),

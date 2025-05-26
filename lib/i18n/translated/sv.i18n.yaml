@@ -1,97 +1,101 @@
 upload_avatar: Ladda upp avatar
-"@upload_avatar": 
-  description: Text som uppmanar användaren att trycka på avatarplatshållaren för att påbörja uppladdningen
+"@upload_avatar":
+  description: Text som uppmanar användaren att trycka på avatarplatshållaren för
+    att påbörja uppladdningen
 most_zapped_streamers: De flesta zappade streamers
-"@most_zapped_streamers": 
+"@most_zapped_streamers":
   description: Rubrik över listade toppstreamers av zaps
 no_user_found: Ingen användare hittades
-"@no_user_found": 
+"@no_user_found":
   description: Ingen användare hittades vid sökning
 anon: Anon
-viewers: 
+viewers:
   one: 1 tittare
   other: $n tittare
-"@viewers": 
+"@viewers":
   description: Antal tittare på streamingen
-  placeholders: 
-    n: 
+  placeholders:
+    n:
       type: int
-"@anon": 
+"@anon":
   description: En anonym användare
-stream: 
-  status: 
+stream:
+  status:
     live: LIVE
     ended: AVSLUTAD
     planned: PLANERADE
   started: Startade $timestamp
-  chat: 
+  chat:
     disabled: CHAT AVSTÄNGD
     disabled_timeout: "Tidsgränsen går ut: $time"
     timeout(rich): $mod tidsbegränsad $user för $time
-    "@timeout": 
+    "@timeout":
       description: Chattmeddelande som visar timeout-händelser
     ended: STREAM AVSLUTAD
-    "@ended": 
+    "@ended":
       description: Stream avslutade sidfoten längst ner på chatten
     zap(rich): $user zapped $amount sats
-    "@zap": 
+    "@zap":
       description: Chattmeddelande som visar strömavbrott
-    write: 
+    write:
       label: Skriv meddelande
-      "@label": 
+      "@label":
         description: Etikett på inmatningsrutan för chattmeddelanden
       no_signer: Det går inte att skriva meddelanden med npub-inloggning
-      "@no_signer": 
-        description: Chattinmatningsmeddelande som visas när användaren endast är inloggad med pubkey
+      "@no_signer":
+        description: Chattinmatningsmeddelande som visas när användaren endast är
+          inloggad med pubkey
       login: Logga in för att skicka meddelanden
-      "@login": 
+      "@login":
         description: Chattinmatningsmeddelande som visas när användaren är utloggad
-    badge: 
+    badge:
       awarded_to: "Tilldelas till:"
-      "@awarded_to": 
+      "@awarded_to":
         description: Rubrik över lista över användare som tilldelats en badge
-    raid: 
+    raid:
       to: RAIDING $name
-      "@to": 
+      "@to":
         description: Chatta raidmeddelande till en annan ström
       from: RAID FRÅN $name
-      "@from": 
+      "@from":
         description: Chat raid-meddelande från en annan ström
       countdown: Raiding på $time
-      "@countdown": 
+      "@countdown":
         description: Nedräkningstimer för auto-raiding
-goal: 
+goal:
   title: "Mål: $amount"
   remaining: "Kvarvarande: $amount"
   complete: KOMPLETT
-button: 
+button:
   login: Logga in
   logout: Logga ut
   edit_profile: Redigera profil
-  "@login": 
+  "@login":
     description: Knapptext för inloggningsknappen
   follow: Följ
-  "@follow": 
+  "@follow":
     description: Knapptext för följ-knappen
   unfollow: Sluta följa
-  "@unfollow": 
+  "@unfollow":
     description: Knapptext för avföljningsknappen
   mute: Tysta
   unmute: Avtysta
   share: Dela
   save: Spara
-embed: 
+  connect: Anslut
+  settings: Inställningar
+embed:
   article_by: Artikel av $name
   note_by: Anteckning av $name
   live_stream_by: Direktsändning via $name
-stream_list: 
+stream_list:
   following: Följer
   live: Live
   planned: Planerade
   ended: Avslutade
-"@stream_list": 
+"@stream_list":
   description: Rubriker på strömlistor efter strömtyp live/avslutad/planerad etc.
-zap: 
+zap:
   title: Zap $name
   custom_amount: Anpassat belopp
   confirm: Bekräfta
@@ -99,24 +103,33 @@ zap:
   button_zap_ready: Zap $amount sats
   button_zap: Zap
   button_open_wallet: Öppna i plånboken
+  button_connect_wallet: Anslut plånbok
   copy: Kopieras till urklipp
-  error: 
+  error:
     invalid_custom_amount: Ogiltigt anpassat belopp
     no_wallet: Ingen blixtplånbok installerad
     no_lud16: Ingen blixtadress hittades
-profile: 
+profile:
   past_streams: Tidigare streamar
-  edit: 
+settings:
+  button_profile: Redigera profil
+  button_wallet: Inställningar för plånbok
+  profile:
     display_name: Visa namn
     about: Om
     nip05: Nostr Adress
-    lud16: Lightning-adress
-    error: 
+    lud16: Adress för blixtnedslag
+    error:
       logged_out: Kan inte redigera profil när jag är utloggad
-login: 
+  wallet:
+    connect_wallet: Anslut plånbok (NWC nwc://)
+    disconnect_wallet: Koppla bort plånboken
+    error:
+      logged_out: Kan inte ansluta plånbok när du är inloggad
+login:
   username: Användarnamn
   amber: Logga in med Amber
   key: Logga in med nyckel
   create: Skapa konto
-  error: 
+  error:
     invalid_key: Ogiltig nyckel

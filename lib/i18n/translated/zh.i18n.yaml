@@ -1,97 +1,99 @@
 upload_avatar: 上傳頭像
-"@upload_avatar": 
+"@upload_avatar":
   description: 提示使用者點擊頭像占位符開始上傳的文字
 most_zapped_streamers: 最多被擊中的溪流
-"@most_zapped_streamers": 
+"@most_zapped_streamers":
   description: ヘッドランドから列されている頂幡からずった
 no_user_found: 未找到使用者
-"@no_user_found": 
+"@no_user_found":
   description: 搜尋時未找到使用者
 anon: 匿名
-viewers: 
+viewers:
   one: 1 個檢視器
   other: $n 觀眾
-"@viewers": 
+"@viewers":
   description: 串流的觀看者人數
-  placeholders: 
-    n: 
+  placeholders:
+    n:
       type: int
-"@anon": 
+"@anon":
   description: 匿名使用者
-stream: 
-  status: 
+stream:
+  status:
     live: 直播
     ended: 結束
     planned: 計劃
   started: 開始 $timestamp
-  chat: 
+  chat:
     disabled: 關閉聊天
     disabled_timeout: 超時過期： $time
     timeout(rich): $mod 超時 $user for $time
-    "@timeout": 
+    "@timeout":
       description: 顯示逾時事件的聊天訊息
     ended: 串流結束
-    "@ended": 
+    "@ended":
       description: 聊天底部的流結束頁尾
     zap(rich): $user 打閃了 $amount 聰
-    "@zap": 
+    "@zap":
       description: 聊天訊息顯示串流斷點
-    write: 
+    write:
       label: 寫訊息
-      "@label": 
+      "@label":
         description: 聊天訊息輸入方塊上的標籤
       no_signer: 無法使用 npub 登入撰寫訊息
-      "@no_signer": 
+      "@no_signer":
         description: 當使用者僅使用 pubkey 登入時，會顯示聊天輸入訊息
       login: 請登入以傳送訊息
-      "@login": 
+      "@login":
         description: 使用者登出時顯示聊天輸入訊息
-    badge: 
+    badge:
       awarded_to: 頒發給
-      "@awarded_to": 
+      "@awarded_to":
         description: 被授予徽章的使用者清單上的標題
-    raid: 
+    raid:
       to: RAIDING $name
-      "@to": 
+      "@to":
         description: 聊天突擊消息到另一個串流
       from: RAID FROM $name
-      "@from": 
+      "@from":
         description: 來自其他串流的聊天突襲訊息
       countdown: 突襲 $time
-      "@countdown": 
+      "@countdown":
         description: 自動騎乘倒數計時器
-goal: 
+goal:
   title: 目標：$amount
   remaining: 剩餘： $amount
   complete: 完成
-button: 
+button:
   login: 登錄
   logout: 登出
   edit_profile: 編輯個人檔案
-  "@login": 
+  "@login":
     description: 登入按鈕的按鈕文字
   follow: 關注
-  "@follow": 
+  "@follow":
     description: 跟蹤按鈕的按鈕文字
   unfollow: 取消關注
-  "@unfollow": 
+  "@unfollow":
     description: 取消關注按鈕的按鈕文字
   mute: 靜音
   unmute: 解除静音
   share: 分享
   save: 保存
-embed: 
+  connect: 連接
+  settings: 設定
+embed:
   article_by: 文章來源： $name
   note_by: $name 的筆記
   live_stream_by: Live stream by $name
-stream_list: 
+stream_list:
   following: 已關注
   live: 直播
   planned: 已計畫
   ended: 已結束
-"@stream_list": 
+"@stream_list":
   description: 串流清單上的標題依串流類型為現場/結束/計劃中等。
-zap: 
+zap:
   title: 打閃$name
   custom_amount: 自訂金額
   confirm: 確認
@@ -99,24 +101,33 @@ zap:
   button_zap_ready: 打閃 $amount 聰
   button_zap: 打閃
   button_open_wallet: 在錢包中開啟
+  button_connect_wallet: 連接錢包
   copy: 複製到剪貼簿
-  error: 
+  error:
     invalid_custom_amount: 無效自訂金額
     no_wallet: 未安裝閃電錢夾
     no_lud16: 未找到閃電地址
-profile: 
+profile:
   past_streams: 過去的直播
-  edit: 
+settings:
+  button_profile: 編輯個人資料
+  button_wallet: 錢包設定
+  profile:
     display_name: 顯示名稱
     about: 關於
-    nip05: Nostr 地址
+    nip05: 地址
     lud16: 閃電地址
-    error: 
+    error:
       logged_out: 登出時無法編輯個人資料
-login: 
+  wallet:
+    connect_wallet: 連接錢包 (NWC nwc://)
+    disconnect_wallet: 斷開錢包
+    error:
+      logged_out: 登出時無法連接錢包
+login:
   username: 用戶名
   amber: 使用 Amber 登入
   key: 使用鑰匙登入
   create: 創建帳戶
-  error: 
+  error:
     invalid_key: 無效按鍵

@@ -1,97 +1,102 @@
 upload_avatar: Prześlij awatar
-"@upload_avatar": 
-  description: Tekst zachęcający użytkownika do kliknięcia symbolu zastępczego awatara w celu rozpoczęcia przesyłania.
+"@upload_avatar":
+  description: Tekst zachęcający użytkownika do kliknięcia symbolu zastępczego
+    awatara w celu rozpoczęcia przesyłania.
 most_zapped_streamers: Większość zapped streamerów
-"@most_zapped_streamers": 
+"@most_zapped_streamers":
   description: Przechodzenie nad wymienionymi topowymi streamerami przez zapy
 no_user_found: Nie znaleziono użytkownika
-"@no_user_found": 
+"@no_user_found":
   description: Nie znaleziono użytkownika podczas wyszukiwania
 anon: Anon
-viewers: 
+viewers:
   one: 1 przeglądarka
   other: $n widzowie
-"@viewers": 
+"@viewers":
   description: Liczba widzów strumienia
-  placeholders: 
-    n: 
+  placeholders:
+    n:
       type: int
-"@anon": 
+"@anon":
   description: Anonimowy użytkownik
-stream: 
-  status: 
+stream:
+  status:
     live: NA ŻYWO
     ended: ZAKOŃCZONY
     planned: PLANOWANE
   started: Start $timestamp
-  chat: 
+  chat:
     disabled: CZAT WYŁĄCZONY
     disabled_timeout: "Upłynął limit czasu: $time"
     timeout(rich): $mod upłynął limit czasu $user dla $time
-    "@timeout": 
+    "@timeout":
       description: Komunikat czatu pokazujący zdarzenia przekroczenia limitu czasu
     ended: TRANSMISJA ZAKOŃCZONA
-    "@ended": 
+    "@ended":
       description: Stream zakończył stopkę na dole czatu
     zap(rich): $user zapped $amount sats
-    "@zap": 
+    "@zap":
       description: Wiadomość na czacie pokazująca zapy strumienia
-    write: 
+    write:
       label: Napisz wiadomość
-      "@label": 
+      "@label":
         description: Etykieta w polu wprowadzania wiadomości czatu
       no_signer: Nie można pisać wiadomości z loginem npub
-      "@no_signer": 
-        description: Komunikat wejściowy czatu wyświetlany, gdy użytkownik jest zalogowany tylko za pomocą klucza pubkey
+      "@no_signer":
+        description: Komunikat wejściowy czatu wyświetlany, gdy użytkownik jest
+          zalogowany tylko za pomocą klucza pubkey
       login: Zaloguj się, aby wysyłać wiadomości
-      "@login": 
+      "@login":
         description: Komunikat wejściowy czatu wyświetlany, gdy użytkownik jest wylogowany
-    badge: 
+    badge:
       awarded_to: "Przyznano:"
-      "@awarded_to": 
+      "@awarded_to":
         description: Nagłówek nad listą użytkowników, którzy otrzymali odznakę
-    raid: 
+    raid:
       to: RAIDING $name
-      "@to": 
+      "@to":
         description: Przesyłanie wiadomości na czacie do innego strumienia
       from: RAID Z $name
-      "@from": 
+      "@from":
         description: Nalot na czat z innego strumienia
       countdown: Naloty w $time
-      "@countdown": 
+      "@countdown":
         description: Zegar odliczający czas do automatycznej jazdy
-goal: 
+goal:
   title: "Cel: $amount"
   remaining: "Pozostałe: $amount"
   complete: ZAKOŃCZONE
-button: 
+button:
   login: Logowanie
   logout: Wylogowanie
   edit_profile: Edytuj profil
-  "@login": 
+  "@login":
     description: Tekst przycisku logowania
   follow: Śledź
-  "@follow": 
+  "@follow":
     description: Tekst przycisku dla przycisku śledzenia
   unfollow: Nie obserwuj
-  "@unfollow": 
+  "@unfollow":
     description: Tekst przycisku cofnięcia obserwowania
   mute: Wyciszenie
   unmute: Wyłącz wyciszenie
   share: Udział
   save: Zapisz
-embed: 
+  connect: Połączenie
+  settings: Ustawienia
+embed:
   article_by: Artykuł autorstwa $name
   note_by: Uwaga $name
   live_stream_by: Transmisja na żywo przez $name
-stream_list: 
+stream_list:
   following: Następujący
   live: Na żywo
   planned: Planowane
   ended: Zakończony
-"@stream_list": 
-  description: Nagłówki na listach strumieni według typu strumienia na żywo / zakończony / planowany itp.
-zap: 
+"@stream_list":
+  description: Nagłówki na listach strumieni według typu strumienia na żywo /
+    zakończony / planowany itp.
+zap:
   title: Zap $name
   custom_amount: Kwota niestandardowa
   confirm: Potwierdzenie
@@ -99,24 +104,33 @@ zap:
   button_zap_ready: Zap $amount sats
   button_zap: Zap
   button_open_wallet: Otwórz w portfelu
+  button_connect_wallet: Connect Wallet
   copy: Skopiowane do schowka
-  error: 
+  error:
     invalid_custom_amount: Nieprawidłowa kwota niestandardowa
     no_wallet: Brak zainstalowanego portfela Lightning
     no_lud16: Nie znaleziono adresu pioruna
-profile: 
+profile:
   past_streams: Poprzednie strumienie
-  edit: 
+settings:
+  button_profile: Edytuj profil
+  button_wallet: Ustawienia portfela
+  profile:
     display_name: Wyświetlana nazwa
     about: O
     nip05: Adres Nostr
     lud16: Adres błyskawicy
-    error: 
+    error:
       logged_out: Nie można edytować profilu po wylogowaniu
-login: 
+  wallet:
+    connect_wallet: Connect Wallet (NWC nwc://)
+    disconnect_wallet: Odłącz portfel
+    error:
+      logged_out: Nie można połączyć portfela po wylogowaniu
+login:
   username: Nazwa użytkownika
   amber: Zaloguj się za pomocą Amber
   key: Logowanie za pomocą klucza
   create: Utwórz konto
-  error: 
+  error:
     invalid_key: Nieprawidłowy klucz

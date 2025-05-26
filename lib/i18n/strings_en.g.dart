@@ -68,7 +68,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	late final TranslationsZapEn zap = TranslationsZapEn.internal(_root);
 	late final TranslationsProfileEn profile = TranslationsProfileEn.internal(_root);
-	late final TranslationsWalletEn wallet = TranslationsWalletEn.internal(_root);
+	late final TranslationsSettingsEn settings = TranslationsSettingsEn.internal(_root);
 	late final TranslationsLoginEn login = TranslationsLoginEn.internal(_root);
 }
 
@@ -121,6 +121,7 @@ class TranslationsButtonEn {
 	String get share => 'Share';
 	String get save => 'Save';
 	String get connect => 'Connect';
+	String get settings => 'Settings';
 }
 
 // Path: embed
@@ -175,18 +176,19 @@ class TranslationsProfileEn {
 
 	// Translations
 	String get past_streams => 'Past Streams';
-	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn.internal(_root);
 }
 
-// Path: wallet
-class TranslationsWalletEn {
-	TranslationsWalletEn.internal(this._root);
+// Path: settings
+class TranslationsSettingsEn {
+	TranslationsSettingsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get connect_wallet => 'Connect Wallet (NWC)';
-	late final TranslationsWalletErrorEn error = TranslationsWalletErrorEn.internal(_root);
+	String get button_profile => 'Edit Profile';
+	String get button_wallet => 'Wallet Settings';
+	late final TranslationsSettingsProfileEn profile = TranslationsSettingsProfileEn.internal(_root);
+	late final TranslationsSettingsWalletEn wallet = TranslationsSettingsWalletEn.internal(_root);
 }
 
 // Path: login
@@ -262,9 +264,9 @@ class TranslationsZapErrorEn {
 	String get no_lud16 => 'No lightning address found';
 }
 
-// Path: profile.edit
-class TranslationsProfileEditEn {
-	TranslationsProfileEditEn.internal(this._root);
+// Path: settings.profile
+class TranslationsSettingsProfileEn {
+	TranslationsSettingsProfileEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -273,17 +275,19 @@ class TranslationsProfileEditEn {
 	String get about => 'About';
 	String get nip05 => 'Nostr Address';
 	String get lud16 => 'Lightning Address';
-	late final TranslationsProfileEditErrorEn error = TranslationsProfileEditErrorEn.internal(_root);
+	late final TranslationsSettingsProfileErrorEn error = TranslationsSettingsProfileErrorEn.internal(_root);
 }
 
-// Path: wallet.error
-class TranslationsWalletErrorEn {
-	TranslationsWalletErrorEn.internal(this._root);
+// Path: settings.wallet
+class TranslationsSettingsWalletEn {
+	TranslationsSettingsWalletEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get logged_out => 'Cant connect wallet when logged out';
+	String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	String get disconnect_wallet => 'Disconnect Wallet';
+	late final TranslationsSettingsWalletErrorEn error = TranslationsSettingsWalletErrorEn.internal(_root);
 }
 
 // Path: login.error
@@ -344,14 +348,24 @@ class TranslationsStreamChatRaidEn {
 	String countdown({required Object time}) => 'Raiding in ${time}';
 }
 
-// Path: profile.edit.error
-class TranslationsProfileEditErrorEn {
-	TranslationsProfileEditErrorEn.internal(this._root);
+// Path: settings.profile.error
+class TranslationsSettingsProfileErrorEn {
+	TranslationsSettingsProfileErrorEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get logged_out => 'Cant edit profile when logged out';
+}
+
+// Path: settings.wallet.error
+class TranslationsSettingsWalletErrorEn {
+	TranslationsSettingsWalletErrorEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get logged_out => 'Cant connect wallet when logged out';
 }
 
 /// Flat map(s) containing all translations.
@@ -407,6 +421,7 @@ extension on Translations {
 			case 'button.share': return 'Share';
 			case 'button.save': return 'Save';
 			case 'button.connect': return 'Connect';
+			case 'button.settings': return 'Settings';
 			case 'embed.article_by': return ({required Object name}) => 'Article by ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Note by ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Live stream by ${name}';
@@ -427,13 +442,16 @@ extension on Translations {
 			case 'zap.error.no_wallet': return 'No lightning wallet installed';
 			case 'zap.error.no_lud16': return 'No lightning address found';
 			case 'profile.past_streams': return 'Past Streams';
-			case 'profile.edit.display_name': return 'Display Name';
-			case 'profile.edit.about': return 'About';
-			case 'profile.edit.nip05': return 'Nostr Address';
-			case 'profile.edit.lud16': return 'Lightning Address';
-			case 'profile.edit.error.logged_out': return 'Cant edit profile when logged out';
-			case 'wallet.connect_wallet': return 'Connect Wallet (NWC)';
-			case 'wallet.error.logged_out': return 'Cant connect wallet when logged out';
+			case 'settings.button_profile': return 'Edit Profile';
+			case 'settings.button_wallet': return 'Wallet Settings';
+			case 'settings.profile.display_name': return 'Display Name';
+			case 'settings.profile.about': return 'About';
+			case 'settings.profile.nip05': return 'Nostr Address';
+			case 'settings.profile.lud16': return 'Lightning Address';
+			case 'settings.profile.error.logged_out': return 'Cant edit profile when logged out';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Disconnect Wallet';
+			case 'settings.wallet.error.logged_out': return 'Cant connect wallet when logged out';
 			case 'login.username': return 'Username';
 			case 'login.amber': return 'Login with Amber';
 			case 'login.key': return 'Login with Key';

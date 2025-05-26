@@ -67,6 +67,7 @@ class TranslationsTr extends Translations {
 
 	@override late final _TranslationsZapTr zap = _TranslationsZapTr._(_root);
 	@override late final _TranslationsProfileTr profile = _TranslationsProfileTr._(_root);
+	@override late final _TranslationsSettingsTr settings = _TranslationsSettingsTr._(_root);
 	@override late final _TranslationsLoginTr login = _TranslationsLoginTr._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonTr extends TranslationsButtonEn {
 	@override String get unmute => 'Sesi aç';
 	@override String get share => 'Paylaş';
 	@override String get save => 'Kaydet';
+	@override String get connect => 'Bağlan';
+	@override String get settings => 'Ayarlar';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapTr extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Cüzdanda Aç';
+	@override String get button_connect_wallet => 'Cüzdan Bağlayın';
 	@override String get copy => 'Panoya kopyalandı';
 	@override late final _TranslationsZapErrorTr error = _TranslationsZapErrorTr._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileTr extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Geçmiş Akışlar';
-	@override late final _TranslationsProfileEditTr edit = _TranslationsProfileEditTr._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsTr extends TranslationsSettingsEn {
+	_TranslationsSettingsTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Profil Düzenle';
+	@override String get button_wallet => 'Cüzdan Ayarları';
+	@override late final _TranslationsSettingsProfileTr profile = _TranslationsSettingsProfileTr._(_root);
+	@override late final _TranslationsSettingsWalletTr wallet = _TranslationsSettingsWalletTr._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorTr extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Yıldırım adresi bulunamadı';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditTr extends TranslationsProfileEditEn {
-	_TranslationsProfileEditTr._(TranslationsTr root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileTr extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditTr extends TranslationsProfileEditEn {
 	@override String get about => 'Hakkında';
 	@override String get nip05 => 'Nostr Adres';
 	@override String get lud16 => 'Yıldırım Adres';
-	@override late final _TranslationsProfileEditErrorTr error = _TranslationsProfileEditErrorTr._(_root);
+	@override late final _TranslationsSettingsProfileErrorTr error = _TranslationsSettingsProfileErrorTr._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletTr extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Cüzdanı Bağlayın (NWC nwc://)';
+	@override String get disconnect_wallet => 'Cüzdan Bağlantısını Kes';
+	@override late final _TranslationsSettingsWalletErrorTr error = _TranslationsSettingsWalletErrorTr._(_root);
 }
 
 // Path: login.error
@@ -310,23 +338,33 @@ class _TranslationsStreamChatRaidTr extends TranslationsStreamChatRaidEn {
 	// Translations
 
 	/// Başka bir akışa sohbet baskını mesajı
-	@override String to({required Object name}) => 'RAIDING ${name}S';
+	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Başka bir akıştan sohbet baskını mesajı
-	@override String from({required Object name}) => '${name} ADRESINDEN RAID';
+	@override String from({required Object name}) => '${name}ADRESINDEN RAID';
 
 	/// Otomatik sürüş için geri sayım sayacı
-	@override String countdown({required Object time}) => '${time} adresinde baskın';
+	@override String countdown({required Object time}) => '${time}adresinde baskın';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorTr extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorTr extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Çıkış yapıldığında profil düzenlenemiyor';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorTr extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Oturumu kapattığımda cüzdana bağlanamıyorum';
 }
 
 /// Flat map(s) containing all translations.
@@ -366,9 +404,9 @@ extension on TranslationsTr {
 			case 'stream.chat.write.no_signer': return 'Npub girişi ile mesaj yazılamıyor';
 			case 'stream.chat.write.login': return 'Mesaj göndermek için lütfen giriş yapın';
 			case 'stream.chat.badge.awarded_to': return 'Ödüllendirildi:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}S';
-			case 'stream.chat.raid.from': return ({required Object name}) => '${name} ADRESINDEN RAID';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time} adresinde baskın';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => '${name}ADRESINDEN RAID';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time}adresinde baskın';
 			case 'goal.title': return ({required Object amount}) => 'Hedef: ${amount}';
 			case 'goal.remaining': return ({required Object amount}) => 'Kalan: ${amount}';
 			case 'goal.complete': return 'TAMAMLANDI';
@@ -381,6 +419,8 @@ extension on TranslationsTr {
 			case 'button.unmute': return 'Sesi aç';
 			case 'button.share': return 'Paylaş';
 			case 'button.save': return 'Kaydet';
+			case 'button.connect': return 'Bağlan';
+			case 'button.settings': return 'Ayarlar';
 			case 'embed.article_by': return ({required Object name}) => 'Makale ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Not: ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Canlı yayın: ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsTr {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Cüzdanda Aç';
+			case 'zap.button_connect_wallet': return 'Cüzdan Bağlayın';
 			case 'zap.copy': return 'Panoya kopyalandı';
 			case 'zap.error.invalid_custom_amount': return 'Geçersiz özel tutar';
 			case 'zap.error.no_wallet': return 'Lightning cüzdan yüklü değil';
 			case 'zap.error.no_lud16': return 'Yıldırım adresi bulunamadı';
 			case 'profile.past_streams': return 'Geçmiş Akışlar';
-			case 'profile.edit.display_name': return 'Ekran Adı';
-			case 'profile.edit.about': return 'Hakkında';
-			case 'profile.edit.nip05': return 'Nostr Adres';
-			case 'profile.edit.lud16': return 'Yıldırım Adres';
-			case 'profile.edit.error.logged_out': return 'Çıkış yapıldığında profil düzenlenemiyor';
+			case 'settings.button_profile': return 'Profil Düzenle';
+			case 'settings.button_wallet': return 'Cüzdan Ayarları';
+			case 'settings.profile.display_name': return 'Ekran Adı';
+			case 'settings.profile.about': return 'Hakkında';
+			case 'settings.profile.nip05': return 'Nostr Adres';
+			case 'settings.profile.lud16': return 'Yıldırım Adres';
+			case 'settings.profile.error.logged_out': return 'Çıkış yapıldığında profil düzenlenemiyor';
+			case 'settings.wallet.connect_wallet': return 'Cüzdanı Bağlayın (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Cüzdan Bağlantısını Kes';
+			case 'settings.wallet.error.logged_out': return 'Oturumu kapattığımda cüzdana bağlanamıyorum';
 			case 'login.username': return 'Kullanıcı Adı';
 			case 'login.amber': return 'Amber ile Giriş Yapın';
 			case 'login.key': return 'Anahtar ile Giriş Yapın';

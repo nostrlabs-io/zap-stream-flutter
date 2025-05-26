@@ -67,6 +67,7 @@ class TranslationsDa extends Translations {
 
 	@override late final _TranslationsZapDa zap = _TranslationsZapDa._(_root);
 	@override late final _TranslationsProfileDa profile = _TranslationsProfileDa._(_root);
+	@override late final _TranslationsSettingsDa settings = _TranslationsSettingsDa._(_root);
 	@override late final _TranslationsLoginDa login = _TranslationsLoginDa._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonDa extends TranslationsButtonEn {
 	@override String get unmute => 'Slå lyden fra';
 	@override String get share => 'Del';
 	@override String get save => 'Gemme';
+	@override String get connect => 'Opret forbindelse';
+	@override String get settings => 'Indstillinger';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapDa extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Åbn i tegnebogen';
+	@override String get button_connect_wallet => 'Forbind tegnebog';
 	@override String get copy => 'Kopieret til udklipsholder';
 	@override late final _TranslationsZapErrorDa error = _TranslationsZapErrorDa._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileDa extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Tidligere strømme';
-	@override late final _TranslationsProfileEditDa edit = _TranslationsProfileEditDa._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsDa extends TranslationsSettingsEn {
+	_TranslationsSettingsDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Rediger profil';
+	@override String get button_wallet => 'Indstillinger for tegnebog';
+	@override late final _TranslationsSettingsProfileDa profile = _TranslationsSettingsProfileDa._(_root);
+	@override late final _TranslationsSettingsWalletDa wallet = _TranslationsSettingsWalletDa._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorDa extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Ingen lyn-adresse fundet';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditDa extends TranslationsProfileEditEn {
-	_TranslationsProfileEditDa._(TranslationsDa root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileDa extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileDa._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditDa extends TranslationsProfileEditEn {
 	@override String get about => 'Omkring';
 	@override String get nip05 => 'Nostr-adresse';
 	@override String get lud16 => 'Adresse for lynnedslag';
-	@override late final _TranslationsProfileEditErrorDa error = _TranslationsProfileEditErrorDa._(_root);
+	@override late final _TranslationsSettingsProfileErrorDa error = _TranslationsSettingsProfileErrorDa._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletDa extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	@override String get disconnect_wallet => 'Afbryd forbindelsen til tegnebogen';
+	@override late final _TranslationsSettingsWalletErrorDa error = _TranslationsSettingsWalletErrorDa._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidDa extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raiding i ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorDa extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorDa extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Kan ikke redigere profil, når jeg er logget ud';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorDa extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Kan ikke oprette forbindelse til wallet, når jeg er logget ud';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsDa {
 			case 'button.unmute': return 'Slå lyden fra';
 			case 'button.share': return 'Del';
 			case 'button.save': return 'Gemme';
+			case 'button.connect': return 'Opret forbindelse';
+			case 'button.settings': return 'Indstillinger';
 			case 'embed.article_by': return ({required Object name}) => 'Artikel af ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Note fra ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Livestream på ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsDa {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Åbn i tegnebogen';
+			case 'zap.button_connect_wallet': return 'Forbind tegnebog';
 			case 'zap.copy': return 'Kopieret til udklipsholder';
 			case 'zap.error.invalid_custom_amount': return 'Ugyldigt brugerdefineret beløb';
 			case 'zap.error.no_wallet': return 'Ingen lightning wallet installeret';
 			case 'zap.error.no_lud16': return 'Ingen lyn-adresse fundet';
 			case 'profile.past_streams': return 'Tidligere strømme';
-			case 'profile.edit.display_name': return 'Vis navn';
-			case 'profile.edit.about': return 'Omkring';
-			case 'profile.edit.nip05': return 'Nostr-adresse';
-			case 'profile.edit.lud16': return 'Adresse for lynnedslag';
-			case 'profile.edit.error.logged_out': return 'Kan ikke redigere profil, når jeg er logget ud';
+			case 'settings.button_profile': return 'Rediger profil';
+			case 'settings.button_wallet': return 'Indstillinger for tegnebog';
+			case 'settings.profile.display_name': return 'Vis navn';
+			case 'settings.profile.about': return 'Omkring';
+			case 'settings.profile.nip05': return 'Nostr-adresse';
+			case 'settings.profile.lud16': return 'Adresse for lynnedslag';
+			case 'settings.profile.error.logged_out': return 'Kan ikke redigere profil, når jeg er logget ud';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Afbryd forbindelsen til tegnebogen';
+			case 'settings.wallet.error.logged_out': return 'Kan ikke oprette forbindelse til wallet, når jeg er logget ud';
 			case 'login.username': return 'Brugernavn';
 			case 'login.amber': return 'Log ind med Amber';
 			case 'login.key': return 'Login med nøgle';

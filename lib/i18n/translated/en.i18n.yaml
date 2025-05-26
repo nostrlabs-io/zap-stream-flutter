@@ -51,13 +51,13 @@ stream:
       "@awarded_to":
         description: Heading over list of users who are awarded a badge
     raid:
-      to: RAIDING $name
+      to: RAIDING ${name}
       "@to":
         description: Chat raid message to another stream
-      from: RAID FROM $name
+      from: RAID FROM ${name}
       "@from":
         description: Chat raid message from another stream
-      countdown: Raiding in $time
+      countdown: Raiding in ${time}
       "@countdown":
         description: Countdown timer for auto-raiding
 goal:
@@ -81,10 +81,11 @@ button:
   share: Share
   save: Save
   connect: Connect
+  settings: Settings
 embed:
-  article_by: Article by $name
+  article_by: Article by ${name}
   note_by: Note by $name
-  live_stream_by: Live stream by $name
+  live_stream_by: Live stream by ${name}
 stream_list:
   following: Following
   live: Live
@@ -108,16 +109,20 @@ zap:
     no_lud16: No lightning address found
 profile:
   past_streams: Past Streams
-  edit:
+settings:
+  button_profile: Edit Profile
+  button_wallet: Wallet Settings
+  profile:
     display_name: Display Name
     about: About
     nip05: Nostr Address
     lud16: Lightning Address
     error:
       logged_out: Cant edit profile when logged out
-wallet:
-  connect_wallet: Connect Wallet (NWC nwc://)
-  error:
+  wallet:
+    connect_wallet: Connect Wallet (NWC nwc://)
+    disconnect_wallet: Disconnect Wallet
+    error:
       logged_out: Cant connect wallet when logged out
 login:
   username: "Username"

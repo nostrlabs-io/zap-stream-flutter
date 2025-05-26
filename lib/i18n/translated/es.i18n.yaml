@@ -1,97 +1,104 @@
 upload_avatar: Subir avatar
-"@upload_avatar": 
-  description: Texto que indica al usuario que pulse el marcador de avatar para iniciar la carga
+"@upload_avatar":
+  description: Texto que indica al usuario que pulse el marcador de avatar para
+    iniciar la carga
 most_zapped_streamers: Serpentinas más derribadas
-"@most_zapped_streamers": 
+"@most_zapped_streamers":
   description: Encabezando streamers superiores listados por zaps
 no_user_found: No se ha encontrado ningún usuario
-"@no_user_found": 
+"@no_user_found":
   description: No se ha encontrado ningún usuario al realizar la búsqueda
 anon: Anónimo
-viewers: 
+viewers:
   one: 1 espectador
   other: $n espectadores
-"@viewers": 
+"@viewers":
   description: Número de espectadores del flujo
-  placeholders: 
-    n: 
+  placeholders:
+    n:
       type: int
-"@anon": 
+"@anon":
   description: Un usuario anónimo
-stream: 
-  status: 
+stream:
+  status:
     live: EN VIVO
     ended: FIN
     planned: PLANIFICADO
   started: Comenzó $timestamp
-  chat: 
+  chat:
     disabled: CHAT DESHABILITADO
     disabled_timeout: "El tiempo de espera expira: $time"
     timeout(rich): $mod timed out $user para $time
-    "@timeout": 
+    "@timeout":
       description: Mensaje de chat que muestra los eventos de tiempo de espera
     ended: STREAM FINED
-    "@ended": 
+    "@ended":
       description: Stream finalizó en la parte inferior del chat
     zap(rich): $user zapearon $amount sats
-    "@zap": 
+    "@zap":
       description: Mensaje de chat que muestra zaps de flujo
-    write: 
+    write:
       label: Escribir mensaje
-      "@label": 
+      "@label":
         description: Etiqueta del cuadro de entrada de mensajes de chat
       no_signer: No se pueden escribir mensajes con el login npub
-      "@no_signer": 
-        description: Mensaje de entrada en el chat que se muestra cuando el usuario está conectado sólo con pubkey
+      "@no_signer":
+        description: Mensaje de entrada en el chat que se muestra cuando el usuario está
+          conectado sólo con pubkey
       login: Inicie sesión para enviar mensajes
-      "@login": 
-        description: Mensaje de entrada al chat que se muestra cuando el usuario cierra la sesión
-    badge: 
+      "@login":
+        description: Mensaje de entrada al chat que se muestra cuando el usuario cierra
+          la sesión
+    badge:
       awarded_to: "Concedido a:"
-      "@awarded_to": 
-        description: Encabezamiento de la lista de usuarios a los que se ha concedido una insignia
-    raid: 
+      "@awarded_to":
+        description: Encabezamiento de la lista de usuarios a los que se ha concedido
+          una insignia
+    raid:
       to: RAIDING $name
-      "@to": 
+      "@to":
         description: Mensaje de raid de chat a otro flujo
       from: RAID DESDE $name
-      "@from": 
+      "@from":
         description: Mensaje de incursión en el chat desde otro flujo
       countdown: Incursiones en $time
-      "@countdown": 
+      "@countdown":
         description: Temporizador de cuenta atrás para auto-raiding
-goal: 
+goal:
   title: "Objetivo: $amount"
   remaining: "Resto: $amount"
   complete: COMPLETAR
-button: 
+button:
   login: Iniciar Sesión
   logout: Cerrar sesión
   edit_profile: Editar Perfil
-  "@login": 
+  "@login":
     description: Texto del botón de inicio de sesión
   follow: Seguir
-  "@follow": 
+  "@follow":
     description: Texto del botón de seguimiento
   unfollow: Dejar de seguir
-  "@unfollow": 
+  "@unfollow":
     description: Texto del botón "Dejar de seguir
   mute: Silenciar
   unmute: Dejar de silenciar
   share: Compartir
   save: Guardar
-embed: 
+  connect: Conectar
+  settings: Ajustes
+embed:
   article_by: Artículo de $name
   note_by: Nota de $name
   live_stream_by: Transmisión en directo por $name
-stream_list: 
+stream_list:
   following: Siguiendo
   live: En directo
   planned: Planificado
   ended: Finalizado
-"@stream_list": 
-  description: Encabezamientos en las listas de flujos por tipo de flujo en directo/finalizado/planificado, etc.
-zap: 
+"@stream_list":
+  description: Encabezamientos en las listas de flujos por tipo de flujo en
+    directo/finalizado/planificado, etc.
+zap:
   title: Zap $name
   custom_amount: Importe personalizado
   confirm: Confirmar
@@ -99,24 +106,33 @@ zap:
   button_zap_ready: Zapear $amount sats
   button_zap: Zap
   button_open_wallet: Abrir en cartera
+  button_connect_wallet: Billetera Connect
   copy: Copiado al portapapeles
-  error: 
+  error:
     invalid_custom_amount: Importe personalizado no válido
     no_wallet: Sin monedero relámpago instalado
     no_lud16: No se ha encontrado ninguna dirección de rayos
-profile: 
+profile:
   past_streams: Transmisiones anteriores
-  edit: 
+settings:
+  button_profile: Editar perfil
+  button_wallet: Configuración de la cartera
+  profile:
     display_name: Mostrar nombre
-    about: Sobre ti
+    about: Acerca de
     nip05: Dirección Nostr
     lud16: Dirección del rayo
-    error: 
+    error:
       logged_out: No se puede editar el perfil cuando se cierra la sesión
-login: 
+  wallet:
+    connect_wallet: Cartera Connect (NWC nwc://)
+    disconnect_wallet: Desconectar Cartera
+    error:
+      logged_out: No se puede conectar el monedero al cerrar la sesión
+login:
   username: Usuario
   amber: Iniciar sesión con Amber
   key: Inicio de sesión con clave
   create: Crear una cuenta
-  error: 
+  error:
     invalid_key: Clave no válida

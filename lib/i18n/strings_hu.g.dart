@@ -67,6 +67,7 @@ class TranslationsHu extends Translations {
 
 	@override late final _TranslationsZapHu zap = _TranslationsZapHu._(_root);
 	@override late final _TranslationsProfileHu profile = _TranslationsProfileHu._(_root);
+	@override late final _TranslationsSettingsHu settings = _TranslationsSettingsHu._(_root);
 	@override late final _TranslationsLoginHu login = _TranslationsLoginHu._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonHu extends TranslationsButtonEn {
 	@override String get unmute => 'Némítás visszavonása';
 	@override String get share => 'Megosztás';
 	@override String get save => 'Mentés';
+	@override String get connect => 'Csatlakozás';
+	@override String get settings => 'Beállítások';
 }
 
 // Path: embed
@@ -127,9 +130,9 @@ class _TranslationsEmbedHu extends TranslationsEmbedEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({required Object name}) => 'A ${name} cikke.';
+	@override String article_by({required Object name}) => 'Cikk ${name}';
 	@override String note_by({required Object name}) => '${name} bejegyzése';
-	@override String live_stream_by({required Object name}) => 'Élő közvetítés a ${name} oldalon';
+	@override String live_stream_by({required Object name}) => 'Élő közvetítés a ${name}oldalon';
 }
 
 // Path: stream_list
@@ -159,6 +162,7 @@ class _TranslationsZapHu extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} satoshi';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Megnyitás a pénztárcában';
+	@override String get button_connect_wallet => 'Connect Wallet';
 	@override String get copy => 'Vágólapra másolva';
 	@override late final _TranslationsZapErrorHu error = _TranslationsZapErrorHu._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileHu extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Múltbeli Streamek';
-	@override late final _TranslationsProfileEditHu edit = _TranslationsProfileEditHu._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsHu extends TranslationsSettingsEn {
+	_TranslationsSettingsHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Profil szerkesztése';
+	@override String get button_wallet => 'Pénztárca beállítások';
+	@override late final _TranslationsSettingsProfileHu profile = _TranslationsSettingsProfileHu._(_root);
+	@override late final _TranslationsSettingsWalletHu wallet = _TranslationsSettingsWalletHu._(_root);
 }
 
 // Path: login
@@ -217,7 +233,7 @@ class _TranslationsStreamChatHu extends TranslationsStreamChatEn {
 		user,
 		const TextSpan(text: ' a '),
 		time,
-		const TextSpan(text: ' számára'),
+		const TextSpan(text: 'számára'),
 	]);
 
 	/// A stream véget ért lábléc a chat alján
@@ -248,18 +264,30 @@ class _TranslationsZapErrorHu extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Nem talált villámcím';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditHu extends TranslationsProfileEditEn {
-	_TranslationsProfileEditHu._(TranslationsHu root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileHu extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Megjelenített név';
-	@override String get about => 'Névjegy';
-	@override String get nip05 => 'Nostr-cím';
-	@override String get lud16 => 'Lightning-cím';
-	@override late final _TranslationsProfileEditErrorHu error = _TranslationsProfileEditErrorHu._(_root);
+	@override String get about => 'A  oldalról';
+	@override String get nip05 => 'Nostr cím';
+	@override String get lud16 => 'Villám cím';
+	@override late final _TranslationsSettingsProfileErrorHu error = _TranslationsSettingsProfileErrorHu._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletHu extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	@override String get disconnect_wallet => 'Pénztárca lekapcsolása';
+	@override late final _TranslationsSettingsWalletErrorHu error = _TranslationsSettingsWalletErrorHu._(_root);
 }
 
 // Path: login.error
@@ -320,14 +348,24 @@ class _TranslationsStreamChatRaidHu extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raiding a ${time} oldalon';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorHu extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorHu extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Kijelentkezve nem lehet profilt szerkeszteni';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorHu extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Kijelentkezve nem lehet csatlakozni a pénztárcához';
 }
 
 /// Flat map(s) containing all translations.
@@ -355,7 +393,7 @@ extension on TranslationsHu {
 				user,
 				const TextSpan(text: ' a '),
 				time,
-				const TextSpan(text: ' számára'),
+				const TextSpan(text: 'számára'),
 			]);
 			case 'stream.chat.ended': return 'STREAM MEGSZÜNTETETT';
 			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
@@ -383,9 +421,11 @@ extension on TranslationsHu {
 			case 'button.unmute': return 'Némítás visszavonása';
 			case 'button.share': return 'Megosztás';
 			case 'button.save': return 'Mentés';
-			case 'embed.article_by': return ({required Object name}) => 'A ${name} cikke.';
+			case 'button.connect': return 'Csatlakozás';
+			case 'button.settings': return 'Beállítások';
+			case 'embed.article_by': return ({required Object name}) => 'Cikk ${name}';
 			case 'embed.note_by': return ({required Object name}) => '${name} bejegyzése';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Élő közvetítés a ${name} oldalon';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Élő közvetítés a ${name}oldalon';
 			case 'stream_list.following': return 'Követettek bejegyzései';
 			case 'stream_list.live': return 'Élő';
 			case 'stream_list.planned': return 'Tervezett';
@@ -397,16 +437,22 @@ extension on TranslationsHu {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} satoshi';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Megnyitás a pénztárcában';
+			case 'zap.button_connect_wallet': return 'Connect Wallet';
 			case 'zap.copy': return 'Vágólapra másolva';
 			case 'zap.error.invalid_custom_amount': return 'Érvénytelen egyéni összeg';
 			case 'zap.error.no_wallet': return 'Nincs telepített villám tárca';
 			case 'zap.error.no_lud16': return 'Nem talált villámcím';
 			case 'profile.past_streams': return 'Múltbeli Streamek';
-			case 'profile.edit.display_name': return 'Megjelenített név';
-			case 'profile.edit.about': return 'Névjegy';
-			case 'profile.edit.nip05': return 'Nostr-cím';
-			case 'profile.edit.lud16': return 'Lightning-cím';
-			case 'profile.edit.error.logged_out': return 'Kijelentkezve nem lehet profilt szerkeszteni';
+			case 'settings.button_profile': return 'Profil szerkesztése';
+			case 'settings.button_wallet': return 'Pénztárca beállítások';
+			case 'settings.profile.display_name': return 'Megjelenített név';
+			case 'settings.profile.about': return 'A  oldalról';
+			case 'settings.profile.nip05': return 'Nostr cím';
+			case 'settings.profile.lud16': return 'Villám cím';
+			case 'settings.profile.error.logged_out': return 'Kijelentkezve nem lehet profilt szerkeszteni';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Pénztárca lekapcsolása';
+			case 'settings.wallet.error.logged_out': return 'Kijelentkezve nem lehet csatlakozni a pénztárcához';
 			case 'login.username': return 'Felhasználónév';
 			case 'login.amber': return 'Bejelentkezés Amber segítségével';
 			case 'login.key': return 'Bejelentkezés kulccsal';

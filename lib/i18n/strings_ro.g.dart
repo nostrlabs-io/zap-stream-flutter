@@ -67,6 +67,7 @@ class TranslationsRo extends Translations {
 
 	@override late final _TranslationsZapRo zap = _TranslationsZapRo._(_root);
 	@override late final _TranslationsProfileRo profile = _TranslationsProfileRo._(_root);
+	@override late final _TranslationsSettingsRo settings = _TranslationsSettingsRo._(_root);
 	@override late final _TranslationsLoginRo login = _TranslationsLoginRo._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonRo extends TranslationsButtonEn {
 	@override String get unmute => 'Dezactivați';
 	@override String get share => 'Share';
 	@override String get save => 'Salvați';
+	@override String get connect => 'Conectare';
+	@override String get settings => 'Setări';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapRo extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Deschide în portofel';
+	@override String get button_connect_wallet => 'Conectați portofelul';
 	@override String get copy => 'Copiat în clipboard';
 	@override late final _TranslationsZapErrorRo error = _TranslationsZapErrorRo._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileRo extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Fluxuri trecute';
-	@override late final _TranslationsProfileEditRo edit = _TranslationsProfileEditRo._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsRo extends TranslationsSettingsEn {
+	_TranslationsSettingsRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Editare profil';
+	@override String get button_wallet => 'Setări portofel';
+	@override late final _TranslationsSettingsProfileRo profile = _TranslationsSettingsProfileRo._(_root);
+	@override late final _TranslationsSettingsWalletRo wallet = _TranslationsSettingsWalletRo._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorRo extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Nu a fost găsită nicio adresă de fulgere';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditRo extends TranslationsProfileEditEn {
-	_TranslationsProfileEditRo._(TranslationsRo root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileRo extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileRo._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditRo extends TranslationsProfileEditEn {
 	@override String get about => 'Despre';
 	@override String get nip05 => 'Adresa Nostr';
 	@override String get lud16 => 'Adresa fulgerului';
-	@override late final _TranslationsProfileEditErrorRo error = _TranslationsProfileEditErrorRo._(_root);
+	@override late final _TranslationsSettingsProfileErrorRo error = _TranslationsSettingsProfileErrorRo._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletRo extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Conectați portofelul (NWC nwc://)';
+	@override String get disconnect_wallet => 'Deconectați portofelul';
+	@override late final _TranslationsSettingsWalletErrorRo error = _TranslationsSettingsWalletErrorRo._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidRo extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raiduri în ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorRo extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorRo extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Nu pot edita profilul când sunt deconectat';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorRo extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Nu puteți conecta portofelul atunci când sunteți deconectat';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsRo {
 			case 'button.unmute': return 'Dezactivați';
 			case 'button.share': return 'Share';
 			case 'button.save': return 'Salvați';
+			case 'button.connect': return 'Conectare';
+			case 'button.settings': return 'Setări';
 			case 'embed.article_by': return ({required Object name}) => 'Articol de ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Notă de la ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Transmisiune live prin ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsRo {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Deschide în portofel';
+			case 'zap.button_connect_wallet': return 'Conectați portofelul';
 			case 'zap.copy': return 'Copiat în clipboard';
 			case 'zap.error.invalid_custom_amount': return 'Sumă personalizată invalidă';
 			case 'zap.error.no_wallet': return 'Nu este instalat niciun portofel Lightning';
 			case 'zap.error.no_lud16': return 'Nu a fost găsită nicio adresă de fulgere';
 			case 'profile.past_streams': return 'Fluxuri trecute';
-			case 'profile.edit.display_name': return 'Nume afișat';
-			case 'profile.edit.about': return 'Despre';
-			case 'profile.edit.nip05': return 'Adresa Nostr';
-			case 'profile.edit.lud16': return 'Adresa fulgerului';
-			case 'profile.edit.error.logged_out': return 'Nu pot edita profilul când sunt deconectat';
+			case 'settings.button_profile': return 'Editare profil';
+			case 'settings.button_wallet': return 'Setări portofel';
+			case 'settings.profile.display_name': return 'Nume afișat';
+			case 'settings.profile.about': return 'Despre';
+			case 'settings.profile.nip05': return 'Adresa Nostr';
+			case 'settings.profile.lud16': return 'Adresa fulgerului';
+			case 'settings.profile.error.logged_out': return 'Nu pot edita profilul când sunt deconectat';
+			case 'settings.wallet.connect_wallet': return 'Conectați portofelul (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Deconectați portofelul';
+			case 'settings.wallet.error.logged_out': return 'Nu puteți conecta portofelul atunci când sunteți deconectat';
 			case 'login.username': return 'Nume utilizator';
 			case 'login.amber': return 'Conectați-vă cu Amber';
 			case 'login.key': return 'Autentificare cu cheie';

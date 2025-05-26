@@ -67,6 +67,7 @@ class TranslationsJa extends Translations {
 
 	@override late final _TranslationsZapJa zap = _TranslationsZapJa._(_root);
 	@override late final _TranslationsProfileJa profile = _TranslationsProfileJa._(_root);
+	@override late final _TranslationsSettingsJa settings = _TranslationsSettingsJa._(_root);
 	@override late final _TranslationsLoginJa login = _TranslationsLoginJa._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonJa extends TranslationsButtonEn {
 	@override String get unmute => 'ミュート解除';
 	@override String get share => '共有';
 	@override String get save => '保存';
+	@override String get connect => '接続';
+	@override String get settings => '設定';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapJa extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => '${amount} satsをザップする';
 	@override String get button_zap => 'ザップ';
 	@override String get button_open_wallet => 'ウォレットで開く';
+	@override String get button_connect_wallet => 'コネクトウォレット';
 	@override String get copy => 'クリップボードにコピー';
 	@override late final _TranslationsZapErrorJa error = _TranslationsZapErrorJa._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileJa extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => '過去の配信';
-	@override late final _TranslationsProfileEditJa edit = _TranslationsProfileEditJa._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsJa extends TranslationsSettingsEn {
+	_TranslationsSettingsJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'プロフィール編集';
+	@override String get button_wallet => 'ウォレットの設定';
+	@override late final _TranslationsSettingsProfileJa profile = _TranslationsSettingsProfileJa._(_root);
+	@override late final _TranslationsSettingsWalletJa wallet = _TranslationsSettingsWalletJa._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorJa extends TranslationsZapErrorEn {
 	@override String get no_lud16 => '雷アドレスが見つかりません';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditJa extends TranslationsProfileEditEn {
-	_TranslationsProfileEditJa._(TranslationsJa root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileJa extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => '表示名';
-	@override String get about => '自己紹介';
-	@override String get nip05 => 'Nostrアドレス';
+	@override String get about => 'について';
+	@override String get nip05 => '住所';
 	@override String get lud16 => 'ライトニングアドレス';
-	@override late final _TranslationsProfileEditErrorJa error = _TranslationsProfileEditErrorJa._(_root);
+	@override late final _TranslationsSettingsProfileErrorJa error = _TranslationsSettingsProfileErrorJa._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletJa extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'コネクトウォレット (NWC nwc://)';
+	@override String get disconnect_wallet => 'ウォレットの切断';
+	@override late final _TranslationsSettingsWalletErrorJa error = _TranslationsSettingsWalletErrorJa._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidJa extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => '${time}における襲撃';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorJa extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorJa extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'ログアウトするとプロフィールが編集できない';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorJa extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'ログアウト時にウォレットに接続できない';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsJa {
 			case 'button.unmute': return 'ミュート解除';
 			case 'button.share': return '共有';
 			case 'button.save': return '保存';
+			case 'button.connect': return '接続';
+			case 'button.settings': return '設定';
 			case 'embed.article_by': return ({required Object name}) => '記事： ${name}';
 			case 'embed.note_by': return ({required Object name}) => '${name} の投稿';
 			case 'embed.live_stream_by': return ({required Object name}) => 'ライブ・ストリーム ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsJa {
 			case 'zap.button_zap_ready': return ({required Object amount}) => '${amount} satsをザップする';
 			case 'zap.button_zap': return 'ザップ';
 			case 'zap.button_open_wallet': return 'ウォレットで開く';
+			case 'zap.button_connect_wallet': return 'コネクトウォレット';
 			case 'zap.copy': return 'クリップボードにコピー';
 			case 'zap.error.invalid_custom_amount': return '無効なカスタム金額';
 			case 'zap.error.no_wallet': return 'Lightningウォレット未装着';
 			case 'zap.error.no_lud16': return '雷アドレスが見つかりません';
 			case 'profile.past_streams': return '過去の配信';
-			case 'profile.edit.display_name': return '表示名';
-			case 'profile.edit.about': return '自己紹介';
-			case 'profile.edit.nip05': return 'Nostrアドレス';
-			case 'profile.edit.lud16': return 'ライトニングアドレス';
-			case 'profile.edit.error.logged_out': return 'ログアウトするとプロフィールが編集できない';
+			case 'settings.button_profile': return 'プロフィール編集';
+			case 'settings.button_wallet': return 'ウォレットの設定';
+			case 'settings.profile.display_name': return '表示名';
+			case 'settings.profile.about': return 'について';
+			case 'settings.profile.nip05': return '住所';
+			case 'settings.profile.lud16': return 'ライトニングアドレス';
+			case 'settings.profile.error.logged_out': return 'ログアウトするとプロフィールが編集できない';
+			case 'settings.wallet.connect_wallet': return 'コネクトウォレット (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'ウォレットの切断';
+			case 'settings.wallet.error.logged_out': return 'ログアウト時にウォレットに接続できない';
 			case 'login.username': return 'ユーザー名';
 			case 'login.amber': return '琥珀でログイン';
 			case 'login.key': return 'キーでログイン';

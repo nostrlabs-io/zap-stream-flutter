@@ -144,7 +144,7 @@ class LoginAccount {
         pubkey: json["pubKey"],
         privateKey: json["privateKey"],
         wallet:
-            json.containsKey("wallet")
+            json.containsKey("wallet") && json["wallet"] != null
                 ? WalletConfig.fromJson(json["wallet"])
                 : null,
       );

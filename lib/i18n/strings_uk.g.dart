@@ -67,6 +67,7 @@ class TranslationsUk extends Translations {
 
 	@override late final _TranslationsZapUk zap = _TranslationsZapUk._(_root);
 	@override late final _TranslationsProfileUk profile = _TranslationsProfileUk._(_root);
+	@override late final _TranslationsSettingsUk settings = _TranslationsSettingsUk._(_root);
 	@override late final _TranslationsLoginUk login = _TranslationsLoginUk._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonUk extends TranslationsButtonEn {
 	@override String get unmute => 'Увімкнути звук.';
 	@override String get share => 'Поділіться';
 	@override String get save => 'Зберегти';
+	@override String get connect => 'Підключіться';
+	@override String get settings => 'Налаштування';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapUk extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap!';
 	@override String get button_open_wallet => 'Відкрити в Гаманці';
+	@override String get button_connect_wallet => 'Підключити гаманець';
 	@override String get copy => 'Скопійовано в буфер обміну';
 	@override late final _TranslationsZapErrorUk error = _TranslationsZapErrorUk._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileUk extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Минулі потоки';
-	@override late final _TranslationsProfileEditUk edit = _TranslationsProfileEditUk._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsUk extends TranslationsSettingsEn {
+	_TranslationsSettingsUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Редагувати профіль';
+	@override String get button_wallet => 'Налаштування гаманця';
+	@override late final _TranslationsSettingsProfileUk profile = _TranslationsSettingsProfileUk._(_root);
+	@override late final _TranslationsSettingsWalletUk wallet = _TranslationsSettingsWalletUk._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorUk extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Адреса блискавки не знайдена';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditUk extends TranslationsProfileEditEn {
-	_TranslationsProfileEditUk._(TranslationsUk root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileUk extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileUk._(TranslationsUk root) : this._root = root, super.internal(root);
 
 	final TranslationsUk _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditUk extends TranslationsProfileEditEn {
 	@override String get about => 'Про';
 	@override String get nip05 => 'Nostr Адреса';
 	@override String get lud16 => 'Блискавична адреса';
-	@override late final _TranslationsProfileEditErrorUk error = _TranslationsProfileEditErrorUk._(_root);
+	@override late final _TranslationsSettingsProfileErrorUk error = _TranslationsSettingsProfileErrorUk._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletUk extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Підключити гаманець (NWC nwc://)';
+	@override String get disconnect_wallet => 'Відключити гаманець';
+	@override late final _TranslationsSettingsWalletErrorUk error = _TranslationsSettingsWalletErrorUk._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidUk extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Рейд у ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorUk extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorUk._(TranslationsUk root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorUk extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorUk._(TranslationsUk root) : this._root = root, super.internal(root);
 
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Неможливо редагувати профіль, коли ви вийшли з системи';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorUk extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Не вдається підключити гаманець, коли ви вийшли з системи';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsUk {
 			case 'button.unmute': return 'Увімкнути звук.';
 			case 'button.share': return 'Поділіться';
 			case 'button.save': return 'Зберегти';
+			case 'button.connect': return 'Підключіться';
+			case 'button.settings': return 'Налаштування';
 			case 'embed.article_by': return ({required Object name}) => 'Стаття за посиланням ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Примітка ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Пряма трансляція на ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsUk {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap!';
 			case 'zap.button_open_wallet': return 'Відкрити в Гаманці';
+			case 'zap.button_connect_wallet': return 'Підключити гаманець';
 			case 'zap.copy': return 'Скопійовано в буфер обміну';
 			case 'zap.error.invalid_custom_amount': return 'Неправильна сума замовлення';
 			case 'zap.error.no_wallet': return 'Не встановлено гаманець-блискавку';
 			case 'zap.error.no_lud16': return 'Адреса блискавки не знайдена';
 			case 'profile.past_streams': return 'Минулі потоки';
-			case 'profile.edit.display_name': return 'Ім\'я користувача';
-			case 'profile.edit.about': return 'Про';
-			case 'profile.edit.nip05': return 'Nostr Адреса';
-			case 'profile.edit.lud16': return 'Блискавична адреса';
-			case 'profile.edit.error.logged_out': return 'Неможливо редагувати профіль, коли ви вийшли з системи';
+			case 'settings.button_profile': return 'Редагувати профіль';
+			case 'settings.button_wallet': return 'Налаштування гаманця';
+			case 'settings.profile.display_name': return 'Ім\'я користувача';
+			case 'settings.profile.about': return 'Про';
+			case 'settings.profile.nip05': return 'Nostr Адреса';
+			case 'settings.profile.lud16': return 'Блискавична адреса';
+			case 'settings.profile.error.logged_out': return 'Неможливо редагувати профіль, коли ви вийшли з системи';
+			case 'settings.wallet.connect_wallet': return 'Підключити гаманець (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Відключити гаманець';
+			case 'settings.wallet.error.logged_out': return 'Не вдається підключити гаманець, коли ви вийшли з системи';
 			case 'login.username': return 'Ім\'я користувача';
 			case 'login.amber': return 'Увійдіть за допомогою Amber';
 			case 'login.key': return 'Увійдіть за допомогою ключа';

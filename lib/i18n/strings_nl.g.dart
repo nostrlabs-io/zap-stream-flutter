@@ -67,6 +67,7 @@ class TranslationsNl extends Translations {
 
 	@override late final _TranslationsZapNl zap = _TranslationsZapNl._(_root);
 	@override late final _TranslationsProfileNl profile = _TranslationsProfileNl._(_root);
+	@override late final _TranslationsSettingsNl settings = _TranslationsSettingsNl._(_root);
 	@override late final _TranslationsLoginNl login = _TranslationsLoginNl._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonNl extends TranslationsButtonEn {
 	@override String get unmute => 'Niet langer negeren';
 	@override String get share => 'Deel';
 	@override String get save => 'Opslaan';
+	@override String get connect => 'Maak verbinding met';
+	@override String get settings => 'Instellingen';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapNl extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Openen in portefeuille';
+	@override String get button_connect_wallet => 'Portemonnee aansluiten';
 	@override String get copy => 'Gekopieerd naar klembord';
 	@override late final _TranslationsZapErrorNl error = _TranslationsZapErrorNl._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileNl extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Afgelopen Streams';
-	@override late final _TranslationsProfileEditNl edit = _TranslationsProfileEditNl._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsNl extends TranslationsSettingsEn {
+	_TranslationsSettingsNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Profiel bewerken';
+	@override String get button_wallet => 'Portemonnee-instellingen';
+	@override late final _TranslationsSettingsProfileNl profile = _TranslationsSettingsProfileNl._(_root);
+	@override late final _TranslationsSettingsWalletNl wallet = _TranslationsSettingsWalletNl._(_root);
 }
 
 // Path: login
@@ -247,18 +263,30 @@ class _TranslationsZapErrorNl extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Geen bliksemadres gevonden';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditNl extends TranslationsProfileEditEn {
-	_TranslationsProfileEditNl._(TranslationsNl root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileNl extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileNl._(TranslationsNl root) : this._root = root, super.internal(root);
 
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
 	@override String get display_name => 'Naam weergeven';
-	@override String get about => 'Over ons';
+	@override String get about => 'Over';
 	@override String get nip05 => 'Nostr Adres';
-	@override String get lud16 => 'Lightning adres';
-	@override late final _TranslationsProfileEditErrorNl error = _TranslationsProfileEditErrorNl._(_root);
+	@override String get lud16 => 'Bliksemadres';
+	@override late final _TranslationsSettingsProfileErrorNl error = _TranslationsSettingsProfileErrorNl._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletNl extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Portemonnee verbinden (NWC nwc://)';
+	@override String get disconnect_wallet => 'Portefeuille loskoppelen';
+	@override late final _TranslationsSettingsWalletErrorNl error = _TranslationsSettingsWalletErrorNl._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidNl extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Overvallen in ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorNl extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorNl._(TranslationsNl root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorNl extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorNl._(TranslationsNl root) : this._root = root, super.internal(root);
 
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Kan profiel niet bewerken als ik ben uitgelogd';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorNl extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Kan geen verbinding maken met portemonnee als ik ben uitgelogd';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsNl {
 			case 'button.unmute': return 'Niet langer negeren';
 			case 'button.share': return 'Deel';
 			case 'button.save': return 'Opslaan';
+			case 'button.connect': return 'Maak verbinding met';
+			case 'button.settings': return 'Instellingen';
 			case 'embed.article_by': return ({required Object name}) => 'Artikel door ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Opmerking door ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Live stream via ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsNl {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Openen in portefeuille';
+			case 'zap.button_connect_wallet': return 'Portemonnee aansluiten';
 			case 'zap.copy': return 'Gekopieerd naar klembord';
 			case 'zap.error.invalid_custom_amount': return 'Ongeldig aangepast bedrag';
 			case 'zap.error.no_wallet': return 'Geen bliksemportemonnee geïnstalleerd';
 			case 'zap.error.no_lud16': return 'Geen bliksemadres gevonden';
 			case 'profile.past_streams': return 'Afgelopen Streams';
-			case 'profile.edit.display_name': return 'Naam weergeven';
-			case 'profile.edit.about': return 'Over ons';
-			case 'profile.edit.nip05': return 'Nostr Adres';
-			case 'profile.edit.lud16': return 'Lightning adres';
-			case 'profile.edit.error.logged_out': return 'Kan profiel niet bewerken als ik ben uitgelogd';
+			case 'settings.button_profile': return 'Profiel bewerken';
+			case 'settings.button_wallet': return 'Portemonnee-instellingen';
+			case 'settings.profile.display_name': return 'Naam weergeven';
+			case 'settings.profile.about': return 'Over';
+			case 'settings.profile.nip05': return 'Nostr Adres';
+			case 'settings.profile.lud16': return 'Bliksemadres';
+			case 'settings.profile.error.logged_out': return 'Kan profiel niet bewerken als ik ben uitgelogd';
+			case 'settings.wallet.connect_wallet': return 'Portemonnee verbinden (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Portefeuille loskoppelen';
+			case 'settings.wallet.error.logged_out': return 'Kan geen verbinding maken met portemonnee als ik ben uitgelogd';
 			case 'login.username': return 'Gebruikersnaam';
 			case 'login.amber': return 'Inloggen met Amber';
 			case 'login.key': return 'Inloggen met sleutel';

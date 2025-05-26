@@ -67,6 +67,7 @@ class TranslationsDe extends Translations {
 
 	@override late final _TranslationsZapDe zap = _TranslationsZapDe._(_root);
 	@override late final _TranslationsProfileDe profile = _TranslationsProfileDe._(_root);
+	@override late final _TranslationsSettingsDe settings = _TranslationsSettingsDe._(_root);
 	@override late final _TranslationsLoginDe login = _TranslationsLoginDe._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonDe extends TranslationsButtonEn {
 	@override String get unmute => 'Entstummen';
 	@override String get share => 'Teilen';
 	@override String get save => 'Speichern';
+	@override String get connect => 'Verbinden Sie';
+	@override String get settings => 'Einstellungen';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapDe extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => '${amount} sats zappen';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'In Brieftasche öffnen';
+	@override String get button_connect_wallet => 'Brieftasche verbinden';
 	@override String get copy => 'In die Zwischenablage kopiert';
 	@override late final _TranslationsZapErrorDe error = _TranslationsZapErrorDe._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileDe extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Vergangene Streams';
-	@override late final _TranslationsProfileEditDe edit = _TranslationsProfileEditDe._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsDe extends TranslationsSettingsEn {
+	_TranslationsSettingsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Profil bearbeiten';
+	@override String get button_wallet => 'Wallet-Einstellungen';
+	@override late final _TranslationsSettingsProfileDe profile = _TranslationsSettingsProfileDe._(_root);
+	@override late final _TranslationsSettingsWalletDe wallet = _TranslationsSettingsWalletDe._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorDe extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'Keine Blitzadresse gefunden';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditDe extends TranslationsProfileEditEn {
-	_TranslationsProfileEditDe._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileDe extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileDe._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -257,8 +273,20 @@ class _TranslationsProfileEditDe extends TranslationsProfileEditEn {
 	@override String get display_name => 'Name anzeigen';
 	@override String get about => 'Über';
 	@override String get nip05 => 'Nostr-Adresse';
-	@override String get lud16 => 'Lightning-Adresse';
-	@override late final _TranslationsProfileEditErrorDe error = _TranslationsProfileEditErrorDe._(_root);
+	@override String get lud16 => 'Blitz-Adresse';
+	@override late final _TranslationsSettingsProfileErrorDe error = _TranslationsSettingsProfileErrorDe._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletDe extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Brieftasche verbinden (NWC nwc://)';
+	@override String get disconnect_wallet => 'Brieftasche abtrennen';
+	@override late final _TranslationsSettingsWalletErrorDe error = _TranslationsSettingsWalletErrorDe._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidDe extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raubzüge auf ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorDe extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorDe extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Profil kann nicht bearbeitet werden, wenn es abgemeldet ist';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorDe extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsDe {
 			case 'button.unmute': return 'Entstummen';
 			case 'button.share': return 'Teilen';
 			case 'button.save': return 'Speichern';
+			case 'button.connect': return 'Verbinden Sie';
+			case 'button.settings': return 'Einstellungen';
 			case 'embed.article_by': return ({required Object name}) => 'Artikel von ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Note von ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Live-Stream von ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsDe {
 			case 'zap.button_zap_ready': return ({required Object amount}) => '${amount} sats zappen';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'In Brieftasche öffnen';
+			case 'zap.button_connect_wallet': return 'Brieftasche verbinden';
 			case 'zap.copy': return 'In die Zwischenablage kopiert';
 			case 'zap.error.invalid_custom_amount': return 'Ungültiger benutzerdefinierter Betrag';
 			case 'zap.error.no_wallet': return 'Keine Lightning-Brieftasche installiert';
 			case 'zap.error.no_lud16': return 'Keine Blitzadresse gefunden';
 			case 'profile.past_streams': return 'Vergangene Streams';
-			case 'profile.edit.display_name': return 'Name anzeigen';
-			case 'profile.edit.about': return 'Über';
-			case 'profile.edit.nip05': return 'Nostr-Adresse';
-			case 'profile.edit.lud16': return 'Lightning-Adresse';
-			case 'profile.edit.error.logged_out': return 'Profil kann nicht bearbeitet werden, wenn es abgemeldet ist';
+			case 'settings.button_profile': return 'Profil bearbeiten';
+			case 'settings.button_wallet': return 'Wallet-Einstellungen';
+			case 'settings.profile.display_name': return 'Name anzeigen';
+			case 'settings.profile.about': return 'Über';
+			case 'settings.profile.nip05': return 'Nostr-Adresse';
+			case 'settings.profile.lud16': return 'Blitz-Adresse';
+			case 'settings.profile.error.logged_out': return 'Profil kann nicht bearbeitet werden, wenn es abgemeldet ist';
+			case 'settings.wallet.connect_wallet': return 'Brieftasche verbinden (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Brieftasche abtrennen';
+			case 'settings.wallet.error.logged_out': return 'Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin';
 			case 'login.username': return 'Benutzername';
 			case 'login.amber': return 'Anmeldung mit Amber';
 			case 'login.key': return 'Anmeldung mit Schlüssel';

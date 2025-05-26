@@ -67,6 +67,7 @@ class TranslationsAf extends Translations {
 
 	@override late final _TranslationsZapAf zap = _TranslationsZapAf._(_root);
 	@override late final _TranslationsProfileAf profile = _TranslationsProfileAf._(_root);
+	@override late final _TranslationsSettingsAf settings = _TranslationsSettingsAf._(_root);
 	@override late final _TranslationsLoginAf login = _TranslationsLoginAf._(_root);
 }
 
@@ -118,6 +119,8 @@ class _TranslationsButtonAf extends TranslationsButtonEn {
 	@override String get unmute => 'Unmute';
 	@override String get share => 'Share';
 	@override String get save => 'Save';
+	@override String get connect => 'Connect';
+	@override String get settings => 'Settings';
 }
 
 // Path: embed
@@ -159,6 +162,7 @@ class _TranslationsZapAf extends TranslationsZapEn {
 	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Open in Wallet';
+	@override String get button_connect_wallet => 'Connect Wallet';
 	@override String get copy => 'Copied to clipboard';
 	@override late final _TranslationsZapErrorAf error = _TranslationsZapErrorAf._(_root);
 }
@@ -171,7 +175,19 @@ class _TranslationsProfileAf extends TranslationsProfileEn {
 
 	// Translations
 	@override String get past_streams => 'Past Streams';
-	@override late final _TranslationsProfileEditAf edit = _TranslationsProfileEditAf._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsAf extends TranslationsSettingsEn {
+	_TranslationsSettingsAf._(TranslationsAf root) : this._root = root, super.internal(root);
+
+	final TranslationsAf _root; // ignore: unused_field
+
+	// Translations
+	@override String get button_profile => 'Edit Profile';
+	@override String get button_wallet => 'Wallet Settings';
+	@override late final _TranslationsSettingsProfileAf profile = _TranslationsSettingsProfileAf._(_root);
+	@override late final _TranslationsSettingsWalletAf wallet = _TranslationsSettingsWalletAf._(_root);
 }
 
 // Path: login
@@ -247,9 +263,9 @@ class _TranslationsZapErrorAf extends TranslationsZapErrorEn {
 	@override String get no_lud16 => 'No lightning address found';
 }
 
-// Path: profile.edit
-class _TranslationsProfileEditAf extends TranslationsProfileEditEn {
-	_TranslationsProfileEditAf._(TranslationsAf root) : this._root = root, super.internal(root);
+// Path: settings.profile
+class _TranslationsSettingsProfileAf extends TranslationsSettingsProfileEn {
+	_TranslationsSettingsProfileAf._(TranslationsAf root) : this._root = root, super.internal(root);
 
 	final TranslationsAf _root; // ignore: unused_field
 
@@ -258,7 +274,19 @@ class _TranslationsProfileEditAf extends TranslationsProfileEditEn {
 	@override String get about => 'About';
 	@override String get nip05 => 'Nostr Address';
 	@override String get lud16 => 'Lightning Address';
-	@override late final _TranslationsProfileEditErrorAf error = _TranslationsProfileEditErrorAf._(_root);
+	@override late final _TranslationsSettingsProfileErrorAf error = _TranslationsSettingsProfileErrorAf._(_root);
+}
+
+// Path: settings.wallet
+class _TranslationsSettingsWalletAf extends TranslationsSettingsWalletEn {
+	_TranslationsSettingsWalletAf._(TranslationsAf root) : this._root = root, super.internal(root);
+
+	final TranslationsAf _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	@override String get disconnect_wallet => 'Disconnect Wallet';
+	@override late final _TranslationsSettingsWalletErrorAf error = _TranslationsSettingsWalletErrorAf._(_root);
 }
 
 // Path: login.error
@@ -319,14 +347,24 @@ class _TranslationsStreamChatRaidAf extends TranslationsStreamChatRaidEn {
 	@override String countdown({required Object time}) => 'Raiding in ${time}';
 }
 
-// Path: profile.edit.error
-class _TranslationsProfileEditErrorAf extends TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorAf._(TranslationsAf root) : this._root = root, super.internal(root);
+// Path: settings.profile.error
+class _TranslationsSettingsProfileErrorAf extends TranslationsSettingsProfileErrorEn {
+	_TranslationsSettingsProfileErrorAf._(TranslationsAf root) : this._root = root, super.internal(root);
 
 	final TranslationsAf _root; // ignore: unused_field
 
 	// Translations
 	@override String get logged_out => 'Cant edit profile when logged out';
+}
+
+// Path: settings.wallet.error
+class _TranslationsSettingsWalletErrorAf extends TranslationsSettingsWalletErrorEn {
+	_TranslationsSettingsWalletErrorAf._(TranslationsAf root) : this._root = root, super.internal(root);
+
+	final TranslationsAf _root; // ignore: unused_field
+
+	// Translations
+	@override String get logged_out => 'Cant connect wallet when logged out';
 }
 
 /// Flat map(s) containing all translations.
@@ -381,6 +419,8 @@ extension on TranslationsAf {
 			case 'button.unmute': return 'Unmute';
 			case 'button.share': return 'Share';
 			case 'button.save': return 'Save';
+			case 'button.connect': return 'Connect';
+			case 'button.settings': return 'Settings';
 			case 'embed.article_by': return ({required Object name}) => 'Article by ${name}';
 			case 'embed.note_by': return ({required Object name}) => 'Note by ${name}';
 			case 'embed.live_stream_by': return ({required Object name}) => 'Live stream by ${name}';
@@ -395,16 +435,22 @@ extension on TranslationsAf {
 			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Open in Wallet';
+			case 'zap.button_connect_wallet': return 'Connect Wallet';
 			case 'zap.copy': return 'Copied to clipboard';
 			case 'zap.error.invalid_custom_amount': return 'Invalid custom amount';
 			case 'zap.error.no_wallet': return 'No lightning wallet installed';
 			case 'zap.error.no_lud16': return 'No lightning address found';
 			case 'profile.past_streams': return 'Past Streams';
-			case 'profile.edit.display_name': return 'Display Name';
-			case 'profile.edit.about': return 'About';
-			case 'profile.edit.nip05': return 'Nostr Address';
-			case 'profile.edit.lud16': return 'Lightning Address';
-			case 'profile.edit.error.logged_out': return 'Cant edit profile when logged out';
+			case 'settings.button_profile': return 'Edit Profile';
+			case 'settings.button_wallet': return 'Wallet Settings';
+			case 'settings.profile.display_name': return 'Display Name';
+			case 'settings.profile.about': return 'About';
+			case 'settings.profile.nip05': return 'Nostr Address';
+			case 'settings.profile.lud16': return 'Lightning Address';
+			case 'settings.profile.error.logged_out': return 'Cant edit profile when logged out';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.disconnect_wallet': return 'Disconnect Wallet';
+			case 'settings.wallet.error.logged_out': return 'Cant connect wallet when logged out';
 			case 'login.username': return 'Username';
 			case 'login.amber': return 'Login with Amber';
 			case 'login.key': return 'Login with Key';
