@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsCs implements Translations {
+class TranslationsCs extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsCs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsCs implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsCs implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsCs _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsCs implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamCs implements TranslationsStreamEn {
-	_TranslationsStreamCs._(this._root);
+class _TranslationsStreamCs extends TranslationsStreamEn {
+	_TranslationsStreamCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusCs status = _TranslationsStreamStatusCs._(_root);
-	@override String started({ required Object timestamp}) => 'Založeno ${timestamp}';
+	@override String started({required Object timestamp}) => 'Založeno ${timestamp}';
 	@override late final _TranslationsStreamChatCs chat = _TranslationsStreamChatCs._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalCs implements TranslationsGoalEn {
-	_TranslationsGoalCs._(this._root);
+class _TranslationsGoalCs extends TranslationsGoalEn {
+	_TranslationsGoalCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => 'Cíl: ${amount}';
-	@override String remaining({ required Object amount}) => 'Zbývá: ${amount}';
+	@override String title({required Object amount}) => 'Cíl: ${amount}';
+	@override String remaining({required Object amount}) => 'Zbývá: ${amount}';
 	@override String get complete => 'KOMPLETNÍ';
 }
 
 // Path: button
-class _TranslationsButtonCs implements TranslationsButtonEn {
-	_TranslationsButtonCs._(this._root);
+class _TranslationsButtonCs extends TranslationsButtonEn {
+	_TranslationsButtonCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonCs implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedCs implements TranslationsEmbedEn {
-	_TranslationsEmbedCs._(this._root);
+class _TranslationsEmbedCs extends TranslationsEmbedEn {
+	_TranslationsEmbedCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => 'Článek na ${name}';
-	@override String note_by({ required Object name}) => 'Poznámka ${name}';
-	@override String live_stream_by({ required Object name}) => 'Přímý přenos na adrese ${name}';
+	@override String article_by({required Object name}) => 'Článek na ${name}';
+	@override String note_by({required Object name}) => 'Poznámka ${name}';
+	@override String live_stream_by({required Object name}) => 'Přímý přenos na adrese ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListCs implements TranslationsStreamListEn {
-	_TranslationsStreamListCs._(this._root);
+class _TranslationsStreamListCs extends TranslationsStreamListEn {
+	_TranslationsStreamListCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListCs implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapCs implements TranslationsZapEn {
-	_TranslationsZapCs._(this._root);
+class _TranslationsZapCs extends TranslationsZapEn {
+	_TranslationsZapCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => 'Zap ${name}';
+	@override String title({required Object name}) => 'Zap ${name}';
 	@override String get custom_amount => 'Vlastní částka';
 	@override String get confirm => 'Potvrďte';
 	@override String get comment => 'Komentář:';
-	@override String button_zap_ready({ required Object amount}) => 'Zap ${amount} sats';
+	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Otevřít v peněžence';
 	@override String get copy => 'Zkopírováno do schránky';
@@ -163,8 +164,8 @@ class _TranslationsZapCs implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileCs implements TranslationsProfileEn {
-	_TranslationsProfileCs._(this._root);
+class _TranslationsProfileCs extends TranslationsProfileEn {
+	_TranslationsProfileCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileCs implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginCs implements TranslationsLoginEn {
-	_TranslationsLoginCs._(this._root);
+class _TranslationsLoginCs extends TranslationsLoginEn {
+	_TranslationsLoginCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginCs implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusCs implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusCs._(this._root);
+class _TranslationsStreamStatusCs extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusCs implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatCs implements TranslationsStreamChatEn {
-	_TranslationsStreamChatCs._(this._root);
+class _TranslationsStreamChatCs extends TranslationsStreamChatEn {
+	_TranslationsStreamChatCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => 'CHAT ZRUŠEN';
-	@override String disabled_timeout({ required Object time}) => 'Časový limit vyprší: ${time}';
+	@override String disabled_timeout({required Object time}) => 'Časový limit vyprší: ${time}';
 
 	/// Zpráva chatu zobrazující události časového limitu
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' vypršel čas '),
 		user,
 		const TextSpan(text: ' pro '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// Zápatí v dolní části chatu ukončilo stream
 	@override String get ended => 'STREAM UKONČEN';
 
 	/// Zpráva chatu zobrazující proud zaps
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' Zapped '),
 		amount,
 		const TextSpan(text: ' sats'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteCs write = _TranslationsStreamChatWriteCs._(_root);
 	@override late final _TranslationsStreamChatBadgeCs badge = _TranslationsStreamChatBadgeCs._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatCs implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorCs implements TranslationsZapErrorEn {
-	_TranslationsZapErrorCs._(this._root);
+class _TranslationsZapErrorCs extends TranslationsZapErrorEn {
+	_TranslationsZapErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorCs implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditCs implements TranslationsProfileEditEn {
-	_TranslationsProfileEditCs._(this._root);
+class _TranslationsProfileEditCs extends TranslationsProfileEditEn {
+	_TranslationsProfileEditCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditCs implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorCs implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorCs._(this._root);
+class _TranslationsLoginErrorCs extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorCs implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteCs implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteCs._(this._root);
+class _TranslationsStreamChatWriteCs extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteCs implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeCs implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeCs._(this._root);
+class _TranslationsStreamChatBadgeCs extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeCs implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidCs implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidCs._(this._root);
+class _TranslationsStreamChatRaidCs extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
 
 	/// Zpráva o nájezdu chatu do jiného proudu
-	@override String to({ required Object name}) => 'RAIDING ${name}';
+	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Zpráva o nájezdu chatu z jiného proudu
-	@override String from({ required Object name}) => 'RAID Z ${name}';
+	@override String from({required Object name}) => 'RAID Z ${name}';
 
 	/// Časovač odpočítávání pro automatický nájezd
-	@override String countdown({ required Object time}) => 'Nájezdy na ${time}';
+	@override String countdown({required Object time}) => 'Nájezdy na ${time}';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorCs implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorCs._(this._root);
+class _TranslationsProfileEditErrorCs extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsCs {
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'KONEC';
 			case 'stream.status.planned': return 'PLÁNOVANÉ';
-			case 'stream.started': return ({ required Object timestamp}) => 'Založeno ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'Založeno ${timestamp}';
 			case 'stream.chat.disabled': return 'CHAT ZRUŠEN';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'Časový limit vyprší: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Časový limit vyprší: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' vypršel čas '),
 				user,
 				const TextSpan(text: ' pro '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return 'STREAM UKONČEN';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' Zapped '),
 				amount,
 				const TextSpan(text: ' sats'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'Napište zprávu';
 			case 'stream.chat.write.no_signer': return 'Nelze psát zprávy s přihlášením npub';
 			case 'stream.chat.write.login': return 'Pro odesílání zpráv se prosím přihlaste';
 			case 'stream.chat.badge.awarded_to': return 'Uděleno:';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID Z ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => 'Nájezdy na ${time}';
-			case 'goal.title': return ({ required Object amount}) => 'Cíl: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => 'Zbývá: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID Z ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Nájezdy na ${time}';
+			case 'goal.title': return ({required Object amount}) => 'Cíl: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => 'Zbývá: ${amount}';
 			case 'goal.complete': return 'KOMPLETNÍ';
 			case 'button.login': return 'Přihlášení';
 			case 'button.logout': return 'Odhlášení';
@@ -380,18 +381,18 @@ extension on TranslationsCs {
 			case 'button.unmute': return 'Zrušit ztlumení';
 			case 'button.share': return 'Sdílet';
 			case 'button.save': return 'Uložit';
-			case 'embed.article_by': return ({ required Object name}) => 'Článek na ${name}';
-			case 'embed.note_by': return ({ required Object name}) => 'Poznámka ${name}';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'Přímý přenos na adrese ${name}';
+			case 'embed.article_by': return ({required Object name}) => 'Článek na ${name}';
+			case 'embed.note_by': return ({required Object name}) => 'Poznámka ${name}';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Přímý přenos na adrese ${name}';
 			case 'stream_list.following': return 'Po';
 			case 'stream_list.live': return 'Živě';
 			case 'stream_list.planned': return 'Plánované';
 			case 'stream_list.ended': return 'Ukončeno';
-			case 'zap.title': return ({ required Object name}) => 'Zap ${name}';
+			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
 			case 'zap.custom_amount': return 'Vlastní částka';
 			case 'zap.confirm': return 'Potvrďte';
 			case 'zap.comment': return 'Komentář:';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'Zap ${amount} sats';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Otevřít v peněžence';
 			case 'zap.copy': return 'Zkopírováno do schránky';

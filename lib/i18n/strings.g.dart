@@ -4,14 +4,13 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 28
-/// Strings: 1764 (63 per locale)
+/// Strings: 1768 (63 per locale)
 ///
-/// Built on 2025-05-20 at 16:08 UTC
+/// Built on 2025-05-26 at 10:54 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';

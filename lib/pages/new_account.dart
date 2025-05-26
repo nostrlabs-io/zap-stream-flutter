@@ -74,7 +74,7 @@ class _NewAccountPage extends State<NewAccountPage> {
             return BasicButton.text(
               t.button.login,
               disabled: _loading || value.text.isEmpty,
-              onTap: () {
+              onTap: (context) {
                 setState(() {
                   _loading = true;
                   _nameFocus.unfocus();

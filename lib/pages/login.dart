@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
               if (state.data ?? false) {
                 return BasicButton.text(
                   t.login.amber,
-                  onTap: () async {
+                  onTap: (context) async {
                     final amber = Amberflutter();
                     final result = await amber.getPublicKey();
                     if (result['signature'] != null) {
@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget {
               }
             },
           ),
-        BasicButton.text(t.login.key, onTap: () => context.push("/login/key")),
+        BasicButton.text(t.login.key, onTap: (context) => context.push("/login/key")),
         Container(
           margin: EdgeInsets.symmetric(vertical: 20),
           height: 1,
@@ -51,7 +51,7 @@ class LoginPage extends StatelessWidget {
         ),
         BasicButton.text(
           t.login.create,
-          onTap: () => context.push("/login/new"),
+          onTap: (context) => context.push("/login/new"),
         ),
       ],
     );

@@ -1,100 +1,97 @@
 upload_avatar: Carica Avatar
-"@upload_avatar":
-  description: Testo che richiede all'utente di premere il segnaposto dell'avatar
-    per iniziare il caricamento
+"@upload_avatar": 
+  description: Testo che richiede all'utente di premere il segnaposto dell'avatar per iniziare il caricamento
 most_zapped_streamers: Il maggior numero di streamer bloccati
-"@most_zapped_streamers":
+"@most_zapped_streamers": 
   description: Direzione sopra elencata top streamers da zaps
 no_user_found: Nessun utente trovato
-"@no_user_found":
+"@no_user_found": 
   description: Nessun utente trovato durante la ricerca
 anon: Anonimo
-viewers:
+viewers: 
   one: 1 spettatore
   other: $n spettatori
-"@viewers":
+"@viewers": 
   description: Numero di spettatori del flusso
-  placeholders:
-    n:
+  placeholders: 
+    n: 
       type: int
-"@anon":
+"@anon": 
   description: Un utente anonimo
-stream:
-  status:
+stream: 
+  status: 
     live: IN DIRETTA
     ended: FINE
     planned: PREVISTO
   started: Avviato $timestamp
-  chat:
+  chat: 
     disabled: CHAT DISABILITATA
     disabled_timeout: "Il timeout scade: $time"
     timeout(rich): $mod time out $user per $time
-    "@timeout":
+    "@timeout": 
       description: Messaggio di chat che mostra gli eventi di timeout
     ended: STREAM ENDED
-    "@ended":
+    "@ended": 
       description: Il flusso si è concluso con un piè di pagina in fondo alla chat
     zap(rich): $user ha effettuato uno zap di $amount sats
-    "@zap":
+    "@zap": 
       description: Messaggio di chat che mostra gli zap del flusso
-    write:
+    write: 
       label: Scrivi il messaggio
-      "@label":
+      "@label": 
         description: Etichetta della casella di immissione del messaggio di chat
       no_signer: Impossibile scrivere messaggi con il login npub
-      "@no_signer":
-        description: Messaggio di ingresso alla chat mostrato quando l'utente è connesso
-          solo con la pubkey
+      "@no_signer": 
+        description: Messaggio di ingresso alla chat mostrato quando l'utente è connesso solo con la pubkey
       login: Effettuare il login per inviare messaggi
-      "@login":
+      "@login": 
         description: Messaggio di input della chat mostrato quando l'utente è disconnesso
-    badge:
+    badge: 
       awarded_to: "Assegnato a:"
-      "@awarded_to":
+      "@awarded_to": 
         description: Intestazione dell'elenco degli utenti a cui è stato assegnato un badge
-    raid:
+    raid: 
       to: RAIDING $name
-      "@to":
+      "@to": 
         description: Messaggio di chat raid in un altro flusso
       from: RAID DA $name
-      "@from":
+      "@from": 
         description: Messaggio di chat raid da un altro flusso
       countdown: Raid in $time
-      "@countdown":
+      "@countdown": 
         description: Timer per il conto alla rovescia per l'auto-raid
-goal:
+goal: 
   title: "Obiettivo: $amount"
   remaining: "Restante: $amount"
   complete: COMPLETO
-button:
+button: 
   login: Login
   logout: Logout
   edit_profile: Modifica profilo
-  "@login":
+  "@login": 
     description: Testo del pulsante per il pulsante di accesso
   follow: Segui
-  "@follow":
+  "@follow": 
     description: Testo del pulsante per il pulsante Segui
   unfollow: Smetti di seguire
-  "@unfollow":
+  "@unfollow": 
     description: Testo del pulsante per il pulsante unfollow
   mute: Silenzia
   unmute: Riattiva
   share: Condividi
   save: Salva
-embed:
+embed: 
   article_by: Articolo di $name
   note_by: Nota di $name
   live_stream_by: Streaming in diretta da $name
-stream_list:
+stream_list: 
   following: Seguiti
   live: Dal vivo
   planned: Pianificato
   ended: Terminato
-"@stream_list":
-  description: Titoli sugli elenchi dei flussi per tipo di flusso
-    live/finito/pianificato ecc.
-zap:
+"@stream_list": 
+  description: Titoli sugli elenchi dei flussi per tipo di flusso live/finito/pianificato ecc.
+zap: 
   title: Zap $name
   custom_amount: Importo personalizzato
   confirm: Conferma
@@ -103,23 +100,23 @@ zap:
   button_zap: Zap
   button_open_wallet: Aprire nel portafoglio
   copy: Copiato negli appunti
-  error:
+  error: 
     invalid_custom_amount: Importo personalizzato non valido
     no_wallet: Nessun portafoglio Lightning installato
     no_lud16: Nessun indirizzo di fulmine trovato
-profile:
+profile: 
   past_streams: Flussi passati
-  edit:
+  edit: 
     display_name: Nome visualizzato
     about: Info
     nip05: Indirizzo Nostr
     lud16: Indirizzo del fulmine
-    error:
+    error: 
       logged_out: Impossibile modificare il profilo quando si è disconnessi
-login:
+login: 
   username: Nome utente
   amber: Accesso con Amber
   key: Accesso con chiave
   create: Crea un account
-  error:
+  error: 
     invalid_key: Chiave non valida

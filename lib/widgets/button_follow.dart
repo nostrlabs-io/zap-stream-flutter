@@ -63,7 +63,7 @@ class FollowButton extends StatelessWidget {
                 borderRadius: DEFAULT_BR,
                 color: LAYER_2,
               ),
-              onTap: () async {
+              onTap: (_) async {
                 _loading.value = true;
                 try {
                   if (onTap != null) {

@@ -1,5 +1,6 @@
 import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -34,8 +35,7 @@ class _ChatModalWidget extends State<ChatModalWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isModerator =
-        widget.stream.info.host == ndk.accounts.getPublicKey();
+    final isModerator = widget.stream.info.host == ndk.accounts.getPublicKey();
 
     return Container(
       padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
@@ -74,13 +74,16 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.pop();
                     showModalBottomSheet(
                       context: context,
-                      builder: (ctx) {
+                      builder: (context) {
                         return ZapWidget(
                           pubkey: widget.event.pubKey,
                           target: widget.event,
+                          onPaid: (_) {
+                            context.pop();
+                          },
                         );
                       },
                     );

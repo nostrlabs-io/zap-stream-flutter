@@ -1,100 +1,97 @@
 upload_avatar: Carregar Avatar
-"@upload_avatar":
-  description: Texto solicitando que o usuário clique no espaço reservado do
-    avatar para iniciar o upload
+"@upload_avatar": 
+  description: Texto solicitando que o usuário clique no espaço reservado do avatar para iniciar o upload
 most_zapped_streamers: Streamers mais afetados
-"@most_zapped_streamers":
+"@most_zapped_streamers": 
   description: Dirigindo-se para as principais serpentinas listadas por zaps
 no_user_found: Nenhum usuário encontrado
-"@no_user_found":
+"@no_user_found": 
   description: Nenhum usuário foi encontrado durante a pesquisa
 anon: Anônimo
-viewers:
+viewers: 
   one: 1 visualizador
   other: $n espectadores
-"@viewers":
+"@viewers": 
   description: Número de espectadores da transmissão
-  placeholders:
-    n:
+  placeholders: 
+    n: 
       type: int
-"@anon":
+"@anon": 
   description: Um usuário anônimo
-stream:
-  status:
+stream: 
+  status: 
     live: AO VIVO
     ended: FINALIZADO
     planned: PLANEJADO
   started: Iniciado em $timestamp
-  chat:
+  chat: 
     disabled: BATE-PAPO DESATIVADO
     disabled_timeout: "O tempo limite expira: $time"
     timeout(rich): $mod Tempo esgotado $user para $time
-    "@timeout":
+    "@timeout": 
       description: Mensagem de bate-papo mostrando eventos de tempo limite
     ended: TRANSMISSÃO ENCERRADA
-    "@ended":
+    "@ended": 
       description: O rodapé do fluxo terminou na parte inferior do bate-papo
     zap(rich): $user zapeou $amount sats
-    "@zap":
+    "@zap": 
       description: Mensagem de bate-papo mostrando zaps de fluxo
-    write:
+    write: 
       label: Escrever mensagem
-      "@label":
+      "@label": 
         description: Rótulo na caixa de entrada da mensagem de bate-papo
       no_signer: Não é possível escrever mensagens com o login do npub
-      "@no_signer":
-        description: Mensagem de entrada de bate-papo exibida quando o usuário está
-          conectado apenas com a pubkey
+      "@no_signer": 
+        description: Mensagem de entrada de bate-papo exibida quando o usuário está conectado apenas com a pubkey
       login: Faça login para enviar mensagens
-      "@login":
+      "@login": 
         description: Mensagem de entrada de chat exibida quando o usuário está desconectado
-    badge:
+    badge: 
       awarded_to: "Prêmio concedido a:"
-      "@awarded_to":
+      "@awarded_to": 
         description: Cabeçalho sobre a lista de usuários que receberam um emblema
-    raid:
+    raid: 
       to: RAIDING $name
-      "@to":
+      "@to": 
         description: Mensagem de invasão de bate-papo para outro fluxo
       from: RAID DE $name
-      "@from":
+      "@from": 
         description: Mensagem de invasão de bate-papo de outro fluxo
       countdown: Incursões em $time
-      "@countdown":
+      "@countdown": 
         description: Cronômetro de contagem regressiva para o ataque automático
-goal:
+goal: 
   title: "Meta: $amount"
   remaining: "Restante: $amount"
   complete: COMPLETO
-button:
+button: 
   login: Entrar
   logout: Sair
   edit_profile: Editar perfil
-  "@login":
+  "@login": 
     description: Texto do botão para o botão de login
   follow: Seguir
-  "@follow":
+  "@follow": 
     description: Texto do botão para o botão Seguir
   unfollow: Deixar de seguir
-  "@unfollow":
+  "@unfollow": 
     description: Texto do botão para o botão deixar de seguir
   mute: Silenciar
   unmute: Desmutar
   share: Compartilhar
   save: Salvar
-embed:
+embed: 
   article_by: Artigo de $name
   note_by: Nota de $name
   live_stream_by: Transmissão ao vivo pelo site $name
-stream_list:
+stream_list: 
   following: Seguindo
   live: Ao vivo
   planned: Planejado
   ended: Encerrado
-"@stream_list":
-  description: Cabeçalhos nas listas de transmissões por tipo de transmissão ao
-    vivo/terminada/planejada etc.
-zap:
+"@stream_list": 
+  description: Cabeçalhos nas listas de transmissões por tipo de transmissão ao vivo/terminada/planejada etc.
+zap: 
   title: Zap $name
   custom_amount: Valor personalizado
   confirm: Confirmar
@@ -103,23 +100,23 @@ zap:
   button_zap: Zap
   button_open_wallet: Abrir na carteira
   copy: Copiado para a área de transferência
-  error:
+  error: 
     invalid_custom_amount: Valor personalizado inválido
     no_wallet: Nenhuma carteira lightning instalada
     no_lud16: Nenhum endereço de raio encontrado
-profile:
+profile: 
   past_streams: Transmissões Passadas
-  edit:
+  edit: 
     display_name: Nome de exibição
     about: Sobre
     nip05: Endereço do Nostr
     lud16: Endereço Lightning
-    error:
+    error: 
       logged_out: Não é possível editar o perfil quando se está desconectado
-login:
+login: 
   username: Nome de usuário
   amber: Faça login com o Amber
   key: Login com chave
   create: Criar Conta
-  error:
+  error: 
     invalid_key: Chave inválida

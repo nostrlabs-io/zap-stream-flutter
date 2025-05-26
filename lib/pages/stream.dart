@@ -169,7 +169,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 color: PRIMARY_1,
                 borderRadius: DEFAULT_BR,
               ),
-              onTap: () {
+              onTap: (context) {
                 showModalBottomSheet(
                   context: context,
                   constraints: BoxConstraints.expand(),

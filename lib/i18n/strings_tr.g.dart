@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsTr implements Translations {
+class TranslationsTr extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsTr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsTr implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsTr implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsTr _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsTr implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamTr implements TranslationsStreamEn {
-	_TranslationsStreamTr._(this._root);
+class _TranslationsStreamTr extends TranslationsStreamEn {
+	_TranslationsStreamTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusTr status = _TranslationsStreamStatusTr._(_root);
-	@override String started({ required Object timestamp}) => 'Başlatıldı ${timestamp}';
+	@override String started({required Object timestamp}) => 'Başlatıldı ${timestamp}';
 	@override late final _TranslationsStreamChatTr chat = _TranslationsStreamChatTr._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalTr implements TranslationsGoalEn {
-	_TranslationsGoalTr._(this._root);
+class _TranslationsGoalTr extends TranslationsGoalEn {
+	_TranslationsGoalTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => 'Hedef: ${amount}';
-	@override String remaining({ required Object amount}) => 'Kalan: ${amount}';
+	@override String title({required Object amount}) => 'Hedef: ${amount}';
+	@override String remaining({required Object amount}) => 'Kalan: ${amount}';
 	@override String get complete => 'TAMAMLANDI';
 }
 
 // Path: button
-class _TranslationsButtonTr implements TranslationsButtonEn {
-	_TranslationsButtonTr._(this._root);
+class _TranslationsButtonTr extends TranslationsButtonEn {
+	_TranslationsButtonTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonTr implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedTr implements TranslationsEmbedEn {
-	_TranslationsEmbedTr._(this._root);
+class _TranslationsEmbedTr extends TranslationsEmbedEn {
+	_TranslationsEmbedTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => 'Makale ${name}';
-	@override String note_by({ required Object name}) => 'Not: ${name}';
-	@override String live_stream_by({ required Object name}) => 'Canlı yayın: ${name}';
+	@override String article_by({required Object name}) => 'Makale ${name}';
+	@override String note_by({required Object name}) => 'Not: ${name}';
+	@override String live_stream_by({required Object name}) => 'Canlı yayın: ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListTr implements TranslationsStreamListEn {
-	_TranslationsStreamListTr._(this._root);
+class _TranslationsStreamListTr extends TranslationsStreamListEn {
+	_TranslationsStreamListTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListTr implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapTr implements TranslationsZapEn {
-	_TranslationsZapTr._(this._root);
+class _TranslationsZapTr extends TranslationsZapEn {
+	_TranslationsZapTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => 'Zap ${name}';
+	@override String title({required Object name}) => 'Zap ${name}';
 	@override String get custom_amount => 'Özel Tutar';
 	@override String get confirm => 'Onaylayın';
 	@override String get comment => 'Yorum';
-	@override String button_zap_ready({ required Object amount}) => 'Zap ${amount} sats';
+	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Cüzdanda Aç';
 	@override String get copy => 'Panoya kopyalandı';
@@ -163,8 +164,8 @@ class _TranslationsZapTr implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileTr implements TranslationsProfileEn {
-	_TranslationsProfileTr._(this._root);
+class _TranslationsProfileTr extends TranslationsProfileEn {
+	_TranslationsProfileTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileTr implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginTr implements TranslationsLoginEn {
-	_TranslationsLoginTr._(this._root);
+class _TranslationsLoginTr extends TranslationsLoginEn {
+	_TranslationsLoginTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginTr implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusTr implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusTr._(this._root);
+class _TranslationsStreamStatusTr extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusTr implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatTr implements TranslationsStreamChatEn {
-	_TranslationsStreamChatTr._(this._root);
+class _TranslationsStreamChatTr extends TranslationsStreamChatEn {
+	_TranslationsStreamChatTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => 'SOHBET DEVRE DIŞI';
-	@override String disabled_timeout({ required Object time}) => 'Zaman aşımı sona eriyor: ${time}';
+	@override String disabled_timeout({required Object time}) => 'Zaman aşımı sona eriyor: ${time}';
 
 	/// Zaman aşımı olaylarını gösteren sohbet mesajı
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' zaman aşımına uğradı '),
 		user,
 		const TextSpan(text: ' için '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// Sohbetin alt kısmında akış sona erdi altbilgisi
 	@override String get ended => 'YAYIN SONLANDI';
 
 	/// Akış zaplarını gösteren sohbet mesajı
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' zapped '),
 		amount,
 		const TextSpan(text: ' sats'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteTr write = _TranslationsStreamChatWriteTr._(_root);
 	@override late final _TranslationsStreamChatBadgeTr badge = _TranslationsStreamChatBadgeTr._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatTr implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorTr implements TranslationsZapErrorEn {
-	_TranslationsZapErrorTr._(this._root);
+class _TranslationsZapErrorTr extends TranslationsZapErrorEn {
+	_TranslationsZapErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorTr implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditTr implements TranslationsProfileEditEn {
-	_TranslationsProfileEditTr._(this._root);
+class _TranslationsProfileEditTr extends TranslationsProfileEditEn {
+	_TranslationsProfileEditTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditTr implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorTr implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorTr._(this._root);
+class _TranslationsLoginErrorTr extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorTr implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteTr implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteTr._(this._root);
+class _TranslationsStreamChatWriteTr extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteTr implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeTr implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeTr._(this._root);
+class _TranslationsStreamChatBadgeTr extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeTr implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidTr implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidTr._(this._root);
+class _TranslationsStreamChatRaidTr extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
 
 	/// Başka bir akışa sohbet baskını mesajı
-	@override String to({ required Object name}) => 'RAIDING ${name}S';
+	@override String to({required Object name}) => 'RAIDING ${name}S';
 
 	/// Başka bir akıştan sohbet baskını mesajı
-	@override String from({ required Object name}) => '${name} ADRESINDEN RAID';
+	@override String from({required Object name}) => '${name} ADRESINDEN RAID';
 
 	/// Otomatik sürüş için geri sayım sayacı
-	@override String countdown({ required Object time}) => '${time} adresinde baskın';
+	@override String countdown({required Object time}) => '${time} adresinde baskın';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorTr implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorTr._(this._root);
+class _TranslationsProfileEditErrorTr extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsTr {
 			case 'stream.status.live': return 'CANLI';
 			case 'stream.status.ended': return 'SONLANDI';
 			case 'stream.status.planned': return 'PLANLANMIŞ';
-			case 'stream.started': return ({ required Object timestamp}) => 'Başlatıldı ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'Başlatıldı ${timestamp}';
 			case 'stream.chat.disabled': return 'SOHBET DEVRE DIŞI';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'Zaman aşımı sona eriyor: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Zaman aşımı sona eriyor: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' zaman aşımına uğradı '),
 				user,
 				const TextSpan(text: ' için '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return 'YAYIN SONLANDI';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' zapped '),
 				amount,
 				const TextSpan(text: ' sats'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'Mesaj yaz';
 			case 'stream.chat.write.no_signer': return 'Npub girişi ile mesaj yazılamıyor';
 			case 'stream.chat.write.login': return 'Mesaj göndermek için lütfen giriş yapın';
 			case 'stream.chat.badge.awarded_to': return 'Ödüllendirildi:';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}S';
-			case 'stream.chat.raid.from': return ({ required Object name}) => '${name} ADRESINDEN RAID';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => '${time} adresinde baskın';
-			case 'goal.title': return ({ required Object amount}) => 'Hedef: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => 'Kalan: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}S';
+			case 'stream.chat.raid.from': return ({required Object name}) => '${name} ADRESINDEN RAID';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time} adresinde baskın';
+			case 'goal.title': return ({required Object amount}) => 'Hedef: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => 'Kalan: ${amount}';
 			case 'goal.complete': return 'TAMAMLANDI';
 			case 'button.login': return 'Giriş';
 			case 'button.logout': return 'Oturum Kapatma';
@@ -380,18 +381,18 @@ extension on TranslationsTr {
 			case 'button.unmute': return 'Sesi aç';
 			case 'button.share': return 'Paylaş';
 			case 'button.save': return 'Kaydet';
-			case 'embed.article_by': return ({ required Object name}) => 'Makale ${name}';
-			case 'embed.note_by': return ({ required Object name}) => 'Not: ${name}';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'Canlı yayın: ${name}';
+			case 'embed.article_by': return ({required Object name}) => 'Makale ${name}';
+			case 'embed.note_by': return ({required Object name}) => 'Not: ${name}';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Canlı yayın: ${name}';
 			case 'stream_list.following': return 'Aşağıdaki';
 			case 'stream_list.live': return 'Canlı';
 			case 'stream_list.planned': return 'Planlanmış';
 			case 'stream_list.ended': return 'Bitti';
-			case 'zap.title': return ({ required Object name}) => 'Zap ${name}';
+			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
 			case 'zap.custom_amount': return 'Özel Tutar';
 			case 'zap.confirm': return 'Onaylayın';
 			case 'zap.comment': return 'Yorum';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'Zap ${amount} sats';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Cüzdanda Aç';
 			case 'zap.copy': return 'Panoya kopyalandı';

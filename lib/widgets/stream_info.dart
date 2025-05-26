@@ -48,7 +48,7 @@ class StreamInfoWidget extends StatelessWidget {
               BasicButton.text(
                 t.button.share,
                 icon: Icon(Icons.share, size: 16),
-                onTap: () {
+                onTap: (_) {
                   SharePlus.instance.share(
                     ShareParams(
                       title: stream.info.title,

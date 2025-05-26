@@ -6,7 +6,7 @@ class BasicButton extends StatelessWidget {
   final BoxDecoration? decoration;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
-  final void Function()? onTap;
+  final void Function(BuildContext)? onTap;
   final bool? disabled;
 
   const BasicButton(
@@ -24,7 +24,7 @@ class BasicButton extends StatelessWidget {
     BoxDecoration? decoration,
     EdgeInsetsGeometry? padding,
     EdgeInsetsGeometry? margin,
-    void Function()? onTap,
+    void Function(BuildContext)? onTap,
     double? fontSize,
     bool? disabled,
     Icon? icon,
@@ -66,7 +66,7 @@ class BasicButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (!(disabled ?? false) && onTap != null) {
-          onTap!();
+          onTap!(context);
         }
       },
       child: (disabled ?? false) ? Opacity(opacity: 0.5, child: inner) : inner,

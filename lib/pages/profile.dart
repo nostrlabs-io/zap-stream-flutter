@@ -76,7 +76,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   BasicButton.text(
                     t.button.logout,
-                    onTap: () {
+                    onTap: (context) {
                       loginData.logout();
                       ndk.accounts.logout();
                       context.go("/");
@@ -84,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   BasicButton.text(
                     t.button.edit_profile,
-                    onTap: () {
+                    onTap: (context) {
                       context.push("/settings/profile");
                     },
                   ),

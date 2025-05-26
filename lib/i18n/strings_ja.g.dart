@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsJa implements Translations {
+class TranslationsJa extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsJa implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsJa implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsJa _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsJa implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamJa implements TranslationsStreamEn {
-	_TranslationsStreamJa._(this._root);
+class _TranslationsStreamJa extends TranslationsStreamEn {
+	_TranslationsStreamJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusJa status = _TranslationsStreamStatusJa._(_root);
-	@override String started({ required Object timestamp}) => '${timestamp} を開始';
+	@override String started({required Object timestamp}) => '${timestamp} を開始';
 	@override late final _TranslationsStreamChatJa chat = _TranslationsStreamChatJa._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalJa implements TranslationsGoalEn {
-	_TranslationsGoalJa._(this._root);
+class _TranslationsGoalJa extends TranslationsGoalEn {
+	_TranslationsGoalJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => '目標額： ${amount}';
-	@override String remaining({ required Object amount}) => '残り： ${amount}';
+	@override String title({required Object amount}) => '目標額： ${amount}';
+	@override String remaining({required Object amount}) => '残り： ${amount}';
 	@override String get complete => '完了';
 }
 
 // Path: button
-class _TranslationsButtonJa implements TranslationsButtonEn {
-	_TranslationsButtonJa._(this._root);
+class _TranslationsButtonJa extends TranslationsButtonEn {
+	_TranslationsButtonJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonJa implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedJa implements TranslationsEmbedEn {
-	_TranslationsEmbedJa._(this._root);
+class _TranslationsEmbedJa extends TranslationsEmbedEn {
+	_TranslationsEmbedJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => '記事： ${name}';
-	@override String note_by({ required Object name}) => '${name} の投稿';
-	@override String live_stream_by({ required Object name}) => 'ライブ・ストリーム ${name}';
+	@override String article_by({required Object name}) => '記事： ${name}';
+	@override String note_by({required Object name}) => '${name} の投稿';
+	@override String live_stream_by({required Object name}) => 'ライブ・ストリーム ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListJa implements TranslationsStreamListEn {
-	_TranslationsStreamListJa._(this._root);
+class _TranslationsStreamListJa extends TranslationsStreamListEn {
+	_TranslationsStreamListJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListJa implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapJa implements TranslationsZapEn {
-	_TranslationsZapJa._(this._root);
+class _TranslationsZapJa extends TranslationsZapEn {
+	_TranslationsZapJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => '${name} をザップ';
+	@override String title({required Object name}) => '${name} をザップ';
 	@override String get custom_amount => 'カスタム金額';
 	@override String get confirm => '確認';
 	@override String get comment => 'コメント';
-	@override String button_zap_ready({ required Object amount}) => '${amount} satsをザップする';
+	@override String button_zap_ready({required Object amount}) => '${amount} satsをザップする';
 	@override String get button_zap => 'ザップ';
 	@override String get button_open_wallet => 'ウォレットで開く';
 	@override String get copy => 'クリップボードにコピー';
@@ -163,8 +164,8 @@ class _TranslationsZapJa implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileJa implements TranslationsProfileEn {
-	_TranslationsProfileJa._(this._root);
+class _TranslationsProfileJa extends TranslationsProfileEn {
+	_TranslationsProfileJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileJa implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginJa implements TranslationsLoginEn {
-	_TranslationsLoginJa._(this._root);
+class _TranslationsLoginJa extends TranslationsLoginEn {
+	_TranslationsLoginJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginJa implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusJa implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusJa._(this._root);
+class _TranslationsStreamStatusJa extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusJa implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatJa implements TranslationsStreamChatEn {
-	_TranslationsStreamChatJa._(this._root);
+class _TranslationsStreamChatJa extends TranslationsStreamChatEn {
+	_TranslationsStreamChatJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => 'チャット無効';
-	@override String disabled_timeout({ required Object time}) => 'タイムアウト： ${time}';
+	@override String disabled_timeout({required Object time}) => 'タイムアウト： ${time}';
 
 	/// タイムアウトイベントを表示するチャットメッセージ
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' タイムアウト '),
 		user,
 		const TextSpan(text: ' for '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// チャットの下にストリーム終了のフッター
 	@override String get ended => '配信終了';
 
 	/// ストリームのザッピングを表示するチャットメッセージ
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' が '),
 		amount,
 		const TextSpan(text: ' sats をザップしました'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteJa write = _TranslationsStreamChatWriteJa._(_root);
 	@override late final _TranslationsStreamChatBadgeJa badge = _TranslationsStreamChatBadgeJa._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatJa implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorJa implements TranslationsZapErrorEn {
-	_TranslationsZapErrorJa._(this._root);
+class _TranslationsZapErrorJa extends TranslationsZapErrorEn {
+	_TranslationsZapErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorJa implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditJa implements TranslationsProfileEditEn {
-	_TranslationsProfileEditJa._(this._root);
+class _TranslationsProfileEditJa extends TranslationsProfileEditEn {
+	_TranslationsProfileEditJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditJa implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorJa implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorJa._(this._root);
+class _TranslationsLoginErrorJa extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorJa implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteJa implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteJa._(this._root);
+class _TranslationsStreamChatWriteJa extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteJa implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeJa implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeJa._(this._root);
+class _TranslationsStreamChatBadgeJa extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeJa implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidJa implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidJa._(this._root);
+class _TranslationsStreamChatRaidJa extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 
 	/// 別のストリームへのチャット襲撃メッセージ
-	@override String to({ required Object name}) => 'RAIDING ${name}';
+	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// 他のストリームからのチャット襲撃メッセージ
-	@override String from({ required Object name}) => 'RAID FROM ${name}';
+	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// 自動騎乗のカウントダウン・タイマー
-	@override String countdown({ required Object time}) => '${time}における襲撃';
+	@override String countdown({required Object time}) => '${time}における襲撃';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorJa implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorJa._(this._root);
+class _TranslationsProfileEditErrorJa extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsJa {
 			case 'stream.status.live': return 'ライブ';
 			case 'stream.status.ended': return '終了';
 			case 'stream.status.planned': return '予定';
-			case 'stream.started': return ({ required Object timestamp}) => '${timestamp} を開始';
+			case 'stream.started': return ({required Object timestamp}) => '${timestamp} を開始';
 			case 'stream.chat.disabled': return 'チャット無効';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'タイムアウト： ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'タイムアウト： ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' タイムアウト '),
 				user,
 				const TextSpan(text: ' for '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return '配信終了';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' が '),
 				amount,
 				const TextSpan(text: ' sats をザップしました'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'メッセージを書く';
 			case 'stream.chat.write.no_signer': return 'npubログインでメッセージが書けない';
 			case 'stream.chat.write.login': return 'メッセージを送信するにはログインしてください';
 			case 'stream.chat.badge.awarded_to': return '受賞者';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => '${time}における襲撃';
-			case 'goal.title': return ({ required Object amount}) => '目標額： ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => '残り： ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time}における襲撃';
+			case 'goal.title': return ({required Object amount}) => '目標額： ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => '残り： ${amount}';
 			case 'goal.complete': return '完了';
 			case 'button.login': return 'ログイン';
 			case 'button.logout': return 'ログアウト';
@@ -380,18 +381,18 @@ extension on TranslationsJa {
 			case 'button.unmute': return 'ミュート解除';
 			case 'button.share': return '共有';
 			case 'button.save': return '保存';
-			case 'embed.article_by': return ({ required Object name}) => '記事： ${name}';
-			case 'embed.note_by': return ({ required Object name}) => '${name} の投稿';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'ライブ・ストリーム ${name}';
+			case 'embed.article_by': return ({required Object name}) => '記事： ${name}';
+			case 'embed.note_by': return ({required Object name}) => '${name} の投稿';
+			case 'embed.live_stream_by': return ({required Object name}) => 'ライブ・ストリーム ${name}';
 			case 'stream_list.following': return 'フォロー中';
 			case 'stream_list.live': return 'ライブ配信中';
 			case 'stream_list.planned': return '予定あり';
 			case 'stream_list.ended': return '終了しました';
-			case 'zap.title': return ({ required Object name}) => '${name} をザップ';
+			case 'zap.title': return ({required Object name}) => '${name} をザップ';
 			case 'zap.custom_amount': return 'カスタム金額';
 			case 'zap.confirm': return '確認';
 			case 'zap.comment': return 'コメント';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => '${amount} satsをザップする';
+			case 'zap.button_zap_ready': return ({required Object amount}) => '${amount} satsをザップする';
 			case 'zap.button_zap': return 'ザップ';
 			case 'zap.button_open_wallet': return 'ウォレットで開く';
 			case 'zap.copy': return 'クリップボードにコピー';

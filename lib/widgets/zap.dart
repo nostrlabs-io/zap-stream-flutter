@@ -4,6 +4,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ndk/domain_layer/usecases/lnurl/lnurl.dart';
 import 'package:ndk/ndk.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -20,6 +21,7 @@ class ZapWidget extends StatefulWidget {
   final Nip01Event? target;
   final List<Nip01Event>? otherTargets;
   final List<List<String>>? zapTags;
+  final void Function(String preimage)? onPaid;
 
   const ZapWidget({
     super.key,
@@ -27,6 +29,7 @@ class ZapWidget extends StatefulWidget {
     this.target,
     this.zapTags,
     this.otherTargets,
+    this.onPaid,
   });
 
   @override
@@ -57,6 +60,7 @@ class _ZapWidget extends State<ZapWidget> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
+      width: double.maxFinite,
       child: Column(
         spacing: 10,
         children: [
@@ -101,7 +105,7 @@ class _ZapWidget extends State<ZapWidget> {
           ),
           BasicButton.text(
             t.zap.confirm,
-            onTap: () {
+            onTap: (context) {
               final newAmount = int.tryParse(_customAmount.text);
               if (newAmount != null) {
                 setState(() {
@@ -129,13 +133,13 @@ class _ZapWidget extends State<ZapWidget> {
             : t.zap.button_zap,
         disabled: _amount == null,
         decoration: BoxDecoration(color: LAYER_3, borderRadius: DEFAULT_BR),
-        onTap: () async {
+        onTap: (context) async {
           try {
             setState(() {
               _error = null;
               _loading = true;
             });
-            await _loadZap();
+            await _loadZap(context);
           } catch (e) {
             setState(() {
               _error = e.toString();
@@ -192,7 +196,7 @@ class _ZapWidget extends State<ZapWidget> {
       ),
       BasicButton.text(
         t.zap.button_open_wallet,
-        onTap: () async {
+        onTap: (_) async {
           try {
             await launchUrlString(prLink);
           } catch (e) {
@@ -210,6 +214,13 @@ class _ZapWidget extends State<ZapWidget> {
           }
         },
       ),
+      if (loginData.value?.wallet == null)
+        BasicButton.text(
+          t.zap.button_connect_wallet,
+          onTap: (context) async {
+            context.push("/settings/wallet");
+          },
+        ),
 
       if (_error != null)
         Text(
@@ -259,7 +270,7 @@ class _ZapWidget extends State<ZapWidget> {
     return event;
   }
 
-  Future<void> _loadZap() async {
+  Future<void> _loadZap(BuildContext context) async {
     final profile = await ndk.metadata.loadMetadata(widget.pubkey);
     if (profile?.lud16 == null) {
       throw t.zap.error.no_lud16;
@@ -272,9 +283,24 @@ class _ZapWidget extends State<ZapWidget> {
       zapRequest: zapRequest,
     );
 
-    setState(() {
-      _pr = invoice?.invoice;
-    });
+    final wallet = await loginData.value?.getWallet();
+    if (wallet != null && invoice != null) {
+      try {
+        final preimage = await wallet.payInvoice(invoice.invoice);
+        if (widget.onPaid != null) {
+          widget.onPaid!(preimage);
+        }
+      } catch (e) {
+        setState(() {
+          _error = e.toString();
+          _pr = invoice.invoice;
+        });
+      }
+    } else {
+      setState(() {
+        _pr = invoice?.invoice;
+      });
+    }
   }
 
   Widget _zapAmount(int n) {

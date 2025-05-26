@@ -1,24 +1,82 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:ndk/domain_layer/entities/account.dart';
+import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip01/bip340.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
+import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/utils.dart';
+
+enum WalletType { nwc }
+
+class WalletConfig {
+  final WalletType type;
+  final String data;
+  final String? privateKey;
+
+  WalletConfig({required this.type, required this.data, this.privateKey});
+
+  Map<String, dynamic> toJson() {
+    return {"type": type.name, "data": data, "privateKey": privateKey};
+  }
+
+  static WalletConfig fromJson(Map<String, dynamic> json) {
+    final type = WalletType.values.firstWhereOrNull(
+      (v) => v.name == json["type"],
+    );
+    if (type == null) {
+      throw "Invalid wallet type: ${json["type"]}";
+    }
+    return WalletConfig(
+      type: type,
+      data: json["data"],
+      privateKey: json["privateKey"],
+    );
+  }
+}
+
+abstract class SimpleWallet {
+  Future<String> payInvoice(String pr);
+}
+
+class NWCWrapper extends SimpleWallet {
+  final NwcConnection _conn;
+
+  NWCWrapper({required NwcConnection conn}) : _conn = conn;
+
+  @override
+  Future<String> payInvoice(String pr) async {
+    final rsp = await ndk.nwc.payInvoice(
+      _conn,
+      invoice: pr,
+      timeout: Duration(seconds: 60),
+    );
+    if (rsp.preimage == null) {
+      throw "Payment failed, preimage missing";
+    } else {
+      return rsp.preimage!;
+    }
+  }
+}
 
 class LoginAccount {
   final AccountType type;
   final String pubkey;
   final String? privateKey;
   final List<String>? signerRelays;
+  final WalletConfig? wallet;
 
-  LoginAccount._({
+  SimpleWallet? _cachedWallet;
+
+  LoginAccount({
     required this.type,
     required this.pubkey,
     this.privateKey,
     this.signerRelays,
+    this.wallet,
   });
 
   static LoginAccount nip19(String key) {
@@ -26,7 +84,7 @@ class LoginAccount {
     final pubkey =
         Nip19.isKey("nsec", key) ? Bip340.getPublicKey(keyData) : keyData;
     final privateKey = Nip19.isKey("npub", key) ? null : keyData;
-    return LoginAccount._(
+    return LoginAccount(
       type:
           Nip19.isKey("npub", key)
               ? AccountType.publicKey
@@ -37,7 +95,7 @@ class LoginAccount {
   }
 
   static LoginAccount privateKeyHex(String key) {
-    return LoginAccount._(
+    return LoginAccount(
       type: AccountType.privateKey,
       privateKey: key,
       pubkey: Bip340.getPublicKey(key),
@@ -45,7 +103,7 @@ class LoginAccount {
   }
 
   static LoginAccount externalPublicKeyHex(String key) {
-    return LoginAccount._(type: AccountType.externalSigner, pubkey: key);
+    return LoginAccount(type: AccountType.externalSigner, pubkey: key);
   }
 
   static LoginAccount bunker(
@@ -53,7 +111,7 @@ class LoginAccount {
     String pubkey,
     List<String> relays,
   ) {
-    return LoginAccount._(
+    return LoginAccount(
       type: AccountType.externalSigner,
       pubkey: pubkey,
       privateKey: privateKey,
@@ -65,6 +123,7 @@ class LoginAccount {
     "type": acc?.type.name,
     "pubKey": acc?.pubkey,
     "privateKey": acc?.privateKey,
+    "wallet": acc?.wallet?.toJson(),
   };
 
   static LoginAccount? fromJson(Map<String, dynamic> json) {
@@ -78,15 +137,37 @@ class LoginAccount {
           throw "Invalid privateKey, length != 64";
         }
       }
-      return LoginAccount._(
+      return LoginAccount(
         type: AccountType.values.firstWhere(
           (v) => v.toString().endsWith(json["type"] as String),
         ),
         pubkey: json["pubKey"],
         privateKey: json["privateKey"],
+        wallet:
+            json.containsKey("wallet")
+                ? WalletConfig.fromJson(json["wallet"])
+                : null,
       );
     }
     return null;
+  }
+
+  Future<SimpleWallet?> getWallet() async {
+    if (_cachedWallet == null && wallet != null) {
+      switch (wallet!.type) {
+        case WalletType.nwc:
+          {
+            try {
+              final conn = await ndk.nwc.connect(wallet!.data);
+              _cachedWallet = NWCWrapper(conn: conn);
+            } catch (e) {
+              developer.log("Failed to setup wallet: $e");
+            }
+            break;
+          }
+      }
+    }
+    return _cachedWallet;
   }
 }
 

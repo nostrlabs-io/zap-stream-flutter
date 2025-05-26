@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsKo implements Translations {
+class TranslationsKo extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsKo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsKo implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsKo implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsKo _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsKo implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamKo implements TranslationsStreamEn {
-	_TranslationsStreamKo._(this._root);
+class _TranslationsStreamKo extends TranslationsStreamEn {
+	_TranslationsStreamKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusKo status = _TranslationsStreamStatusKo._(_root);
-	@override String started({ required Object timestamp}) => '시작 ${timestamp}';
+	@override String started({required Object timestamp}) => '시작 ${timestamp}';
 	@override late final _TranslationsStreamChatKo chat = _TranslationsStreamChatKo._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalKo implements TranslationsGoalEn {
-	_TranslationsGoalKo._(this._root);
+class _TranslationsGoalKo extends TranslationsGoalEn {
+	_TranslationsGoalKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => '목표: ${amount}';
-	@override String remaining({ required Object amount}) => '남음: ${amount}';
+	@override String title({required Object amount}) => '목표: ${amount}';
+	@override String remaining({required Object amount}) => '남음: ${amount}';
 	@override String get complete => '완료';
 }
 
 // Path: button
-class _TranslationsButtonKo implements TranslationsButtonEn {
-	_TranslationsButtonKo._(this._root);
+class _TranslationsButtonKo extends TranslationsButtonEn {
+	_TranslationsButtonKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonKo implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedKo implements TranslationsEmbedEn {
-	_TranslationsEmbedKo._(this._root);
+class _TranslationsEmbedKo extends TranslationsEmbedEn {
+	_TranslationsEmbedKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => '작성자: ${name}';
-	@override String note_by({ required Object name}) => '노트 작성됨: ${name}';
-	@override String live_stream_by({ required Object name}) => '라이브 스트리밍: ${name}';
+	@override String article_by({required Object name}) => '작성자: ${name}';
+	@override String note_by({required Object name}) => '노트 작성됨: ${name}';
+	@override String live_stream_by({required Object name}) => '라이브 스트리밍: ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListKo implements TranslationsStreamListEn {
-	_TranslationsStreamListKo._(this._root);
+class _TranslationsStreamListKo extends TranslationsStreamListEn {
+	_TranslationsStreamListKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListKo implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapKo implements TranslationsZapEn {
-	_TranslationsZapKo._(this._root);
+class _TranslationsZapKo extends TranslationsZapEn {
+	_TranslationsZapKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => 'Zap ${name}';
+	@override String title({required Object name}) => 'Zap ${name}';
 	@override String get custom_amount => '사용자 지정 금액';
 	@override String get confirm => '확인';
 	@override String get comment => '댓글';
-	@override String button_zap_ready({ required Object amount}) => 'Zap ${amount} sats';
+	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => '지갑에서 열기';
 	@override String get copy => '클립보드에 복사';
@@ -163,8 +164,8 @@ class _TranslationsZapKo implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileKo implements TranslationsProfileEn {
-	_TranslationsProfileKo._(this._root);
+class _TranslationsProfileKo extends TranslationsProfileEn {
+	_TranslationsProfileKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileKo implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginKo implements TranslationsLoginEn {
-	_TranslationsLoginKo._(this._root);
+class _TranslationsLoginKo extends TranslationsLoginEn {
+	_TranslationsLoginKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginKo implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusKo implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusKo._(this._root);
+class _TranslationsStreamStatusKo extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusKo implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatKo implements TranslationsStreamChatEn {
-	_TranslationsStreamChatKo._(this._root);
+class _TranslationsStreamChatKo extends TranslationsStreamChatEn {
+	_TranslationsStreamChatKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => '채팅 사용 안 함';
-	@override String disabled_timeout({ required Object time}) => '시간 초과가 만료되었습니다: ${time}';
+	@override String disabled_timeout({required Object time}) => '시간 초과가 만료되었습니다: ${time}';
 
 	/// 시간 초과 이벤트를 표시하는 채팅 메시지
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' 시간 초과됨 '),
 		user,
 		const TextSpan(text: ' '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// 채팅 하단의 스트림 종료 푸터
 	@override String get ended => '스트림 종료';
 
 	/// 채팅 메시지 스트림 끊김 표시
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' ZAPP '),
 		amount,
 		const TextSpan(text: ' SATS'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteKo write = _TranslationsStreamChatWriteKo._(_root);
 	@override late final _TranslationsStreamChatBadgeKo badge = _TranslationsStreamChatBadgeKo._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatKo implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorKo implements TranslationsZapErrorEn {
-	_TranslationsZapErrorKo._(this._root);
+class _TranslationsZapErrorKo extends TranslationsZapErrorEn {
+	_TranslationsZapErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorKo implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditKo implements TranslationsProfileEditEn {
-	_TranslationsProfileEditKo._(this._root);
+class _TranslationsProfileEditKo extends TranslationsProfileEditEn {
+	_TranslationsProfileEditKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditKo implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorKo implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorKo._(this._root);
+class _TranslationsLoginErrorKo extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorKo implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteKo implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteKo._(this._root);
+class _TranslationsStreamChatWriteKo extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteKo implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeKo implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeKo._(this._root);
+class _TranslationsStreamChatBadgeKo extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeKo implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidKo implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidKo._(this._root);
+class _TranslationsStreamChatRaidKo extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
 
 	/// 다른 스트림으로 채팅 레이드 메시지 보내기
-	@override String to({ required Object name}) => 'RAIDing ${name}';
+	@override String to({required Object name}) => 'RAIDing ${name}';
 
 	/// 다른 스트림의 채팅 레이드 메시지
-	@override String from({ required Object name}) => 'RAID FROM ${name}';
+	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// 자동 레이드를 위한 카운트다운 타이머
-	@override String countdown({ required Object time}) => '${time}에서 레이드';
+	@override String countdown({required Object time}) => '${time}에서 레이드';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorKo implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorKo._(this._root);
+class _TranslationsProfileEditErrorKo extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsKo {
 			case 'stream.status.live': return '라이브';
 			case 'stream.status.ended': return '종료';
 			case 'stream.status.planned': return '계획된';
-			case 'stream.started': return ({ required Object timestamp}) => '시작 ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => '시작 ${timestamp}';
 			case 'stream.chat.disabled': return '채팅 사용 안 함';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => '시간 초과가 만료되었습니다: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => '시간 초과가 만료되었습니다: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' 시간 초과됨 '),
 				user,
 				const TextSpan(text: ' '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return '스트림 종료';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' ZAPP '),
 				amount,
 				const TextSpan(text: ' SATS'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return '메시지 작성';
 			case 'stream.chat.write.no_signer': return 'npub 로그인으로 메시지를 작성할 수 없습니다.';
 			case 'stream.chat.write.login': return '메시지를 보내려면 로그인하세요.';
 			case 'stream.chat.badge.awarded_to': return '수상 대상';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDing ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => '${time}에서 레이드';
-			case 'goal.title': return ({ required Object amount}) => '목표: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => '남음: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDing ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time}에서 레이드';
+			case 'goal.title': return ({required Object amount}) => '목표: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => '남음: ${amount}';
 			case 'goal.complete': return '완료';
 			case 'button.login': return '로그인';
 			case 'button.logout': return '로그아웃';
@@ -380,18 +381,18 @@ extension on TranslationsKo {
 			case 'button.unmute': return '뮤트 해제';
 			case 'button.share': return '공유';
 			case 'button.save': return '저장';
-			case 'embed.article_by': return ({ required Object name}) => '작성자: ${name}';
-			case 'embed.note_by': return ({ required Object name}) => '노트 작성됨: ${name}';
-			case 'embed.live_stream_by': return ({ required Object name}) => '라이브 스트리밍: ${name}';
+			case 'embed.article_by': return ({required Object name}) => '작성자: ${name}';
+			case 'embed.note_by': return ({required Object name}) => '노트 작성됨: ${name}';
+			case 'embed.live_stream_by': return ({required Object name}) => '라이브 스트리밍: ${name}';
 			case 'stream_list.following': return '팔로잉';
 			case 'stream_list.live': return '라이브';
 			case 'stream_list.planned': return '계획된';
 			case 'stream_list.ended': return '종료됨';
-			case 'zap.title': return ({ required Object name}) => 'Zap ${name}';
+			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
 			case 'zap.custom_amount': return '사용자 지정 금액';
 			case 'zap.confirm': return '확인';
 			case 'zap.comment': return '댓글';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'Zap ${amount} sats';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return '지갑에서 열기';
 			case 'zap.copy': return '클립보드에 복사';

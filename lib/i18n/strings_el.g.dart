@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsEl implements Translations {
+class TranslationsEl extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsEl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsEl implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsEl implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsEl _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsEl implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamEl implements TranslationsStreamEn {
-	_TranslationsStreamEl._(this._root);
+class _TranslationsStreamEl extends TranslationsStreamEn {
+	_TranslationsStreamEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusEl status = _TranslationsStreamStatusEl._(_root);
-	@override String started({ required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
+	@override String started({required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
 	@override late final _TranslationsStreamChatEl chat = _TranslationsStreamChatEl._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalEl implements TranslationsGoalEn {
-	_TranslationsGoalEl._(this._root);
+class _TranslationsGoalEl extends TranslationsGoalEn {
+	_TranslationsGoalEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => 'Στόχος: ${amount}';
-	@override String remaining({ required Object amount}) => 'Υπόλοιπο: ${amount}';
+	@override String title({required Object amount}) => 'Στόχος: ${amount}';
+	@override String remaining({required Object amount}) => 'Υπόλοιπο: ${amount}';
 	@override String get complete => 'ΠΛΗΡΗΣ';
 }
 
 // Path: button
-class _TranslationsButtonEl implements TranslationsButtonEn {
-	_TranslationsButtonEl._(this._root);
+class _TranslationsButtonEl extends TranslationsButtonEn {
+	_TranslationsButtonEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonEl implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedEl implements TranslationsEmbedEn {
-	_TranslationsEmbedEl._(this._root);
+class _TranslationsEmbedEl extends TranslationsEmbedEn {
+	_TranslationsEmbedEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => 'Άρθρο από ${name}';
-	@override String note_by({ required Object name}) => 'Σημείωση του ${name}';
-	@override String live_stream_by({ required Object name}) => 'Ζωντανή μετάδοση από το ${name}';
+	@override String article_by({required Object name}) => 'Άρθρο από ${name}';
+	@override String note_by({required Object name}) => 'Σημείωση του ${name}';
+	@override String live_stream_by({required Object name}) => 'Ζωντανή μετάδοση από το ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListEl implements TranslationsStreamListEn {
-	_TranslationsStreamListEl._(this._root);
+class _TranslationsStreamListEl extends TranslationsStreamListEn {
+	_TranslationsStreamListEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListEl implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapEl implements TranslationsZapEn {
-	_TranslationsZapEl._(this._root);
+class _TranslationsZapEl extends TranslationsZapEn {
+	_TranslationsZapEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => 'Zap ${name}';
+	@override String title({required Object name}) => 'Zap ${name}';
 	@override String get custom_amount => 'Προσαρμοσμένο ποσό';
 	@override String get confirm => 'Επιβεβαίωση';
 	@override String get comment => 'Σχόλιο';
-	@override String button_zap_ready({ required Object amount}) => 'Zap ${amount} sats';
+	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Άνοιγμα στο πορτοφόλι';
 	@override String get copy => 'Αντιγραφή στο πρόχειρο';
@@ -163,8 +164,8 @@ class _TranslationsZapEl implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileEl implements TranslationsProfileEn {
-	_TranslationsProfileEl._(this._root);
+class _TranslationsProfileEl extends TranslationsProfileEn {
+	_TranslationsProfileEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileEl implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginEl implements TranslationsLoginEn {
-	_TranslationsLoginEl._(this._root);
+class _TranslationsLoginEl extends TranslationsLoginEn {
+	_TranslationsLoginEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginEl implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusEl implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusEl._(this._root);
+class _TranslationsStreamStatusEl extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusEl implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatEl implements TranslationsStreamChatEn {
-	_TranslationsStreamChatEl._(this._root);
+class _TranslationsStreamChatEl extends TranslationsStreamChatEn {
+	_TranslationsStreamChatEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => 'ΑΠΕΝΕΡΓΟΠΟΙΗΜΈΝΗ ΣΥΝΟΜΙΛΊΑ';
-	@override String disabled_timeout({ required Object time}) => 'Το χρονικό όριο λήγει: ${time}';
+	@override String disabled_timeout({required Object time}) => 'Το χρονικό όριο λήγει: ${time}';
 
 	/// Μήνυμα συνομιλίας που εμφανίζει συμβάντα timeout
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' χρονομετρημένη λήξη '),
 		user,
 		const TextSpan(text: ' για '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// Η ροή τελείωσε το υποσέλιδο στο κάτω μέρος της συνομιλίας
 	@override String get ended => 'STREAM ΤΕΛΕΙΩΣΕ';
 
 	/// Μήνυμα συνομιλίας που δείχνει ροή ροής zaps
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' zapped '),
 		amount,
 		const TextSpan(text: ' sats'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteEl write = _TranslationsStreamChatWriteEl._(_root);
 	@override late final _TranslationsStreamChatBadgeEl badge = _TranslationsStreamChatBadgeEl._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatEl implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorEl implements TranslationsZapErrorEn {
-	_TranslationsZapErrorEl._(this._root);
+class _TranslationsZapErrorEl extends TranslationsZapErrorEn {
+	_TranslationsZapErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorEl implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditEl implements TranslationsProfileEditEn {
-	_TranslationsProfileEditEl._(this._root);
+class _TranslationsProfileEditEl extends TranslationsProfileEditEn {
+	_TranslationsProfileEditEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditEl implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorEl implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorEl._(this._root);
+class _TranslationsLoginErrorEl extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorEl implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteEl implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteEl._(this._root);
+class _TranslationsStreamChatWriteEl extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteEl implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeEl implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeEl._(this._root);
+class _TranslationsStreamChatBadgeEl extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeEl implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidEl implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidEl._(this._root);
+class _TranslationsStreamChatRaidEl extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
 
 	/// Μήνυμα επιδρομής συνομιλίας σε άλλη ροή
-	@override String to({ required Object name}) => 'RAIDING ${name}';
+	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Μήνυμα επιδρομής συνομιλίας από άλλη ροή
-	@override String from({ required Object name}) => 'RAID FROM ${name}';
+	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// Χρονοδιακόπτης αντίστροφης μέτρησης για αυτόματη ιππασία
-	@override String countdown({ required Object time}) => 'Επιδρομές στο ${time}';
+	@override String countdown({required Object time}) => 'Επιδρομές στο ${time}';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorEl implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorEl._(this._root);
+class _TranslationsProfileEditErrorEl extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsEl {
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'ΣΧΕΔΙΑΣΜΟΣ';
-			case 'stream.started': return ({ required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
 			case 'stream.chat.disabled': return 'ΑΠΕΝΕΡΓΟΠΟΙΗΜΈΝΗ ΣΥΝΟΜΙΛΊΑ';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'Το χρονικό όριο λήγει: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Το χρονικό όριο λήγει: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' χρονομετρημένη λήξη '),
 				user,
 				const TextSpan(text: ' για '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return 'STREAM ΤΕΛΕΙΩΣΕ';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' zapped '),
 				amount,
 				const TextSpan(text: ' sats'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'Γράψτε μήνυμα';
 			case 'stream.chat.write.no_signer': return 'Δεν μπορείτε να γράψετε μηνύματα με σύνδεση στο npub';
 			case 'stream.chat.write.login': return 'Παρακαλώ συνδεθείτε για να στείλετε μηνύματα';
 			case 'stream.chat.badge.awarded_to': return 'Απονέμεται σε:';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => 'Επιδρομές στο ${time}';
-			case 'goal.title': return ({ required Object amount}) => 'Στόχος: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => 'Υπόλοιπο: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Επιδρομές στο ${time}';
+			case 'goal.title': return ({required Object amount}) => 'Στόχος: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => 'Υπόλοιπο: ${amount}';
 			case 'goal.complete': return 'ΠΛΗΡΗΣ';
 			case 'button.login': return 'Σύνδεση';
 			case 'button.logout': return 'Αποσύνδεση';
@@ -380,18 +381,18 @@ extension on TranslationsEl {
 			case 'button.unmute': return 'Αποσυνδέστε τη φωνή σας από το';
 			case 'button.share': return 'Μοιραστείτε το';
 			case 'button.save': return 'Αποθήκευση';
-			case 'embed.article_by': return ({ required Object name}) => 'Άρθρο από ${name}';
-			case 'embed.note_by': return ({ required Object name}) => 'Σημείωση του ${name}';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'Ζωντανή μετάδοση από το ${name}';
+			case 'embed.article_by': return ({required Object name}) => 'Άρθρο από ${name}';
+			case 'embed.note_by': return ({required Object name}) => 'Σημείωση του ${name}';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Ζωντανή μετάδοση από το ${name}';
 			case 'stream_list.following': return 'Ακολουθώντας το';
 			case 'stream_list.live': return 'Ζωντανό';
 			case 'stream_list.planned': return 'Προγραμματισμένο';
 			case 'stream_list.ended': return 'Τελείωσε';
-			case 'zap.title': return ({ required Object name}) => 'Zap ${name}';
+			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
 			case 'zap.custom_amount': return 'Προσαρμοσμένο ποσό';
 			case 'zap.confirm': return 'Επιβεβαίωση';
 			case 'zap.comment': return 'Σχόλιο';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'Zap ${amount} sats';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Άνοιγμα στο πορτοφόλι';
 			case 'zap.copy': return 'Αντιγραφή στο πρόχειρο';

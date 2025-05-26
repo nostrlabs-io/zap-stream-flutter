@@ -11,6 +11,7 @@ import 'package:zap_stream_flutter/pages/login_input.dart';
 import 'package:zap_stream_flutter/pages/new_account.dart';
 import 'package:zap_stream_flutter/pages/profile.dart';
 import 'package:zap_stream_flutter/pages/settings_profile.dart';
+import 'package:zap_stream_flutter/pages/settings_wallet.dart';
 import 'package:zap_stream_flutter/pages/stream.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -102,7 +103,6 @@ void runZapStream() {
                 },
               ),
               ShellRoute(
-                observers: [routeObserver],
                 builder:
                     (context, state, child) =>
                         Column(children: [HeaderWidget(), child]),
@@ -114,6 +114,10 @@ void runZapStream() {
                       GoRoute(
                         path: "profile",
                         builder: (context, state) => SettingsProfilePage(),
+                      ),
+                      GoRoute(
+                        path: "wallet",
+                        builder: (context, state) => SettingsWalletPage(),
                       ),
                     ],
                   ),

@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsZh implements Translations {
+class TranslationsZh extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZh({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsZh implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsZh implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsZh _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsZh implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamZh implements TranslationsStreamEn {
-	_TranslationsStreamZh._(this._root);
+class _TranslationsStreamZh extends TranslationsStreamEn {
+	_TranslationsStreamZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusZh status = _TranslationsStreamStatusZh._(_root);
-	@override String started({ required Object timestamp}) => '開始 ${timestamp}';
+	@override String started({required Object timestamp}) => '開始 ${timestamp}';
 	@override late final _TranslationsStreamChatZh chat = _TranslationsStreamChatZh._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalZh implements TranslationsGoalEn {
-	_TranslationsGoalZh._(this._root);
+class _TranslationsGoalZh extends TranslationsGoalEn {
+	_TranslationsGoalZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => '目標：${amount}';
-	@override String remaining({ required Object amount}) => '剩餘： ${amount}';
+	@override String title({required Object amount}) => '目標：${amount}';
+	@override String remaining({required Object amount}) => '剩餘： ${amount}';
 	@override String get complete => '完成';
 }
 
 // Path: button
-class _TranslationsButtonZh implements TranslationsButtonEn {
-	_TranslationsButtonZh._(this._root);
+class _TranslationsButtonZh extends TranslationsButtonEn {
+	_TranslationsButtonZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonZh implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedZh implements TranslationsEmbedEn {
-	_TranslationsEmbedZh._(this._root);
+class _TranslationsEmbedZh extends TranslationsEmbedEn {
+	_TranslationsEmbedZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => '文章來源： ${name}';
-	@override String note_by({ required Object name}) => '${name} 的筆記';
-	@override String live_stream_by({ required Object name}) => 'Live stream by ${name}';
+	@override String article_by({required Object name}) => '文章來源： ${name}';
+	@override String note_by({required Object name}) => '${name} 的筆記';
+	@override String live_stream_by({required Object name}) => 'Live stream by ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListZh implements TranslationsStreamListEn {
-	_TranslationsStreamListZh._(this._root);
+class _TranslationsStreamListZh extends TranslationsStreamListEn {
+	_TranslationsStreamListZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListZh implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapZh implements TranslationsZapEn {
-	_TranslationsZapZh._(this._root);
+class _TranslationsZapZh extends TranslationsZapEn {
+	_TranslationsZapZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => '打閃${name}';
+	@override String title({required Object name}) => '打閃${name}';
 	@override String get custom_amount => '自訂金額';
 	@override String get confirm => '確認';
 	@override String get comment => '評論';
-	@override String button_zap_ready({ required Object amount}) => '打閃 ${amount} 聰';
+	@override String button_zap_ready({required Object amount}) => '打閃 ${amount} 聰';
 	@override String get button_zap => '打閃';
 	@override String get button_open_wallet => '在錢包中開啟';
 	@override String get copy => '複製到剪貼簿';
@@ -163,8 +164,8 @@ class _TranslationsZapZh implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileZh implements TranslationsProfileEn {
-	_TranslationsProfileZh._(this._root);
+class _TranslationsProfileZh extends TranslationsProfileEn {
+	_TranslationsProfileZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileZh implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginZh implements TranslationsLoginEn {
-	_TranslationsLoginZh._(this._root);
+class _TranslationsLoginZh extends TranslationsLoginEn {
+	_TranslationsLoginZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginZh implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusZh implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusZh._(this._root);
+class _TranslationsStreamStatusZh extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusZh implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatZh implements TranslationsStreamChatEn {
-	_TranslationsStreamChatZh._(this._root);
+class _TranslationsStreamChatZh extends TranslationsStreamChatEn {
+	_TranslationsStreamChatZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => '關閉聊天';
-	@override String disabled_timeout({ required Object time}) => '超時過期： ${time}';
+	@override String disabled_timeout({required Object time}) => '超時過期： ${time}';
 
 	/// 顯示逾時事件的聊天訊息
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' 超時 '),
 		user,
 		const TextSpan(text: ' for '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// 聊天底部的流結束頁尾
 	@override String get ended => '串流結束';
 
 	/// 聊天訊息顯示串流斷點
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' 打閃了 '),
 		amount,
 		const TextSpan(text: ' 聰'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteZh write = _TranslationsStreamChatWriteZh._(_root);
 	@override late final _TranslationsStreamChatBadgeZh badge = _TranslationsStreamChatBadgeZh._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatZh implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorZh implements TranslationsZapErrorEn {
-	_TranslationsZapErrorZh._(this._root);
+class _TranslationsZapErrorZh extends TranslationsZapErrorEn {
+	_TranslationsZapErrorZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorZh implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditZh implements TranslationsProfileEditEn {
-	_TranslationsProfileEditZh._(this._root);
+class _TranslationsProfileEditZh extends TranslationsProfileEditEn {
+	_TranslationsProfileEditZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditZh implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorZh implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorZh._(this._root);
+class _TranslationsLoginErrorZh extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorZh implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteZh implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteZh._(this._root);
+class _TranslationsStreamChatWriteZh extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteZh implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeZh implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeZh._(this._root);
+class _TranslationsStreamChatBadgeZh extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeZh implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidZh implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidZh._(this._root);
+class _TranslationsStreamChatRaidZh extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
 
 	/// 聊天突擊消息到另一個串流
-	@override String to({ required Object name}) => 'RAIDING ${name}';
+	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// 來自其他串流的聊天突襲訊息
-	@override String from({ required Object name}) => 'RAID FROM ${name}';
+	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// 自動騎乘倒數計時器
-	@override String countdown({ required Object time}) => '突襲 ${time}';
+	@override String countdown({required Object time}) => '突襲 ${time}';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorZh implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorZh._(this._root);
+class _TranslationsProfileEditErrorZh extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorZh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsZh {
 			case 'stream.status.live': return '直播';
 			case 'stream.status.ended': return '結束';
 			case 'stream.status.planned': return '計劃';
-			case 'stream.started': return ({ required Object timestamp}) => '開始 ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => '開始 ${timestamp}';
 			case 'stream.chat.disabled': return '關閉聊天';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => '超時過期： ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => '超時過期： ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' 超時 '),
 				user,
 				const TextSpan(text: ' for '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return '串流結束';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' 打閃了 '),
 				amount,
 				const TextSpan(text: ' 聰'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return '寫訊息';
 			case 'stream.chat.write.no_signer': return '無法使用 npub 登入撰寫訊息';
 			case 'stream.chat.write.login': return '請登入以傳送訊息';
 			case 'stream.chat.badge.awarded_to': return '頒發給';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => '突襲 ${time}';
-			case 'goal.title': return ({ required Object amount}) => '目標：${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => '剩餘： ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => '突襲 ${time}';
+			case 'goal.title': return ({required Object amount}) => '目標：${amount}';
+			case 'goal.remaining': return ({required Object amount}) => '剩餘： ${amount}';
 			case 'goal.complete': return '完成';
 			case 'button.login': return '登錄';
 			case 'button.logout': return '登出';
@@ -380,18 +381,18 @@ extension on TranslationsZh {
 			case 'button.unmute': return '解除静音';
 			case 'button.share': return '分享';
 			case 'button.save': return '保存';
-			case 'embed.article_by': return ({ required Object name}) => '文章來源： ${name}';
-			case 'embed.note_by': return ({ required Object name}) => '${name} 的筆記';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'Live stream by ${name}';
+			case 'embed.article_by': return ({required Object name}) => '文章來源： ${name}';
+			case 'embed.note_by': return ({required Object name}) => '${name} 的筆記';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Live stream by ${name}';
 			case 'stream_list.following': return '已關注';
 			case 'stream_list.live': return '直播';
 			case 'stream_list.planned': return '已計畫';
 			case 'stream_list.ended': return '已結束';
-			case 'zap.title': return ({ required Object name}) => '打閃${name}';
+			case 'zap.title': return ({required Object name}) => '打閃${name}';
 			case 'zap.custom_amount': return '自訂金額';
 			case 'zap.confirm': return '確認';
 			case 'zap.comment': return '評論';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => '打閃 ${amount} 聰';
+			case 'zap.button_zap_ready': return ({required Object amount}) => '打閃 ${amount} 聰';
 			case 'zap.button_zap': return '打閃';
 			case 'zap.button_open_wallet': return '在錢包中開啟';
 			case 'zap.copy': return '複製到剪貼簿';

@@ -44,7 +44,7 @@ class MuteButton extends StatelessWidget {
             color: isMuted ? LAYER_2 : WARNING,
             borderRadius: DEFAULT_BR,
           ),
-          onTap: () async {
+          onTap: (_) async {
             if (onTap != null) {
               onTap!();
             }

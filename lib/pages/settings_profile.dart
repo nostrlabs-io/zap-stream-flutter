@@ -87,7 +87,7 @@ class SettingsProfilePage extends StatelessWidget {
                 BasicButton.text(
                   t.button.save,
                   disabled: v,
-                  onTap: () async {
+                  onTap: (context) async {
                     _loading.value = true;
                     try {
                       final newMeta = Metadata(

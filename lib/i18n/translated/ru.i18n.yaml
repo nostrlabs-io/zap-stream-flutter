@@ -1,101 +1,97 @@
 upload_avatar: Загрузить аватар
-"@upload_avatar":
-  description: Текст, побуждающий пользователя нажать кнопку с изображением
-    аватара, чтобы начать загрузку
+"@upload_avatar": 
+  description: Текст, побуждающий пользователя нажать кнопку с изображением аватара, чтобы начать загрузку
 most_zapped_streamers: Самые прыткие стримеры
-"@most_zapped_streamers":
+"@most_zapped_streamers": 
   description: Направляясь по перечисленным верхним стримерам с помощью запс
 no_user_found: Пользователь не найден
-"@no_user_found":
+"@no_user_found": 
   description: Пользователь не найден при поиске
 anon: Аноним
-viewers:
+viewers: 
   one: 1 зритель
   other: $n зрителей
-"@viewers":
+"@viewers": 
   description: Количество зрителей потока
-  placeholders:
-    n:
+  placeholders: 
+    n: 
       type: int
-"@anon":
+"@anon": 
   description: Анонимный пользователь
-stream:
-  status:
+stream: 
+  status: 
     live: LIVE
     ended: КОНЕЦ
     planned: ПЛАНИРУЕМЫЙ
   started: Начало $timestamp
-  chat:
+  chat: 
     disabled: ЧАТ ОТКЛЮЧЕН
     disabled_timeout: "Таймаут истекает: $time"
     timeout(rich): $mod тайм-аут $user для $time
-    "@timeout":
+    "@timeout": 
       description: Сообщение в чате, показывающее события по тайм-ауту
     ended: ТРАНСЛЯЦИЯ ОКОНЧЕНА
-    "@ended":
+    "@ended": 
       description: Поток закончился в нижней части чата
     zap(rich): $user запнул $amount сат
-    "@zap":
+    "@zap": 
       description: Сообщение в чате, отображающее потоковые зазоры
-    write:
+    write: 
       label: Написать сообщение
-      "@label":
+      "@label": 
         description: Надпись на поле ввода сообщения чата
       no_signer: Невозможно писать сообщения с логином npub
-      "@no_signer":
-        description: Сообщение о входе в чат, отображаемое при входе пользователя только
-          с pubkey
+      "@no_signer": 
+        description: Сообщение о входе в чат, отображаемое при входе пользователя только с pubkey
       login: Пожалуйста, войдите в систему, чтобы отправлять сообщения
-      "@login":
-        description: Сообщение о входе в чат, отображаемое при выходе пользователя из
-          системы
-    badge:
+      "@login": 
+        description: Сообщение о входе в чат, отображаемое при выходе пользователя из системы
+    badge: 
       awarded_to: "Награждается:"
-      "@awarded_to":
+      "@awarded_to": 
         description: Заголовок над списком пользователей, награжденных значком
-    raid:
+    raid: 
       to: RAIDING $name
-      "@to":
+      "@to": 
         description: Сообщение о рейде в чате в другой поток
       from: RAID FROM $name
-      "@from":
+      "@from": 
         description: Сообщение о рейде в чате из другого потока
       countdown: Рейды в $time
-      "@countdown":
+      "@countdown": 
         description: Таймер обратного отсчета для автопоездки
-goal:
+goal: 
   title: "Цель: $amount"
   remaining: "Осталось: $amount"
   complete: КОМПЛЕКТ
-button:
+button: 
   login: Логин
   logout: Выйти
   edit_profile: Редактировать профиль
-  "@login":
+  "@login": 
     description: Текст кнопки для входа в систему
   follow: Подписаться
-  "@follow":
+  "@follow": 
     description: Текст кнопки для кнопки следования
   unfollow: Отписаться
-  "@unfollow":
+  "@unfollow": 
     description: Текст кнопки для кнопки "Развернуть
   mute: Заглушить
   unmute: Включить уведомления
   share: Поделиться
   save: Сохранить
-embed:
+embed: 
   article_by: Статья $name
   note_by: Заметка на сайте $name
   live_stream_by: "Прямая трансляция: $name"
-stream_list:
+stream_list: 
   following: Подписки
   live: Прямой эфир
   planned: Запланировано
   ended: Завершено
-"@stream_list":
-  description: Заголовки в списках потоков по типу потока -
-    живой/законченный/запланированный и т. д.
-zap:
+"@stream_list": 
+  description: Заголовки в списках потоков по типу потока - живой/законченный/запланированный и т. д.
+zap: 
   title: Запнуть ($name
   custom_amount: Пользовательская сумма
   confirm: Подтвердить
@@ -104,23 +100,23 @@ zap:
   button_zap: Зап
   button_open_wallet: Открыть в кошельке
   copy: Скопировано в буфер обмена
-  error:
+  error: 
     invalid_custom_amount: Недопустимая пользовательская сумма
     no_wallet: Кошелек молнии не установлен
     no_lud16: Адрес молнии не найден
-profile:
+profile: 
   past_streams: Предыдущие трансляции
-  edit:
+  edit: 
     display_name: Отображаемое имя
     about: О себе
     nip05: Nostr адрес
     lud16: Lightning Адрес
-    error:
+    error: 
       logged_out: Невозможно редактировать профиль при выходе из системы
-login:
+login: 
   username: Имя пользователя
   amber: Войти с помощью Amber
   key: Вход в систему с помощью ключа
   create: Создать аккаунт
-  error:
+  error: 
     invalid_key: Неверный ключ

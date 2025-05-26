@@ -58,46 +58,47 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		other: '${n} viewers',
 	);
 
-	late final TranslationsStreamEn stream = TranslationsStreamEn._(_root);
-	late final TranslationsGoalEn goal = TranslationsGoalEn._(_root);
-	late final TranslationsButtonEn button = TranslationsButtonEn._(_root);
-	late final TranslationsEmbedEn embed = TranslationsEmbedEn._(_root);
+	late final TranslationsStreamEn stream = TranslationsStreamEn.internal(_root);
+	late final TranslationsGoalEn goal = TranslationsGoalEn.internal(_root);
+	late final TranslationsButtonEn button = TranslationsButtonEn.internal(_root);
+	late final TranslationsEmbedEn embed = TranslationsEmbedEn.internal(_root);
 
 	/// Headings on stream lists by stream type live/ended/planned etc.
-	late final TranslationsStreamListEn stream_list = TranslationsStreamListEn._(_root);
+	late final TranslationsStreamListEn stream_list = TranslationsStreamListEn.internal(_root);
 
-	late final TranslationsZapEn zap = TranslationsZapEn._(_root);
-	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
-	late final TranslationsLoginEn login = TranslationsLoginEn._(_root);
+	late final TranslationsZapEn zap = TranslationsZapEn.internal(_root);
+	late final TranslationsProfileEn profile = TranslationsProfileEn.internal(_root);
+	late final TranslationsWalletEn wallet = TranslationsWalletEn.internal(_root);
+	late final TranslationsLoginEn login = TranslationsLoginEn.internal(_root);
 }
 
 // Path: stream
 class TranslationsStreamEn {
-	TranslationsStreamEn._(this._root);
+	TranslationsStreamEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsStreamStatusEn status = TranslationsStreamStatusEn._(_root);
-	String started({ required Object timestamp}) => 'Started ${timestamp}';
-	late final TranslationsStreamChatEn chat = TranslationsStreamChatEn._(_root);
+	late final TranslationsStreamStatusEn status = TranslationsStreamStatusEn.internal(_root);
+	String started({required Object timestamp}) => 'Started ${timestamp}';
+	late final TranslationsStreamChatEn chat = TranslationsStreamChatEn.internal(_root);
 }
 
 // Path: goal
 class TranslationsGoalEn {
-	TranslationsGoalEn._(this._root);
+	TranslationsGoalEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String title({ required Object amount}) => 'Goal: ${amount}';
-	String remaining({ required Object amount}) => 'Remaining: ${amount}';
+	String title({required Object amount}) => 'Goal: ${amount}';
+	String remaining({required Object amount}) => 'Remaining: ${amount}';
 	String get complete => 'COMPLETE';
 }
 
 // Path: button
 class TranslationsButtonEn {
-	TranslationsButtonEn._(this._root);
+	TranslationsButtonEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -119,23 +120,24 @@ class TranslationsButtonEn {
 	String get unmute => 'Unmute';
 	String get share => 'Share';
 	String get save => 'Save';
+	String get connect => 'Connect';
 }
 
 // Path: embed
 class TranslationsEmbedEn {
-	TranslationsEmbedEn._(this._root);
+	TranslationsEmbedEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String article_by({ required Object name}) => 'Article by ${name}';
-	String note_by({ required Object name}) => 'Note by ${name}';
-	String live_stream_by({ required Object name}) => 'Live stream by ${name}';
+	String article_by({required Object name}) => 'Article by ${name}';
+	String note_by({required Object name}) => 'Note by ${name}';
+	String live_stream_by({required Object name}) => 'Live stream by ${name}';
 }
 
 // Path: stream_list
 class TranslationsStreamListEn {
-	TranslationsStreamListEn._(this._root);
+	TranslationsStreamListEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -148,36 +150,48 @@ class TranslationsStreamListEn {
 
 // Path: zap
 class TranslationsZapEn {
-	TranslationsZapEn._(this._root);
+	TranslationsZapEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String title({ required Object name}) => 'Zap ${name}';
+	String title({required Object name}) => 'Zap ${name}';
 	String get custom_amount => 'Custom Amount';
 	String get confirm => 'Confirm';
 	String get comment => 'Comment';
-	String button_zap_ready({ required Object amount}) => 'Zap ${amount} sats';
+	String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	String get button_zap => 'Zap';
 	String get button_open_wallet => 'Open in Wallet';
+	String get button_connect_wallet => 'Connect Wallet';
 	String get copy => 'Copied to clipboard';
-	late final TranslationsZapErrorEn error = TranslationsZapErrorEn._(_root);
+	late final TranslationsZapErrorEn error = TranslationsZapErrorEn.internal(_root);
 }
 
 // Path: profile
 class TranslationsProfileEn {
-	TranslationsProfileEn._(this._root);
+	TranslationsProfileEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get past_streams => 'Past Streams';
-	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn._(_root);
+	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn.internal(_root);
+}
+
+// Path: wallet
+class TranslationsWalletEn {
+	TranslationsWalletEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get connect_wallet => 'Connect Wallet (NWC)';
+	late final TranslationsWalletErrorEn error = TranslationsWalletErrorEn.internal(_root);
 }
 
 // Path: login
 class TranslationsLoginEn {
-	TranslationsLoginEn._(this._root);
+	TranslationsLoginEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -186,12 +200,12 @@ class TranslationsLoginEn {
 	String get amber => 'Login with Amber';
 	String get key => 'Login with Key';
 	String get create => 'Create Account';
-	late final TranslationsLoginErrorEn error = TranslationsLoginErrorEn._(_root);
+	late final TranslationsLoginErrorEn error = TranslationsLoginErrorEn.internal(_root);
 }
 
 // Path: stream.status
 class TranslationsStreamStatusEn {
-	TranslationsStreamStatusEn._(this._root);
+	TranslationsStreamStatusEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -203,42 +217,42 @@ class TranslationsStreamStatusEn {
 
 // Path: stream.chat
 class TranslationsStreamChatEn {
-	TranslationsStreamChatEn._(this._root);
+	TranslationsStreamChatEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get disabled => 'CHAT DISABLED';
-	String disabled_timeout({ required Object time}) => 'Timeout expires: ${time}';
+	String disabled_timeout({required Object time}) => 'Timeout expires: ${time}';
 
 	/// Chat message showing timeout events
-	TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' timed out '),
 		user,
 		const TextSpan(text: ' for '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// Stream ended footer at bottom of chat
 	String get ended => 'STREAM ENDED';
 
 	/// Chat message showing stream zaps
-	TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' zapped '),
 		amount,
 		const TextSpan(text: ' sats'),
-	], style: style, recognizer: recognizer);
+	]);
 
-	late final TranslationsStreamChatWriteEn write = TranslationsStreamChatWriteEn._(_root);
-	late final TranslationsStreamChatBadgeEn badge = TranslationsStreamChatBadgeEn._(_root);
-	late final TranslationsStreamChatRaidEn raid = TranslationsStreamChatRaidEn._(_root);
+	late final TranslationsStreamChatWriteEn write = TranslationsStreamChatWriteEn.internal(_root);
+	late final TranslationsStreamChatBadgeEn badge = TranslationsStreamChatBadgeEn.internal(_root);
+	late final TranslationsStreamChatRaidEn raid = TranslationsStreamChatRaidEn.internal(_root);
 }
 
 // Path: zap.error
 class TranslationsZapErrorEn {
-	TranslationsZapErrorEn._(this._root);
+	TranslationsZapErrorEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -250,7 +264,7 @@ class TranslationsZapErrorEn {
 
 // Path: profile.edit
 class TranslationsProfileEditEn {
-	TranslationsProfileEditEn._(this._root);
+	TranslationsProfileEditEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -259,12 +273,22 @@ class TranslationsProfileEditEn {
 	String get about => 'About';
 	String get nip05 => 'Nostr Address';
 	String get lud16 => 'Lightning Address';
-	late final TranslationsProfileEditErrorEn error = TranslationsProfileEditErrorEn._(_root);
+	late final TranslationsProfileEditErrorEn error = TranslationsProfileEditErrorEn.internal(_root);
+}
+
+// Path: wallet.error
+class TranslationsWalletErrorEn {
+	TranslationsWalletErrorEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get logged_out => 'Cant connect wallet when logged out';
 }
 
 // Path: login.error
 class TranslationsLoginErrorEn {
-	TranslationsLoginErrorEn._(this._root);
+	TranslationsLoginErrorEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -274,7 +298,7 @@ class TranslationsLoginErrorEn {
 
 // Path: stream.chat.write
 class TranslationsStreamChatWriteEn {
-	TranslationsStreamChatWriteEn._(this._root);
+	TranslationsStreamChatWriteEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -292,7 +316,7 @@ class TranslationsStreamChatWriteEn {
 
 // Path: stream.chat.badge
 class TranslationsStreamChatBadgeEn {
-	TranslationsStreamChatBadgeEn._(this._root);
+	TranslationsStreamChatBadgeEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -304,25 +328,25 @@ class TranslationsStreamChatBadgeEn {
 
 // Path: stream.chat.raid
 class TranslationsStreamChatRaidEn {
-	TranslationsStreamChatRaidEn._(this._root);
+	TranslationsStreamChatRaidEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
 	/// Chat raid message to another stream
-	String to({ required Object name}) => 'RAIDING ${name}';
+	String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Chat raid message from another stream
-	String from({ required Object name}) => 'RAID FROM ${name}';
+	String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// Countdown timer for auto-raiding
-	String countdown({ required Object time}) => 'Raiding in ${time}';
+	String countdown({required Object time}) => 'Raiding in ${time}';
 }
 
 // Path: profile.edit.error
 class TranslationsProfileEditErrorEn {
-	TranslationsProfileEditErrorEn._(this._root);
+	TranslationsProfileEditErrorEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -346,32 +370,32 @@ extension on Translations {
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'PLANNED';
-			case 'stream.started': return ({ required Object timestamp}) => 'Started ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'Started ${timestamp}';
 			case 'stream.chat.disabled': return 'CHAT DISABLED';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'Timeout expires: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timeout expires: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' timed out '),
 				user,
 				const TextSpan(text: ' for '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return 'STREAM ENDED';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' zapped '),
 				amount,
 				const TextSpan(text: ' sats'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'Write message';
 			case 'stream.chat.write.no_signer': return 'Can\'t write messages with npub login';
 			case 'stream.chat.write.login': return 'Please login to send messages';
 			case 'stream.chat.badge.awarded_to': return 'Awarded to:';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => 'Raiding in ${time}';
-			case 'goal.title': return ({ required Object amount}) => 'Goal: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => 'Remaining: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding in ${time}';
+			case 'goal.title': return ({required Object amount}) => 'Goal: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => 'Remaining: ${amount}';
 			case 'goal.complete': return 'COMPLETE';
 			case 'button.login': return 'Login';
 			case 'button.logout': return 'Logout';
@@ -382,20 +406,22 @@ extension on Translations {
 			case 'button.unmute': return 'Unmute';
 			case 'button.share': return 'Share';
 			case 'button.save': return 'Save';
-			case 'embed.article_by': return ({ required Object name}) => 'Article by ${name}';
-			case 'embed.note_by': return ({ required Object name}) => 'Note by ${name}';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'Live stream by ${name}';
+			case 'button.connect': return 'Connect';
+			case 'embed.article_by': return ({required Object name}) => 'Article by ${name}';
+			case 'embed.note_by': return ({required Object name}) => 'Note by ${name}';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Live stream by ${name}';
 			case 'stream_list.following': return 'Following';
 			case 'stream_list.live': return 'Live';
 			case 'stream_list.planned': return 'Planned';
 			case 'stream_list.ended': return 'Ended';
-			case 'zap.title': return ({ required Object name}) => 'Zap ${name}';
+			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
 			case 'zap.custom_amount': return 'Custom Amount';
 			case 'zap.confirm': return 'Confirm';
 			case 'zap.comment': return 'Comment';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'Zap ${amount} sats';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Open in Wallet';
+			case 'zap.button_connect_wallet': return 'Connect Wallet';
 			case 'zap.copy': return 'Copied to clipboard';
 			case 'zap.error.invalid_custom_amount': return 'Invalid custom amount';
 			case 'zap.error.no_wallet': return 'No lightning wallet installed';
@@ -406,6 +432,8 @@ extension on Translations {
 			case 'profile.edit.nip05': return 'Nostr Address';
 			case 'profile.edit.lud16': return 'Lightning Address';
 			case 'profile.edit.error.logged_out': return 'Cant edit profile when logged out';
+			case 'wallet.connect_wallet': return 'Connect Wallet (NWC)';
+			case 'wallet.error.logged_out': return 'Cant connect wallet when logged out';
 			case 'login.username': return 'Username';
 			case 'login.amber': return 'Login with Amber';
 			case 'login.key': return 'Login with Key';

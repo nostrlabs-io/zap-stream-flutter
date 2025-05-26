@@ -29,7 +29,7 @@ class _LoginInputPage extends State<LoginInputPage> {
         ),
         BasicButton.text(
           t.button.login,
-          onTap: () async {
+          onTap: (context) async {
             try {
               if (_controller.text.startsWith("bunker://")) {
                 // not supported yet in ndk

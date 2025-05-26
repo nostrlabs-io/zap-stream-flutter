@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsHu implements Translations {
+class TranslationsHu extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsHu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsHu implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsHu implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsHu _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsHu implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamHu implements TranslationsStreamEn {
-	_TranslationsStreamHu._(this._root);
+class _TranslationsStreamHu extends TranslationsStreamEn {
+	_TranslationsStreamHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusHu status = _TranslationsStreamStatusHu._(_root);
-	@override String started({ required Object timestamp}) => 'Elindult ${timestamp}';
+	@override String started({required Object timestamp}) => 'Elindult ${timestamp}';
 	@override late final _TranslationsStreamChatHu chat = _TranslationsStreamChatHu._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalHu implements TranslationsGoalEn {
-	_TranslationsGoalHu._(this._root);
+class _TranslationsGoalHu extends TranslationsGoalEn {
+	_TranslationsGoalHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => 'Cél: ${amount}';
-	@override String remaining({ required Object amount}) => 'Maradék: ${amount}';
+	@override String title({required Object amount}) => 'Cél: ${amount}';
+	@override String remaining({required Object amount}) => 'Maradék: ${amount}';
 	@override String get complete => 'TELJES';
 }
 
 // Path: button
-class _TranslationsButtonHu implements TranslationsButtonEn {
-	_TranslationsButtonHu._(this._root);
+class _TranslationsButtonHu extends TranslationsButtonEn {
+	_TranslationsButtonHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonHu implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedHu implements TranslationsEmbedEn {
-	_TranslationsEmbedHu._(this._root);
+class _TranslationsEmbedHu extends TranslationsEmbedEn {
+	_TranslationsEmbedHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => 'A ${name} cikke.';
-	@override String note_by({ required Object name}) => '${name} bejegyzése';
-	@override String live_stream_by({ required Object name}) => 'Élő közvetítés a ${name} oldalon';
+	@override String article_by({required Object name}) => 'A ${name} cikke.';
+	@override String note_by({required Object name}) => '${name} bejegyzése';
+	@override String live_stream_by({required Object name}) => 'Élő közvetítés a ${name} oldalon';
 }
 
 // Path: stream_list
-class _TranslationsStreamListHu implements TranslationsStreamListEn {
-	_TranslationsStreamListHu._(this._root);
+class _TranslationsStreamListHu extends TranslationsStreamListEn {
+	_TranslationsStreamListHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListHu implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapHu implements TranslationsZapEn {
-	_TranslationsZapHu._(this._root);
+class _TranslationsZapHu extends TranslationsZapEn {
+	_TranslationsZapHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => 'Zap ${name}';
+	@override String title({required Object name}) => 'Zap ${name}';
 	@override String get custom_amount => 'Egyéni összeg';
 	@override String get confirm => 'Megerősítés';
 	@override String get comment => 'Hozzászólás';
-	@override String button_zap_ready({ required Object amount}) => 'Zap ${amount} satoshi';
+	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} satoshi';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Megnyitás a pénztárcában';
 	@override String get copy => 'Vágólapra másolva';
@@ -163,8 +164,8 @@ class _TranslationsZapHu implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileHu implements TranslationsProfileEn {
-	_TranslationsProfileHu._(this._root);
+class _TranslationsProfileHu extends TranslationsProfileEn {
+	_TranslationsProfileHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileHu implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginHu implements TranslationsLoginEn {
-	_TranslationsLoginHu._(this._root);
+class _TranslationsLoginHu extends TranslationsLoginEn {
+	_TranslationsLoginHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginHu implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusHu implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusHu._(this._root);
+class _TranslationsStreamStatusHu extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -200,35 +201,35 @@ class _TranslationsStreamStatusHu implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatHu implements TranslationsStreamChatEn {
-	_TranslationsStreamChatHu._(this._root);
+class _TranslationsStreamChatHu extends TranslationsStreamChatEn {
+	_TranslationsStreamChatHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => 'CHAT KIKAPCSOLVA';
-	@override String disabled_timeout({ required Object time}) => 'Az időkorlát lejár: ${time}';
+	@override String disabled_timeout({required Object time}) => 'Az időkorlát lejár: ${time}';
 
 	/// Chat üzenet az időkorlátos események megjelenítésével
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' időzített '),
 		user,
 		const TextSpan(text: ' a '),
 		time,
 		const TextSpan(text: ' számára'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// A stream véget ért lábléc a chat alján
 	@override String get ended => 'STREAM MEGSZÜNTETETT';
 
 	/// Csevegőüzenet, amely stream zapokat mutat
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' zap-elt '),
 		amount,
 		const TextSpan(text: ' sats'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteHu write = _TranslationsStreamChatWriteHu._(_root);
 	@override late final _TranslationsStreamChatBadgeHu badge = _TranslationsStreamChatBadgeHu._(_root);
@@ -236,8 +237,8 @@ class _TranslationsStreamChatHu implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorHu implements TranslationsZapErrorEn {
-	_TranslationsZapErrorHu._(this._root);
+class _TranslationsZapErrorHu extends TranslationsZapErrorEn {
+	_TranslationsZapErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -248,8 +249,8 @@ class _TranslationsZapErrorHu implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditHu implements TranslationsProfileEditEn {
-	_TranslationsProfileEditHu._(this._root);
+class _TranslationsProfileEditHu extends TranslationsProfileEditEn {
+	_TranslationsProfileEditHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -262,8 +263,8 @@ class _TranslationsProfileEditHu implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorHu implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorHu._(this._root);
+class _TranslationsLoginErrorHu extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -272,8 +273,8 @@ class _TranslationsLoginErrorHu implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteHu implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteHu._(this._root);
+class _TranslationsStreamChatWriteHu extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -290,8 +291,8 @@ class _TranslationsStreamChatWriteHu implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeHu implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeHu._(this._root);
+class _TranslationsStreamChatBadgeHu extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -302,26 +303,26 @@ class _TranslationsStreamChatBadgeHu implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidHu implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidHu._(this._root);
+class _TranslationsStreamChatRaidHu extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
 
 	/// Chat raid üzenet egy másik folyamba
-	@override String to({ required Object name}) => 'RAIDING ${name}';
+	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Chat raid üzenet egy másik folyamból
-	@override String from({ required Object name}) => 'RAID FROM ${name}';
+	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// Visszaszámláló időzítő az automatikus lovagláshoz
-	@override String countdown({ required Object time}) => 'Raiding a ${time} oldalon';
+	@override String countdown({required Object time}) => 'Raiding a ${time} oldalon';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorHu implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorHu._(this._root);
+class _TranslationsProfileEditErrorHu extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -345,33 +346,33 @@ extension on TranslationsHu {
 			case 'stream.status.live': return 'ÉLŐ';
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'TERVEZETT';
-			case 'stream.started': return ({ required Object timestamp}) => 'Elindult ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'Elindult ${timestamp}';
 			case 'stream.chat.disabled': return 'CHAT KIKAPCSOLVA';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'Az időkorlát lejár: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Az időkorlát lejár: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' időzített '),
 				user,
 				const TextSpan(text: ' a '),
 				time,
 				const TextSpan(text: ' számára'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return 'STREAM MEGSZÜNTETETT';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' zap-elt '),
 				amount,
 				const TextSpan(text: ' sats'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'Üzenet írása';
 			case 'stream.chat.write.no_signer': return 'Nem tud üzeneteket írni az npub bejelentkezéssel';
 			case 'stream.chat.write.login': return 'Kérjük, jelentkezzen be az üzenetek küldéséhez';
 			case 'stream.chat.badge.awarded_to': return 'Elnyerte:';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => 'Raiding a ${time} oldalon';
-			case 'goal.title': return ({ required Object amount}) => 'Cél: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => 'Maradék: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding a ${time} oldalon';
+			case 'goal.title': return ({required Object amount}) => 'Cél: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => 'Maradék: ${amount}';
 			case 'goal.complete': return 'TELJES';
 			case 'button.login': return 'Bejelentkezés';
 			case 'button.logout': return 'Kijelentkezés';
@@ -382,18 +383,18 @@ extension on TranslationsHu {
 			case 'button.unmute': return 'Némítás visszavonása';
 			case 'button.share': return 'Megosztás';
 			case 'button.save': return 'Mentés';
-			case 'embed.article_by': return ({ required Object name}) => 'A ${name} cikke.';
-			case 'embed.note_by': return ({ required Object name}) => '${name} bejegyzése';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'Élő közvetítés a ${name} oldalon';
+			case 'embed.article_by': return ({required Object name}) => 'A ${name} cikke.';
+			case 'embed.note_by': return ({required Object name}) => '${name} bejegyzése';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Élő közvetítés a ${name} oldalon';
 			case 'stream_list.following': return 'Követettek bejegyzései';
 			case 'stream_list.live': return 'Élő';
 			case 'stream_list.planned': return 'Tervezett';
 			case 'stream_list.ended': return 'Véget ért';
-			case 'zap.title': return ({ required Object name}) => 'Zap ${name}';
+			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
 			case 'zap.custom_amount': return 'Egyéni összeg';
 			case 'zap.confirm': return 'Megerősítés';
 			case 'zap.comment': return 'Hozzászólás';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'Zap ${amount} satoshi';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} satoshi';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Megnyitás a pénztárcában';
 			case 'zap.copy': return 'Vágólapra másolva';

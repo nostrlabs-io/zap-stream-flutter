@@ -80,6 +80,7 @@ button:
   unmute: Unmute
   share: Share
   save: Save
+  connect: Connect
 embed:
   article_by: Article by $name
   note_by: Note by $name
@@ -99,6 +100,7 @@ zap:
   button_zap_ready: Zap $amount sats
   button_zap: Zap
   button_open_wallet: Open in Wallet
+  button_connect_wallet: Connect Wallet
   copy: Copied to clipboard
   error:
     invalid_custom_amount: Invalid custom amount
@@ -113,6 +115,10 @@ profile:
     lud16: Lightning Address
     error:
       logged_out: Cant edit profile when logged out
+wallet:
+  connect_wallet: Connect Wallet (NWC nwc://)
+  error:
+      logged_out: Cant connect wallet when logged out
 login:
   username: "Username"
   amber: Login with Amber

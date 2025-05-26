@@ -1,101 +1,97 @@
 upload_avatar: Încărcați Avatar
-"@upload_avatar":
-  description: Text care solicită utilizatorului să atingă marcajul avatar pentru
-    a începe încărcarea
+"@upload_avatar": 
+  description: Text care solicită utilizatorului să atingă marcajul avatar pentru a începe încărcarea
 most_zapped_streamers: Cele mai multe Streamers Zapped
-"@most_zapped_streamers":
+"@most_zapped_streamers": 
   description: Cap peste streamers de top enumerate de zaps
 no_user_found: Niciun utilizator găsit
-"@no_user_found":
+"@no_user_found": 
   description: Nu s-a găsit niciun utilizator la căutare
 anon: Anon
-viewers:
+viewers: 
   one: 1 vizualizator
   other: $n telespectatori
-"@viewers":
+"@viewers": 
   description: Numărul de telespectatori ai fluxului
-  placeholders:
-    n:
+  placeholders: 
+    n: 
       type: int
-"@anon":
+"@anon": 
   description: Un utilizator anonim
-stream:
-  status:
+stream: 
+  status: 
     live: ÎN DIRECT
     ended: TERMINAT
     planned: PLANIFICATE
   started: A început $timestamp
-  chat:
+  chat: 
     disabled: CHAT DEZACTIVAT
     disabled_timeout: "Timpul expiră: $time"
     timeout(rich): $mod Timed out $user pentru $time
-    "@timeout":
+    "@timeout": 
       description: Mesaj de chat care afișează evenimentele de timeout
     ended: STREAM ÎNCHEIAT
-    "@ended":
+    "@ended": 
       description: Stream a încheiat footer-ul în partea de jos a chat-ului
     zap(rich): $user zapped $amount sats
-    "@zap":
+    "@zap": 
       description: Mesaj de chat care arată zapsuri de flux
-    write:
+    write: 
       label: Scrieți mesajul
-      "@label":
+      "@label": 
         description: Etichetă pe caseta de introducere a mesajului de chat
       no_signer: Nu se pot scrie mesaje cu autentificarea npub
-      "@no_signer":
-        description: Mesajul de intrare în chat afișat atunci când utilizatorul este
-          conectat doar cu pubkey
+      "@no_signer": 
+        description: Mesajul de intrare în chat afișat atunci când utilizatorul este conectat doar cu pubkey
       login: Vă rugăm să vă autentificați pentru a trimite mesaje
-      "@login":
-        description: Mesajul de intrare în chat afișat atunci când utilizatorul este
-          deconectat
-    badge:
+      "@login": 
+        description: Mesajul de intrare în chat afișat atunci când utilizatorul este deconectat
+    badge: 
       awarded_to: "Premiat pentru:"
-      "@awarded_to":
+      "@awarded_to": 
         description: Antet peste lista de utilizatori care au primit o insignă
-    raid:
+    raid: 
       to: RAIDING $name
-      "@to":
+      "@to": 
         description: Chat mesaj raid la un alt flux
       from: RAID DE LA $name
-      "@from":
+      "@from": 
         description: Chat raid mesaj din alt flux
       countdown: Raiduri în $time
-      "@countdown":
+      "@countdown": 
         description: Cronometru cu numărătoare inversă pentru auto-raid
-goal:
+goal: 
   title: "Obiectiv: $amount"
   remaining: "Rămase: $amount"
   complete: COMPLET
-button:
+button: 
   login: Autentificare
   logout: Ieșire
   edit_profile: Editare profil
-  "@login":
+  "@login": 
     description: Textul butonului pentru butonul de conectare
   follow: Urmați
-  "@follow":
+  "@follow": 
     description: Textul butonului pentru butonul de urmărire
   unfollow: Unfollow
-  "@unfollow":
+  "@unfollow": 
     description: Textul butonului pentru butonul unfollow
   mute: Mut
   unmute: Dezactivați
   share: Share
   save: Salvați
-embed:
+embed: 
   article_by: Articol de $name
   note_by: Notă de la $name
   live_stream_by: Transmisiune live prin $name
-stream_list:
+stream_list: 
   following: În urma
   live: În direct
   planned: Planificate
   ended: Încheiat
-"@stream_list":
-  description: Rubrici pe listele de fluxuri în funcție de tipul fluxului în
-    direct/terminat/planificat etc.
-zap:
+"@stream_list": 
+  description: Rubrici pe listele de fluxuri în funcție de tipul fluxului în direct/terminat/planificat etc.
+zap: 
   title: Zap $name
   custom_amount: Sumă personalizată
   confirm: Confirmați
@@ -104,23 +100,23 @@ zap:
   button_zap: Zap
   button_open_wallet: Deschide în portofel
   copy: Copiat în clipboard
-  error:
+  error: 
     invalid_custom_amount: Sumă personalizată invalidă
     no_wallet: Nu este instalat niciun portofel Lightning
     no_lud16: Nu a fost găsită nicio adresă de fulgere
-profile:
+profile: 
   past_streams: Fluxuri trecute
-  edit:
+  edit: 
     display_name: Nume afișat
     about: Despre
     nip05: Adresa Nostr
     lud16: Adresa fulgerului
-    error:
+    error: 
       logged_out: Nu pot edita profilul când sunt deconectat
-login:
+login: 
   username: Nume utilizator
   amber: Conectați-vă cu Amber
   key: Autentificare cu cheie
   create: Creare cont
-  error:
+  error: 
     invalid_key: Cheie invalidă

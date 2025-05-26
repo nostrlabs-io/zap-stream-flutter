@@ -1,100 +1,97 @@
 upload_avatar: Avatar uploaden
-"@upload_avatar":
-  description: Tekst die de gebruiker vraagt om op de avatar-plaatshouder te
-    klikken om te beginnen met uploaden
+"@upload_avatar": 
+  description: Tekst die de gebruiker vraagt om op de avatar-plaatshouder te klikken om te beginnen met uploaden
 most_zapped_streamers: Meeste Zapped Streamers
-"@most_zapped_streamers":
+"@most_zapped_streamers": 
   description: Koers over beursgenoteerde topstreamers door zaps
 no_user_found: Geen gebruiker gevonden
-"@no_user_found":
+"@no_user_found": 
   description: Geen gebruiker gevonden bij het zoeken
 anon: Anon
-viewers:
+viewers: 
   one: 1 kijker
   other: $n kijkers
-"@viewers":
+"@viewers": 
   description: Aantal kijkers van de stream
-  placeholders:
-    n:
+  placeholders: 
+    n: 
       type: int
-"@anon":
+"@anon": 
   description: Een anonieme gebruiker
-stream:
-  status:
+stream: 
+  status: 
     live: LIVE
     ended: GESLOTEN
     planned: GEPLAND
   started: Begonnen met $timestamp
-  chat:
+  chat: 
     disabled: CHAT UITGESCHAKELD
     disabled_timeout: "Time-out loopt af: $time"
     timeout(rich): $mod timed out $user voor $time
-    "@timeout":
+    "@timeout": 
       description: Chatbericht met time-outgebeurtenissen
     ended: STREAM BEËINDIGD
-    "@ended":
+    "@ended": 
       description: Voettekst einde stream onderaan chat
     zap(rich): $user zapped $amount sats
-    "@zap":
+    "@zap": 
       description: Chatbericht met stream zaps
-    write:
+    write: 
       label: Schrijf bericht
-      "@label":
+      "@label": 
         description: Label op het invoerveld voor chatberichten
       no_signer: Kan geen berichten schrijven met npub login
-      "@no_signer":
-        description: Chatinvoerbericht getoond wanneer de gebruiker alleen is ingelogd
-          met pubkey
+      "@no_signer": 
+        description: Chatinvoerbericht getoond wanneer de gebruiker alleen is ingelogd met pubkey
       login: Log in om berichten te verzenden
-      "@login":
-        description: Chatinvoerbericht dat wordt weergegeven wanneer de gebruiker is
-          uitgelogd
-    badge:
+      "@login": 
+        description: Chatinvoerbericht dat wordt weergegeven wanneer de gebruiker is uitgelogd
+    badge: 
       awarded_to: "Toegekend aan:"
-      "@awarded_to":
+      "@awarded_to": 
         description: Kop boven de lijst met gebruikers die een badge hebben gekregen
-    raid:
+    raid: 
       to: RAIDING $name
-      "@to":
+      "@to": 
         description: Chat raid bericht naar een andere stream
       from: RAID VAN $name
-      "@from":
+      "@from": 
         description: Chat invalbericht van een andere stream
       countdown: Overvallen in $time
-      "@countdown":
+      "@countdown": 
         description: Afteltimer voor automatisch rijden
-goal:
+goal: 
   title: "Doel: $amount"
   remaining: "Overblijvend: $amount"
   complete: COMPLETE
-button:
+button: 
   login: Inloggen
   logout: Uitloggen
   edit_profile: Bewerk Profiel
-  "@login":
+  "@login": 
     description: Knoptekst voor de aanmeldknop
   follow: Volgen
-  "@follow":
+  "@follow": 
     description: Knoptekst voor de volgknop
   unfollow: Ontvolgen
-  "@unfollow":
+  "@unfollow": 
     description: Knoptekst voor de knop Ontvolgen
   mute: Dempen
   unmute: Niet langer negeren
   share: Deel
   save: Opslaan
-embed:
+embed: 
   article_by: Artikel door $name
   note_by: Opmerking door $name
   live_stream_by: Live stream via $name
-stream_list:
+stream_list: 
   following: Volgt
   live: Live
   planned: Gepland
   ended: Beëindigd
-"@stream_list":
+"@stream_list": 
   description: Rubrieken op streamlijsten per streamtype live/beëindigd/gepland etc.
-zap:
+zap: 
   title: Zap $name
   custom_amount: Aangepast bedrag
   confirm: Bevestig
@@ -103,23 +100,23 @@ zap:
   button_zap: Zap
   button_open_wallet: Openen in portefeuille
   copy: Gekopieerd naar klembord
-  error:
+  error: 
     invalid_custom_amount: Ongeldig aangepast bedrag
     no_wallet: Geen bliksemportemonnee geïnstalleerd
     no_lud16: Geen bliksemadres gevonden
-profile:
+profile: 
   past_streams: Afgelopen Streams
-  edit:
+  edit: 
     display_name: Naam weergeven
     about: Over ons
     nip05: Nostr Adres
     lud16: Lightning adres
-    error:
+    error: 
       logged_out: Kan profiel niet bewerken als ik ben uitgelogd
-login:
+login: 
   username: Gebruikersnaam
   amber: Inloggen met Amber
   key: Inloggen met sleutel
   create: Account aanmaken
-  error:
+  error: 
     invalid_key: Ongeldige sleutel

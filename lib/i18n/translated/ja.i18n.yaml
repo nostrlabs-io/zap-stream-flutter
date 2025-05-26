@@ -1,97 +1,97 @@
 upload_avatar: アバターのアップロード
-"@upload_avatar":
+"@upload_avatar": 
   description: アバターのプレースホルダーを押してアップロードを開始するよう促すテキスト
 most_zapped_streamers: 最もザッピングされたストリーマー
-"@most_zapped_streamers":
+"@most_zapped_streamers": 
   description: ザップによるリストの上のストリーマーに向かう
 no_user_found: ユーザーが見つかりません
-"@no_user_found":
+"@no_user_found": 
   description: 検索してもユーザーが見つからない
 anon: 匿名
-viewers:
+viewers: 
   one: 1 視聴者
   other: $n 人が視聴中
-"@viewers":
+"@viewers": 
   description: ストリームの視聴者数
-  placeholders:
-    n:
+  placeholders: 
+    n: 
       type: イント
-"@anon":
+"@anon": 
   description: 匿名ユーザー
-stream:
-  status:
+stream: 
+  status: 
     live: ライブ
     ended: 終了
     planned: 予定
   started: $timestamp を開始
-  chat:
+  chat: 
     disabled: チャット無効
     disabled_timeout: タイムアウト： $time
     timeout(rich): $mod タイムアウト $user for $time
-    "@timeout":
+    "@timeout": 
       description: タイムアウトイベントを表示するチャットメッセージ
     ended: 配信終了
-    "@ended":
+    "@ended": 
       description: チャットの下にストリーム終了のフッター
     zap(rich): $user が $amount sats をザップしました
-    "@zap":
+    "@zap": 
       description: ストリームのザッピングを表示するチャットメッセージ
-    write:
+    write: 
       label: メッセージを書く
-      "@label":
+      "@label": 
         description: チャットメッセージ入力ボックスのラベル
       no_signer: npubログインでメッセージが書けない
-      "@no_signer":
+      "@no_signer": 
         description: ユーザーがpubkeyのみでログインしている場合に表示されるチャット入力メッセージ
       login: メッセージを送信するにはログインしてください
-      "@login":
+      "@login": 
         description: ログアウト時に表示されるチャット入力メッセージ
-    badge:
+    badge: 
       awarded_to: 受賞者
-      "@awarded_to":
+      "@awarded_to": 
         description: バッジを授与されたユーザーのリスト上の見出し
-    raid:
+    raid: 
       to: RAIDING $name
-      "@to":
+      "@to": 
         description: 別のストリームへのチャット襲撃メッセージ
       from: RAID FROM $name
-      "@from":
+      "@from": 
         description: 他のストリームからのチャット襲撃メッセージ
       countdown: $timeにおける襲撃
-      "@countdown":
+      "@countdown": 
         description: 自動騎乗のカウントダウン・タイマー
-goal:
+goal: 
   title: 目標額： $amount
   remaining: 残り： $amount
   complete: 完了
-button:
+button: 
   login: ログイン
   logout: ログアウト
   edit_profile: プロフィールを編集
-  "@login":
+  "@login": 
     description: ログインボタンのテキスト
   follow: フォロー
-  "@follow":
+  "@follow": 
     description: フォローボタンのテキスト
   unfollow: フォロー解除
-  "@unfollow":
+  "@unfollow": 
     description: フォロー解除ボタンのテキスト
   mute: ミュート
   unmute: ミュート解除
   share: 共有
   save: 保存
-embed:
+embed: 
   article_by: 記事： $name
   note_by: $name の投稿
   live_stream_by: ライブ・ストリーム $name
-stream_list:
+stream_list: 
   following: フォロー中
   live: ライブ配信中
   planned: 予定あり
   ended: 終了しました
-"@stream_list":
+"@stream_list": 
   description: ライブ／終了／予定など、ストリーム・タイプ別のストリーム・リストの見出し。
-zap:
+zap: 
   title: $name をザップ
   custom_amount: カスタム金額
   confirm: 確認
@@ -100,23 +100,23 @@ zap:
   button_zap: ザップ
   button_open_wallet: ウォレットで開く
   copy: クリップボードにコピー
-  error:
+  error: 
     invalid_custom_amount: 無効なカスタム金額
     no_wallet: Lightningウォレット未装着
     no_lud16: 雷アドレスが見つかりません
-profile:
+profile: 
   past_streams: 過去の配信
-  edit:
+  edit: 
     display_name: 表示名
     about: 自己紹介
     nip05: Nostrアドレス
     lud16: ライトニングアドレス
-    error:
+    error: 
       logged_out: ログアウトするとプロフィールが編集できない
-login:
+login: 
   username: ユーザー名
   amber: 琥珀でログイン
   key: キーでログイン
   create: アカウントを作成する
-  error:
+  error: 
     invalid_key: 無効なキー

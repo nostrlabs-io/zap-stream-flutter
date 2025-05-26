@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsSr implements Translations {
+class TranslationsSr extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsSr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsSr implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsSr implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsSr _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsSr implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamSr implements TranslationsStreamEn {
-	_TranslationsStreamSr._(this._root);
+class _TranslationsStreamSr extends TranslationsStreamEn {
+	_TranslationsStreamSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusSr status = _TranslationsStreamStatusSr._(_root);
-	@override String started({ required Object timestamp}) => 'Started ${timestamp}';
+	@override String started({required Object timestamp}) => 'Started ${timestamp}';
 	@override late final _TranslationsStreamChatSr chat = _TranslationsStreamChatSr._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalSr implements TranslationsGoalEn {
-	_TranslationsGoalSr._(this._root);
+class _TranslationsGoalSr extends TranslationsGoalEn {
+	_TranslationsGoalSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => 'Goal: ${amount}';
-	@override String remaining({ required Object amount}) => 'Remaining: ${amount}';
+	@override String title({required Object amount}) => 'Goal: ${amount}';
+	@override String remaining({required Object amount}) => 'Remaining: ${amount}';
 	@override String get complete => 'COMPLETE';
 }
 
 // Path: button
-class _TranslationsButtonSr implements TranslationsButtonEn {
-	_TranslationsButtonSr._(this._root);
+class _TranslationsButtonSr extends TranslationsButtonEn {
+	_TranslationsButtonSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonSr implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedSr implements TranslationsEmbedEn {
-	_TranslationsEmbedSr._(this._root);
+class _TranslationsEmbedSr extends TranslationsEmbedEn {
+	_TranslationsEmbedSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => 'Article by ${name}';
-	@override String note_by({ required Object name}) => 'Note by ${name}';
-	@override String live_stream_by({ required Object name}) => 'Live stream by ${name}';
+	@override String article_by({required Object name}) => 'Article by ${name}';
+	@override String note_by({required Object name}) => 'Note by ${name}';
+	@override String live_stream_by({required Object name}) => 'Live stream by ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListSr implements TranslationsStreamListEn {
-	_TranslationsStreamListSr._(this._root);
+class _TranslationsStreamListSr extends TranslationsStreamListEn {
+	_TranslationsStreamListSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListSr implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapSr implements TranslationsZapEn {
-	_TranslationsZapSr._(this._root);
+class _TranslationsZapSr extends TranslationsZapEn {
+	_TranslationsZapSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => 'Zap ${name}';
+	@override String title({required Object name}) => 'Zap ${name}';
 	@override String get custom_amount => 'Custom Amount';
 	@override String get confirm => 'Confirm';
 	@override String get comment => 'Comment';
-	@override String button_zap_ready({ required Object amount}) => 'Zap ${amount} sats';
+	@override String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
 	@override String get button_zap => 'Zap';
 	@override String get button_open_wallet => 'Open in Wallet';
 	@override String get copy => 'Copied to clipboard';
@@ -163,8 +164,8 @@ class _TranslationsZapSr implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileSr implements TranslationsProfileEn {
-	_TranslationsProfileSr._(this._root);
+class _TranslationsProfileSr extends TranslationsProfileEn {
+	_TranslationsProfileSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileSr implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginSr implements TranslationsLoginEn {
-	_TranslationsLoginSr._(this._root);
+class _TranslationsLoginSr extends TranslationsLoginEn {
+	_TranslationsLoginSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginSr implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusSr implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusSr._(this._root);
+class _TranslationsStreamStatusSr extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusSr implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatSr implements TranslationsStreamChatEn {
-	_TranslationsStreamChatSr._(this._root);
+class _TranslationsStreamChatSr extends TranslationsStreamChatEn {
+	_TranslationsStreamChatSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => 'CHAT DISABLED';
-	@override String disabled_timeout({ required Object time}) => 'Timeout expires: ${time}';
+	@override String disabled_timeout({required Object time}) => 'Timeout expires: ${time}';
 
 	/// Chat message showing timeout events
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' timed out '),
 		user,
 		const TextSpan(text: ' for '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// Stream ended footer at bottom of chat
 	@override String get ended => 'STREAM ENDED';
 
 	/// Chat message showing stream zaps
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' zapped '),
 		amount,
 		const TextSpan(text: ' sats'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteSr write = _TranslationsStreamChatWriteSr._(_root);
 	@override late final _TranslationsStreamChatBadgeSr badge = _TranslationsStreamChatBadgeSr._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatSr implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorSr implements TranslationsZapErrorEn {
-	_TranslationsZapErrorSr._(this._root);
+class _TranslationsZapErrorSr extends TranslationsZapErrorEn {
+	_TranslationsZapErrorSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorSr implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditSr implements TranslationsProfileEditEn {
-	_TranslationsProfileEditSr._(this._root);
+class _TranslationsProfileEditSr extends TranslationsProfileEditEn {
+	_TranslationsProfileEditSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditSr implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorSr implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorSr._(this._root);
+class _TranslationsLoginErrorSr extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorSr implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteSr implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteSr._(this._root);
+class _TranslationsStreamChatWriteSr extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteSr implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeSr implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeSr._(this._root);
+class _TranslationsStreamChatBadgeSr extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeSr implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidSr implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidSr._(this._root);
+class _TranslationsStreamChatRaidSr extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
 
 	/// Chat raid message to another stream
-	@override String to({ required Object name}) => 'RAIDING ${name}';
+	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Chat raid message from another stream
-	@override String from({ required Object name}) => 'RAID FROM ${name}';
+	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// Countdown timer for auto-raiding
-	@override String countdown({ required Object time}) => 'Raiding in ${time}';
+	@override String countdown({required Object time}) => 'Raiding in ${time}';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorSr implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorSr._(this._root);
+class _TranslationsProfileEditErrorSr extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsSr {
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'PLANNED';
-			case 'stream.started': return ({ required Object timestamp}) => 'Started ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'Started ${timestamp}';
 			case 'stream.chat.disabled': return 'CHAT DISABLED';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'Timeout expires: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timeout expires: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' timed out '),
 				user,
 				const TextSpan(text: ' for '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return 'STREAM ENDED';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' zapped '),
 				amount,
 				const TextSpan(text: ' sats'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'Write message';
 			case 'stream.chat.write.no_signer': return 'Can\'t write messages with npub login';
 			case 'stream.chat.write.login': return 'Please login to send messages';
 			case 'stream.chat.badge.awarded_to': return 'Awarded to:';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => 'Raiding in ${time}';
-			case 'goal.title': return ({ required Object amount}) => 'Goal: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => 'Remaining: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding in ${time}';
+			case 'goal.title': return ({required Object amount}) => 'Goal: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => 'Remaining: ${amount}';
 			case 'goal.complete': return 'COMPLETE';
 			case 'button.login': return 'Login';
 			case 'button.logout': return 'Logout';
@@ -380,18 +381,18 @@ extension on TranslationsSr {
 			case 'button.unmute': return 'Unmute';
 			case 'button.share': return 'Share';
 			case 'button.save': return 'Save';
-			case 'embed.article_by': return ({ required Object name}) => 'Article by ${name}';
-			case 'embed.note_by': return ({ required Object name}) => 'Note by ${name}';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'Live stream by ${name}';
+			case 'embed.article_by': return ({required Object name}) => 'Article by ${name}';
+			case 'embed.note_by': return ({required Object name}) => 'Note by ${name}';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Live stream by ${name}';
 			case 'stream_list.following': return 'Following';
 			case 'stream_list.live': return 'Live';
 			case 'stream_list.planned': return 'Planned';
 			case 'stream_list.ended': return 'Ended';
-			case 'zap.title': return ({ required Object name}) => 'Zap ${name}';
+			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
 			case 'zap.custom_amount': return 'Custom Amount';
 			case 'zap.confirm': return 'Confirm';
 			case 'zap.comment': return 'Comment';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'Zap ${amount} sats';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
 			case 'zap.button_zap': return 'Zap';
 			case 'zap.button_open_wallet': return 'Open in Wallet';
 			case 'zap.copy': return 'Copied to clipboard';

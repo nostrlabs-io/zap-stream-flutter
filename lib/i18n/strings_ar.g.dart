@@ -4,14 +4,13 @@
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsAr implements Translations {
+class TranslationsAr extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +20,9 @@ class TranslationsAr implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +30,7 @@ class TranslationsAr implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsAr _root = this; // ignore: unused_field
 
@@ -70,32 +71,32 @@ class TranslationsAr implements Translations {
 }
 
 // Path: stream
-class _TranslationsStreamAr implements TranslationsStreamEn {
-	_TranslationsStreamAr._(this._root);
+class _TranslationsStreamAr extends TranslationsStreamEn {
+	_TranslationsStreamAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
 	@override late final _TranslationsStreamStatusAr status = _TranslationsStreamStatusAr._(_root);
-	@override String started({ required Object timestamp}) => 'بدأ ${timestamp}';
+	@override String started({required Object timestamp}) => 'بدأ ${timestamp}';
 	@override late final _TranslationsStreamChatAr chat = _TranslationsStreamChatAr._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalAr implements TranslationsGoalEn {
-	_TranslationsGoalAr._(this._root);
+class _TranslationsGoalAr extends TranslationsGoalEn {
+	_TranslationsGoalAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object amount}) => 'الهدف: ${amount}';
-	@override String remaining({ required Object amount}) => 'المتبقي: ${amount}';
+	@override String title({required Object amount}) => 'الهدف: ${amount}';
+	@override String remaining({required Object amount}) => 'المتبقي: ${amount}';
 	@override String get complete => 'مكتمل';
 }
 
 // Path: button
-class _TranslationsButtonAr implements TranslationsButtonEn {
-	_TranslationsButtonAr._(this._root);
+class _TranslationsButtonAr extends TranslationsButtonEn {
+	_TranslationsButtonAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -120,20 +121,20 @@ class _TranslationsButtonAr implements TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedAr implements TranslationsEmbedEn {
-	_TranslationsEmbedAr._(this._root);
+class _TranslationsEmbedAr extends TranslationsEmbedEn {
+	_TranslationsEmbedAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String article_by({ required Object name}) => 'مقال بقلم ${name}';
-	@override String note_by({ required Object name}) => 'ملاحظة من ${name}';
-	@override String live_stream_by({ required Object name}) => 'بث مباشر من ${name}';
+	@override String article_by({required Object name}) => 'مقال بقلم ${name}';
+	@override String note_by({required Object name}) => 'ملاحظة من ${name}';
+	@override String live_stream_by({required Object name}) => 'بث مباشر من ${name}';
 }
 
 // Path: stream_list
-class _TranslationsStreamListAr implements TranslationsStreamListEn {
-	_TranslationsStreamListAr._(this._root);
+class _TranslationsStreamListAr extends TranslationsStreamListEn {
+	_TranslationsStreamListAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -145,17 +146,17 @@ class _TranslationsStreamListAr implements TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapAr implements TranslationsZapEn {
-	_TranslationsZapAr._(this._root);
+class _TranslationsZapAr extends TranslationsZapEn {
+	_TranslationsZapAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String title({ required Object name}) => 'زاب ${name}';
+	@override String title({required Object name}) => 'زاب ${name}';
 	@override String get custom_amount => 'المبلغ المخصص';
 	@override String get confirm => 'تأكيد';
 	@override String get comment => 'تعليق';
-	@override String button_zap_ready({ required Object amount}) => 'أومض ${amount} ساتوشي';
+	@override String button_zap_ready({required Object amount}) => 'أومض ${amount} ساتوشي';
 	@override String get button_zap => 'زاب';
 	@override String get button_open_wallet => 'فتح في المحفظة';
 	@override String get copy => 'نسخ إلى الحافظة';
@@ -163,8 +164,8 @@ class _TranslationsZapAr implements TranslationsZapEn {
 }
 
 // Path: profile
-class _TranslationsProfileAr implements TranslationsProfileEn {
-	_TranslationsProfileAr._(this._root);
+class _TranslationsProfileAr extends TranslationsProfileEn {
+	_TranslationsProfileAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -174,8 +175,8 @@ class _TranslationsProfileAr implements TranslationsProfileEn {
 }
 
 // Path: login
-class _TranslationsLoginAr implements TranslationsLoginEn {
-	_TranslationsLoginAr._(this._root);
+class _TranslationsLoginAr extends TranslationsLoginEn {
+	_TranslationsLoginAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -188,8 +189,8 @@ class _TranslationsLoginAr implements TranslationsLoginEn {
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusAr implements TranslationsStreamStatusEn {
-	_TranslationsStreamStatusAr._(this._root);
+class _TranslationsStreamStatusAr extends TranslationsStreamStatusEn {
+	_TranslationsStreamStatusAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -200,34 +201,34 @@ class _TranslationsStreamStatusAr implements TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatAr implements TranslationsStreamChatEn {
-	_TranslationsStreamChatAr._(this._root);
+class _TranslationsStreamChatAr extends TranslationsStreamChatEn {
+	_TranslationsStreamChatAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
 	@override String get disabled => 'تم تعطيل الدردشة';
-	@override String disabled_timeout({ required Object time}) => 'تنتهي المهلة: ${time}';
+	@override String disabled_timeout({required Object time}) => 'تنتهي المهلة: ${time}';
 
 	/// رسالة دردشة تظهر أحداث المهلة
-	@override TextSpan timeout({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' انتهى الوقت '),
 		user,
 		const TextSpan(text: ' لـ '),
 		time,
-	], style: style, recognizer: recognizer);
+	]);
 
 	/// تيار انتهى التذييل في أسفل الدردشة
 	@override String get ended => 'انتهى البث';
 
 	/// رسالة الدردشة التي تُظهر البث المباشر
-	@override TextSpan zap({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' انطلق '),
 		amount,
 		const TextSpan(text: ' ساتس'),
-	], style: style, recognizer: recognizer);
+	]);
 
 	@override late final _TranslationsStreamChatWriteAr write = _TranslationsStreamChatWriteAr._(_root);
 	@override late final _TranslationsStreamChatBadgeAr badge = _TranslationsStreamChatBadgeAr._(_root);
@@ -235,8 +236,8 @@ class _TranslationsStreamChatAr implements TranslationsStreamChatEn {
 }
 
 // Path: zap.error
-class _TranslationsZapErrorAr implements TranslationsZapErrorEn {
-	_TranslationsZapErrorAr._(this._root);
+class _TranslationsZapErrorAr extends TranslationsZapErrorEn {
+	_TranslationsZapErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -247,8 +248,8 @@ class _TranslationsZapErrorAr implements TranslationsZapErrorEn {
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditAr implements TranslationsProfileEditEn {
-	_TranslationsProfileEditAr._(this._root);
+class _TranslationsProfileEditAr extends TranslationsProfileEditEn {
+	_TranslationsProfileEditAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -261,8 +262,8 @@ class _TranslationsProfileEditAr implements TranslationsProfileEditEn {
 }
 
 // Path: login.error
-class _TranslationsLoginErrorAr implements TranslationsLoginErrorEn {
-	_TranslationsLoginErrorAr._(this._root);
+class _TranslationsLoginErrorAr extends TranslationsLoginErrorEn {
+	_TranslationsLoginErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -271,8 +272,8 @@ class _TranslationsLoginErrorAr implements TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteAr implements TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteAr._(this._root);
+class _TranslationsStreamChatWriteAr extends TranslationsStreamChatWriteEn {
+	_TranslationsStreamChatWriteAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -289,8 +290,8 @@ class _TranslationsStreamChatWriteAr implements TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeAr implements TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeAr._(this._root);
+class _TranslationsStreamChatBadgeAr extends TranslationsStreamChatBadgeEn {
+	_TranslationsStreamChatBadgeAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -301,26 +302,26 @@ class _TranslationsStreamChatBadgeAr implements TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidAr implements TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidAr._(this._root);
+class _TranslationsStreamChatRaidAr extends TranslationsStreamChatRaidEn {
+	_TranslationsStreamChatRaidAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
 
 	/// رسالة غارة الدردشة إلى دفق آخر
-	@override String to({ required Object name}) => 'التصفح ${name}';
+	@override String to({required Object name}) => 'التصفح ${name}';
 
 	/// رسالة غارة الدردشة من دفق آخر
-	@override String from({ required Object name}) => 'RAID من ${name}';
+	@override String from({required Object name}) => 'RAID من ${name}';
 
 	/// مؤقت العد التنازلي للقيادة التلقائية
-	@override String countdown({ required Object time}) => 'الإغارة في ${time}';
+	@override String countdown({required Object time}) => 'الإغارة في ${time}';
 }
 
 // Path: profile.edit.error
-class _TranslationsProfileEditErrorAr implements TranslationsProfileEditErrorEn {
-	_TranslationsProfileEditErrorAr._(this._root);
+class _TranslationsProfileEditErrorAr extends TranslationsProfileEditErrorEn {
+	_TranslationsProfileEditErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -344,32 +345,32 @@ extension on TranslationsAr {
 			case 'stream.status.live': return 'بث مباشر';
 			case 'stream.status.ended': return 'انتهى';
 			case 'stream.status.planned': return 'مخطط';
-			case 'stream.started': return ({ required Object timestamp}) => 'بدأ ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'بدأ ${timestamp}';
 			case 'stream.chat.disabled': return 'تم تعطيل الدردشة';
-			case 'stream.chat.disabled_timeout': return ({ required Object time}) => 'تنتهي المهلة: ${time}';
-			case 'stream.chat.timeout': return ({ required InlineSpan mod,  required InlineSpan user,  required InlineSpan time,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'تنتهي المهلة: ${time}';
+			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' انتهى الوقت '),
 				user,
 				const TextSpan(text: ' لـ '),
 				time,
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.ended': return 'انتهى البث';
-			case 'stream.chat.zap': return ({ required InlineSpan user,  required InlineSpan amount,  TextStyle? style,  GestureRecognizer? recognizer}) => TextSpan(children: [
+			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 				user,
 				const TextSpan(text: ' انطلق '),
 				amount,
 				const TextSpan(text: ' ساتس'),
-			], style: style, recognizer: recognizer);
+			]);
 			case 'stream.chat.write.label': return 'اكتب رسالة';
 			case 'stream.chat.write.no_signer': return 'لا يمكن كتابة الرسائل باستخدام تسجيل الدخول إلى npub';
 			case 'stream.chat.write.login': return 'الرجاء تسجيل الدخول لإرسال الرسائل';
 			case 'stream.chat.badge.awarded_to': return 'مُنحت الجائزة لـ';
-			case 'stream.chat.raid.to': return ({ required Object name}) => 'التصفح ${name}';
-			case 'stream.chat.raid.from': return ({ required Object name}) => 'RAID من ${name}';
-			case 'stream.chat.raid.countdown': return ({ required Object time}) => 'الإغارة في ${time}';
-			case 'goal.title': return ({ required Object amount}) => 'الهدف: ${amount}';
-			case 'goal.remaining': return ({ required Object amount}) => 'المتبقي: ${amount}';
+			case 'stream.chat.raid.to': return ({required Object name}) => 'التصفح ${name}';
+			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID من ${name}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'الإغارة في ${time}';
+			case 'goal.title': return ({required Object amount}) => 'الهدف: ${amount}';
+			case 'goal.remaining': return ({required Object amount}) => 'المتبقي: ${amount}';
 			case 'goal.complete': return 'مكتمل';
 			case 'button.login': return 'تسجيل الدخول';
 			case 'button.logout': return 'تسجيل الخروج';
@@ -380,18 +381,18 @@ extension on TranslationsAr {
 			case 'button.unmute': return 'رفع الكتم';
 			case 'button.share': return 'مشاركة';
 			case 'button.save': return 'حفظ';
-			case 'embed.article_by': return ({ required Object name}) => 'مقال بقلم ${name}';
-			case 'embed.note_by': return ({ required Object name}) => 'ملاحظة من ${name}';
-			case 'embed.live_stream_by': return ({ required Object name}) => 'بث مباشر من ${name}';
+			case 'embed.article_by': return ({required Object name}) => 'مقال بقلم ${name}';
+			case 'embed.note_by': return ({required Object name}) => 'ملاحظة من ${name}';
+			case 'embed.live_stream_by': return ({required Object name}) => 'بث مباشر من ${name}';
 			case 'stream_list.following': return 'المتابَعون';
 			case 'stream_list.live': return 'بث مباشر';
 			case 'stream_list.planned': return 'مخطط';
 			case 'stream_list.ended': return 'انتهى';
-			case 'zap.title': return ({ required Object name}) => 'زاب ${name}';
+			case 'zap.title': return ({required Object name}) => 'زاب ${name}';
 			case 'zap.custom_amount': return 'المبلغ المخصص';
 			case 'zap.confirm': return 'تأكيد';
 			case 'zap.comment': return 'تعليق';
-			case 'zap.button_zap_ready': return ({ required Object amount}) => 'أومض ${amount} ساتوشي';
+			case 'zap.button_zap_ready': return ({required Object amount}) => 'أومض ${amount} ساتوشي';
 			case 'zap.button_zap': return 'زاب';
 			case 'zap.button_open_wallet': return 'فتح في المحفظة';
 			case 'zap.copy': return 'نسخ إلى الحافظة';
