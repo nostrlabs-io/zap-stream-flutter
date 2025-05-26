@@ -223,6 +223,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                       focusNode: _focusNode,
                       controller: _controller,
                       onSubmitted: (_) => _sendMessage(context),
+                      onTapOutside: (event) => _focusNode.unfocus(),
                       decoration: InputDecoration(
                         labelText: t.stream.chat.write.label,
                         contentPadding: EdgeInsets.symmetric(vertical: 4),
