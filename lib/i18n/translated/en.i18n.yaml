@@ -120,10 +120,13 @@ settings:
     error:
       logged_out: Cant edit profile when logged out
   wallet:
-    connect_wallet: Connect Wallet (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: Disconnect Wallet
+    connect_1tap: 1-Tap Connection
+    paste: Paste URL
     error:
       logged_out: Cant connect wallet when logged out
+      nwc_auth_event_not_found: No wallet auth event found
 login:
   username: "Username"
   amber: Login with Amber

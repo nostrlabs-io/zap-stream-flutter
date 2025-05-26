@@ -285,8 +285,10 @@ class TranslationsSettingsWalletEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	String get disconnect_wallet => 'Disconnect Wallet';
+	String get connect_1tap => '1-Tap Connection';
+	String get paste => 'Paste URL';
 	late final TranslationsSettingsWalletErrorEn error = TranslationsSettingsWalletErrorEn.internal(_root);
 }
 
@@ -366,6 +368,7 @@ class TranslationsSettingsWalletErrorEn {
 
 	// Translations
 	String get logged_out => 'Cant connect wallet when logged out';
+	String get nwc_auth_event_not_found => 'No wallet auth event found';
 }
 
 /// Flat map(s) containing all translations.
@@ -449,9 +452,12 @@ extension on Translations {
 			case 'settings.profile.nip05': return 'Nostr Address';
 			case 'settings.profile.lud16': return 'Lightning Address';
 			case 'settings.profile.error.logged_out': return 'Cant edit profile when logged out';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Disconnect Wallet';
+			case 'settings.wallet.connect_1tap': return '1-Tap Connection';
+			case 'settings.wallet.paste': return 'Paste URL';
 			case 'settings.wallet.error.logged_out': return 'Cant connect wallet when logged out';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'No wallet auth event found';
 			case 'login.username': return 'Username';
 			case 'login.amber': return 'Login with Amber';
 			case 'login.key': return 'Login with Key';

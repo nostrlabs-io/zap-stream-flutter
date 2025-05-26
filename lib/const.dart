@@ -35,6 +35,7 @@ const defaultRelays = [
   "wss://relay.fountain.fm",
 ];
 const searchRelays = ["wss://relay.nostr.band", "wss://search.nos.today"];
+const nwcRelays = ["wss://relay.getalby.com/v1"];
 
 final loginData = LoginData();
 final RouteObserver<ModalRoute<void>> routeObserver =

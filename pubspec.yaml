@@ -44,6 +44,7 @@ dependencies:
   http: ^1.4.0
   flutter_local_notifications: ^19.2.1
   flutter_dotenv: ^5.2.1
+  protocol_handler: ^0.2.0
 
 dependency_overrides:
   ndk:

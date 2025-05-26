@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
   flutter_secure_storage_windows
   objectbox_flutter_libs
+  protocol_handler_windows
   share_plus
   url_launcher_windows
 )

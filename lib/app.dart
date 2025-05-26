@@ -29,6 +29,13 @@ void runZapStream() {
         TextTheme(),
       ),
       routerConfig: GoRouter(
+        redirect: (context, state) {
+          // redirect back to the wallet settings page
+          if (state.uri.scheme == "zswc") {
+            return "/settings/wallet";
+          }
+          return null;
+        },
         routes: [
           ShellRoute(
             observers: [routeObserver],
