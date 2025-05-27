@@ -70,6 +70,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: any
 
 flutter:
   uses-material-design: true
@@ -79,3 +80,7 @@ flutter:
     - "assets/svg/"
     - "assets/logo.png"
     - "assets/category/"
+
+flutter_launcher_icons:
+  ios: true
+  image_path: assets/logo.png

@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyByygErXpki6Q7NXOXTHbRgg3-Tw-KCVO0',
-    appId: '1:953923151748:ios:30ec9a230e55fe139e9fd1',
+    appId: '1:953923151748:ios:aef9c54f556258d39e9fd1',
     messagingSenderId: '953923151748',
     projectId: 'nostrlabs',
     storageBucket: 'nostrlabs.firebasestorage.app',
-    iosBundleId: 'io.nostrlabs.zapStreamFlutter',
+    iosBundleId: 'io.nostrlabs.zap-stream',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'nostrlabs.firebaseapp.com',
     storageBucket: 'nostrlabs.firebasestorage.app',
   );
+
 }

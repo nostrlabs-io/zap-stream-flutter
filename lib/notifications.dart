@@ -12,6 +12,7 @@ import 'package:ndk/ndk.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:http/http.dart' as http;
+import 'package:zap_stream_flutter/firebase_options.dart';
 import 'package:zap_stream_flutter/utils.dart';
 
 class Notepush {
@@ -136,7 +137,7 @@ Notepush? getNotificationService() {
 }
 
 Future<void> setupNotifications() async {
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final signer = ndk.accounts.getLoggedAccount()?.signer;
   if (signer != null) {
@@ -173,17 +174,25 @@ Future<void> setupNotifications() async {
         developer.log("Failed to process push notification\n ${e.toString()}");
       }
     });
+
+    await fbase.requestPermission(provisional: true);
     await fbase.setAutoInitEnabled(true);
     await fbase.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
     );
-    await fbase.requestPermission(provisional: true);
 
+    if (Platform.isIOS) {
+      final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+      if (apnsToken == null) {
+        throw "APNS token not availble";
+      }
+    }
     await localNotifications.initialize(
       InitializationSettings(
         android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+        iOS: DarwinInitializationSettings()
       ),
     );
     fbase.onTokenRefresh.listen((token) async {
@@ -192,12 +201,6 @@ Future<void> setupNotifications() async {
       await pusher.setNotificationSettings(token, [30_311]);
     });
 
-    if (Platform.isIOS) {
-      final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-      if (apnsToken == null) {
-        throw "APNS token not availble";
-      }
-    }
     final fcmToken = await FirebaseMessaging.instance.getToken();
     if (fcmToken == null) {
       throw "Push token is null";
