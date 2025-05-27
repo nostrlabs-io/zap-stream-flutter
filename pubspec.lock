@@ -220,10 +220,11 @@ packages:
   emoji_picker_flutter:
     dependency: "direct main"
     description:
-      name: emoji_picker_flutter
-      sha256: "9a44c102079891ea5877f78c70f2e3c6e9df7b7fe0a01757d31f1046eeaa016d"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "21a71ffed243ce88c625723d8f3ae0281a480b04"
+      url: "https://github.com/nostrlabs-io/emoji_picker_flutter"
+    source: git
     version: "4.3.0"
   equatable:
     dependency: transitive
@@ -721,8 +722,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/ndk"
-      ref: "9076bb42ed927314249165e59c7c3428268ce889"
-      resolved-ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
+      resolved-ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
       url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.3.2"
@@ -730,8 +731,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/amber"
-      ref: "9076bb42ed927314249165e59c7c3428268ce889"
-      resolved-ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
+      resolved-ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
       url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.3.0"
@@ -739,8 +740,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/objectbox"
-      ref: "9076bb42ed927314249165e59c7c3428268ce889"
-      resolved-ref: "9076bb42ed927314249165e59c7c3428268ce889"
+      ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
+      resolved-ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
       url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.2.3"

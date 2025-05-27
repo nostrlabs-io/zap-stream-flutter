@@ -62,6 +62,9 @@ dependency_overrides:
       url: https://github.com/relaystr/ndk
       path: packages/amber
       ref: 6242899ee4ff7f65e57518d4eb29e2a253b3c4da
+  emoji_picker_flutter:
+    git:
+      url: https://github.com/nostrlabs-io/emoji_picker_flutter
 
 dev_dependencies:
   flutter_test:

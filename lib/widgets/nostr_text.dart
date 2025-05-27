@@ -61,6 +61,7 @@ List<InlineSpan> textToSpans(
     r'nostr:(note|nevent|naddr)[a-zA-Z0-9]+|'
     r'(#\$\$\s*[0-9]+\s*\$\$)|'
     r'(#\w+)|' // Hashtags
+    r'(:\w+:)|' // custom emoji
     r'(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,10}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))', // URLs
     caseSensitive: false,
   );
@@ -76,28 +77,25 @@ List<InlineSpan> textToSpans(
           spans.add(_buildHashtagSpan(matched));
         } else if (matched.startsWith('http')) {
           spans.add(_buildUrlSpan(matched, embedMedia ?? false));
+        } else if (matched.startsWith(":") &&
+            matched.endsWith(":") &&
+            tags.any(
+              (t) =>
+                  t[0] == "emoji" &&
+                  t[1] == matched.substring(1, matched.length - 1),
+            )) {
+          spans.add(
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: CustomEmoji(emoji: matched, tags: tags, size: 24),
+            ),
+          );
         }
       }
       return '';
     },
     onNonMatch: (String text) {
-      final textTrim = text.trim();
-      if (textTrim.startsWith(":") &&
-          textTrim.endsWith(":") &&
-          tags.any(
-            (t) =>
-                t[0] == "emoji" &&
-                t[1] == textTrim.substring(1, textTrim.length - 1),
-          )) {
-        spans.add(
-          WidgetSpan(
-            alignment: PlaceholderAlignment.middle,
-            child: CustomEmoji(emoji: textTrim, tags: tags, size: 24),
-          ),
-        );
-      } else {
-        spans.add(TextSpan(text: text));
-      }
+      spans.add(TextSpan(text: text));
       return '';
     },
   );
