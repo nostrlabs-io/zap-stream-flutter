@@ -41,6 +41,9 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
         // start auto-complete
         _showAutoComplete();
       }
+      if (_controller.text.endsWith(":")) {
+        _showEmojiAutoComplete();
+      }
     });
   }
 
@@ -51,6 +54,13 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
     }
     _controller.dispose();
     super.dispose();
+  }
+
+  void _showEmojiAutoComplete() {
+    if (_entry != null) {
+      _entry!.remove();
+      _entry = null;
+    }
   }
 
   void _showAutoComplete() {
