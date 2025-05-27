@@ -4,6 +4,7 @@ import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
+import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
 class ChatZapWidget extends StatelessWidget {
@@ -26,7 +27,7 @@ class ChatZapWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _zapperRowZap(context, parsed),
-          if (parsed.comment?.isNotEmpty ?? false) Text(parsed.comment!),
+          if (parsed.comment?.isNotEmpty ?? false) NoteText(event: zap),
         ],
       ),
     );
