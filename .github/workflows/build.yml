@@ -53,5 +53,6 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.29.3
       - run: flutter pub get
       - run: flutter build ios --no-codesign
