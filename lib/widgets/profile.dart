@@ -65,6 +65,7 @@ class ProfileNameWidget extends StatelessWidget {
     final inner = Text(
       ProfileNameWidget.nameFromProfile(profile),
       style: style,
+      overflow: TextOverflow.ellipsis,
     );
     if (linkToProfile ?? true) {
       return GestureDetector(
@@ -130,10 +131,12 @@ class ProfileWidget extends StatelessWidget {
       children: [
         AvatarWidget(profile: profile, size: size),
         if (showName ?? true)
-          ProfileNameWidget(
-            profile: profile,
-            key: key,
-            linkToProfile: linkToProfile,
+          Expanded(
+            child: ProfileNameWidget(
+              profile: profile,
+              key: key,
+              linkToProfile: linkToProfile,
+            ),
           ),
         ...(children ?? []),
       ],

@@ -159,7 +159,6 @@ class _StreamPage extends State<StreamPage> with RouteAware {
           stream.info.host,
           children: [
             NotificationsButtonWidget(stream: widget.stream),
-            Spacer(),
             BasicButton(
               Row(
                 children: [Icon(Icons.bolt, size: 14), Text(t.zap.button_zap)],
