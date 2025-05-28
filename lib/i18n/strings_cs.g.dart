@@ -54,7 +54,7 @@ class TranslationsCs extends Translations {
 	/// Počet diváků streamu
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
 		one: '1 divák',
-		other: '${n} diváci',
+		other: '${NumberFormat.decimalPattern('cs').format(n)} diváků',
 	);
 
 	@override late final _TranslationsStreamCs stream = _TranslationsStreamCs._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletCs extends TranslationsSettingsWalletEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Připojení peněženky (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Odpojení peněženky';
+	@override String get connect_1tap => 'Připojení 1 kohoutku';
+	@override String get paste => 'Vložit adresu URL';
 	@override late final _TranslationsSettingsWalletErrorCs error = _TranslationsSettingsWalletErrorCs._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorCs extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Nelze se připojit k peněžence, když jste odhlášeni';
+	@override String get nwc_auth_event_not_found => 'Nebyla nalezena žádná událost autentizace peněženky';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsCs {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
 				one: '1 divák',
-				other: '${n} diváci',
+				other: '${NumberFormat.decimalPattern('cs').format(n)} diváků',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'KONEC';
@@ -448,9 +451,12 @@ extension on TranslationsCs {
 			case 'settings.profile.nip05': return 'Adresa Nostr';
 			case 'settings.profile.lud16': return 'Adresa blesku';
 			case 'settings.profile.error.logged_out': return 'Nelze upravit profil, když je odhlášený';
-			case 'settings.wallet.connect_wallet': return 'Připojení peněženky (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Odpojení peněženky';
+			case 'settings.wallet.connect_1tap': return 'Připojení 1 kohoutku';
+			case 'settings.wallet.paste': return 'Vložit adresu URL';
 			case 'settings.wallet.error.logged_out': return 'Nelze se připojit k peněžence, když jste odhlášeni';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nebyla nalezena žádná událost autentizace peněženky';
 			case 'login.username': return 'Uživatelské jméno';
 			case 'login.amber': return 'Přihlášení pomocí Amber';
 			case 'login.key': return 'Přihlášení pomocí klíče';

@@ -54,7 +54,7 @@ class TranslationsKo extends Translations {
 	/// 스트림 시청자 수
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
 		one: '시청자 1명',
-		other: '${n} 시청자',
+		other: '${NumberFormat.decimalPattern('ko').format(n)} 시청자',
 	);
 
 	@override late final _TranslationsStreamKo stream = _TranslationsStreamKo._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletKo extends TranslationsSettingsWalletEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => '지갑 연결(NWC nwc://)';
+	@override String get connect_wallet => '지갑 연결(NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => '지갑 연결 해제';
+	@override String get connect_1tap => '1-탭 연결';
+	@override String get paste => 'URL 붙여넣기';
 	@override late final _TranslationsSettingsWalletErrorKo error = _TranslationsSettingsWalletErrorKo._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorKo extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => '로그아웃 시 지갑 연결 불가';
+	@override String get nwc_auth_event_not_found => '지갑 인증 이벤트를 찾을 수 없습니다.';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsKo {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
 				one: '시청자 1명',
-				other: '${n} 시청자',
+				other: '${NumberFormat.decimalPattern('ko').format(n)} 시청자',
 			);
 			case 'stream.status.live': return '라이브';
 			case 'stream.status.ended': return '종료';
@@ -448,9 +451,12 @@ extension on TranslationsKo {
 			case 'settings.profile.nip05': return '노스트르 주소';
 			case 'settings.profile.lud16': return '라이트닝 주소';
 			case 'settings.profile.error.logged_out': return '로그아웃 시 프로필 수정 불가';
-			case 'settings.wallet.connect_wallet': return '지갑 연결(NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return '지갑 연결(NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return '지갑 연결 해제';
+			case 'settings.wallet.connect_1tap': return '1-탭 연결';
+			case 'settings.wallet.paste': return 'URL 붙여넣기';
 			case 'settings.wallet.error.logged_out': return '로그아웃 시 지갑 연결 불가';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return '지갑 인증 이벤트를 찾을 수 없습니다.';
 			case 'login.username': return '사용자 이름';
 			case 'login.amber': return 'Amber로 로그인';
 			case 'login.key': return '키로 로그인';

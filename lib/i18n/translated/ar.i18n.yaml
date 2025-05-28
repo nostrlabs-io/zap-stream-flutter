@@ -10,12 +10,9 @@ no_user_found: لم يتم العثور على مستخدم
 anon: هوية مخفية
 viewers:
   one: 1 مشاهد
-  other: $n المشاهدون
+  other: "${n:decimalPattern} المشاهدين"
 "@viewers":
   description: عدد مشاهدي البث
-  placeholders:
-    n:
-      type: في
 "@anon":
   description: مستخدم مجهول
 stream:
@@ -121,10 +118,13 @@ settings:
     error:
       logged_out: لا يمكن تحرير ملف التعريف عند تسجيل الخروج
   wallet:
-    connect_wallet: توصيل المحفظة (NWC nwc://)
+    connect_wallet: توصيل المحفظة (NWC nostr+walletconnect://)
     disconnect_wallet: محفظة قطع الاتصال
+    connect_1tap: 1-التوصيل بنقرة 1
+    paste: لصق عنوان URL
     error:
       logged_out: لا يمكن الاتصال بالمحفظة عند تسجيل الخروج
+      nwc_auth_event_not_found: لم يتم العثور على حدث مصادقة المحفظة
 login:
   username: اسم المستخدم
   amber: تسجيل الدخول مع آمبر

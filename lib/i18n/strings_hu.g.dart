@@ -54,7 +54,7 @@ class TranslationsHu extends Translations {
 	/// A stream nézőinek száma
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(n,
 		one: '1 néző',
-		other: '${n} néző',
+		other: '${NumberFormat.decimalPattern('hu').format(n)} nézők',
 	);
 
 	@override late final _TranslationsStreamHu stream = _TranslationsStreamHu._(_root);
@@ -285,8 +285,10 @@ class _TranslationsSettingsWalletHu extends TranslationsSettingsWalletEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Pénztárca lekapcsolása';
+	@override String get connect_1tap => '1-Tap csatlakozás';
+	@override String get paste => 'URL beillesztése';
 	@override late final _TranslationsSettingsWalletErrorHu error = _TranslationsSettingsWalletErrorHu._(_root);
 }
 
@@ -345,7 +347,7 @@ class _TranslationsStreamChatRaidHu extends TranslationsStreamChatRaidEn {
 	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// Visszaszámláló időzítő az automatikus lovagláshoz
-	@override String countdown({required Object time}) => 'Raiding a ${time} oldalon';
+	@override String countdown({required Object time}) => 'Raiding a ${time}oldalon';
 }
 
 // Path: settings.profile.error
@@ -366,6 +368,7 @@ class _TranslationsSettingsWalletErrorHu extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Kijelentkezve nem lehet csatlakozni a pénztárcához';
+	@override String get nwc_auth_event_not_found => 'Nem találtak pénztárca-auth eseményt';
 }
 
 /// Flat map(s) containing all translations.
@@ -379,7 +382,7 @@ extension on TranslationsHu {
 			case 'anon': return 'Névtelen';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(n,
 				one: '1 néző',
-				other: '${n} néző',
+				other: '${NumberFormat.decimalPattern('hu').format(n)} nézők',
 			);
 			case 'stream.status.live': return 'ÉLŐ';
 			case 'stream.status.ended': return 'ENDED';
@@ -408,7 +411,7 @@ extension on TranslationsHu {
 			case 'stream.chat.badge.awarded_to': return 'Elnyerte:';
 			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
 			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding a ${time} oldalon';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding a ${time}oldalon';
 			case 'goal.title': return ({required Object amount}) => 'Cél: ${amount}';
 			case 'goal.remaining': return ({required Object amount}) => 'Maradék: ${amount}';
 			case 'goal.complete': return 'TELJES';
@@ -450,9 +453,12 @@ extension on TranslationsHu {
 			case 'settings.profile.nip05': return 'Nostr cím';
 			case 'settings.profile.lud16': return 'Villám cím';
 			case 'settings.profile.error.logged_out': return 'Kijelentkezve nem lehet profilt szerkeszteni';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Pénztárca lekapcsolása';
+			case 'settings.wallet.connect_1tap': return '1-Tap csatlakozás';
+			case 'settings.wallet.paste': return 'URL beillesztése';
 			case 'settings.wallet.error.logged_out': return 'Kijelentkezve nem lehet csatlakozni a pénztárcához';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nem találtak pénztárca-auth eseményt';
 			case 'login.username': return 'Felhasználónév';
 			case 'login.amber': return 'Bejelentkezés Amber segítségével';
 			case 'login.key': return 'Bejelentkezés kulccsal';

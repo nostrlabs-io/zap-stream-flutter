@@ -11,12 +11,9 @@ no_user_found: No se ha encontrado ningún usuario
 anon: Anónimo
 viewers:
   one: 1 espectador
-  other: $n espectadores
+  other: ${n:decimalPattern} espectadores
 "@viewers":
   description: Número de espectadores del flujo
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Un usuario anónimo
 stream:
@@ -125,10 +122,13 @@ settings:
     error:
       logged_out: No se puede editar el perfil cuando se cierra la sesión
   wallet:
-    connect_wallet: Cartera Connect (NWC nwc://)
+    connect_wallet: Cartera Connect (NWC nostr+walletconnect://)
     disconnect_wallet: Desconectar Cartera
+    connect_1tap: Conexión de 1 toma
+    paste: Pegar URL
     error:
       logged_out: No se puede conectar el monedero al cerrar la sesión
+      nwc_auth_event_not_found: No se ha encontrado ningún evento de autenticación de cartera
 login:
   username: Usuario
   amber: Iniciar sesión con Amber

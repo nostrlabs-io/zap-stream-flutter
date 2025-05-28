@@ -54,7 +54,7 @@ class TranslationsEl extends Translations {
 	/// Αριθμός θεατών της ροής
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
 		one: '1 θεατής',
-		other: '${n} θεατές',
+		other: '${NumberFormat.decimalPattern('el').format(n)} θεατές',
 	);
 
 	@override late final _TranslationsStreamEl stream = _TranslationsStreamEl._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletEl extends TranslationsSettingsWalletEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Σύνδεση πορτοφολιού (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Αποσύνδεση πορτοφολιού';
+	@override String get connect_1tap => 'Σύνδεση 1 βρύσης';
+	@override String get paste => 'Επικόλληση URL';
 	@override late final _TranslationsSettingsWalletErrorEl error = _TranslationsSettingsWalletErrorEl._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorEl extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί';
+	@override String get nwc_auth_event_not_found => 'Δεν βρέθηκε συμβάν εξουσιοδότησης πορτοφολιού';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsEl {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
 				one: '1 θεατής',
-				other: '${n} θεατές',
+				other: '${NumberFormat.decimalPattern('el').format(n)} θεατές',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'ENDED';
@@ -448,9 +451,12 @@ extension on TranslationsEl {
 			case 'settings.profile.nip05': return 'Διεύθυνση Nostr';
 			case 'settings.profile.lud16': return 'Διεύθυνση Lightning';
 			case 'settings.profile.error.logged_out': return 'Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί';
-			case 'settings.wallet.connect_wallet': return 'Σύνδεση πορτοφολιού (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Αποσύνδεση πορτοφολιού';
+			case 'settings.wallet.connect_1tap': return 'Σύνδεση 1 βρύσης';
+			case 'settings.wallet.paste': return 'Επικόλληση URL';
 			case 'settings.wallet.error.logged_out': return 'Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Δεν βρέθηκε συμβάν εξουσιοδότησης πορτοφολιού';
 			case 'login.username': return 'Όνομα χρήστη';
 			case 'login.amber': return 'Σύνδεση με Amber';
 			case 'login.key': return 'Σύνδεση με κλειδί';

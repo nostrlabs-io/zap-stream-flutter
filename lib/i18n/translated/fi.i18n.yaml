@@ -11,12 +11,9 @@ no_user_found: Käyttäjää ei löytynyt
 anon: Anon
 viewers:
   one: 1 katsoja
-  other: $n katsojaa
+  other: ${n:decimalPattern} katsojat
 "@viewers":
   description: Streamin katsojien määrä
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Nimetön käyttäjä
 stream:
@@ -123,10 +120,13 @@ settings:
     error:
       logged_out: Ei voi muokata profiilia, kun on kirjautunut ulos
   wallet:
-    connect_wallet: Yhdistä lompakko (NWC nwc://)
+    connect_wallet: Connect-lompakko (NWC nostr+walletconnect://)
     disconnect_wallet: Irrota lompakko
+    connect_1tap: 1-Tap-liitäntä
+    paste: Liitä URL-osoite
     error:
       logged_out: Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos
+      nwc_auth_event_not_found: Ei lompakko-auth-tapahtumaa löydetty
 login:
   username: Käyttäjätunnus
   amber: Kirjaudu sisään Amber kanssa

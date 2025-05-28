@@ -11,12 +11,9 @@ no_user_found: Пользователь не найден
 anon: Аноним
 viewers:
   one: 1 зритель
-  other: $n зрителей
+  other: ${n:decimalPattern} зрителей
 "@viewers":
   description: Количество зрителей потока
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Анонимный пользователь
 stream:
@@ -124,10 +121,13 @@ settings:
     error:
       logged_out: Невозможно редактировать профиль при выходе из системы
   wallet:
-    connect_wallet: Подключите кошелек (NWC nwc://)
+    connect_wallet: Кошелек Connect (NWC nostr+walletconnect://)
     disconnect_wallet: Отключить кошелек
+    connect_1tap: 1-кратное соединение
+    paste: Вставить URL
     error:
       logged_out: Невозможно подключить кошелек при выходе из системы
+      nwc_auth_event_not_found: Событие аутентификации кошелька не найдено
 login:
   username: Имя пользователя
   amber: Войти с помощью Amber

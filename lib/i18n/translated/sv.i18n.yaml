@@ -11,12 +11,9 @@ no_user_found: Ingen användare hittades
 anon: Anon
 viewers:
   one: 1 tittare
-  other: $n tittare
+  other: ${n:decimalPattern} tittare
 "@viewers":
   description: Antal tittare på streamingen
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: En anonym användare
 stream:
@@ -122,10 +119,13 @@ settings:
     error:
       logged_out: Kan inte redigera profil när jag är utloggad
   wallet:
-    connect_wallet: Anslut plånbok (NWC nwc://)
+    connect_wallet: Connect plånbok (NWC nostr+walletconnect://)
     disconnect_wallet: Koppla bort plånboken
+    connect_1tap: 1-Tap-anslutning
+    paste: Klistra in URL
     error:
       logged_out: Kan inte ansluta plånbok när du är inloggad
+      nwc_auth_event_not_found: Inget autentiseringshändelse för plånbok hittades
 login:
   username: Användarnamn
   amber: Logga in med Amber

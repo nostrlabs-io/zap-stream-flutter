@@ -11,12 +11,9 @@ no_user_found: Kullanıcı bulunamadı
 anon: Anon
 viewers:
   one: 1 izleyici
-  other: $n izleyiciler
+  other: ${n:decimalPattern} izleyiciler
 "@viewers":
   description: Akışı izleyenlerin sayısı
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Anonim bir kullanıcı
 stream:
@@ -53,7 +50,7 @@ stream:
       "@awarded_to":
         description: Rozet verilen kullanıcıların listesi üzerinde başlık
     raid:
-      to: RAIDING $name
+      to: RAIDING ${name}
       "@to":
         description: Başka bir akışa sohbet baskını mesajı
       from: ${name}ADRESINDEN RAID
@@ -122,10 +119,13 @@ settings:
     error:
       logged_out: Çıkış yapıldığında profil düzenlenemiyor
   wallet:
-    connect_wallet: Cüzdanı Bağlayın (NWC nwc://)
+    connect_wallet: Connect Cüzdan (NWC nostr+walletconnect://)
     disconnect_wallet: Cüzdan Bağlantısını Kes
+    connect_1tap: 1-Tap Bağlantı
+    paste: URL Yapıştır
     error:
       logged_out: Oturumu kapattığımda cüzdana bağlanamıyorum
+      nwc_auth_event_not_found: Cüzdan yetkilendirme olayı bulunamadı
 login:
   username: Kullanıcı Adı
   amber: Amber ile Giriş Yapın

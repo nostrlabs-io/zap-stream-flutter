@@ -40,7 +40,7 @@ class TranslationsJa extends Translations {
 	// Translations
 
 	/// アバターのプレースホルダーを押してアップロードを開始するよう促すテキスト
-	@override String get upload_avatar => 'アバターのアップロード';
+	@override String get upload_avatar => '画像アップロード';
 
 	/// ザップによるリストの上のストリーマーに向かう
 	@override String get most_zapped_streamers => '最もザッピングされたストリーマー';
@@ -54,7 +54,7 @@ class TranslationsJa extends Translations {
 	/// ストリームの視聴者数
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
 		one: '1 視聴者',
-		other: '${n} 人が視聴中',
+		other: '${NumberFormat.decimalPattern('ja').format(n)} 人が視聴中',
 	);
 
 	@override late final _TranslationsStreamJa stream = _TranslationsStreamJa._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletJa extends TranslationsSettingsWalletEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'コネクトウォレット (NWC nwc://)';
+	@override String get connect_wallet => 'コネクトウォレット（NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'ウォレットの切断';
+	@override String get connect_1tap => '1タップ接続';
+	@override String get paste => 'URLを貼り付ける';
 	@override late final _TranslationsSettingsWalletErrorJa error = _TranslationsSettingsWalletErrorJa._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorJa extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'ログアウト時にウォレットに接続できない';
+	@override String get nwc_auth_event_not_found => 'ウォレットの認証イベントが見つかりません';
 }
 
 /// Flat map(s) containing all translations.
@@ -372,13 +375,13 @@ class _TranslationsSettingsWalletErrorJa extends TranslationsSettingsWalletError
 extension on TranslationsJa {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'upload_avatar': return 'アバターのアップロード';
+			case 'upload_avatar': return '画像アップロード';
 			case 'most_zapped_streamers': return '最もザッピングされたストリーマー';
 			case 'no_user_found': return 'ユーザーが見つかりません';
 			case 'anon': return '匿名';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
 				one: '1 視聴者',
-				other: '${n} 人が視聴中',
+				other: '${NumberFormat.decimalPattern('ja').format(n)} 人が視聴中',
 			);
 			case 'stream.status.live': return 'ライブ';
 			case 'stream.status.ended': return '終了';
@@ -448,9 +451,12 @@ extension on TranslationsJa {
 			case 'settings.profile.nip05': return '住所';
 			case 'settings.profile.lud16': return 'ライトニングアドレス';
 			case 'settings.profile.error.logged_out': return 'ログアウトするとプロフィールが編集できない';
-			case 'settings.wallet.connect_wallet': return 'コネクトウォレット (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'コネクトウォレット（NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'ウォレットの切断';
+			case 'settings.wallet.connect_1tap': return '1タップ接続';
+			case 'settings.wallet.paste': return 'URLを貼り付ける';
 			case 'settings.wallet.error.logged_out': return 'ログアウト時にウォレットに接続できない';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'ウォレットの認証イベントが見つかりません';
 			case 'login.username': return 'ユーザー名';
 			case 'login.amber': return '琥珀でログイン';
 			case 'login.key': return 'キーでログイン';

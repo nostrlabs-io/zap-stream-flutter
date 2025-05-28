@@ -54,7 +54,7 @@ class TranslationsIt extends Translations {
 	/// Numero di spettatori del flusso
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('it'))(n,
 		one: '1 spettatore',
-		other: '${n} spettatori',
+		other: '${NumberFormat.decimalPattern('it').format(n)} spettatori',
 	);
 
 	@override late final _TranslationsStreamIt stream = _TranslationsStreamIt._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletIt extends TranslationsSettingsWalletEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Portafoglio Connect (NWC nwc://)';
+	@override String get connect_wallet => 'Portafoglio Connect (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Disconnettere il portafoglio';
+	@override String get connect_1tap => 'Connessione a 1 rubinetto';
+	@override String get paste => 'Incolla URL';
 	@override late final _TranslationsSettingsWalletErrorIt error = _TranslationsSettingsWalletErrorIt._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorIt extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Impossibile connettere il portafoglio quando si è disconnessi';
+	@override String get nwc_auth_event_not_found => 'Nessun evento wallet auth trovato';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsIt {
 			case 'anon': return 'Anonimo';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('it'))(n,
 				one: '1 spettatore',
-				other: '${n} spettatori',
+				other: '${NumberFormat.decimalPattern('it').format(n)} spettatori',
 			);
 			case 'stream.status.live': return 'IN DIRETTA';
 			case 'stream.status.ended': return 'FINE';
@@ -448,9 +451,12 @@ extension on TranslationsIt {
 			case 'settings.profile.nip05': return 'Indirizzo';
 			case 'settings.profile.lud16': return 'Indirizzo del fulmine';
 			case 'settings.profile.error.logged_out': return 'Impossibile modificare il profilo quando si è disconnessi';
-			case 'settings.wallet.connect_wallet': return 'Portafoglio Connect (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Portafoglio Connect (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Disconnettere il portafoglio';
+			case 'settings.wallet.connect_1tap': return 'Connessione a 1 rubinetto';
+			case 'settings.wallet.paste': return 'Incolla URL';
 			case 'settings.wallet.error.logged_out': return 'Impossibile connettere il portafoglio quando si è disconnessi';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nessun evento wallet auth trovato';
 			case 'login.username': return 'Nome utente';
 			case 'login.amber': return 'Accesso con Amber';
 			case 'login.key': return 'Accesso con chiave';

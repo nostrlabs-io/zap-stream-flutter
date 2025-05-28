@@ -11,12 +11,9 @@ no_user_found: Nem talált felhasználó
 anon: Névtelen
 viewers:
   one: 1 néző
-  other: $n néző
+  other: ${n:decimalPattern} nézők
 "@viewers":
   description: A stream nézőinek száma
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Egy névtelen felhasználó
 stream:
@@ -56,10 +53,10 @@ stream:
       to: RAIDING ${name}
       "@to":
         description: Chat raid üzenet egy másik folyamba
-      from: RAID FROM ${name}
+      from: RAID FROM $name
       "@from":
         description: Chat raid üzenet egy másik folyamból
-      countdown: Raiding a ${time} oldalon
+      countdown: Raiding a ${time}oldalon
       "@countdown":
         description: Visszaszámláló időzítő az automatikus lovagláshoz
 goal:
@@ -122,10 +119,13 @@ settings:
     error:
       logged_out: Kijelentkezve nem lehet profilt szerkeszteni
   wallet:
-    connect_wallet: Connect Wallet (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: Pénztárca lekapcsolása
+    connect_1tap: 1-Tap csatlakozás
+    paste: URL beillesztése
     error:
       logged_out: Kijelentkezve nem lehet csatlakozni a pénztárcához
+      nwc_auth_event_not_found: Nem találtak pénztárca-auth eseményt
 login:
   username: Felhasználónév
   amber: Bejelentkezés Amber segítségével

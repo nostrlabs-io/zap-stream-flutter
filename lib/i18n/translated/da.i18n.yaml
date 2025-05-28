@@ -11,12 +11,9 @@ no_user_found: Ingen bruger fundet
 anon: Anon
 viewers:
   one: 1 seer
-  other: $n Seere
+  other: ${n:decimalPattern} seere
 "@viewers":
   description: Antal seere af streamingen
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: En anonym bruger
 stream:
@@ -122,10 +119,13 @@ settings:
     error:
       logged_out: Kan ikke redigere profil, når jeg er logget ud
   wallet:
-    connect_wallet: Connect Wallet (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: Afbryd forbindelsen til tegnebogen
+    connect_1tap: 1-Tap-forbindelse
+    paste: Indsæt URL
     error:
       logged_out: Kan ikke oprette forbindelse til wallet, når jeg er logget ud
+      nwc_auth_event_not_found: Ingen wallet-auth-begivenhed fundet
 login:
   username: Brugernavn
   amber: Log ind med Amber

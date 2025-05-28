@@ -1,4 +1,4 @@
-upload_avatar: アバターのアップロード
+upload_avatar: 画像アップロード
 "@upload_avatar":
   description: アバターのプレースホルダーを押してアップロードを開始するよう促すテキスト
 most_zapped_streamers: 最もザッピングされたストリーマー
@@ -10,12 +10,9 @@ no_user_found: ユーザーが見つかりません
 anon: 匿名
 viewers:
   one: 1 視聴者
-  other: $n 人が視聴中
+  other: ${n:decimalPattern} 人が視聴中
 "@viewers":
   description: ストリームの視聴者数
-  placeholders:
-    n:
-      type: イント
 "@anon":
   description: 匿名ユーザー
 stream:
@@ -120,10 +117,13 @@ settings:
     error:
       logged_out: ログアウトするとプロフィールが編集できない
   wallet:
-    connect_wallet: コネクトウォレット (NWC nwc://)
+    connect_wallet: コネクトウォレット（NWC nostr+walletconnect://)
     disconnect_wallet: ウォレットの切断
+    connect_1tap: 1タップ接続
+    paste: URLを貼り付ける
     error:
       logged_out: ログアウト時にウォレットに接続できない
+      nwc_auth_event_not_found: ウォレットの認証イベントが見つかりません
 login:
   username: ユーザー名
   amber: 琥珀でログイン

@@ -54,7 +54,7 @@ class TranslationsDa extends Translations {
 	/// Antal seere af streamingen
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
 		one: '1 seer',
-		other: '${n} Seere',
+		other: '${NumberFormat.decimalPattern('da').format(n)} seere',
 	);
 
 	@override late final _TranslationsStreamDa stream = _TranslationsStreamDa._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletDa extends TranslationsSettingsWalletEn {
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Afbryd forbindelsen til tegnebogen';
+	@override String get connect_1tap => '1-Tap-forbindelse';
+	@override String get paste => 'Indsæt URL';
 	@override late final _TranslationsSettingsWalletErrorDa error = _TranslationsSettingsWalletErrorDa._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorDa extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Kan ikke oprette forbindelse til wallet, når jeg er logget ud';
+	@override String get nwc_auth_event_not_found => 'Ingen wallet-auth-begivenhed fundet';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsDa {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
 				one: '1 seer',
-				other: '${n} Seere',
+				other: '${NumberFormat.decimalPattern('da').format(n)} seere',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'AFSLUTTET';
@@ -448,9 +451,12 @@ extension on TranslationsDa {
 			case 'settings.profile.nip05': return 'Nostr-adresse';
 			case 'settings.profile.lud16': return 'Adresse for lynnedslag';
 			case 'settings.profile.error.logged_out': return 'Kan ikke redigere profil, når jeg er logget ud';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Afbryd forbindelsen til tegnebogen';
+			case 'settings.wallet.connect_1tap': return '1-Tap-forbindelse';
+			case 'settings.wallet.paste': return 'Indsæt URL';
 			case 'settings.wallet.error.logged_out': return 'Kan ikke oprette forbindelse til wallet, når jeg er logget ud';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Ingen wallet-auth-begivenhed fundet';
 			case 'login.username': return 'Brugernavn';
 			case 'login.amber': return 'Log ind med Amber';
 			case 'login.key': return 'Login med nøgle';

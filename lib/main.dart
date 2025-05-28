@@ -10,7 +10,8 @@ import 'package:zap_stream_flutter/notifications.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.useDeviceLocale();
+  await LocaleSettings.useDeviceLocale();
+  //await LocaleSettings.setLocaleRaw("zh");
   await dotenv.load(fileName: kDebugMode ? ".env.development" : ".env");
 
   await initLogin();

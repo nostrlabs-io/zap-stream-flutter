@@ -54,7 +54,7 @@ class TranslationsPt extends Translations {
 	/// Número de espectadores da transmissão
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(n,
 		one: '1 visualizador',
-		other: '${n} espectadores',
+		other: '${NumberFormat.decimalPattern('pt').format(n)} espectadores',
 	);
 
 	@override late final _TranslationsStreamPt stream = _TranslationsStreamPt._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletPt extends TranslationsSettingsWalletEn {
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Conectar carteira (NWC nwc://)';
+	@override String get connect_wallet => 'Carteira Connect (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Desconectar carteira';
+	@override String get connect_1tap => 'Conexão de 1 torneira';
+	@override String get paste => 'Colar URL';
 	@override late final _TranslationsSettingsWalletErrorPt error = _TranslationsSettingsWalletErrorPt._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorPt extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Não consigo conectar a carteira quando estou desconectado';
+	@override String get nwc_auth_event_not_found => 'Nenhum evento de autenticação de carteira encontrado';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsPt {
 			case 'anon': return 'Anônimo';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(n,
 				one: '1 visualizador',
-				other: '${n} espectadores',
+				other: '${NumberFormat.decimalPattern('pt').format(n)} espectadores',
 			);
 			case 'stream.status.live': return 'AO VIVO';
 			case 'stream.status.ended': return 'FINALIZADO';
@@ -448,9 +451,12 @@ extension on TranslationsPt {
 			case 'settings.profile.nip05': return 'Endereço Nostr';
 			case 'settings.profile.lud16': return 'Endereço para relâmpagos';
 			case 'settings.profile.error.logged_out': return 'Não é possível editar o perfil quando se está desconectado';
-			case 'settings.wallet.connect_wallet': return 'Conectar carteira (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Carteira Connect (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Desconectar carteira';
+			case 'settings.wallet.connect_1tap': return 'Conexão de 1 torneira';
+			case 'settings.wallet.paste': return 'Colar URL';
 			case 'settings.wallet.error.logged_out': return 'Não consigo conectar a carteira quando estou desconectado';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nenhum evento de autenticação de carteira encontrado';
 			case 'login.username': return 'Nome de usuário';
 			case 'login.amber': return 'Faça login com o Amber';
 			case 'login.key': return 'Login com chave';

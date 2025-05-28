@@ -10,12 +10,9 @@ no_user_found: 未找到使用者
 anon: 匿名
 viewers:
   one: 1 個檢視器
-  other: $n 觀眾
+  other: ${n:decimalPattern} 觀眾
 "@viewers":
   description: 串流的觀看者人數
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: 匿名使用者
 stream:
@@ -120,10 +117,13 @@ settings:
     error:
       logged_out: 登出時無法編輯個人資料
   wallet:
-    connect_wallet: 連接錢包 (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: 斷開錢包
+    connect_1tap: 1 抽頭連接
+    paste: 貼上 URL
     error:
       logged_out: 登出時無法連接錢包
+      nwc_auth_event_not_found: 未找到錢包認證事件
 login:
   username: 用戶名
   amber: 使用 Amber 登入

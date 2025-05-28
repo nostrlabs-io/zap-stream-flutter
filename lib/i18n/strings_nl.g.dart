@@ -54,7 +54,7 @@ class TranslationsNl extends Translations {
 	/// Aantal kijkers van de stream
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
 		one: '1 kijker',
-		other: '${n} kijkers',
+		other: '${NumberFormat.decimalPattern('nl').format(n)} kijkers',
 	);
 
 	@override late final _TranslationsStreamNl stream = _TranslationsStreamNl._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletNl extends TranslationsSettingsWalletEn {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Portemonnee verbinden (NWC nwc://)';
+	@override String get connect_wallet => 'Portemonnee verbinden (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Portefeuille loskoppelen';
+	@override String get connect_1tap => '1-Tap Aansluiting';
+	@override String get paste => 'URL plakken';
 	@override late final _TranslationsSettingsWalletErrorNl error = _TranslationsSettingsWalletErrorNl._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorNl extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Kan geen verbinding maken met portemonnee als ik ben uitgelogd';
+	@override String get nwc_auth_event_not_found => 'Geen portemonnee-auth-gebeurtenis gevonden';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsNl {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
 				one: '1 kijker',
-				other: '${n} kijkers',
+				other: '${NumberFormat.decimalPattern('nl').format(n)} kijkers',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'GESLOTEN';
@@ -448,9 +451,12 @@ extension on TranslationsNl {
 			case 'settings.profile.nip05': return 'Nostr Adres';
 			case 'settings.profile.lud16': return 'Bliksemadres';
 			case 'settings.profile.error.logged_out': return 'Kan profiel niet bewerken als ik ben uitgelogd';
-			case 'settings.wallet.connect_wallet': return 'Portemonnee verbinden (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Portemonnee verbinden (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Portefeuille loskoppelen';
+			case 'settings.wallet.connect_1tap': return '1-Tap Aansluiting';
+			case 'settings.wallet.paste': return 'URL plakken';
 			case 'settings.wallet.error.logged_out': return 'Kan geen verbinding maken met portemonnee als ik ben uitgelogd';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Geen portemonnee-auth-gebeurtenis gevonden';
 			case 'login.username': return 'Gebruikersnaam';
 			case 'login.amber': return 'Inloggen met Amber';
 			case 'login.key': return 'Inloggen met sleutel';

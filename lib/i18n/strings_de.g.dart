@@ -54,7 +54,7 @@ class TranslationsDe extends Translations {
 	/// Anzahl der Betrachter des Streams
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(n,
 		one: '1 Zuschauer',
-		other: '${n} Zuschauer',
+		other: '${NumberFormat.decimalPattern('de').format(n)} Zuschauer',
 	);
 
 	@override late final _TranslationsStreamDe stream = _TranslationsStreamDe._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletDe extends TranslationsSettingsWalletEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Brieftasche verbinden (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Brieftasche abtrennen';
+	@override String get connect_1tap => '1-Tap-Verbindung';
+	@override String get paste => 'URL einfügen';
 	@override late final _TranslationsSettingsWalletErrorDe error = _TranslationsSettingsWalletErrorDe._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorDe extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin';
+	@override String get nwc_auth_event_not_found => 'Kein Wallet-Authentifizierungsereignis gefunden';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsDe {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(n,
 				one: '1 Zuschauer',
-				other: '${n} Zuschauer',
+				other: '${NumberFormat.decimalPattern('de').format(n)} Zuschauer',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'ENDED';
@@ -448,9 +451,12 @@ extension on TranslationsDe {
 			case 'settings.profile.nip05': return 'Nostr-Adresse';
 			case 'settings.profile.lud16': return 'Blitz-Adresse';
 			case 'settings.profile.error.logged_out': return 'Profil kann nicht bearbeitet werden, wenn es abgemeldet ist';
-			case 'settings.wallet.connect_wallet': return 'Brieftasche verbinden (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Brieftasche abtrennen';
+			case 'settings.wallet.connect_1tap': return '1-Tap-Verbindung';
+			case 'settings.wallet.paste': return 'URL einfügen';
 			case 'settings.wallet.error.logged_out': return 'Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Kein Wallet-Authentifizierungsereignis gefunden';
 			case 'login.username': return 'Benutzername';
 			case 'login.amber': return 'Anmeldung mit Amber';
 			case 'login.key': return 'Anmeldung mit Schlüssel';

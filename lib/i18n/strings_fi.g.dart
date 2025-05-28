@@ -54,7 +54,7 @@ class TranslationsFi extends Translations {
 	/// Streamin katsojien määrä
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
 		one: '1 katsoja',
-		other: '${n} katsojaa',
+		other: '${NumberFormat.decimalPattern('fi').format(n)} katsojat',
 	);
 
 	@override late final _TranslationsStreamFi stream = _TranslationsStreamFi._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletFi extends TranslationsSettingsWalletEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Yhdistä lompakko (NWC nwc://)';
+	@override String get connect_wallet => 'Connect-lompakko (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Irrota lompakko';
+	@override String get connect_1tap => '1-Tap-liitäntä';
+	@override String get paste => 'Liitä URL-osoite';
 	@override late final _TranslationsSettingsWalletErrorFi error = _TranslationsSettingsWalletErrorFi._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorFi extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos';
+	@override String get nwc_auth_event_not_found => 'Ei lompakko-auth-tapahtumaa löydetty';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsFi {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
 				one: '1 katsoja',
-				other: '${n} katsojaa',
+				other: '${NumberFormat.decimalPattern('fi').format(n)} katsojat',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'ENDED';
@@ -448,9 +451,12 @@ extension on TranslationsFi {
 			case 'settings.profile.nip05': return 'Nostr Osoite';
 			case 'settings.profile.lud16': return 'Salama osoite';
 			case 'settings.profile.error.logged_out': return 'Ei voi muokata profiilia, kun on kirjautunut ulos';
-			case 'settings.wallet.connect_wallet': return 'Yhdistä lompakko (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect-lompakko (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Irrota lompakko';
+			case 'settings.wallet.connect_1tap': return '1-Tap-liitäntä';
+			case 'settings.wallet.paste': return 'Liitä URL-osoite';
 			case 'settings.wallet.error.logged_out': return 'Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Ei lompakko-auth-tapahtumaa löydetty';
 			case 'login.username': return 'Käyttäjätunnus';
 			case 'login.amber': return 'Kirjaudu sisään Amber kanssa';
 			case 'login.key': return 'Kirjaudu sisään avaimella';

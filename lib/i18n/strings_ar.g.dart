@@ -54,7 +54,7 @@ class TranslationsAr extends Translations {
 	/// عدد مشاهدي البث
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
 		one: '1 مشاهد',
-		other: '${n} المشاهدون',
+		other: '${NumberFormat.decimalPattern('ar').format(n)} المشاهدين',
 	);
 
 	@override late final _TranslationsStreamAr stream = _TranslationsStreamAr._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletAr extends TranslationsSettingsWalletEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'توصيل المحفظة (NWC nwc://)';
+	@override String get connect_wallet => 'توصيل المحفظة (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'محفظة قطع الاتصال';
+	@override String get connect_1tap => '1-التوصيل بنقرة 1';
+	@override String get paste => 'لصق عنوان URL';
 	@override late final _TranslationsSettingsWalletErrorAr error = _TranslationsSettingsWalletErrorAr._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorAr extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'لا يمكن الاتصال بالمحفظة عند تسجيل الخروج';
+	@override String get nwc_auth_event_not_found => 'لم يتم العثور على حدث مصادقة المحفظة';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsAr {
 			case 'anon': return 'هوية مخفية';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
 				one: '1 مشاهد',
-				other: '${n} المشاهدون',
+				other: '${NumberFormat.decimalPattern('ar').format(n)} المشاهدين',
 			);
 			case 'stream.status.live': return 'بث مباشر';
 			case 'stream.status.ended': return 'انتهى';
@@ -448,9 +451,12 @@ extension on TranslationsAr {
 			case 'settings.profile.nip05': return 'عنوان نوستر';
 			case 'settings.profile.lud16': return 'عنوان البرق';
 			case 'settings.profile.error.logged_out': return 'لا يمكن تحرير ملف التعريف عند تسجيل الخروج';
-			case 'settings.wallet.connect_wallet': return 'توصيل المحفظة (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'توصيل المحفظة (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'محفظة قطع الاتصال';
+			case 'settings.wallet.connect_1tap': return '1-التوصيل بنقرة 1';
+			case 'settings.wallet.paste': return 'لصق عنوان URL';
 			case 'settings.wallet.error.logged_out': return 'لا يمكن الاتصال بالمحفظة عند تسجيل الخروج';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'لم يتم العثور على حدث مصادقة المحفظة';
 			case 'login.username': return 'اسم المستخدم';
 			case 'login.amber': return 'تسجيل الدخول مع آمبر';
 			case 'login.key': return 'تسجيل الدخول بالمفتاح';

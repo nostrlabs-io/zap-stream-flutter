@@ -11,12 +11,9 @@ no_user_found: Δεν βρέθηκε χρήστης
 anon: Anon
 viewers:
   one: 1 θεατής
-  other: $n θεατές
+  other: ${n:decimalPattern} θεατές
 "@viewers":
   description: Αριθμός θεατών της ροής
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Ένας ανώνυμος χρήστης
 stream:
@@ -125,10 +122,13 @@ settings:
     error:
       logged_out: Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί
   wallet:
-    connect_wallet: Σύνδεση πορτοφολιού (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: Αποσύνδεση πορτοφολιού
+    connect_1tap: Σύνδεση 1 βρύσης
+    paste: Επικόλληση URL
     error:
       logged_out: Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί
+      nwc_auth_event_not_found: Δεν βρέθηκε συμβάν εξουσιοδότησης πορτοφολιού
 login:
   username: Όνομα χρήστη
   amber: Σύνδεση με Amber

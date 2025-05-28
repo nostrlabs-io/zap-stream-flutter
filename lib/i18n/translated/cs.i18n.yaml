@@ -11,12 +11,9 @@ no_user_found: Nebyl nalezen žádný uživatel
 anon: Anon
 viewers:
   one: 1 divák
-  other: $n diváci
+  other: ${n:decimalPattern} diváků
 "@viewers":
   description: Počet diváků streamu
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Anonymní uživatel
 stream:
@@ -122,10 +119,13 @@ settings:
     error:
       logged_out: Nelze upravit profil, když je odhlášený
   wallet:
-    connect_wallet: Připojení peněženky (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: Odpojení peněženky
+    connect_1tap: Připojení 1 kohoutku
+    paste: Vložit adresu URL
     error:
       logged_out: Nelze se připojit k peněžence, když jste odhlášeni
+      nwc_auth_event_not_found: Nebyla nalezena žádná událost autentizace peněženky
 login:
   username: Uživatelské jméno
   amber: Přihlášení pomocí Amber

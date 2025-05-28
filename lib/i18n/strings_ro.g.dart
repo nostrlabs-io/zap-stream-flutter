@@ -54,7 +54,7 @@ class TranslationsRo extends Translations {
 	/// Numărul de telespectatori ai fluxului
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
 		one: '1 vizualizator',
-		other: '${n} telespectatori',
+		other: '${NumberFormat.decimalPattern('ro').format(n)} telespectatori',
 	);
 
 	@override late final _TranslationsStreamRo stream = _TranslationsStreamRo._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletRo extends TranslationsSettingsWalletEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Conectați portofelul (NWC nwc://)';
+	@override String get connect_wallet => 'Conectați portofelul (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Deconectați portofelul';
+	@override String get connect_1tap => 'Conexiune 1-Tap';
+	@override String get paste => 'Lipiți URL';
 	@override late final _TranslationsSettingsWalletErrorRo error = _TranslationsSettingsWalletErrorRo._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorRo extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Nu puteți conecta portofelul atunci când sunteți deconectat';
+	@override String get nwc_auth_event_not_found => 'Nu a fost găsit niciun eveniment de autorizare a portofelului';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsRo {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
 				one: '1 vizualizator',
-				other: '${n} telespectatori',
+				other: '${NumberFormat.decimalPattern('ro').format(n)} telespectatori',
 			);
 			case 'stream.status.live': return 'ÎN DIRECT';
 			case 'stream.status.ended': return 'TERMINAT';
@@ -448,9 +451,12 @@ extension on TranslationsRo {
 			case 'settings.profile.nip05': return 'Adresa Nostr';
 			case 'settings.profile.lud16': return 'Adresa fulgerului';
 			case 'settings.profile.error.logged_out': return 'Nu pot edita profilul când sunt deconectat';
-			case 'settings.wallet.connect_wallet': return 'Conectați portofelul (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Conectați portofelul (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Deconectați portofelul';
+			case 'settings.wallet.connect_1tap': return 'Conexiune 1-Tap';
+			case 'settings.wallet.paste': return 'Lipiți URL';
 			case 'settings.wallet.error.logged_out': return 'Nu puteți conecta portofelul atunci când sunteți deconectat';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nu a fost găsit niciun eveniment de autorizare a portofelului';
 			case 'login.username': return 'Nume utilizator';
 			case 'login.amber': return 'Conectați-vă cu Amber';
 			case 'login.key': return 'Autentificare cu cheie';

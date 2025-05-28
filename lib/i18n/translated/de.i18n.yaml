@@ -11,12 +11,9 @@ no_user_found: Kein Benutzer gefunden
 anon: Anon
 viewers:
   one: 1 Zuschauer
-  other: $n Zuschauer
+  other: ${n:decimalPattern} Zuschauer
 "@viewers":
   description: Anzahl der Betrachter des Streams
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Ein anonymer Benutzer
 stream:
@@ -123,10 +120,13 @@ settings:
     error:
       logged_out: Profil kann nicht bearbeitet werden, wenn es abgemeldet ist
   wallet:
-    connect_wallet: Brieftasche verbinden (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: Brieftasche abtrennen
+    connect_1tap: 1-Tap-Verbindung
+    paste: URL einfügen
     error:
       logged_out: Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin
+      nwc_auth_event_not_found: Kein Wallet-Authentifizierungsereignis gefunden
 login:
   username: Benutzername
   amber: Anmeldung mit Amber

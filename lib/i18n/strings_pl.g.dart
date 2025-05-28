@@ -54,7 +54,7 @@ class TranslationsPl extends Translations {
 	/// Liczba widzów strumienia
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pl'))(n,
 		one: '1 przeglądarka',
-		other: '${n} widzowie',
+		other: '{n:decimalPattern} widzów',
 	);
 
 	@override late final _TranslationsStreamPl stream = _TranslationsStreamPl._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletPl extends TranslationsSettingsWalletEn {
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Connect Wallet (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Odłącz portfel';
+	@override String get connect_1tap => 'Połączenie 1-wtykowe';
+	@override String get paste => 'Wklej adres URL';
 	@override late final _TranslationsSettingsWalletErrorPl error = _TranslationsSettingsWalletErrorPl._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorPl extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Nie można połączyć portfela po wylogowaniu';
+	@override String get nwc_auth_event_not_found => 'Nie znaleziono zdarzenia autoryzacji portfela';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsPl {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pl'))(n,
 				one: '1 przeglądarka',
-				other: '${n} widzowie',
+				other: '{n:decimalPattern} widzów',
 			);
 			case 'stream.status.live': return 'NA ŻYWO';
 			case 'stream.status.ended': return 'ZAKOŃCZONY';
@@ -448,9 +451,12 @@ extension on TranslationsPl {
 			case 'settings.profile.nip05': return 'Adres Nostr';
 			case 'settings.profile.lud16': return 'Adres błyskawicy';
 			case 'settings.profile.error.logged_out': return 'Nie można edytować profilu po wylogowaniu';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Odłącz portfel';
+			case 'settings.wallet.connect_1tap': return 'Połączenie 1-wtykowe';
+			case 'settings.wallet.paste': return 'Wklej adres URL';
 			case 'settings.wallet.error.logged_out': return 'Nie można połączyć portfela po wylogowaniu';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nie znaleziono zdarzenia autoryzacji portfela';
 			case 'login.username': return 'Nazwa użytkownika';
 			case 'login.amber': return 'Zaloguj się za pomocą Amber';
 			case 'login.key': return 'Logowanie za pomocą klucza';

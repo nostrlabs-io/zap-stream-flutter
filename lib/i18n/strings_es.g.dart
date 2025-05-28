@@ -54,7 +54,7 @@ class TranslationsEs extends Translations {
 	/// Número de espectadores del flujo
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 		one: '1 espectador',
-		other: '${n} espectadores',
+		other: '${NumberFormat.decimalPattern('es').format(n)} espectadores',
 	);
 
 	@override late final _TranslationsStreamEs stream = _TranslationsStreamEs._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletEs extends TranslationsSettingsWalletEn {
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Cartera Connect (NWC nwc://)';
+	@override String get connect_wallet => 'Cartera Connect (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Desconectar Cartera';
+	@override String get connect_1tap => 'Conexión de 1 toma';
+	@override String get paste => 'Pegar URL';
 	@override late final _TranslationsSettingsWalletErrorEs error = _TranslationsSettingsWalletErrorEs._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorEs extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'No se puede conectar el monedero al cerrar la sesión';
+	@override String get nwc_auth_event_not_found => 'No se ha encontrado ningún evento de autenticación de cartera';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsEs {
 			case 'anon': return 'Anónimo';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 				one: '1 espectador',
-				other: '${n} espectadores',
+				other: '${NumberFormat.decimalPattern('es').format(n)} espectadores',
 			);
 			case 'stream.status.live': return 'EN VIVO';
 			case 'stream.status.ended': return 'FIN';
@@ -448,9 +451,12 @@ extension on TranslationsEs {
 			case 'settings.profile.nip05': return 'Dirección Nostr';
 			case 'settings.profile.lud16': return 'Dirección del rayo';
 			case 'settings.profile.error.logged_out': return 'No se puede editar el perfil cuando se cierra la sesión';
-			case 'settings.wallet.connect_wallet': return 'Cartera Connect (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Cartera Connect (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Desconectar Cartera';
+			case 'settings.wallet.connect_1tap': return 'Conexión de 1 toma';
+			case 'settings.wallet.paste': return 'Pegar URL';
 			case 'settings.wallet.error.logged_out': return 'No se puede conectar el monedero al cerrar la sesión';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'No se ha encontrado ningún evento de autenticación de cartera';
 			case 'login.username': return 'Usuario';
 			case 'login.amber': return 'Iniciar sesión con Amber';
 			case 'login.key': return 'Inicio de sesión con clave';

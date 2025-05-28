@@ -11,12 +11,9 @@ no_user_found: Aucun utilisateur trouvé
 anon: Anonyme
 viewers:
   one: 1 téléspectateur
-  other: $n spectateurs
+  other: "${n:decimalPattern} téléspectateurs"
 "@viewers":
   description: Nombre de spectateurs du flux
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Un utilisateur anonyme
 stream:
@@ -122,10 +119,13 @@ settings:
     error:
       logged_out: Impossible de modifier le profil lorsque l'on est déconnecté
   wallet:
-    connect_wallet: Portefeuille connecté (NWC nwc://)
+    connect_wallet: Portefeuille Connect (NWC nostr+walletconnect://)
     disconnect_wallet: Déconnecter le portefeuille
+    connect_1tap: Connexion à 1 robinet
+    paste: Coller l'URL
     error:
       logged_out: Impossible de se connecter au portefeuille lorsque l'on est déconnecté
+      nwc_auth_event_not_found: Aucun événement d'authentification de portefeuille n'a été trouvé
 login:
   username: Nom d’utilisateur
   amber: Se connecter avec Amber

@@ -54,7 +54,7 @@ class TranslationsTr extends Translations {
 	/// Akışı izleyenlerin sayısı
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(n,
 		one: '1 izleyici',
-		other: '${n} izleyiciler',
+		other: '${NumberFormat.decimalPattern('tr').format(n)} izleyiciler',
 	);
 
 	@override late final _TranslationsStreamTr stream = _TranslationsStreamTr._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletTr extends TranslationsSettingsWalletEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Cüzdanı Bağlayın (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Cüzdan (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Cüzdan Bağlantısını Kes';
+	@override String get connect_1tap => '1-Tap Bağlantı';
+	@override String get paste => 'URL Yapıştır';
 	@override late final _TranslationsSettingsWalletErrorTr error = _TranslationsSettingsWalletErrorTr._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorTr extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Oturumu kapattığımda cüzdana bağlanamıyorum';
+	@override String get nwc_auth_event_not_found => 'Cüzdan yetkilendirme olayı bulunamadı';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsTr {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(n,
 				one: '1 izleyici',
-				other: '${n} izleyiciler',
+				other: '${NumberFormat.decimalPattern('tr').format(n)} izleyiciler',
 			);
 			case 'stream.status.live': return 'CANLI';
 			case 'stream.status.ended': return 'SONLANDI';
@@ -448,9 +451,12 @@ extension on TranslationsTr {
 			case 'settings.profile.nip05': return 'Nostr Adres';
 			case 'settings.profile.lud16': return 'Yıldırım Adres';
 			case 'settings.profile.error.logged_out': return 'Çıkış yapıldığında profil düzenlenemiyor';
-			case 'settings.wallet.connect_wallet': return 'Cüzdanı Bağlayın (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Cüzdan (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Cüzdan Bağlantısını Kes';
+			case 'settings.wallet.connect_1tap': return '1-Tap Bağlantı';
+			case 'settings.wallet.paste': return 'URL Yapıştır';
 			case 'settings.wallet.error.logged_out': return 'Oturumu kapattığımda cüzdana bağlanamıyorum';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Cüzdan yetkilendirme olayı bulunamadı';
 			case 'login.username': return 'Kullanıcı Adı';
 			case 'login.amber': return 'Amber ile Giriş Yapın';
 			case 'login.key': return 'Anahtar ile Giriş Yapın';

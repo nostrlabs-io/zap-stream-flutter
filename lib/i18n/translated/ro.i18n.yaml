@@ -11,12 +11,9 @@ no_user_found: Niciun utilizator găsit
 anon: Anon
 viewers:
   one: 1 vizualizator
-  other: $n telespectatori
+  other: ${n:decimalPattern} telespectatori
 "@viewers":
   description: Numărul de telespectatori ai fluxului
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Un utilizator anonim
 stream:
@@ -124,10 +121,13 @@ settings:
     error:
       logged_out: Nu pot edita profilul când sunt deconectat
   wallet:
-    connect_wallet: Conectați portofelul (NWC nwc://)
+    connect_wallet: Conectați portofelul (NWC nostr+walletconnect://)
     disconnect_wallet: Deconectați portofelul
+    connect_1tap: Conexiune 1-Tap
+    paste: Lipiți URL
     error:
       logged_out: Nu puteți conecta portofelul atunci când sunteți deconectat
+      nwc_auth_event_not_found: Nu a fost găsit niciun eveniment de autorizare a portofelului
 login:
   username: Nume utilizator
   amber: Conectați-vă cu Amber

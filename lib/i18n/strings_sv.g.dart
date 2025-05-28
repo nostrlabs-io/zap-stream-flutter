@@ -54,7 +54,7 @@ class TranslationsSv extends Translations {
 	/// Antal tittare på streamingen
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
 		one: '1 tittare',
-		other: '${n} tittare',
+		other: '${NumberFormat.decimalPattern('sv').format(n)} tittare',
 	);
 
 	@override late final _TranslationsStreamSv stream = _TranslationsStreamSv._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletSv extends TranslationsSettingsWalletEn {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Anslut plånbok (NWC nwc://)';
+	@override String get connect_wallet => 'Connect plånbok (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Koppla bort plånboken';
+	@override String get connect_1tap => '1-Tap-anslutning';
+	@override String get paste => 'Klistra in URL';
 	@override late final _TranslationsSettingsWalletErrorSv error = _TranslationsSettingsWalletErrorSv._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorSv extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Kan inte ansluta plånbok när du är inloggad';
+	@override String get nwc_auth_event_not_found => 'Inget autentiseringshändelse för plånbok hittades';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsSv {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
 				one: '1 tittare',
-				other: '${n} tittare',
+				other: '${NumberFormat.decimalPattern('sv').format(n)} tittare',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'AVSLUTAD';
@@ -448,9 +451,12 @@ extension on TranslationsSv {
 			case 'settings.profile.nip05': return 'Nostr Adress';
 			case 'settings.profile.lud16': return 'Adress för blixtnedslag';
 			case 'settings.profile.error.logged_out': return 'Kan inte redigera profil när jag är utloggad';
-			case 'settings.wallet.connect_wallet': return 'Anslut plånbok (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect plånbok (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Koppla bort plånboken';
+			case 'settings.wallet.connect_1tap': return '1-Tap-anslutning';
+			case 'settings.wallet.paste': return 'Klistra in URL';
 			case 'settings.wallet.error.logged_out': return 'Kan inte ansluta plånbok när du är inloggad';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Inget autentiseringshändelse för plånbok hittades';
 			case 'login.username': return 'Användarnamn';
 			case 'login.amber': return 'Logga in med Amber';
 			case 'login.key': return 'Logga in med nyckel';

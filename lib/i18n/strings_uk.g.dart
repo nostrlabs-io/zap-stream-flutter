@@ -54,7 +54,7 @@ class TranslationsUk extends Translations {
 	/// Кількість глядачів стріму
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(n,
 		one: '1 глядач',
-		other: '${n} глядачі',
+		other: '${NumberFormat.decimalPattern('uk').format(n)} глядачів',
 	);
 
 	@override late final _TranslationsStreamUk stream = _TranslationsStreamUk._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletUk extends TranslationsSettingsWalletEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Підключити гаманець (NWC nwc://)';
+	@override String get connect_wallet => 'Підключити гаманець (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Відключити гаманець';
+	@override String get connect_1tap => 'Підключення в 1 кран';
+	@override String get paste => 'Вставити URL-адресу';
 	@override late final _TranslationsSettingsWalletErrorUk error = _TranslationsSettingsWalletErrorUk._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorUk extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Не вдається підключити гаманець, коли ви вийшли з системи';
+	@override String get nwc_auth_event_not_found => 'Не знайдено жодної події авторизації гаманця';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsUk {
 			case 'anon': return 'Анонім.';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(n,
 				one: '1 глядач',
-				other: '${n} глядачі',
+				other: '${NumberFormat.decimalPattern('uk').format(n)} глядачів',
 			);
 			case 'stream.status.live': return 'НАЖИВО';
 			case 'stream.status.ended': return 'ЗАКІНЧЕНО';
@@ -448,9 +451,12 @@ extension on TranslationsUk {
 			case 'settings.profile.nip05': return 'Nostr Адреса';
 			case 'settings.profile.lud16': return 'Блискавична адреса';
 			case 'settings.profile.error.logged_out': return 'Неможливо редагувати профіль, коли ви вийшли з системи';
-			case 'settings.wallet.connect_wallet': return 'Підключити гаманець (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Підключити гаманець (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Відключити гаманець';
+			case 'settings.wallet.connect_1tap': return 'Підключення в 1 кран';
+			case 'settings.wallet.paste': return 'Вставити URL-адресу';
 			case 'settings.wallet.error.logged_out': return 'Не вдається підключити гаманець, коли ви вийшли з системи';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Не знайдено жодної події авторизації гаманця';
 			case 'login.username': return 'Ім\'я користувача';
 			case 'login.amber': return 'Увійдіть за допомогою Amber';
 			case 'login.key': return 'Увійдіть за допомогою ключа';

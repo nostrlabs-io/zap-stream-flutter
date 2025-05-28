@@ -139,7 +139,7 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
                 ),
               ],
               Text(
-                "Paste URL",
+                t.settings.wallet.paste,
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               TextField(

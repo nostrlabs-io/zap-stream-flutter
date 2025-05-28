@@ -54,7 +54,7 @@ class TranslationsZh extends Translations {
 	/// 串流的觀看者人數
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n,
 		one: '1 個檢視器',
-		other: '${n} 觀眾',
+		other: '${NumberFormat.decimalPattern('zh').format(n)} 觀眾',
 	);
 
 	@override late final _TranslationsStreamZh stream = _TranslationsStreamZh._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletZh extends TranslationsSettingsWalletEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => '連接錢包 (NWC nwc://)';
+	@override String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => '斷開錢包';
+	@override String get connect_1tap => '1 抽頭連接';
+	@override String get paste => '貼上 URL';
 	@override late final _TranslationsSettingsWalletErrorZh error = _TranslationsSettingsWalletErrorZh._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorZh extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => '登出時無法連接錢包';
+	@override String get nwc_auth_event_not_found => '未找到錢包認證事件';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsZh {
 			case 'anon': return '匿名';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n,
 				one: '1 個檢視器',
-				other: '${n} 觀眾',
+				other: '${NumberFormat.decimalPattern('zh').format(n)} 觀眾',
 			);
 			case 'stream.status.live': return '直播';
 			case 'stream.status.ended': return '結束';
@@ -448,9 +451,12 @@ extension on TranslationsZh {
 			case 'settings.profile.nip05': return '地址';
 			case 'settings.profile.lud16': return '閃電地址';
 			case 'settings.profile.error.logged_out': return '登出時無法編輯個人資料';
-			case 'settings.wallet.connect_wallet': return '連接錢包 (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return '斷開錢包';
+			case 'settings.wallet.connect_1tap': return '1 抽頭連接';
+			case 'settings.wallet.paste': return '貼上 URL';
 			case 'settings.wallet.error.logged_out': return '登出時無法連接錢包';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return '未找到錢包認證事件';
 			case 'login.username': return '用戶名';
 			case 'login.amber': return '使用 Amber 登入';
 			case 'login.key': return '使用鑰匙登入';

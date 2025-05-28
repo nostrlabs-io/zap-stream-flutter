@@ -11,12 +11,9 @@ no_user_found: Користувача не знайдено
 anon: Анонім.
 viewers:
   one: 1 глядач
-  other: $n глядачі
+  other: ${n:decimalPattern} глядачів
 "@viewers":
   description: Кількість глядачів стріму
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Анонімний користувач
 stream:
@@ -124,10 +121,13 @@ settings:
     error:
       logged_out: Неможливо редагувати профіль, коли ви вийшли з системи
   wallet:
-    connect_wallet: Підключити гаманець (NWC nwc://)
+    connect_wallet: Підключити гаманець (NWC nostr+walletconnect://)
     disconnect_wallet: Відключити гаманець
+    connect_1tap: Підключення в 1 кран
+    paste: Вставити URL-адресу
     error:
       logged_out: Не вдається підключити гаманець, коли ви вийшли з системи
+      nwc_auth_event_not_found: Не знайдено жодної події авторизації гаманця
 login:
   username: Ім'я користувача
   amber: Увійдіть за допомогою Amber

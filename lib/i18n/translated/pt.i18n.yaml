@@ -11,12 +11,9 @@ no_user_found: Nenhum usuário encontrado
 anon: Anônimo
 viewers:
   one: 1 visualizador
-  other: $n espectadores
+  other: ${n:decimalPattern} espectadores
 "@viewers":
   description: Número de espectadores da transmissão
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Um usuário anônimo
 stream:
@@ -123,10 +120,13 @@ settings:
     error:
       logged_out: Não é possível editar o perfil quando se está desconectado
   wallet:
-    connect_wallet: Conectar carteira (NWC nwc://)
+    connect_wallet: Carteira Connect (NWC nostr+walletconnect://)
     disconnect_wallet: Desconectar carteira
+    connect_1tap: Conexão de 1 torneira
+    paste: Colar URL
     error:
       logged_out: Não consigo conectar a carteira quando estou desconectado
+      nwc_auth_event_not_found: Nenhum evento de autenticação de carteira encontrado
 login:
   username: Nome de usuário
   amber: Faça login com o Amber

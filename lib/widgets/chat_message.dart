@@ -5,7 +5,6 @@ import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/chat_modal.dart';
-import 'package:zap_stream_flutter/widgets/custom_emoji.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 

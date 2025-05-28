@@ -10,7 +10,7 @@ no_user_found: No user found
 anon: Anon
 viewers:
   one: 1 viewer
-  other: "${n:decimalPattern} viewers"
+  other: ${n:decimalPattern} viewers
 "@viewers":
   description: Number of viewers of the stream
 "@anon":
@@ -24,7 +24,7 @@ stream:
   chat:
     disabled: CHAT DISABLED
     disabled_timeout: "Timeout expires: $time"
-    timeout(rich): $mod timed out $user for $time
+    timeout(rich): $mod timed out $user for ${time}
     "@timeout":
       description: Chat message showing timeout events
     ended: STREAM ENDED
@@ -125,7 +125,7 @@ settings:
       logged_out: Cant connect wallet when logged out
       nwc_auth_event_not_found: No wallet auth event found
 login:
-  username: "Username"
+  username: Username
   amber: Login with Amber
   key: Login with Key
   create: Create Account

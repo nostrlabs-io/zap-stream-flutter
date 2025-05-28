@@ -54,7 +54,7 @@ class TranslationsRu extends Translations {
 	/// Количество зрителей потока
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
 		one: '1 зритель',
-		other: '${n} зрителей',
+		other: '${NumberFormat.decimalPattern('ru').format(n)} зрителей',
 	);
 
 	@override late final _TranslationsStreamRu stream = _TranslationsStreamRu._(_root);
@@ -284,8 +284,10 @@ class _TranslationsSettingsWalletRu extends TranslationsSettingsWalletEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Подключите кошелек (NWC nwc://)';
+	@override String get connect_wallet => 'Кошелек Connect (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Отключить кошелек';
+	@override String get connect_1tap => '1-кратное соединение';
+	@override String get paste => 'Вставить URL';
 	@override late final _TranslationsSettingsWalletErrorRu error = _TranslationsSettingsWalletErrorRu._(_root);
 }
 
@@ -365,6 +367,7 @@ class _TranslationsSettingsWalletErrorRu extends TranslationsSettingsWalletError
 
 	// Translations
 	@override String get logged_out => 'Невозможно подключить кошелек при выходе из системы';
+	@override String get nwc_auth_event_not_found => 'Событие аутентификации кошелька не найдено';
 }
 
 /// Flat map(s) containing all translations.
@@ -378,7 +381,7 @@ extension on TranslationsRu {
 			case 'anon': return 'Аноним';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
 				one: '1 зритель',
-				other: '${n} зрителей',
+				other: '${NumberFormat.decimalPattern('ru').format(n)} зрителей',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'КОНЕЦ';
@@ -448,9 +451,12 @@ extension on TranslationsRu {
 			case 'settings.profile.nip05': return 'Адрес Ностр';
 			case 'settings.profile.lud16': return 'Адрес молнии';
 			case 'settings.profile.error.logged_out': return 'Невозможно редактировать профиль при выходе из системы';
-			case 'settings.wallet.connect_wallet': return 'Подключите кошелек (NWC nwc://)';
+			case 'settings.wallet.connect_wallet': return 'Кошелек Connect (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Отключить кошелек';
+			case 'settings.wallet.connect_1tap': return '1-кратное соединение';
+			case 'settings.wallet.paste': return 'Вставить URL';
 			case 'settings.wallet.error.logged_out': return 'Невозможно подключить кошелек при выходе из системы';
+			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Событие аутентификации кошелька не найдено';
 			case 'login.username': return 'Имя пользователя';
 			case 'login.amber': return 'Войти с помощью Amber';
 			case 'login.key': return 'Вход в систему с помощью ключа';

@@ -11,12 +11,9 @@ no_user_found: Nie znaleziono użytkownika
 anon: Anon
 viewers:
   one: 1 przeglądarka
-  other: $n widzowie
+  other: "{n:decimalPattern} widzów"
 "@viewers":
   description: Liczba widzów strumienia
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Anonimowy użytkownik
 stream:
@@ -123,10 +120,13 @@ settings:
     error:
       logged_out: Nie można edytować profilu po wylogowaniu
   wallet:
-    connect_wallet: Connect Wallet (NWC nwc://)
+    connect_wallet: Connect Wallet (NWC nostr+walletconnect://)
     disconnect_wallet: Odłącz portfel
+    connect_1tap: Połączenie 1-wtykowe
+    paste: Wklej adres URL
     error:
       logged_out: Nie można połączyć portfela po wylogowaniu
+      nwc_auth_event_not_found: Nie znaleziono zdarzenia autoryzacji portfela
 login:
   username: Nazwa użytkownika
   amber: Zaloguj się za pomocą Amber

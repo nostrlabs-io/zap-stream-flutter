@@ -30,9 +30,7 @@
 	<string>NSApplication</string>
 	<key>CFBundleLocalizations</key>
 	<array>
-		<string>af</string>
 		<string>ar</string>
-		<string>ca</string>
 		<string>cs</string>
 		<string>da</string>
 		<string>de</string>
@@ -41,22 +39,18 @@
 		<string>es</string>
 		<string>fi</string>
 		<string>fr</string>
-		<string>he</string>
 		<string>hu</string>
 		<string>it</string>
 		<string>ja</string>
 		<string>ko</string>
 		<string>nl</string>
-		<string>no</string>
 		<string>pl</string>
 		<string>pt</string>
 		<string>ro</string>
 		<string>ru</string>
-		<string>sr</string>
 		<string>sv</string>
 		<string>tr</string>
 		<string>uk</string>
-		<string>vi</string>
 		<string>zh</string>
 	</array>
 </dict>

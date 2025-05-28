@@ -11,12 +11,9 @@ no_user_found: Geen gebruiker gevonden
 anon: Anon
 viewers:
   one: 1 kijker
-  other: $n kijkers
+  other: ${n:decimalPattern} kijkers
 "@viewers":
   description: Aantal kijkers van de stream
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: Een anonieme gebruiker
 stream:
@@ -123,10 +120,13 @@ settings:
     error:
       logged_out: Kan profiel niet bewerken als ik ben uitgelogd
   wallet:
-    connect_wallet: Portemonnee verbinden (NWC nwc://)
+    connect_wallet: Portemonnee verbinden (NWC nostr+walletconnect://)
     disconnect_wallet: Portefeuille loskoppelen
+    connect_1tap: 1-Tap Aansluiting
+    paste: URL plakken
     error:
       logged_out: Kan geen verbinding maken met portemonnee als ik ben uitgelogd
+      nwc_auth_event_not_found: Geen portemonnee-auth-gebeurtenis gevonden
 login:
   username: Gebruikersnaam
   amber: Inloggen met Amber
