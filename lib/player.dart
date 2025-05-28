@@ -44,6 +44,7 @@ class MainPlayer extends BaseAudioHandler {
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(url),
       httpHeaders: Map.from({"user-agent": userAgent}),
+      videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true),
     );
     _chewieController = ChewieController(
       videoPlayerController: _controller!,
