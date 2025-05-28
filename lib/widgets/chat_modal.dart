@@ -6,6 +6,7 @@ import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button_follow.dart';
+import 'package:zap_stream_flutter/widgets/chat_reactions.dart';
 import 'package:zap_stream_flutter/widgets/mute_button.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
@@ -50,6 +51,7 @@ class _ChatModalWidget extends State<ChatModalWidget> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: NoteText(event: widget.event, showEmbeds: false),
           ),
+          ChatReactions.forMessage(widget.event),
           Row(
             spacing: 8,
             children: [
@@ -107,7 +109,11 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                 ),
             ],
           ),
-          if (_showEmojiPicker) ReactionWidget(event: widget.event),
+          if (_showEmojiPicker)
+            ReactionWidget(
+              event: widget.event,
+              customEmojiSets: [widget.stream.info.host],
+            ),
 
           if (_showTimeoutOptions)
             GridView.count(

@@ -42,22 +42,7 @@ class ChatMessageWidget extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
-          child: Column(
-            spacing: 2,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _chatText(context, profile),
-              /*RxFilter<Nip01Event>(
-                  Key(msg.id),
-                  filters: [
-                    Filter(kinds: [9735, 7], eTags: [msg.id]),
-                  ],
-                  builder: (context, state) {
-                    return ChatReactions(msg: msg, events: state ?? []);
-                  },
-                ),*/
-            ],
-          ),
+          child: _chatText(context, profile),
         ),
       );
     });
@@ -101,67 +86,6 @@ class ChatMessageWidget extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ChatReactions extends StatelessWidget {
-  final Nip01Event msg;
-  final List<Nip01Event> events;
-
-  const ChatReactions({super.key, required this.msg, required this.events});
-
-  @override
-  Widget build(BuildContext context) {
-    // reactions must have e tag pointing to msg
-    final filteredEvents = events.where((e) => e.getEId() == msg.id);
-    if (filteredEvents.isEmpty) return SizedBox.shrink();
-    final zaps = filteredEvents
-        .where((e) => e.kind == 9735)
-        .map((e) => ZapReceipt.fromEvent(e));
-    final reactions = filteredEvents.where((e) => e.kind == 7);
-
-    return Row(
-      spacing: 8,
-      children: [
-        if (zaps.isNotEmpty)
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-            decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
-            child: Row(
-              children: [
-                Icon(Icons.bolt, color: ZAP_1, size: 16),
-                Text(
-                  formatSats(
-                    zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        if (reactions.isNotEmpty)
-          ...reactions
-              .fold(<String, Set<Nip01Event>>{}, (acc, v) {
-                // ignore: prefer_collection_literals
-                acc[v.content] ??= Set();
-                acc[v.content]!.add(v);
-                return acc;
-              })
-              .entries
-              .map(
-                (v) => Container(
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: LAYER_2,
-                    borderRadius: DEFAULT_BR,
-                  ),
-                  child: Center(
-                    child: CustomEmoji(emoji: v.key, tags: v.value.first.tags),
-                  ),
-                ),
-              ),
-      ],
     );
   }
 }
