@@ -45,6 +45,7 @@ class NoteEmbedWidget extends StatelessWidget {
           },
           color: LAYER_3,
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.link, size: 16),
               ProfileLoaderWidget(author, (context, state) {

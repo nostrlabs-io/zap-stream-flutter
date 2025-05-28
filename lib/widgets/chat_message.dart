@@ -46,7 +46,7 @@ class ChatMessageWidget extends StatelessWidget {
             spacing: 2,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _chatText(profile),
+              _chatText(context, profile),
               /*RxFilter<Nip01Event>(
                   Key(msg.id),
                   filters: [
@@ -63,7 +63,7 @@ class ChatMessageWidget extends StatelessWidget {
     });
   }
 
-  Widget _chatText(Metadata profile) {
+  Widget _chatText(BuildContext context, Metadata profile) {
     return RichText(
       text: TextSpan(
         children: [
@@ -92,7 +92,13 @@ class ChatMessageWidget extends StatelessWidget {
               ),
             ),
           TextSpan(text: " "),
-          ...textToSpans(msg.content, msg.tags, msg.pubKey),
+          ...textToSpans(
+            context,
+            msg.content,
+            msg.tags,
+            msg.pubKey,
+            embedMedia: false,
+          ),
         ],
       ),
     );

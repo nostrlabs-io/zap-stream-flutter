@@ -9,6 +9,7 @@ class VideoPlayerWidget extends StatefulWidget {
   final String? placeholder;
   final double? aspectRatio;
   final bool? autoPlay;
+  final bool? isLive;
 
   const VideoPlayerWidget({
     super.key,
@@ -16,6 +17,7 @@ class VideoPlayerWidget extends StatefulWidget {
     this.placeholder,
     this.aspectRatio,
     this.autoPlay,
+    this.isLive,
   });
 
   @override
@@ -38,6 +40,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       videoPlayerController: _controller,
       autoPlay: widget.autoPlay ?? true,
       aspectRatio: widget.aspectRatio,
+      isLive: widget.isLive ?? false,
       autoInitialize: true,
       placeholder:
           (widget.placeholder?.isNotEmpty ?? false)

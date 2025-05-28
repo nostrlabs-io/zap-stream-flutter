@@ -17,12 +17,14 @@ class NoteText extends StatelessWidget {
   final Nip01Event event;
   final bool? embedMedia;
   final bool? showEmbeds;
+  final bool? previewMedia;
 
   const NoteText({
     super.key,
     required this.event,
     this.embedMedia,
     this.showEmbeds,
+    this.previewMedia,
   });
 
   @override
@@ -34,11 +36,13 @@ class NoteText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         children: textToSpans(
+          context,
           event.content,
           event.tags,
           event.pubKey,
           showEmbeds: showEmbeds,
           embedMedia: embedMedia,
+          previewMedia: previewMedia,
         ),
       ),
     );
@@ -49,11 +53,13 @@ class NoteText extends StatelessWidget {
 /// and mentions into multiple spans for rendering
 /// /// https://github.com/leo-lox/camelus/blob/f58455a0ac07fcc780bdc69b8f4544fd5ea4a46d/lib/presentation_layer/components/note_card/note_card_build_split_content.dart#L262
 List<InlineSpan> textToSpans(
+  BuildContext context,
   String content,
   List<List<String>> tags,
   String pubkey, {
   bool? showEmbeds,
   bool? embedMedia,
+  bool? previewMedia,
 }) {
   List<InlineSpan> spans = [];
   RegExp exp = RegExp(
@@ -76,7 +82,14 @@ List<InlineSpan> textToSpans(
         } else if (matched.startsWith('#')) {
           spans.add(_buildHashtagSpan(matched));
         } else if (matched.startsWith('http')) {
-          spans.add(_buildUrlSpan(matched, embedMedia ?? false));
+          spans.add(
+            _buildUrlSpan(
+              context,
+              matched,
+              embedMedia ?? false,
+              previewMedia ?? true,
+            ),
+          );
         } else if (matched.startsWith(":") &&
             matched.endsWith(":") &&
             tags.any(
@@ -134,22 +147,29 @@ InlineSpan _buildHashtagSpan(String word) {
   return TextSpan(text: word, style: TextStyle(color: PRIMARY_1));
 }
 
-InlineSpan _buildUrlSpan(String url, bool embedMedia) {
-  if (embedMedia &&
-      (url.endsWith(".jpg") ||
-          url.endsWith(".gif") ||
-          url.endsWith(".jpeg") ||
-          url.endsWith(".webp") ||
-          url.endsWith(".png") ||
-          url.endsWith(".bmp"))) {
+InlineSpan _buildUrlSpan(
+  BuildContext context,
+  String url,
+  bool embedMedia,
+  bool previewMedia,
+) {
+  final isImage =
+      url.endsWith(".jpg") ||
+      url.endsWith(".gif") ||
+      url.endsWith(".jpeg") ||
+      url.endsWith(".webp") ||
+      url.endsWith(".png") ||
+      url.endsWith(".bmp");
+  final isVideo =
+      url.endsWith(".mp4") ||
+      url.endsWith(".mov") ||
+      url.endsWith(".webm") ||
+      url.endsWith(".mkv") ||
+      url.endsWith(".m3u8");
+  if (embedMedia && isImage) {
     return WidgetSpan(child: ProxyImg(url: url));
   }
-  if (embedMedia &&
-      (url.endsWith(".mp4") ||
-          url.endsWith(".mov") ||
-          url.endsWith(".webm") ||
-          url.endsWith(".mkv") ||
-          url.endsWith(".m3u8"))) {
+  if (embedMedia && isVideo) {
     return WidgetSpan(
       child: AspectRatio(
         aspectRatio: 16 / 9,
@@ -163,7 +183,32 @@ InlineSpan _buildUrlSpan(String url, bool embedMedia) {
     recognizer:
         TapGestureRecognizer()
           ..onTap = () {
-            launchUrl(Uri.parse(url));
+            if (previewMedia) {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: LAYER_1,
+                      borderRadius: DEFAULT_BR,
+                    ),
+                    child:
+                        isImage
+                            ? ProxyImg(url: url)
+                            : AspectRatio(
+                              aspectRatio: 16 / 9,
+                              child: VideoPlayerWidget(
+                                url: url,
+                                autoPlay: false,
+                              ),
+                            ),
+                  );
+                },
+              );
+            } else {
+              launchUrl(Uri.parse(url));
+            }
           },
   );
 }

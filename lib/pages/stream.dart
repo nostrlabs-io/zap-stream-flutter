@@ -145,6 +145,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                     url: stream.info.stream!,
                     placeholder: stream.info.image,
                     aspectRatio: 16 / 9,
+                    isLive: true,
                   )
                   : (stream.info.image?.isNotEmpty ?? false)
                   ? ProxyImg(url: stream.info.image)

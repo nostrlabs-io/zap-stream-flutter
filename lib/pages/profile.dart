@@ -58,6 +58,7 @@ class ProfilePage extends StatelessWidget {
                         TextSpan(
                           style: TextStyle(color: LAYER_5),
                           children: textToSpans(
+                            context,
                             profile.about ?? "",
                             [],
                             profile.pubKey,

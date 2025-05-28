@@ -79,6 +79,7 @@ class StreamInfoWidget extends StatelessWidget {
             Text.rich(
               TextSpan(
                 children: textToSpans(
+                  context,
                   stream.info.summary!,
                   [],
                   stream.info.host,
