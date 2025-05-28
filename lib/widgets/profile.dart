@@ -5,6 +5,9 @@ import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 
+// create simple sync cache to avoid extra re-draw
+final Map<String, Metadata> syncProfileCache = {};
+
 class ProfileLoaderWidget extends StatelessWidget {
   final String pubkey;
   final AsyncWidgetBuilder<Metadata?> builder;
@@ -14,8 +17,18 @@ class ProfileLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      key: super.key ?? Key("profile-loader:$pubkey"),
-      future: ndk.metadata.loadMetadata(pubkey),
+      key: super.key,
+      initialData:
+          syncProfileCache.containsKey(pubkey)
+              ? syncProfileCache[pubkey]
+              : null,
+      future: () async {
+        final profile = await ndk.metadata.loadMetadata(pubkey);
+        if (profile != null) {
+          syncProfileCache[pubkey] = profile;
+        }
+        return profile;
+      }(),
       builder: builder,
     );
   }

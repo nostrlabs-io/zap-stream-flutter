@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -79,28 +80,31 @@ class StreamTileWidget extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            spacing: 8,
-            children: [
-              AvatarWidget.pubkey(stream.info.host),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      stream.info.title ?? "",
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    ProfileNameWidget.pubkey(
-                      stream.info.host,
-                      style: TextStyle(color: LAYER_4),
-                    ),
-                  ],
+          ProfileLoaderWidget(stream.info.host, (context, state) {
+            final profile = state.data ?? Metadata(pubKey: stream.info.host);
+            return Row(
+              spacing: 8,
+              children: [
+                AvatarWidget(profile: profile),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        stream.info.title ?? "",
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      ProfileNameWidget(
+                        profile: profile,
+                        style: TextStyle(color: LAYER_4),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            );
+          }),
         ],
       ),
     );

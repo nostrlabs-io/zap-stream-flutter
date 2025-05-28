@@ -23,33 +23,31 @@ class ChatMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ndk.metadata.loadMetadata(msg.pubKey),
-      builder: (ctx, state) {
-        final profile = state.data ?? Metadata(pubKey: msg.pubKey);
-        return GestureDetector(
-          onLongPress: () {
-            if (ndk.accounts.canSign) {
-              showModalBottomSheet(
-                context: context,
-                constraints: BoxConstraints.expand(),
-                builder:
-                    (ctx) => ChatModalWidget(
-                      profile: profile,
-                      event: msg,
-                      stream: stream,
-                    ),
-              );
-            }
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
-            child: Column(
-              spacing: 2,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _chatText(profile),
-                /*RxFilter<Nip01Event>(
+    return ProfileLoaderWidget(msg.pubKey, (ctx, state) {
+      final profile = state.data ?? Metadata(pubKey: msg.pubKey);
+      return GestureDetector(
+        onLongPress: () {
+          if (ndk.accounts.canSign) {
+            showModalBottomSheet(
+              context: context,
+              constraints: BoxConstraints.expand(),
+              builder:
+                  (ctx) => ChatModalWidget(
+                    profile: profile,
+                    event: msg,
+                    stream: stream,
+                  ),
+            );
+          }
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+          child: Column(
+            spacing: 2,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _chatText(profile),
+              /*RxFilter<Nip01Event>(
                   Key(msg.id),
                   filters: [
                     Filter(kinds: [9735, 7], eTags: [msg.id]),
@@ -58,12 +56,11 @@ class ChatMessageWidget extends StatelessWidget {
                     return ChatReactions(msg: msg, events: state ?? []);
                   },
                 ),*/
-              ],
-            ),
+            ],
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 
   Widget _chatText(Metadata profile) {
