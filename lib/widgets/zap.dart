@@ -283,6 +283,7 @@ class _ZapWidget extends State<ZapWidget> {
       zapRequest: zapRequest,
     );
 
+    // auto pay with NWC
     final wallet = await loginData.value?.getWallet();
     if (wallet != null && invoice != null) {
       try {

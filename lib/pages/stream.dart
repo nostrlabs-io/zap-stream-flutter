@@ -172,12 +172,15 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 showModalBottomSheet(
                   context: context,
                   constraints: BoxConstraints.expand(),
-                  builder: (ctx) {
+                  builder: (context) {
                     return SingleChildScrollView(
                       primary: false,
                       child: ZapWidget(
                         pubkey: stream.info.host,
                         target: stream.event,
+                        onPaid: (_) {
+                          context.pop();
+                        },
                         zapTags:
                             // tag goal onto zap request
                             stream.info.goal != null
