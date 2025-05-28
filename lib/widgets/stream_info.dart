@@ -111,7 +111,11 @@ class StreamInfoWidget extends StatelessWidget {
                 ],
               ),
             ),
-          StreamCardsWidget(stream: stream),
+          Expanded(
+            child: SingleChildScrollView(
+              child: StreamCardsWidget(stream: stream),
+            ),
+          ),
         ],
       ),
     );
