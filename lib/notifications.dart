@@ -136,6 +136,8 @@ Notepush? getNotificationService() {
       : null;
 }
 
+NotificationSettings? notifications;
+
 Future<void> setupNotifications() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
@@ -175,7 +177,7 @@ Future<void> setupNotifications() async {
       }
     });
 
-    await fbase.requestPermission(provisional: true);
+    notifications = await fbase.requestPermission(provisional: true);
     await fbase.setAutoInitEnabled(true);
     await fbase.setForegroundNotificationPresentationOptions(
       alert: true,
@@ -192,7 +194,7 @@ Future<void> setupNotifications() async {
     await localNotifications.initialize(
       InitializationSettings(
         android: AndroidInitializationSettings("@mipmap/ic_launcher"),
-        iOS: DarwinInitializationSettings()
+        iOS: DarwinInitializationSettings(),
       ),
     );
     fbase.onTokenRefresh.listen((token) async {

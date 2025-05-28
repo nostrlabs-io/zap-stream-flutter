@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:zap_stream_flutter/notifications.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -17,8 +18,13 @@ class _NotificationsButtonWidget extends State<NotificationsButtonWidget> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: () async {
-        final n = getNotificationService();
-        return await n?.getWatchedKeys();
+        if (notifications?.authorizationStatus ==
+            AuthorizationStatus.authorized) {
+          final n = getNotificationService();
+          return await n?.getWatchedKeys();
+        } else {
+          return null;
+        }
       }(),
       builder: (context, state) {
         if (state.data == null) {
