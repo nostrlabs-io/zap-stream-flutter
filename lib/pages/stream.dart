@@ -17,7 +17,7 @@ import 'package:zap_stream_flutter/widgets/notifications_button.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/stream_info.dart';
-import 'package:zap_stream_flutter/widgets/video_player.dart';
+import 'package:zap_stream_flutter/widgets/video_player_main.dart';
 import 'package:zap_stream_flutter/widgets/zap.dart';
 
 class StreamPage extends StatefulWidget {
@@ -141,11 +141,13 @@ class _StreamPage extends State<StreamPage> with RouteAware {
           aspectRatio: 16 / 9,
           child:
               (stream.info.stream != null && !_offScreen)
-                  ? VideoPlayerWidget(
+                  ? MainVideoPlayerWidget(
                     url: stream.info.stream!,
                     placeholder: stream.info.image,
                     aspectRatio: 16 / 9,
                     isLive: true,
+                    title: stream.info.title,
+                    
                   )
                   : (stream.info.image?.isNotEmpty ?? false)
                   ? ProxyImg(url: stream.info.image)

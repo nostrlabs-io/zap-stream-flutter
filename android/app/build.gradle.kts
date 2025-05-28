@@ -1,5 +1,4 @@
 import com.android.build.api.dsl.ApkSigningConfig
-import com.android.build.api.dsl.SigningConfig
 import org.jetbrains.kotlin.gradle.targets.js.toHex
 import java.io.FileInputStream
 import java.util.Base64
@@ -8,11 +7,9 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
-    id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services")
 }
 
 fun getKeystoreFile(base64String: String?, hash: String, fileName: String): File {

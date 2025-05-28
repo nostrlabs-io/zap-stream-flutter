@@ -25,7 +25,11 @@ void runZapStream() {
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       theme: ThemeData.localize(
-        ThemeData(colorScheme: ColorScheme.dark(), highlightColor: PRIMARY_1),
+        ThemeData(
+          colorScheme: ColorScheme.dark(),
+          highlightColor: PRIMARY_1,
+          useMaterial3: true,
+        ),
         TextTheme(),
       ),
       routerConfig: GoRouter(
