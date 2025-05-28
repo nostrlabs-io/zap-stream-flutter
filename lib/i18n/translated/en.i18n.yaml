@@ -10,12 +10,9 @@ no_user_found: No user found
 anon: Anon
 viewers:
   one: 1 viewer
-  other: $n viewers
+  other: "${n:decimalPattern} viewers"
 "@viewers":
   description: Number of viewers of the stream
-  placeholders:
-    n:
-      type: int
 "@anon":
   description: An anonymous user
 stream:

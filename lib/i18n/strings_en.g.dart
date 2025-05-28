@@ -55,7 +55,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// Number of viewers of the stream
 	String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		one: '1 viewer',
-		other: '${n} viewers',
+		other: '${NumberFormat.decimalPattern('en').format(n)} viewers',
 	);
 
 	late final TranslationsStreamEn stream = TranslationsStreamEn.internal(_root);
@@ -382,7 +382,7 @@ extension on Translations {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 				one: '1 viewer',
-				other: '${n} viewers',
+				other: '${NumberFormat.decimalPattern('en').format(n)} viewers',
 			);
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'ENDED';
