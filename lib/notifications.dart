@@ -6,6 +6,7 @@ import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
@@ -136,7 +137,54 @@ Notepush? getNotificationService() {
       : null;
 }
 
-NotificationSettings? notifications;
+class NotificationsState {
+  final AuthorizationStatus status;
+  final List<String> notifyKeys;
+
+  NotificationsState({required this.status, required this.notifyKeys});
+
+  NotificationsState copyWith({
+    AuthorizationStatus? newStatus,
+    List<String>? newNotifyKeys,
+  }) {
+    return NotificationsState(
+      status: newStatus ?? status,
+      notifyKeys: newNotifyKeys ?? notifyKeys,
+    );
+  }
+
+  static Future<NotificationsState> init(AuthorizationStatus status) async {
+    if (status == AuthorizationStatus.authorized) {
+      final svc = getNotificationService();
+      if (svc != null) {
+        try {
+          final keys = await svc.getWatchedKeys();
+          return NotificationsState(status: status, notifyKeys: keys);
+        } catch (e) {
+          developer.log("Failed to init NotificationsState: $e");
+        }
+      }
+    }
+    return NotificationsState(status: status, notifyKeys: []);
+  }
+}
+
+class NotificationsStore extends ValueNotifier<NotificationsState?> {
+  NotificationsStore(super.value);
+
+  Future<void> reload() async {
+    if (value != null && value!.status == AuthorizationStatus.authorized) {
+      final svc = getNotificationService();
+      if (svc != null) {
+        final keys = await svc.getWatchedKeys();
+        value = value!.copyWith(newNotifyKeys: keys);
+      }
+    }
+  }
+}
+
+// global notifications store
+final notifications = NotificationsStore(null);
 
 Future<void> setupNotifications() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -177,7 +225,7 @@ Future<void> setupNotifications() async {
       }
     });
 
-    notifications = await fbase.requestPermission(provisional: true);
+    final settings = await fbase.requestPermission(provisional: true);
     await fbase.setAutoInitEnabled(true);
     await fbase.setForegroundNotificationPresentationOptions(
       alert: true,
@@ -209,5 +257,9 @@ Future<void> setupNotifications() async {
     }
     await pusher.register(fcmToken);
     await pusher.setNotificationSettings(fcmToken, [30_311]);
+
+    notifications.value = await NotificationsState.init(
+      settings.authorizationStatus,
+    );
   }
 }
