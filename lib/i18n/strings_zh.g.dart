@@ -80,6 +80,7 @@ class _TranslationsStreamZh extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusZh status = _TranslationsStreamStatusZh._(_root);
 	@override String started({required Object timestamp}) => '開始 ${timestamp}';
+	@override String notification({required Object name}) => '${name} 已啟用！';
 	@override late final _TranslationsStreamChatZh chat = _TranslationsStreamChatZh._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsZh {
 			case 'stream.status.ended': return '結束';
 			case 'stream.status.planned': return '計劃';
 			case 'stream.started': return ({required Object timestamp}) => '開始 ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} 已啟用！';
 			case 'stream.chat.disabled': return '關閉聊天';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => '超時過期： ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

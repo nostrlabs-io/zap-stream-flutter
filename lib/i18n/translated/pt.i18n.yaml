@@ -22,10 +22,11 @@ stream:
     ended: FINALIZADO
     planned: PLANEJADO
   started: Iniciado em $timestamp
+  notification: ${name} foi ao ar!
   chat:
     disabled: BATE-PAPO DESATIVADO
     disabled_timeout: "O tempo limite expira: $time"
-    timeout(rich): $mod Tempo esgotado $user para $time
+    timeout(rich): $mod Tempo esgotado $user para ${time}
     "@timeout":
       description: Mensagem de bate-papo mostrando eventos de tempo limite
     ended: TRANSMISSÃO ENCERRADA

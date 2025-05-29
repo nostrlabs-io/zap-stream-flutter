@@ -21,6 +21,7 @@ stream:
     ended: ENDED
     planned: PLANNED
   started: Started $timestamp
+  notification: ${name} went live!
   chat:
     disabled: CHAT DISABLED
     disabled_timeout: "Timeout expires: $time"

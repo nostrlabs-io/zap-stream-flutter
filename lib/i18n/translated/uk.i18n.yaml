@@ -22,10 +22,11 @@ stream:
     ended: ЗАКІНЧЕНО
     planned: ЗАПЛАНОВАНО
   started: Запустив $timestamp
+  notification: ${name} запрацював!
   chat:
     disabled: ЧАТ ВІДКЛЮЧЕНО
     disabled_timeout: "Тайм-аут закінчився: $time"
-    timeout(rich): $mod таймінг $user для $time
+    timeout(rich): $mod таймінг $user для ${time}
     "@timeout":
       description: Повідомлення в чаті про події тайм-ауту
     ended: СТРІМ ЗАКІНЧИВСЯ

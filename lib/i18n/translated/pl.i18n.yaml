@@ -22,10 +22,11 @@ stream:
     ended: ZAKOŃCZONY
     planned: PLANOWANE
   started: Start $timestamp
+  notification: ${name} został uruchomiony!
   chat:
     disabled: CZAT WYŁĄCZONY
     disabled_timeout: "Upłynął limit czasu: $time"
-    timeout(rich): $mod upłynął limit czasu $user dla $time
+    timeout(rich): $mod upłynął limit czasu $user dla ${time}
     "@timeout":
       description: Komunikat czatu pokazujący zdarzenia przekroczenia limitu czasu
     ended: TRANSMISJA ZAKOŃCZONA

@@ -81,6 +81,7 @@ class TranslationsStreamEn {
 	// Translations
 	late final TranslationsStreamStatusEn status = TranslationsStreamStatusEn.internal(_root);
 	String started({required Object timestamp}) => 'Started ${timestamp}';
+	String notification({required Object name}) => '${name} went live!';
 	late final TranslationsStreamChatEn chat = TranslationsStreamChatEn.internal(_root);
 }
 
@@ -388,6 +389,7 @@ extension on Translations {
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'PLANNED';
 			case 'stream.started': return ({required Object timestamp}) => 'Started ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} went live!';
 			case 'stream.chat.disabled': return 'CHAT DISABLED';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timeout expires: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

@@ -80,6 +80,7 @@ class _TranslationsStreamIt extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusIt status = _TranslationsStreamStatusIt._(_root);
 	@override String started({required Object timestamp}) => 'Avviato ${timestamp}';
+	@override String notification({required Object name}) => '${name} è andato in onda!';
 	@override late final _TranslationsStreamChatIt chat = _TranslationsStreamChatIt._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsIt {
 			case 'stream.status.ended': return 'FINE';
 			case 'stream.status.planned': return 'PREVISTO';
 			case 'stream.started': return ({required Object timestamp}) => 'Avviato ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} è andato in onda!';
 			case 'stream.chat.disabled': return 'CHAT DISABILITATA';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Il timeout scade: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

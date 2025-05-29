@@ -10,7 +10,7 @@ no_user_found: لم يتم العثور على مستخدم
 anon: هوية مخفية
 viewers:
   one: 1 مشاهد
-  other: "${n:decimalPattern} المشاهدين"
+  other: "{n:decimalPattern} المشاهدين"
 "@viewers":
   description: عدد مشاهدي البث
 "@anon":
@@ -21,10 +21,11 @@ stream:
     ended: انتهى
     planned: مخطط
   started: بدأ $timestamp
+  notification: ${name} بدأ البث المباشر!
   chat:
     disabled: تم تعطيل الدردشة
     disabled_timeout: "تنتهي المهلة: $time"
-    timeout(rich): $mod انتهى الوقت $user لـ $time
+    timeout(rich): $mod انتهى الوقت $user لـ ${time}
     "@timeout":
       description: رسالة دردشة تظهر أحداث المهلة
     ended: انتهى البث

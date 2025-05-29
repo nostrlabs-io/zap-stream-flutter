@@ -54,7 +54,7 @@ class TranslationsKo extends Translations {
 	/// 스트림 시청자 수
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
 		one: '시청자 1명',
-		other: '${NumberFormat.decimalPattern('ko').format(n)} 시청자',
+		other: '{n:decimalPattern} 시청자',
 	);
 
 	@override late final _TranslationsStreamKo stream = _TranslationsStreamKo._(_root);
@@ -80,6 +80,7 @@ class _TranslationsStreamKo extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusKo status = _TranslationsStreamStatusKo._(_root);
 	@override String started({required Object timestamp}) => '시작 ${timestamp}';
+	@override String notification({required Object name}) => '${name} 라이브가 시작되었습니다!';
 	@override late final _TranslationsStreamChatKo chat = _TranslationsStreamChatKo._(_root);
 }
 
@@ -381,12 +382,13 @@ extension on TranslationsKo {
 			case 'anon': return 'Anon';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
 				one: '시청자 1명',
-				other: '${NumberFormat.decimalPattern('ko').format(n)} 시청자',
+				other: '{n:decimalPattern} 시청자',
 			);
 			case 'stream.status.live': return '라이브';
 			case 'stream.status.ended': return '종료';
 			case 'stream.status.planned': return '계획된';
 			case 'stream.started': return ({required Object timestamp}) => '시작 ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} 라이브가 시작되었습니다!';
 			case 'stream.chat.disabled': return '채팅 사용 안 함';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => '시간 초과가 만료되었습니다: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

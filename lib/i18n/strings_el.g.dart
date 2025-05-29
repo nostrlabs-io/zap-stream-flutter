@@ -80,6 +80,7 @@ class _TranslationsStreamEl extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusEl status = _TranslationsStreamStatusEl._(_root);
 	@override String started({required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
+	@override String notification({required Object name}) => '${name} βγήκε ζωντανά!';
 	@override late final _TranslationsStreamChatEl chat = _TranslationsStreamChatEl._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsEl {
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'ΣΧΕΔΙΑΣΜΟΣ';
 			case 'stream.started': return ({required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} βγήκε ζωντανά!';
 			case 'stream.chat.disabled': return 'ΑΠΕΝΕΡΓΟΠΟΙΗΜΈΝΗ ΣΥΝΟΜΙΛΊΑ';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Το χρονικό όριο λήγει: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

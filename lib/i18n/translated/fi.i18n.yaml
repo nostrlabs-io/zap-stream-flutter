@@ -22,10 +22,11 @@ stream:
     ended: ENDED
     planned: SUUNNITELTU
   started: Aloitettu $timestamp
+  notification: ${name} meni suoraksi!
   chat:
     disabled: CHAT POISTETTU KÄYTÖSTÄ
     disabled_timeout: "Aikakatkaisu päättyy: $time"
-    timeout(rich): $mod ajastettu $user for $time
+    timeout(rich): $mod ajastettu $user for ${time}
     "@timeout":
       description: Chat-viesti, joka näyttää aikakatkaisutapahtumat
     ended: STREAM PÄÄTTYNYT

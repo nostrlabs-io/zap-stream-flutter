@@ -80,6 +80,7 @@ class _TranslationsStreamCs extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusCs status = _TranslationsStreamStatusCs._(_root);
 	@override String started({required Object timestamp}) => 'Založeno ${timestamp}';
+	@override String notification({required Object name}) => '${name} byl spuštěn!';
 	@override late final _TranslationsStreamChatCs chat = _TranslationsStreamChatCs._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsCs {
 			case 'stream.status.ended': return 'KONEC';
 			case 'stream.status.planned': return 'PLÁNOVANÉ';
 			case 'stream.started': return ({required Object timestamp}) => 'Založeno ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} byl spuštěn!';
 			case 'stream.chat.disabled': return 'CHAT ZRUŠEN';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Časový limit vyprší: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

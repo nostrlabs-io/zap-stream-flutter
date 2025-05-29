@@ -22,10 +22,11 @@ stream:
     ended: FINE
     planned: PREVISTO
   started: Avviato $timestamp
+  notification: ${name} è andato in onda!
   chat:
     disabled: CHAT DISABILITATA
     disabled_timeout: "Il timeout scade: $time"
-    timeout(rich): $mod time out $user per $time
+    timeout(rich): $mod time out $user per ${time}
     "@timeout":
       description: Messaggio di chat che mostra gli eventi di timeout
     ended: STREAM ENDED

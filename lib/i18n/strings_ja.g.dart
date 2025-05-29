@@ -80,6 +80,7 @@ class _TranslationsStreamJa extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusJa status = _TranslationsStreamStatusJa._(_root);
 	@override String started({required Object timestamp}) => '${timestamp} を開始';
+	@override String notification({required Object name}) => '${name} がライブを開始した！';
 	@override late final _TranslationsStreamChatJa chat = _TranslationsStreamChatJa._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsJa {
 			case 'stream.status.ended': return '終了';
 			case 'stream.status.planned': return '予定';
 			case 'stream.started': return ({required Object timestamp}) => '${timestamp} を開始';
+			case 'stream.notification': return ({required Object name}) => '${name} がライブを開始した！';
 			case 'stream.chat.disabled': return 'チャット無効';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'タイムアウト： ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

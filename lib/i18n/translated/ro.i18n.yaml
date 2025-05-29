@@ -22,10 +22,11 @@ stream:
     ended: TERMINAT
     planned: PLANIFICATE
   started: A început $timestamp
+  notification: ${name} a intrat în direct!
   chat:
     disabled: CHAT DEZACTIVAT
     disabled_timeout: "Timpul expiră: $time"
-    timeout(rich): $mod Timed out $user pentru $time
+    timeout(rich): $mod Timed out $user pentru ${time}
     "@timeout":
       description: Mesaj de chat care afișează evenimentele de timeout
     ended: STREAM ÎNCHEIAT

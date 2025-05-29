@@ -80,6 +80,7 @@ class _TranslationsStreamFi extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusFi status = _TranslationsStreamStatusFi._(_root);
 	@override String started({required Object timestamp}) => 'Aloitettu ${timestamp}';
+	@override String notification({required Object name}) => '${name} meni suoraksi!';
 	@override late final _TranslationsStreamChatFi chat = _TranslationsStreamChatFi._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsFi {
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'SUUNNITELTU';
 			case 'stream.started': return ({required Object timestamp}) => 'Aloitettu ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} meni suoraksi!';
 			case 'stream.chat.disabled': return 'CHAT POISTETTU KÄYTÖSTÄ';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Aikakatkaisu päättyy: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

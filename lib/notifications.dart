@@ -10,11 +10,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
+import 'package:ndk_objectbox/ndk_objectbox.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:http/http.dart' as http;
 import 'package:zap_stream_flutter/firebase_options.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/utils.dart';
+import 'package:zap_stream_flutter/widgets/profile.dart';
 
 class Notepush {
   final String base;
@@ -183,6 +186,82 @@ class NotificationsStore extends ValueNotifier<NotificationsState?> {
   }
 }
 
+Future<void> _initLocalNotifications() async {
+  await localNotifications.initialize(
+    InitializationSettings(
+      android: AndroidInitializationSettings("@drawable/ic_stat_name"),
+      iOS: DarwinInitializationSettings(),
+    ),
+  );
+}
+
+@pragma('vm:entry-point')
+Future<void> _onBackgroundNotification(RemoteMessage msg) async {
+  await LocaleSettings.useDeviceLocale();
+  final cache = DbObjectBox(attach: true);
+  await _initLocalNotifications();
+  await _handleNotification(msg, cache);
+}
+
+Future<void> _onNotification(RemoteMessage msg) async {
+  await _handleNotification(msg, ndkCache);
+}
+
+Future<void> _handleNotification(RemoteMessage msg, DbObjectBox cache) async {
+  final notification = msg.notification;
+  if (notification != null && notification.android != null) {
+    final String? json = msg.data["nostr_event"];
+
+    final event =
+        json != null ? Nip01Event.fromJson(JsonCodec().decode(json)) : null;
+    await _showNotification(notification, ndkCache, event);
+  }
+}
+
+Future<void> _showNotification(
+  RemoteNotification notification,
+  DbObjectBox cache,
+  Nip01Event? event,
+) async {
+  final stream = event != null ? StreamEvent(event) : null;
+  final hostProfile =
+      stream != null ? await cache.loadMetadata(stream.info.host) : null;
+  final newTitle =
+      hostProfile != null
+          ? t.stream.notification(
+            name: ProfileNameWidget.nameFromProfile(hostProfile),
+          )
+          : null;
+
+  localNotifications.show(
+    notification.hashCode,
+    newTitle ?? notification.title,
+    stream?.info.title ?? notification.body,
+    NotificationDetails(
+      android: AndroidNotificationDetails(
+        notification.android!.channelId ?? "fcm",
+        "Push Notifications",
+        category: AndroidNotificationCategory.social
+      ),
+    ),
+  );
+}
+
+Future<void> _onOpenMessage(RemoteMessage msg) async {
+  try {
+    final notification = msg.notification;
+    final String? json = msg.data["nostr_event"];
+    if (notification != null && json != null) {
+      // Just launch the URL because we support deep links
+      final event = Nip01Event.fromJson(JsonCodec().decode(json));
+      final stream = StreamEvent(event);
+      launchUrl(Uri.parse("https://zap.stream/${stream.link}"));
+    }
+  } catch (e) {
+    developer.log("Failed to process push notification\n ${e.toString()}");
+  }
+}
+
 // global notifications store
 final notifications = NotificationsStore(null);
 
@@ -191,47 +270,20 @@ Future<void> setupNotifications() async {
 
   final signer = ndk.accounts.getLoggedAccount()?.signer;
   if (signer != null) {
-    final pusher = Notepush(dotenv.env["NOTEPUSH_URL"]!, signer: signer);
-    final fbase = FirebaseMessaging.instance;
-    FirebaseMessaging.onMessage.listen((msg) {
-      developer.log(msg.notification?.body ?? "");
-      final notification = msg.notification;
-      if (notification != null && notification.android != null) {
-        FlutterLocalNotificationsPlugin().show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              notification.android!.channelId ?? "fcm",
-              "fcm",
-            ),
-          ),
-        );
-      }
-    });
-    FirebaseMessaging.onMessageOpenedApp.listen((msg) {
-      try {
-        final notification = msg.notification;
-        final String? json = msg.data["nostr_event"];
-        if (notification != null && json != null) {
-          // Just launch the URL because we support deep links
-          final event = Nip01Event.fromJson(JsonCodec().decode(json));
-          final stream = StreamEvent(event);
-          launchUrl(Uri.parse("https://zap.stream/${stream.link}"));
-        }
-      } catch (e) {
-        developer.log("Failed to process push notification\n ${e.toString()}");
-      }
-    });
+    FirebaseMessaging.onMessage.listen(_onNotification);
+    //FirebaseMessaging.onBackgroundMessage(_onBackgroundNotification);
+    FirebaseMessaging.onMessageOpenedApp.listen(_onOpenMessage);
 
-    final settings = await fbase.requestPermission(provisional: true);
-    await fbase.setAutoInitEnabled(true);
-    await fbase.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
+    final settings = await FirebaseMessaging.instance.requestPermission(
+      provisional: true,
     );
+    await FirebaseMessaging.instance.setAutoInitEnabled(true);
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
 
     if (Platform.isIOS) {
       final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
@@ -239,13 +291,10 @@ Future<void> setupNotifications() async {
         throw "APNS token not availble";
       }
     }
-    await localNotifications.initialize(
-      InitializationSettings(
-        android: AndroidInitializationSettings("@mipmap/ic_launcher"),
-        iOS: DarwinInitializationSettings(),
-      ),
-    );
-    fbase.onTokenRefresh.listen((token) async {
+    await _initLocalNotifications();
+
+    final pusher = Notepush(dotenv.env["NOTEPUSH_URL"]!, signer: signer);
+    FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
       developer.log("NEW TOKEN: $token");
       await pusher.register(token);
       await pusher.setNotificationSettings(token, [30_311]);

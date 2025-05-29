@@ -80,6 +80,7 @@ class _TranslationsStreamRo extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusRo status = _TranslationsStreamStatusRo._(_root);
 	@override String started({required Object timestamp}) => 'A început ${timestamp}';
+	@override String notification({required Object name}) => '${name} a intrat în direct!';
 	@override late final _TranslationsStreamChatRo chat = _TranslationsStreamChatRo._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsRo {
 			case 'stream.status.ended': return 'TERMINAT';
 			case 'stream.status.planned': return 'PLANIFICATE';
 			case 'stream.started': return ({required Object timestamp}) => 'A început ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} a intrat în direct!';
 			case 'stream.chat.disabled': return 'CHAT DEZACTIVAT';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timpul expiră: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

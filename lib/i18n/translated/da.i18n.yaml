@@ -22,10 +22,11 @@ stream:
     ended: AFSLUTTET
     planned: PLANLAGT
   started: Startet $timestamp
+  notification: ${name} gik live!
   chat:
     disabled: CHAT DEAKTIVERET
     disabled_timeout: "Timeout udløber: $time"
-    timeout(rich): $mod udløbet $user for $time
+    timeout(rich): $mod udløbet $user for ${time}
     "@timeout":
       description: Chatbesked, der viser timeout-hændelser
     ended: STREAM AFSLUTTET

@@ -80,6 +80,7 @@ class _TranslationsStreamTr extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusTr status = _TranslationsStreamStatusTr._(_root);
 	@override String started({required Object timestamp}) => 'Başlatıldı ${timestamp}';
+	@override String notification({required Object name}) => '${name} yayına girdi!';
 	@override late final _TranslationsStreamChatTr chat = _TranslationsStreamChatTr._(_root);
 }
 
@@ -231,8 +232,9 @@ class _TranslationsStreamChatTr extends TranslationsStreamChatEn {
 		mod,
 		const TextSpan(text: ' zaman aşımına uğradı '),
 		user,
-		const TextSpan(text: ' için '),
+		const TextSpan(text: ' '),
 		time,
+		const TextSpan(text: 'için'),
 	]);
 
 	/// Sohbetin alt kısmında akış sona erdi altbilgisi
@@ -343,7 +345,7 @@ class _TranslationsStreamChatRaidTr extends TranslationsStreamChatRaidEn {
 	@override String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Başka bir akıştan sohbet baskını mesajı
-	@override String from({required Object name}) => '${name}ADRESINDEN RAID';
+	@override String from({required Object name}) => '${name} ADRESINDEN RAID';
 
 	/// Otomatik sürüş için geri sayım sayacı
 	@override String countdown({required Object time}) => '${time}adresinde baskın';
@@ -387,14 +389,16 @@ extension on TranslationsTr {
 			case 'stream.status.ended': return 'SONLANDI';
 			case 'stream.status.planned': return 'PLANLANMIŞ';
 			case 'stream.started': return ({required Object timestamp}) => 'Başlatıldı ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} yayına girdi!';
 			case 'stream.chat.disabled': return 'SOHBET DEVRE DIŞI';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Zaman aşımı sona eriyor: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
 				const TextSpan(text: ' zaman aşımına uğradı '),
 				user,
-				const TextSpan(text: ' için '),
+				const TextSpan(text: ' '),
 				time,
+				const TextSpan(text: 'için'),
 			]);
 			case 'stream.chat.ended': return 'YAYIN SONLANDI';
 			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
@@ -408,7 +412,7 @@ extension on TranslationsTr {
 			case 'stream.chat.write.login': return 'Mesaj göndermek için lütfen giriş yapın';
 			case 'stream.chat.badge.awarded_to': return 'Ödüllendirildi:';
 			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => '${name}ADRESINDEN RAID';
+			case 'stream.chat.raid.from': return ({required Object name}) => '${name} ADRESINDEN RAID';
 			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time}adresinde baskın';
 			case 'goal.title': return ({required Object amount}) => 'Hedef: ${amount}';
 			case 'goal.remaining': return ({required Object amount}) => 'Kalan: ${amount}';

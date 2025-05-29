@@ -21,10 +21,11 @@ stream:
     ended: 終了
     planned: 予定
   started: $timestamp を開始
+  notification: ${name} がライブを開始した！
   chat:
     disabled: チャット無効
     disabled_timeout: タイムアウト： $time
-    timeout(rich): $mod タイムアウト $user for $time
+    timeout(rich): $mod タイムアウト $user for ${time}
     "@timeout":
       description: タイムアウトイベントを表示するチャットメッセージ
     ended: 配信終了

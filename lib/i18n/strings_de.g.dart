@@ -42,7 +42,7 @@ class TranslationsDe extends Translations {
 	/// Text, der den Benutzer auffordert, auf den Avatar-Platzhalter zu klicken, um den Upload zu starten
 	@override String get upload_avatar => 'Avatar hochladen';
 
-	/// Überschrift über gelistete Top-Streamer von zaps
+	/// Überschrift über gelistete Top-Streamer nach Zaps
 	@override String get most_zapped_streamers => 'Meistgezappte Streamer';
 
 	/// Kein Benutzer bei der Suche gefunden
@@ -51,7 +51,7 @@ class TranslationsDe extends Translations {
 	/// Ein anonymer Benutzer
 	@override String get anon => 'Anon';
 
-	/// Anzahl der Betrachter des Streams
+	/// Anzahl der Zuschauer des Streams
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(n,
 		one: '1 Zuschauer',
 		other: '${NumberFormat.decimalPattern('de').format(n)} Zuschauer',
@@ -80,6 +80,7 @@ class _TranslationsStreamDe extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusDe status = _TranslationsStreamStatusDe._(_root);
 	@override String started({required Object timestamp}) => 'Gestartet ${timestamp}';
+	@override String notification({required Object name}) => '${name} ging live!';
 	@override late final _TranslationsStreamChatDe chat = _TranslationsStreamChatDe._(_root);
 }
 
@@ -212,7 +213,7 @@ class _TranslationsStreamStatusDe extends TranslationsStreamStatusEn {
 
 	// Translations
 	@override String get live => 'LIVE';
-	@override String get ended => 'ENDED';
+	@override String get ended => 'BEENDET';
 	@override String get planned => 'GEPLANT';
 }
 
@@ -224,21 +225,21 @@ class _TranslationsStreamChatDe extends TranslationsStreamChatEn {
 
 	// Translations
 	@override String get disabled => 'CHAT DEAKTIVIERT';
-	@override String disabled_timeout({required Object time}) => 'Die Zeitüberschreitung läuft ab: ${time}';
+	@override String disabled_timeout({required Object time}) => 'Timeout läuft ab: ${time}';
 
-	/// Chat-Nachricht mit Zeitüberschreitungsereignissen
+	/// Chat-Nachricht mit Timeout-Ereignissen
 	@override TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
-		const TextSpan(text: ' Zeitüberschreitung '),
+		const TextSpan(text: ' gibt '),
 		user,
-		const TextSpan(text: ' für '),
+		const TextSpan(text: ' einen Timeout für '),
 		time,
 	]);
 
 	/// Stream beendet Fußzeile am Ende des Chats
 	@override String get ended => 'STREAM BEENDET';
 
-	/// Chatnachricht mit Stream Zaps
+	/// Chat-Nachricht mit Stream-Zaps
 	@override TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' hat '),
@@ -384,16 +385,17 @@ extension on TranslationsDe {
 				other: '${NumberFormat.decimalPattern('de').format(n)} Zuschauer',
 			);
 			case 'stream.status.live': return 'LIVE';
-			case 'stream.status.ended': return 'ENDED';
+			case 'stream.status.ended': return 'BEENDET';
 			case 'stream.status.planned': return 'GEPLANT';
 			case 'stream.started': return ({required Object timestamp}) => 'Gestartet ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} ging live!';
 			case 'stream.chat.disabled': return 'CHAT DEAKTIVIERT';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Die Zeitüberschreitung läuft ab: ${time}';
+			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timeout läuft ab: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 				mod,
-				const TextSpan(text: ' Zeitüberschreitung '),
+				const TextSpan(text: ' gibt '),
 				user,
-				const TextSpan(text: ' für '),
+				const TextSpan(text: ' einen Timeout für '),
 				time,
 			]);
 			case 'stream.chat.ended': return 'STREAM BEENDET';

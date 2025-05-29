@@ -22,10 +22,11 @@ stream:
     ended: ENDED
     planned: ΣΧΕΔΙΑΣΜΟΣ
   started: Ξεκίνησε $timestamp
+  notification: ${name} βγήκε ζωντανά!
   chat:
     disabled: ΑΠΕΝΕΡΓΟΠΟΙΗΜΈΝΗ ΣΥΝΟΜΙΛΊΑ
     disabled_timeout: "Το χρονικό όριο λήγει: $time"
-    timeout(rich): $mod χρονομετρημένη λήξη $user για $time
+    timeout(rich): $mod χρονομετρημένη λήξη $user για ${time}
     "@timeout":
       description: Μήνυμα συνομιλίας που εμφανίζει συμβάντα timeout
     ended: STREAM ΤΕΛΕΙΩΣΕ

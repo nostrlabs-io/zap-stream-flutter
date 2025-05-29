@@ -22,6 +22,7 @@ stream:
     ended: ENDED
     planned: TERVEZETT
   started: Elindult $timestamp
+  notification: ${name} elindult!
   chat:
     disabled: CHAT KIKAPCSOLVA
     disabled_timeout: "Az időkorlát lejár: $time"
@@ -56,7 +57,7 @@ stream:
       from: RAID FROM $name
       "@from":
         description: Chat raid üzenet egy másik folyamból
-      countdown: Raiding a ${time}oldalon
+      countdown: Raiding a ${time} oldalon
       "@countdown":
         description: Visszaszámláló időzítő az automatikus lovagláshoz
 goal:
@@ -84,7 +85,7 @@ button:
 embed:
   article_by: Cikk ${name}
   note_by: $name bejegyzése
-  live_stream_by: Élő közvetítés a ${name}oldalon
+  live_stream_by: Élő közvetítés a ${name} oldalon
 stream_list:
   following: Követettek bejegyzései
   live: Élő

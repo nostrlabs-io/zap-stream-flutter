@@ -80,6 +80,7 @@ class _TranslationsStreamHu extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusHu status = _TranslationsStreamStatusHu._(_root);
 	@override String started({required Object timestamp}) => 'Elindult ${timestamp}';
+	@override String notification({required Object name}) => '${name} elindult!';
 	@override late final _TranslationsStreamChatHu chat = _TranslationsStreamChatHu._(_root);
 }
 
@@ -132,7 +133,7 @@ class _TranslationsEmbedHu extends TranslationsEmbedEn {
 	// Translations
 	@override String article_by({required Object name}) => 'Cikk ${name}';
 	@override String note_by({required Object name}) => '${name} bejegyzése';
-	@override String live_stream_by({required Object name}) => 'Élő közvetítés a ${name}oldalon';
+	@override String live_stream_by({required Object name}) => 'Élő közvetítés a ${name} oldalon';
 }
 
 // Path: stream_list
@@ -347,7 +348,7 @@ class _TranslationsStreamChatRaidHu extends TranslationsStreamChatRaidEn {
 	@override String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// Visszaszámláló időzítő az automatikus lovagláshoz
-	@override String countdown({required Object time}) => 'Raiding a ${time}oldalon';
+	@override String countdown({required Object time}) => 'Raiding a ${time} oldalon';
 }
 
 // Path: settings.profile.error
@@ -388,6 +389,7 @@ extension on TranslationsHu {
 			case 'stream.status.ended': return 'ENDED';
 			case 'stream.status.planned': return 'TERVEZETT';
 			case 'stream.started': return ({required Object timestamp}) => 'Elindult ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} elindult!';
 			case 'stream.chat.disabled': return 'CHAT KIKAPCSOLVA';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Az időkorlát lejár: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
@@ -411,7 +413,7 @@ extension on TranslationsHu {
 			case 'stream.chat.badge.awarded_to': return 'Elnyerte:';
 			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
 			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding a ${time}oldalon';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding a ${time} oldalon';
 			case 'goal.title': return ({required Object amount}) => 'Cél: ${amount}';
 			case 'goal.remaining': return ({required Object amount}) => 'Maradék: ${amount}';
 			case 'goal.complete': return 'TELJES';
@@ -428,7 +430,7 @@ extension on TranslationsHu {
 			case 'button.settings': return 'Beállítások';
 			case 'embed.article_by': return ({required Object name}) => 'Cikk ${name}';
 			case 'embed.note_by': return ({required Object name}) => '${name} bejegyzése';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Élő közvetítés a ${name}oldalon';
+			case 'embed.live_stream_by': return ({required Object name}) => 'Élő közvetítés a ${name} oldalon';
 			case 'stream_list.following': return 'Követettek bejegyzései';
 			case 'stream_list.live': return 'Élő';
 			case 'stream_list.planned': return 'Tervezett';

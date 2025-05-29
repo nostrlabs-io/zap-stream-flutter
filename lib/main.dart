@@ -28,7 +28,7 @@ Future<void> main() async {
     builder: () => MainPlayer(),
     config: AudioServiceConfig(
       androidNotificationChannelId: "io.nostrlabs.zap_stream_flutter.player",
-      androidNotificationChannelName: "player",
+      androidNotificationChannelName: "Player Status",
       androidNotificationOngoing: true
     ),
   );

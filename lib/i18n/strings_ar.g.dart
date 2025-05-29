@@ -54,7 +54,7 @@ class TranslationsAr extends Translations {
 	/// عدد مشاهدي البث
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
 		one: '1 مشاهد',
-		other: '${NumberFormat.decimalPattern('ar').format(n)} المشاهدين',
+		other: '{n:decimalPattern} المشاهدين',
 	);
 
 	@override late final _TranslationsStreamAr stream = _TranslationsStreamAr._(_root);
@@ -80,6 +80,7 @@ class _TranslationsStreamAr extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusAr status = _TranslationsStreamStatusAr._(_root);
 	@override String started({required Object timestamp}) => 'بدأ ${timestamp}';
+	@override String notification({required Object name}) => '${name} بدأ البث المباشر!';
 	@override late final _TranslationsStreamChatAr chat = _TranslationsStreamChatAr._(_root);
 }
 
@@ -381,12 +382,13 @@ extension on TranslationsAr {
 			case 'anon': return 'هوية مخفية';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
 				one: '1 مشاهد',
-				other: '${NumberFormat.decimalPattern('ar').format(n)} المشاهدين',
+				other: '{n:decimalPattern} المشاهدين',
 			);
 			case 'stream.status.live': return 'بث مباشر';
 			case 'stream.status.ended': return 'انتهى';
 			case 'stream.status.planned': return 'مخطط';
 			case 'stream.started': return ({required Object timestamp}) => 'بدأ ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} بدأ البث المباشر!';
 			case 'stream.chat.disabled': return 'تم تعطيل الدردشة';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'تنتهي المهلة: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

@@ -22,10 +22,11 @@ stream:
     ended: KONEC
     planned: PLÁNOVANÉ
   started: Založeno $timestamp
+  notification: ${name} byl spuštěn!
   chat:
     disabled: CHAT ZRUŠEN
     disabled_timeout: "Časový limit vyprší: $time"
-    timeout(rich): $mod vypršel čas $user pro $time
+    timeout(rich): $mod vypršel čas $user pro ${time}
     "@timeout":
       description: Zpráva chatu zobrazující události časového limitu
     ended: STREAM UKONČEN

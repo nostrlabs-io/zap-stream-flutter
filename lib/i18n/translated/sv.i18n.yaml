@@ -1,19 +1,19 @@
 upload_avatar: Ladda upp avatar
 "@upload_avatar":
-  description: Text som uppmanar användaren att trycka på avatarplatshållaren för
+  description: Text som uppmanar användaren att trycka på avatar platshållaren för
     att påbörja uppladdningen
-most_zapped_streamers: De flesta zappade streamers
+most_zapped_streamers: De flest zappade streamers
 "@most_zapped_streamers":
-  description: Rubrik över listade toppstreamers av zaps
+  description: Rubrik över listade topp streamers av zaps
 no_user_found: Ingen användare hittades
 "@no_user_found":
   description: Ingen användare hittades vid sökning
-anon: Anon
+anon: Anno
 viewers:
   one: 1 tittare
   other: ${n:decimalPattern} tittare
 "@viewers":
-  description: Antal tittare på streamingen
+  description: Antal tittare på strömmingen
 "@anon":
   description: En anonym användare
 stream:
@@ -21,16 +21,17 @@ stream:
     live: LIVE
     ended: AVSLUTAD
     planned: PLANERADE
-  started: Startade $timestamp
+  started: Startad $timestamp
+  notification: ${name} gick live!
   chat:
     disabled: CHAT AVSTÄNGD
     disabled_timeout: "Tidsgränsen går ut: $time"
-    timeout(rich): $mod tidsbegränsad $user för $time
+    timeout(rich): $mod tidsbegränsad $user för ${time}
     "@timeout":
       description: Chattmeddelande som visar timeout-händelser
     ended: STREAM AVSLUTAD
     "@ended":
-      description: Stream avslutade sidfoten längst ner på chatten
+      description: Streama slutade sidfot längst ned i chatten
     zap(rich): $user zapped $amount sats
     "@zap":
       description: Chattmeddelande som visar strömavbrott
@@ -38,27 +39,27 @@ stream:
       label: Skriv meddelande
       "@label":
         description: Etikett på inmatningsrutan för chattmeddelanden
-      no_signer: Det går inte att skriva meddelanden med npub-inloggning
+      no_signer: Det går inte att skriva meddelanden med n-pub inloggning
       "@no_signer":
         description: Chattinmatningsmeddelande som visas när användaren endast är
-          inloggad med pubkey
+          inloggad med publik nyckel
       login: Logga in för att skicka meddelanden
       "@login":
         description: Chattinmatningsmeddelande som visas när användaren är utloggad
     badge:
       awarded_to: "Tilldelas till:"
       "@awarded_to":
-        description: Rubrik över lista över användare som tilldelats en badge
+        description: Rubrik över listan över användare som tilldelas ett märke
     raid:
-      to: RAIDING $name
+      to: RAIDING ${name}
       "@to":
-        description: Chatta raidmeddelande till en annan ström
-      from: RAID FRÅN $name
+        description: Chatt raid meddelande till en annan ström
+      from: RAID FRÅN ${name}
       "@from":
-        description: Chat raid-meddelande från en annan ström
-      countdown: Raiding på $time
+        description: Chatt raid meddelande från en annan ström
+      countdown: Radiering i ${time}
       "@countdown":
-        description: Nedräkningstimer för auto-raiding
+        description: Nedräkningstimer för auto- radiering
 goal:
   title: "Mål: $amount"
   remaining: "Kvarvarande: $amount"
@@ -74,7 +75,7 @@ button:
     description: Knapptext för följ-knappen
   unfollow: Sluta följa
   "@unfollow":
-    description: Knapptext för avföljningsknappen
+    description: Knapptext för sluta följa knappen
   mute: Tysta
   unmute: Avtysta
   share: Dela
@@ -82,9 +83,9 @@ button:
   connect: Anslut
   settings: Inställningar
 embed:
-  article_by: Artikel av $name
+  article_by: Artikel av ${name}
   note_by: Anteckning av $name
-  live_stream_by: Direktsändning via $name
+  live_stream_by: Direktsändning via ${name}
 stream_list:
   following: Följer
   live: Live
@@ -114,17 +115,17 @@ settings:
   profile:
     display_name: Visa namn
     about: Om
-    nip05: Nostr Adress
-    lud16: Adress för blixtnedslag
+    nip05: Nostr adress
+    lud16: Lightning-adress
     error:
       logged_out: Kan inte redigera profil när jag är utloggad
   wallet:
-    connect_wallet: Connect plånbok (NWC nostr+walletconnect://)
+    connect_wallet: Anslut plånbok (NWC nostr+walletconnect://)
     disconnect_wallet: Koppla bort plånboken
-    connect_1tap: 1-Tap-anslutning
+    connect_1tap: 1-tryck anslutning
     paste: Klistra in URL
     error:
-      logged_out: Kan inte ansluta plånbok när du är inloggad
+      logged_out: Kan inte ansluta plånbok när du är utloggad
       nwc_auth_event_not_found: Inget autentiseringshändelse för plånbok hittades
 login:
   username: Användarnamn

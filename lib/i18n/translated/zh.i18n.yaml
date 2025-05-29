@@ -21,10 +21,11 @@ stream:
     ended: 結束
     planned: 計劃
   started: 開始 $timestamp
+  notification: ${name} 已啟用！
   chat:
     disabled: 關閉聊天
     disabled_timeout: 超時過期： $time
-    timeout(rich): $mod 超時 $user for $time
+    timeout(rich): $mod 超時 $user for ${time}
     "@timeout":
       description: 顯示逾時事件的聊天訊息
     ended: 串流結束

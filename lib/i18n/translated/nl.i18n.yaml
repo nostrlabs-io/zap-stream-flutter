@@ -22,10 +22,11 @@ stream:
     ended: GESLOTEN
     planned: GEPLAND
   started: Begonnen met $timestamp
+  notification: ${name} ging live!
   chat:
     disabled: CHAT UITGESCHAKELD
     disabled_timeout: "Time-out loopt af: $time"
-    timeout(rich): $mod timed out $user voor $time
+    timeout(rich): $mod timed out $user voor ${time}
     "@timeout":
       description: Chatbericht met time-outgebeurtenissen
     ended: STREAM BEËINDIGD

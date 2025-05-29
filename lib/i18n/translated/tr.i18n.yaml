@@ -22,10 +22,11 @@ stream:
     ended: SONLANDI
     planned: PLANLANMIŞ
   started: Başlatıldı $timestamp
+  notification: ${name} yayına girdi!
   chat:
     disabled: SOHBET DEVRE DIŞI
     disabled_timeout: "Zaman aşımı sona eriyor: $time"
-    timeout(rich): $mod zaman aşımına uğradı $user için $time
+    timeout(rich): $mod zaman aşımına uğradı $user ${time}için
     "@timeout":
       description: Zaman aşımı olaylarını gösteren sohbet mesajı
     ended: YAYIN SONLANDI
@@ -53,7 +54,7 @@ stream:
       to: RAIDING ${name}
       "@to":
         description: Başka bir akışa sohbet baskını mesajı
-      from: ${name}ADRESINDEN RAID
+      from: ${name} ADRESINDEN RAID
       "@from":
         description: Başka bir akıştan sohbet baskını mesajı
       countdown: ${time}adresinde baskın

@@ -4,7 +4,7 @@ upload_avatar: Avatar hochladen
     klicken, um den Upload zu starten
 most_zapped_streamers: Meistgezappte Streamer
 "@most_zapped_streamers":
-  description: Überschrift über gelistete Top-Streamer von zaps
+  description: Überschrift über gelistete Top-Streamer nach Zaps
 no_user_found: Kein Benutzer gefunden
 "@no_user_found":
   description: Kein Benutzer bei der Suche gefunden
@@ -13,27 +13,28 @@ viewers:
   one: 1 Zuschauer
   other: ${n:decimalPattern} Zuschauer
 "@viewers":
-  description: Anzahl der Betrachter des Streams
+  description: Anzahl der Zuschauer des Streams
 "@anon":
   description: Ein anonymer Benutzer
 stream:
   status:
     live: LIVE
-    ended: ENDED
+    ended: BEENDET
     planned: GEPLANT
   started: Gestartet $timestamp
+  notification: ${name} ging live!
   chat:
     disabled: CHAT DEAKTIVIERT
-    disabled_timeout: "Die Zeitüberschreitung läuft ab: $time"
-    timeout(rich): $mod Zeitüberschreitung $user für $time
+    disabled_timeout: "Timeout läuft ab: $time"
+    timeout(rich): $mod gibt $user einen Timeout für ${time}
     "@timeout":
-      description: Chat-Nachricht mit Zeitüberschreitungsereignissen
+      description: Chat-Nachricht mit Timeout-Ereignissen
     ended: STREAM BEENDET
     "@ended":
       description: Stream beendet Fußzeile am Ende des Chats
     zap(rich): $user hat $amount sats gezappt
     "@zap":
-      description: Chatnachricht mit Stream Zaps
+      description: Chat-Nachricht mit Stream-Zaps
     write:
       label: Nachricht schreiben
       "@label":

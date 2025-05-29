@@ -17,7 +17,7 @@ class NoVerify extends EventVerifier {
 
 final ndkCache = DbObjectBox();
 final eventVerifier = kDebugMode ? NoVerify() : RustEventVerifier();
-var ndk = Ndk(
+final ndk = Ndk(
   NdkConfig(
     eventVerifier: eventVerifier,
     cache: ndkCache,

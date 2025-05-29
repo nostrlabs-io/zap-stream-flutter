@@ -80,6 +80,7 @@ class _TranslationsStreamPl extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusPl status = _TranslationsStreamStatusPl._(_root);
 	@override String started({required Object timestamp}) => 'Start ${timestamp}';
+	@override String notification({required Object name}) => '${name} został uruchomiony!';
 	@override late final _TranslationsStreamChatPl chat = _TranslationsStreamChatPl._(_root);
 }
 
@@ -387,6 +388,7 @@ extension on TranslationsPl {
 			case 'stream.status.ended': return 'ZAKOŃCZONY';
 			case 'stream.status.planned': return 'PLANOWANE';
 			case 'stream.started': return ({required Object timestamp}) => 'Start ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} został uruchomiony!';
 			case 'stream.chat.disabled': return 'CZAT WYŁĄCZONY';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Upłynął limit czasu: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [

@@ -39,19 +39,19 @@ class TranslationsSv extends Translations {
 
 	// Translations
 
-	/// Text som uppmanar användaren att trycka på avatarplatshållaren för att påbörja uppladdningen
+	/// Text som uppmanar användaren att trycka på avatar platshållaren för att påbörja uppladdningen
 	@override String get upload_avatar => 'Ladda upp avatar';
 
-	/// Rubrik över listade toppstreamers av zaps
-	@override String get most_zapped_streamers => 'De flesta zappade streamers';
+	/// Rubrik över listade topp streamers av zaps
+	@override String get most_zapped_streamers => 'De flest zappade streamers';
 
 	/// Ingen användare hittades vid sökning
 	@override String get no_user_found => 'Ingen användare hittades';
 
 	/// En anonym användare
-	@override String get anon => 'Anon';
+	@override String get anon => 'Anno';
 
-	/// Antal tittare på streamingen
+	/// Antal tittare på strömmingen
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
 		one: '1 tittare',
 		other: '${NumberFormat.decimalPattern('sv').format(n)} tittare',
@@ -79,7 +79,8 @@ class _TranslationsStreamSv extends TranslationsStreamEn {
 
 	// Translations
 	@override late final _TranslationsStreamStatusSv status = _TranslationsStreamStatusSv._(_root);
-	@override String started({required Object timestamp}) => 'Startade ${timestamp}';
+	@override String started({required Object timestamp}) => 'Startad ${timestamp}';
+	@override String notification({required Object name}) => '${name} gick live!';
 	@override late final _TranslationsStreamChatSv chat = _TranslationsStreamChatSv._(_root);
 }
 
@@ -112,7 +113,7 @@ class _TranslationsButtonSv extends TranslationsButtonEn {
 	/// Knapptext för följ-knappen
 	@override String get follow => 'Följ';
 
-	/// Knapptext för avföljningsknappen
+	/// Knapptext för sluta följa knappen
 	@override String get unfollow => 'Sluta följa';
 
 	@override String get mute => 'Tysta';
@@ -235,7 +236,7 @@ class _TranslationsStreamChatSv extends TranslationsStreamChatEn {
 		time,
 	]);
 
-	/// Stream avslutade sidfoten längst ner på chatten
+	/// Streama slutade sidfot längst ned i chatten
 	@override String get ended => 'STREAM AVSLUTAD';
 
 	/// Chattmeddelande som visar strömavbrott
@@ -272,8 +273,8 @@ class _TranslationsSettingsProfileSv extends TranslationsSettingsProfileEn {
 	// Translations
 	@override String get display_name => 'Visa namn';
 	@override String get about => 'Om';
-	@override String get nip05 => 'Nostr Adress';
-	@override String get lud16 => 'Adress för blixtnedslag';
+	@override String get nip05 => 'Nostr adress';
+	@override String get lud16 => 'Lightning-adress';
 	@override late final _TranslationsSettingsProfileErrorSv error = _TranslationsSettingsProfileErrorSv._(_root);
 }
 
@@ -284,9 +285,9 @@ class _TranslationsSettingsWalletSv extends TranslationsSettingsWalletEn {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get connect_wallet => 'Connect plånbok (NWC nostr+walletconnect://)';
+	@override String get connect_wallet => 'Anslut plånbok (NWC nostr+walletconnect://)';
 	@override String get disconnect_wallet => 'Koppla bort plånboken';
-	@override String get connect_1tap => '1-Tap-anslutning';
+	@override String get connect_1tap => '1-tryck anslutning';
 	@override String get paste => 'Klistra in URL';
 	@override late final _TranslationsSettingsWalletErrorSv error = _TranslationsSettingsWalletErrorSv._(_root);
 }
@@ -312,8 +313,8 @@ class _TranslationsStreamChatWriteSv extends TranslationsStreamChatWriteEn {
 	/// Etikett på inmatningsrutan för chattmeddelanden
 	@override String get label => 'Skriv meddelande';
 
-	/// Chattinmatningsmeddelande som visas när användaren endast är inloggad med pubkey
-	@override String get no_signer => 'Det går inte att skriva meddelanden med npub-inloggning';
+	/// Chattinmatningsmeddelande som visas när användaren endast är inloggad med publik nyckel
+	@override String get no_signer => 'Det går inte att skriva meddelanden med n-pub inloggning';
 
 	/// Chattinmatningsmeddelande som visas när användaren är utloggad
 	@override String get login => 'Logga in för att skicka meddelanden';
@@ -327,7 +328,7 @@ class _TranslationsStreamChatBadgeSv extends TranslationsStreamChatBadgeEn {
 
 	// Translations
 
-	/// Rubrik över lista över användare som tilldelats en badge
+	/// Rubrik över listan över användare som tilldelas ett märke
 	@override String get awarded_to => 'Tilldelas till:';
 }
 
@@ -339,14 +340,14 @@ class _TranslationsStreamChatRaidSv extends TranslationsStreamChatRaidEn {
 
 	// Translations
 
-	/// Chatta raidmeddelande till en annan ström
+	/// Chatt raid meddelande till en annan ström
 	@override String to({required Object name}) => 'RAIDING ${name}';
 
-	/// Chat raid-meddelande från en annan ström
+	/// Chatt raid meddelande från en annan ström
 	@override String from({required Object name}) => 'RAID FRÅN ${name}';
 
-	/// Nedräkningstimer för auto-raiding
-	@override String countdown({required Object time}) => 'Raiding på ${time}';
+	/// Nedräkningstimer för auto- radiering
+	@override String countdown({required Object time}) => 'Radiering i ${time}';
 }
 
 // Path: settings.profile.error
@@ -366,7 +367,7 @@ class _TranslationsSettingsWalletErrorSv extends TranslationsSettingsWalletError
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get logged_out => 'Kan inte ansluta plånbok när du är inloggad';
+	@override String get logged_out => 'Kan inte ansluta plånbok när du är utloggad';
 	@override String get nwc_auth_event_not_found => 'Inget autentiseringshändelse för plånbok hittades';
 }
 
@@ -376,9 +377,9 @@ extension on TranslationsSv {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'upload_avatar': return 'Ladda upp avatar';
-			case 'most_zapped_streamers': return 'De flesta zappade streamers';
+			case 'most_zapped_streamers': return 'De flest zappade streamers';
 			case 'no_user_found': return 'Ingen användare hittades';
-			case 'anon': return 'Anon';
+			case 'anon': return 'Anno';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
 				one: '1 tittare',
 				other: '${NumberFormat.decimalPattern('sv').format(n)} tittare',
@@ -386,7 +387,8 @@ extension on TranslationsSv {
 			case 'stream.status.live': return 'LIVE';
 			case 'stream.status.ended': return 'AVSLUTAD';
 			case 'stream.status.planned': return 'PLANERADE';
-			case 'stream.started': return ({required Object timestamp}) => 'Startade ${timestamp}';
+			case 'stream.started': return ({required Object timestamp}) => 'Startad ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} gick live!';
 			case 'stream.chat.disabled': return 'CHAT AVSTÄNGD';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Tidsgränsen går ut: ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
@@ -404,12 +406,12 @@ extension on TranslationsSv {
 				const TextSpan(text: ' sats'),
 			]);
 			case 'stream.chat.write.label': return 'Skriv meddelande';
-			case 'stream.chat.write.no_signer': return 'Det går inte att skriva meddelanden med npub-inloggning';
+			case 'stream.chat.write.no_signer': return 'Det går inte att skriva meddelanden med n-pub inloggning';
 			case 'stream.chat.write.login': return 'Logga in för att skicka meddelanden';
 			case 'stream.chat.badge.awarded_to': return 'Tilldelas till:';
 			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
 			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FRÅN ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding på ${time}';
+			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Radiering i ${time}';
 			case 'goal.title': return ({required Object amount}) => 'Mål: ${amount}';
 			case 'goal.remaining': return ({required Object amount}) => 'Kvarvarande: ${amount}';
 			case 'goal.complete': return 'KOMPLETT';
@@ -448,14 +450,14 @@ extension on TranslationsSv {
 			case 'settings.button_wallet': return 'Inställningar för plånbok';
 			case 'settings.profile.display_name': return 'Visa namn';
 			case 'settings.profile.about': return 'Om';
-			case 'settings.profile.nip05': return 'Nostr Adress';
-			case 'settings.profile.lud16': return 'Adress för blixtnedslag';
+			case 'settings.profile.nip05': return 'Nostr adress';
+			case 'settings.profile.lud16': return 'Lightning-adress';
 			case 'settings.profile.error.logged_out': return 'Kan inte redigera profil när jag är utloggad';
-			case 'settings.wallet.connect_wallet': return 'Connect plånbok (NWC nostr+walletconnect://)';
+			case 'settings.wallet.connect_wallet': return 'Anslut plånbok (NWC nostr+walletconnect://)';
 			case 'settings.wallet.disconnect_wallet': return 'Koppla bort plånboken';
-			case 'settings.wallet.connect_1tap': return '1-Tap-anslutning';
+			case 'settings.wallet.connect_1tap': return '1-tryck anslutning';
 			case 'settings.wallet.paste': return 'Klistra in URL';
-			case 'settings.wallet.error.logged_out': return 'Kan inte ansluta plånbok när du är inloggad';
+			case 'settings.wallet.error.logged_out': return 'Kan inte ansluta plånbok när du är utloggad';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Inget autentiseringshändelse för plånbok hittades';
 			case 'login.username': return 'Användarnamn';
 			case 'login.amber': return 'Logga in med Amber';

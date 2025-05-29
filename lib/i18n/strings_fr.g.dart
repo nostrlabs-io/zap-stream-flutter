@@ -54,7 +54,7 @@ class TranslationsFr extends Translations {
 	/// Nombre de spectateurs du flux
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 		one: '1 téléspectateur',
-		other: '${NumberFormat.decimalPattern('fr').format(n)} téléspectateurs',
+		other: '{n:decimalPattern} téléspectateurs',
 	);
 
 	@override late final _TranslationsStreamFr stream = _TranslationsStreamFr._(_root);
@@ -80,6 +80,7 @@ class _TranslationsStreamFr extends TranslationsStreamEn {
 	// Translations
 	@override late final _TranslationsStreamStatusFr status = _TranslationsStreamStatusFr._(_root);
 	@override String started({required Object timestamp}) => 'Commencé à ${timestamp}';
+	@override String notification({required Object name}) => '${name} est en ligne !';
 	@override late final _TranslationsStreamChatFr chat = _TranslationsStreamChatFr._(_root);
 }
 
@@ -381,12 +382,13 @@ extension on TranslationsFr {
 			case 'anon': return 'Anonyme';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 				one: '1 téléspectateur',
-				other: '${NumberFormat.decimalPattern('fr').format(n)} téléspectateurs',
+				other: '{n:decimalPattern} téléspectateurs',
 			);
 			case 'stream.status.live': return 'VIVRE';
 			case 'stream.status.ended': return 'FINI';
 			case 'stream.status.planned': return 'PRÉVU';
 			case 'stream.started': return ({required Object timestamp}) => 'Commencé à ${timestamp}';
+			case 'stream.notification': return ({required Object name}) => '${name} est en ligne !';
 			case 'stream.chat.disabled': return 'CHAT DISABLED';
 			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Le délai expire : ${time}';
 			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
