@@ -38,6 +38,7 @@ class _NewAccountPage extends State<NewAccountPage> {
         pubKey: _privateKey.publicKey,
         name: _name.text,
         picture: _avatar,
+        lud16: "${_privateKey.publicKey}@zap.stream",
       ),
     );
   }
