@@ -38,8 +38,16 @@ class WalletConfig {
   }
 }
 
+class WalletInfo {
+  final String name;
+  final int balance;
+
+  const WalletInfo({required this.name, required this.balance});
+}
+
 abstract class SimpleWallet {
   Future<String> payInvoice(String pr);
+  Future<WalletInfo> getInfo();
 }
 
 class NWCWrapper extends SimpleWallet {
@@ -59,6 +67,13 @@ class NWCWrapper extends SimpleWallet {
     } else {
       return rsp.preimage!;
     }
+  }
+
+  @override
+  Future<WalletInfo> getInfo() async {
+    final info = await ndk.nwc.getInfo(_conn);
+    final balance = await ndk.nwc.getBalance(_conn);
+    return WalletInfo(name: info.alias, balance: balance.balanceSats);
   }
 }
 

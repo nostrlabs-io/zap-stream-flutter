@@ -8,6 +8,7 @@ no_user_found: No user found
 "@no_user_found":
   description: No user found when searching
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 viewer
   other: ${n:decimalPattern} viewers
@@ -122,6 +123,8 @@ settings:
     disconnect_wallet: Disconnect Wallet
     connect_1tap: 1-Tap Connection
     paste: Paste URL
+    balance: Balance
+    name: Wallet
     error:
       logged_out: Cant connect wallet when logged out
       nwc_auth_event_not_found: No wallet auth event found

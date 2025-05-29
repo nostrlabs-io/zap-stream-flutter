@@ -52,6 +52,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// An anonymous user
 	String get anon => 'Anon';
 
+	String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('en').format(n)} sats';
+
 	/// Number of viewers of the stream
 	String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		one: '1 viewer',
@@ -290,6 +292,8 @@ class TranslationsSettingsWalletEn {
 	String get disconnect_wallet => 'Disconnect Wallet';
 	String get connect_1tap => '1-Tap Connection';
 	String get paste => 'Paste URL';
+	String get balance => 'Balance';
+	String get name => 'Wallet';
 	late final TranslationsSettingsWalletErrorEn error = TranslationsSettingsWalletErrorEn.internal(_root);
 }
 
@@ -381,6 +385,7 @@ extension on Translations {
 			case 'most_zapped_streamers': return 'Most Zapped Streamers';
 			case 'no_user_found': return 'No user found';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('en').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 				one: '1 viewer',
 				other: '${NumberFormat.decimalPattern('en').format(n)} viewers',
@@ -458,6 +463,8 @@ extension on Translations {
 			case 'settings.wallet.disconnect_wallet': return 'Disconnect Wallet';
 			case 'settings.wallet.connect_1tap': return '1-Tap Connection';
 			case 'settings.wallet.paste': return 'Paste URL';
+			case 'settings.wallet.balance': return 'Balance';
+			case 'settings.wallet.name': return 'Wallet';
 			case 'settings.wallet.error.logged_out': return 'Cant connect wallet when logged out';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'No wallet auth event found';
 			case 'login.username': return 'Username';

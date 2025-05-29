@@ -87,7 +87,7 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
       queryParameters: {
         "relay": nwcRelays,
         "name": "zap.stream",
-        "request_methods": "pay_invoice",
+        "request_methods": "pay_invoice get_info get_balance",
         "icon": "https://zap.stream/logo.png",
         "return_to": nwaHandlerUrl,
       },
@@ -174,13 +174,43 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
             ],
           );
         } else {
-          return BasicButton.text(
-            t.settings.wallet.disconnect_wallet,
-            onTap: (context) {
-              _setWallet(null);
-              if (context.mounted) {
-                context.pop();
-              }
+          return FutureBuilder(
+            future: () async {
+              final wallet = await state!.getWallet();
+              return await wallet?.getInfo();
+            }(),
+            builder: (context, state) {
+              return Column(
+                spacing: 8,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Wallet: ${state.data?.name ?? ""}",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                      children: [
+                        TextSpan(text: t.settings.wallet.balance),
+                        TextSpan(text: ": "),
+                        TextSpan(
+                          text: t.full_amount_sats(n: state.data?.balance ?? 0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  BasicButton.text(
+                    t.settings.wallet.disconnect_wallet,
+                    onTap: (context) {
+                      _setWallet(null);
+                      if (context.mounted) {
+                        context.pop();
+                      }
+                    },
+                  ),
+                ],
+              );
             },
           );
         }
