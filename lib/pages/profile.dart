@@ -12,6 +12,7 @@ import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/button_follow.dart';
 import 'package:zap_stream_flutter/widgets/header.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
+import 'package:zap_stream_flutter/widgets/notifications_button.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 import 'package:zap_stream_flutter/widgets/stream_grid.dart';
 
@@ -91,7 +92,14 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
-            if (!isMe) FollowButton(pubkey: hexPubkey),
+            if (!isMe)
+              Row(
+                spacing: 8,
+                children: [
+                  FollowButton(pubkey: hexPubkey),
+                  NotificationsButtonWidget(pubkey: hexPubkey),
+                ],
+              ),
             Text(
               t.profile.past_streams,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

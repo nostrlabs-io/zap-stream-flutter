@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:zap_stream_flutter/notifications.dart';
 import 'package:zap_stream_flutter/theme.dart';
-import 'package:zap_stream_flutter/utils.dart';
 
 class NotificationsButtonWidget extends StatefulWidget {
-  final StreamEvent stream;
+  final String pubkey;
 
-  const NotificationsButtonWidget({super.key, required this.stream});
+  const NotificationsButtonWidget({super.key, required this.pubkey});
 
   @override
   State<StatefulWidget> createState() => _NotificationsButtonWidget();
@@ -18,9 +17,7 @@ class _NotificationsButtonWidget extends State<NotificationsButtonWidget> {
     return ValueListenableBuilder(
       valueListenable: notifications,
       builder: (context, state, _) {
-        final isNotified = (state?.notifyKeys ?? []).contains(
-          widget.stream.info.host,
-        );
+        final isNotified = (state?.notifyKeys ?? []).contains(widget.pubkey);
         return IconButton(
           iconSize: 20,
           onPressed: () async {
@@ -28,9 +25,9 @@ class _NotificationsButtonWidget extends State<NotificationsButtonWidget> {
             if (n == null) return;
 
             if (isNotified) {
-              await n.removeWatchPubkey(widget.stream.info.host);
+              await n.removeWatchPubkey(widget.pubkey);
             } else {
-              await n.watchPubkey(widget.stream.info.host, [30311]);
+              await n.watchPubkey(widget.pubkey, [30311]);
             }
             await notifications.reload();
           },
