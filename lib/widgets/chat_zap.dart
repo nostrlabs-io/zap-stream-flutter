@@ -27,7 +27,19 @@ class ChatZapWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _zapperRowZap(context, parsed),
-          if (parsed.comment?.isNotEmpty ?? false) NoteText(event: zap),
+          if (parsed.comment?.isNotEmpty ?? false)
+            RichText(
+              text: TextSpan(
+                children: textToSpans(
+                  context,
+                  parsed.comment ?? "",
+                  [],
+                  parsed.sender ?? "",
+                  showEmbeds: false,
+                  embedMedia: false,
+                ),
+              ),
+            ),
         ],
       ),
     );
