@@ -51,6 +51,8 @@ class TranslationsSv extends Translations {
 	/// En anonym användare
 	@override String get anon => 'Anno';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('sv').format(n)} sats';
+
 	/// Antal tittare på strömmingen
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
 		one: '1 tittare',
@@ -69,6 +71,7 @@ class TranslationsSv extends Translations {
 	@override late final _TranslationsProfileSv profile = _TranslationsProfileSv._(_root);
 	@override late final _TranslationsSettingsSv settings = _TranslationsSettingsSv._(_root);
 	@override late final _TranslationsLoginSv login = _TranslationsLoginSv._(_root);
+	@override late final _TranslationsLiveSv live = _TranslationsLiveSv._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginSv extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorSv error = _TranslationsLoginErrorSv._(_root);
 }
 
+// Path: live
+class _TranslationsLiveSv extends TranslationsLiveEn {
+	_TranslationsLiveSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'GÅ DIREKT';
+	@override String get configure_stream => 'Konfigurera ström';
+	@override String get endpoint => 'Slutpunkt';
+	@override String get accept_tos => 'Acceptera TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Titel';
+	@override String get summary => 'Sammanfattning';
+	@override String get image => 'Omslagsbild';
+	@override String get tags => 'Etiketter';
+	@override String get nsfw => 'NSFW-innehåll';
+	@override String get nsfw_description => 'Markera här om denna stream innehåller nakenhet eller pornografiskt innehåll.';
+	@override late final _TranslationsLiveErrorSv error = _TranslationsLiveErrorSv._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusSv extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusSv._(TranslationsSv root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletSv extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Koppla bort plånboken';
 	@override String get connect_1tap => '1-tryck anslutning';
 	@override String get paste => 'Klistra in URL';
+	@override String get balance => 'Balans';
+	@override String get name => 'Plånbok';
 	@override late final _TranslationsSettingsWalletErrorSv error = _TranslationsSettingsWalletErrorSv._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorSv extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Ogiltig nyckel';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorSv extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Strömmen misslyckades';
+	@override String get connection_error => 'Anslutningsfel';
+	@override String get start_failed => 'Stream start misslyckades, vänligen kontrollera ditt saldo';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsSv {
 			case 'most_zapped_streamers': return 'De flest zappade streamers';
 			case 'no_user_found': return 'Ingen användare hittades';
 			case 'anon': return 'Anno';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('sv').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
 				one: '1 tittare',
 				other: '${NumberFormat.decimalPattern('sv').format(n)} tittare',
@@ -457,6 +499,8 @@ extension on TranslationsSv {
 			case 'settings.wallet.disconnect_wallet': return 'Koppla bort plånboken';
 			case 'settings.wallet.connect_1tap': return '1-tryck anslutning';
 			case 'settings.wallet.paste': return 'Klistra in URL';
+			case 'settings.wallet.balance': return 'Balans';
+			case 'settings.wallet.name': return 'Plånbok';
 			case 'settings.wallet.error.logged_out': return 'Kan inte ansluta plånbok när du är utloggad';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Inget autentiseringshändelse för plånbok hittades';
 			case 'login.username': return 'Användarnamn';
@@ -464,6 +508,23 @@ extension on TranslationsSv {
 			case 'login.key': return 'Logga in med nyckel';
 			case 'login.create': return 'Skapa konto';
 			case 'login.error.invalid_key': return 'Ogiltig nyckel';
+			case 'live.start': return 'GÅ DIREKT';
+			case 'live.configure_stream': return 'Konfigurera ström';
+			case 'live.endpoint': return 'Slutpunkt';
+			case 'live.accept_tos': return 'Acceptera TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Titel';
+			case 'live.summary': return 'Sammanfattning';
+			case 'live.image': return 'Omslagsbild';
+			case 'live.tags': return 'Etiketter';
+			case 'live.nsfw': return 'NSFW-innehåll';
+			case 'live.nsfw_description': return 'Markera här om denna stream innehåller nakenhet eller pornografiskt innehåll.';
+			case 'live.error.failed': return 'Strömmen misslyckades';
+			case 'live.error.connection_error': return 'Anslutningsfel';
+			case 'live.error.start_failed': return 'Stream start misslyckades, vänligen kontrollera ditt saldo';
 			default: return null;
 		}
 	}

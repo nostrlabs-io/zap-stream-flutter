@@ -9,6 +9,7 @@ no_user_found: Nenhum usuário encontrado
 "@no_user_found":
   description: Nenhum usuário foi encontrado durante a pesquisa
 anon: Anônimo
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 visualizador
   other: ${n:decimalPattern} espectadores
@@ -125,6 +126,8 @@ settings:
     disconnect_wallet: Desconectar carteira
     connect_1tap: Conexão de 1 torneira
     paste: Colar URL
+    balance: Equilíbrio
+    name: Carteira
     error:
       logged_out: Não consigo conectar a carteira quando estou desconectado
       nwc_auth_event_not_found: Nenhum evento de autenticação de carteira encontrado
@@ -135,3 +138,21 @@ login:
   create: Criar Conta
   error:
     invalid_key: Chave inválida
+live:
+  start: GO LIVE
+  configure_stream: Configurar fluxo
+  endpoint: Ponto final
+  accept_tos: Aceitar os Termos de Serviço
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Título
+  summary: Resumo
+  image: Imagem da capa
+  tags: Tags
+  nsfw: Conteúdo NSFW
+  nsfw_description: Verifique aqui se essa transmissão contém nudez ou conteúdo pornográfico.
+  error:
+    failed: O fluxo falhou
+    connection_error: Erro de conexão
+    start_failed: Falha no início do fluxo, verifique seu saldo

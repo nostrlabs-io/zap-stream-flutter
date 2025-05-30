@@ -51,6 +51,8 @@ class TranslationsAr extends Translations {
 	/// مستخدم مجهول
 	@override String get anon => 'هوية مخفية';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('ar').format(n)} دولار ساتس';
+
 	/// عدد مشاهدي البث
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
 		one: '1 مشاهد',
@@ -69,6 +71,7 @@ class TranslationsAr extends Translations {
 	@override late final _TranslationsProfileAr profile = _TranslationsProfileAr._(_root);
 	@override late final _TranslationsSettingsAr settings = _TranslationsSettingsAr._(_root);
 	@override late final _TranslationsLoginAr login = _TranslationsLoginAr._(_root);
+	@override late final _TranslationsLiveAr live = _TranslationsLiveAr._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginAr extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorAr error = _TranslationsLoginErrorAr._(_root);
 }
 
+// Path: live
+class _TranslationsLiveAr extends TranslationsLiveEn {
+	_TranslationsLiveAr._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'ابدأ البث المباشر';
+	@override String get configure_stream => 'تكوين الدفق';
+	@override String get endpoint => 'نقطة النهاية';
+	@override String get accept_tos => 'قبول شروط الخدمة';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'العنوان';
+	@override String get summary => 'الملخص';
+	@override String get image => 'صورة الغلاف';
+	@override String get tags => 'الوسوم';
+	@override String get nsfw => 'محتوى غير لائق جنسيًا';
+	@override String get nsfw_description => 'تحقق هنا إذا كان هذا البث يحتوي على محتوى إباحي أو عري.';
+	@override late final _TranslationsLiveErrorAr error = _TranslationsLiveErrorAr._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusAr extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusAr._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletAr extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'محفظة قطع الاتصال';
 	@override String get connect_1tap => '1-التوصيل بنقرة 1';
 	@override String get paste => 'لصق عنوان URL';
+	@override String get balance => 'الرصيد';
+	@override String get name => 'المحفظة';
 	@override late final _TranslationsSettingsWalletErrorAr error = _TranslationsSettingsWalletErrorAr._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorAr extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'مفتاح غير صالح';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorAr extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'فشل البث';
+	@override String get connection_error => 'خطأ في الاتصال';
+	@override String get start_failed => 'فشل بدء البث فشل، يرجى التحقق من رصيدك';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsAr {
 			case 'most_zapped_streamers': return 'معظم اللافتات التي يتم بثها';
 			case 'no_user_found': return 'لم يتم العثور على مستخدم';
 			case 'anon': return 'هوية مخفية';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ar').format(n)} دولار ساتس';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
 				one: '1 مشاهد',
 				other: '{n:decimalPattern} المشاهدين',
@@ -457,6 +499,8 @@ extension on TranslationsAr {
 			case 'settings.wallet.disconnect_wallet': return 'محفظة قطع الاتصال';
 			case 'settings.wallet.connect_1tap': return '1-التوصيل بنقرة 1';
 			case 'settings.wallet.paste': return 'لصق عنوان URL';
+			case 'settings.wallet.balance': return 'الرصيد';
+			case 'settings.wallet.name': return 'المحفظة';
 			case 'settings.wallet.error.logged_out': return 'لا يمكن الاتصال بالمحفظة عند تسجيل الخروج';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'لم يتم العثور على حدث مصادقة المحفظة';
 			case 'login.username': return 'اسم المستخدم';
@@ -464,6 +508,23 @@ extension on TranslationsAr {
 			case 'login.key': return 'تسجيل الدخول بالمفتاح';
 			case 'login.create': return 'إنشاء حساب';
 			case 'login.error.invalid_key': return 'مفتاح غير صالح';
+			case 'live.start': return 'ابدأ البث المباشر';
+			case 'live.configure_stream': return 'تكوين الدفق';
+			case 'live.endpoint': return 'نقطة النهاية';
+			case 'live.accept_tos': return 'قبول شروط الخدمة';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'العنوان';
+			case 'live.summary': return 'الملخص';
+			case 'live.image': return 'صورة الغلاف';
+			case 'live.tags': return 'الوسوم';
+			case 'live.nsfw': return 'محتوى غير لائق جنسيًا';
+			case 'live.nsfw_description': return 'تحقق هنا إذا كان هذا البث يحتوي على محتوى إباحي أو عري.';
+			case 'live.error.failed': return 'فشل البث';
+			case 'live.error.connection_error': return 'خطأ في الاتصال';
+			case 'live.error.start_failed': return 'فشل بدء البث فشل، يرجى التحقق من رصيدك';
 			default: return null;
 		}
 	}

@@ -51,6 +51,8 @@ class TranslationsZh extends Translations {
 	/// 匿名使用者
 	@override String get anon => '匿名';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('zh').format(n)} Sats';
+
 	/// 串流的觀看者人數
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n,
 		one: '1 個檢視器',
@@ -69,6 +71,7 @@ class TranslationsZh extends Translations {
 	@override late final _TranslationsProfileZh profile = _TranslationsProfileZh._(_root);
 	@override late final _TranslationsSettingsZh settings = _TranslationsSettingsZh._(_root);
 	@override late final _TranslationsLoginZh login = _TranslationsLoginZh._(_root);
+	@override late final _TranslationsLiveZh live = _TranslationsLiveZh._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginZh extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorZh error = _TranslationsLoginErrorZh._(_root);
 }
 
+// Path: live
+class _TranslationsLiveZh extends TranslationsLiveEn {
+	_TranslationsLiveZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => '開始直播';
+	@override String get configure_stream => '設定串流';
+	@override String get endpoint => '終點';
+	@override String get accept_tos => '接受服務條款';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => '標題';
+	@override String get summary => '摘要';
+	@override String get image => '封面圖片';
+	@override String get tags => '標籤';
+	@override String get nsfw => 'NSFW 內容';
+	@override String get nsfw_description => '請檢查此串流是否包含裸體或色情內容。';
+	@override late final _TranslationsLiveErrorZh error = _TranslationsLiveErrorZh._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusZh extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusZh._(TranslationsZh root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletZh extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => '斷開錢包';
 	@override String get connect_1tap => '1 抽頭連接';
 	@override String get paste => '貼上 URL';
+	@override String get balance => '平衡';
+	@override String get name => '錢包';
 	@override late final _TranslationsSettingsWalletErrorZh error = _TranslationsSettingsWalletErrorZh._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorZh extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => '無效按鍵';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorZh extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => '串流失敗';
+	@override String get connection_error => '連線錯誤';
+	@override String get start_failed => '串流啟動失敗，請檢查您的餘額';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsZh {
 			case 'most_zapped_streamers': return '最多被擊中的溪流';
 			case 'no_user_found': return '未找到使用者';
 			case 'anon': return '匿名';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('zh').format(n)} Sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n,
 				one: '1 個檢視器',
 				other: '${NumberFormat.decimalPattern('zh').format(n)} 觀眾',
@@ -457,6 +499,8 @@ extension on TranslationsZh {
 			case 'settings.wallet.disconnect_wallet': return '斷開錢包';
 			case 'settings.wallet.connect_1tap': return '1 抽頭連接';
 			case 'settings.wallet.paste': return '貼上 URL';
+			case 'settings.wallet.balance': return '平衡';
+			case 'settings.wallet.name': return '錢包';
 			case 'settings.wallet.error.logged_out': return '登出時無法連接錢包';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return '未找到錢包認證事件';
 			case 'login.username': return '用戶名';
@@ -464,6 +508,23 @@ extension on TranslationsZh {
 			case 'login.key': return '使用鑰匙登入';
 			case 'login.create': return '創建帳戶';
 			case 'login.error.invalid_key': return '無效按鍵';
+			case 'live.start': return '開始直播';
+			case 'live.configure_stream': return '設定串流';
+			case 'live.endpoint': return '終點';
+			case 'live.accept_tos': return '接受服務條款';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return '標題';
+			case 'live.summary': return '摘要';
+			case 'live.image': return '封面圖片';
+			case 'live.tags': return '標籤';
+			case 'live.nsfw': return 'NSFW 內容';
+			case 'live.nsfw_description': return '請檢查此串流是否包含裸體或色情內容。';
+			case 'live.error.failed': return '串流失敗';
+			case 'live.error.connection_error': return '連線錯誤';
+			case 'live.error.start_failed': return '串流啟動失敗，請檢查您的餘額';
 			default: return null;
 		}
 	}

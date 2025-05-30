@@ -51,6 +51,8 @@ class TranslationsKo extends Translations {
 	/// 익명 사용자
 	@override String get anon => 'Anon';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('ko').format(n)} sats';
+
 	/// 스트림 시청자 수
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
 		one: '시청자 1명',
@@ -69,6 +71,7 @@ class TranslationsKo extends Translations {
 	@override late final _TranslationsProfileKo profile = _TranslationsProfileKo._(_root);
 	@override late final _TranslationsSettingsKo settings = _TranslationsSettingsKo._(_root);
 	@override late final _TranslationsLoginKo login = _TranslationsLoginKo._(_root);
+	@override late final _TranslationsLiveKo live = _TranslationsLiveKo._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginKo extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorKo error = _TranslationsLoginErrorKo._(_root);
 }
 
+// Path: live
+class _TranslationsLiveKo extends TranslationsLiveEn {
+	_TranslationsLiveKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => '라이브 시작하기';
+	@override String get configure_stream => '스트림 구성';
+	@override String get endpoint => '엔드포인트';
+	@override String get accept_tos => 'TOS 수락';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => '제목';
+	@override String get summary => '요약';
+	@override String get image => '표지 이미지';
+	@override String get tags => '태그';
+	@override String get nsfw => 'NSFW 콘텐츠';
+	@override String get nsfw_description => '이 스트림에 노출 또는 음란 콘텐츠가 포함되어 있는지 여기에서 확인하세요.';
+	@override late final _TranslationsLiveErrorKo error = _TranslationsLiveErrorKo._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusKo extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusKo._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletKo extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => '지갑 연결 해제';
 	@override String get connect_1tap => '1-탭 연결';
 	@override String get paste => 'URL 붙여넣기';
+	@override String get balance => '잔액';
+	@override String get name => '지갑';
 	@override late final _TranslationsSettingsWalletErrorKo error = _TranslationsSettingsWalletErrorKo._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorKo extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => '잘못된 키';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorKo extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => '스트림 실패';
+	@override String get connection_error => '연결 오류';
+	@override String get start_failed => '스트림 시작에 실패했습니다. 잔액을 확인해 주세요.';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsKo {
 			case 'most_zapped_streamers': return '가장 많이 재핑된 스트리머';
 			case 'no_user_found': return '사용자를 찾을 수 없습니다.';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ko').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
 				one: '시청자 1명',
 				other: '{n:decimalPattern} 시청자',
@@ -457,6 +499,8 @@ extension on TranslationsKo {
 			case 'settings.wallet.disconnect_wallet': return '지갑 연결 해제';
 			case 'settings.wallet.connect_1tap': return '1-탭 연결';
 			case 'settings.wallet.paste': return 'URL 붙여넣기';
+			case 'settings.wallet.balance': return '잔액';
+			case 'settings.wallet.name': return '지갑';
 			case 'settings.wallet.error.logged_out': return '로그아웃 시 지갑 연결 불가';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return '지갑 인증 이벤트를 찾을 수 없습니다.';
 			case 'login.username': return '사용자 이름';
@@ -464,6 +508,23 @@ extension on TranslationsKo {
 			case 'login.key': return '키로 로그인';
 			case 'login.create': return '계정 만들기';
 			case 'login.error.invalid_key': return '잘못된 키';
+			case 'live.start': return '라이브 시작하기';
+			case 'live.configure_stream': return '스트림 구성';
+			case 'live.endpoint': return '엔드포인트';
+			case 'live.accept_tos': return 'TOS 수락';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return '제목';
+			case 'live.summary': return '요약';
+			case 'live.image': return '표지 이미지';
+			case 'live.tags': return '태그';
+			case 'live.nsfw': return 'NSFW 콘텐츠';
+			case 'live.nsfw_description': return '이 스트림에 노출 또는 음란 콘텐츠가 포함되어 있는지 여기에서 확인하세요.';
+			case 'live.error.failed': return '스트림 실패';
+			case 'live.error.connection_error': return '연결 오류';
+			case 'live.error.start_failed': return '스트림 시작에 실패했습니다. 잔액을 확인해 주세요.';
 			default: return null;
 		}
 	}

@@ -51,6 +51,8 @@ class TranslationsRu extends Translations {
 	/// Анонимный пользователь
 	@override String get anon => 'Аноним';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('ru').format(n)} sats';
+
 	/// Количество зрителей потока
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
 		one: '1 зритель',
@@ -69,6 +71,7 @@ class TranslationsRu extends Translations {
 	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
 	@override late final _TranslationsSettingsRu settings = _TranslationsSettingsRu._(_root);
 	@override late final _TranslationsLoginRu login = _TranslationsLoginRu._(_root);
+	@override late final _TranslationsLiveRu live = _TranslationsLiveRu._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginRu extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorRu error = _TranslationsLoginErrorRu._(_root);
 }
 
+// Path: live
+class _TranslationsLiveRu extends TranslationsLiveEn {
+	_TranslationsLiveRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'ПЕРЕЙТИ В ПРЯМОЙ ЭФИР';
+	@override String get configure_stream => 'Настроить поток';
+	@override String get endpoint => 'Конечная точка';
+	@override String get accept_tos => 'Принять TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Название';
+	@override String get summary => 'Резюме';
+	@override String get image => 'Изображение на обложке';
+	@override String get tags => 'Теги';
+	@override String get nsfw => 'NSFW-контент';
+	@override String get nsfw_description => 'Отметьте здесь, если этот поток содержит наготу или порнографические материалы.';
+	@override late final _TranslationsLiveErrorRu error = _TranslationsLiveErrorRu._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusRu extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusRu._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletRu extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Отключить кошелек';
 	@override String get connect_1tap => '1-кратное соединение';
 	@override String get paste => 'Вставить URL';
+	@override String get balance => 'Баланс';
+	@override String get name => 'Кошелек';
 	@override late final _TranslationsSettingsWalletErrorRu error = _TranslationsSettingsWalletErrorRu._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorRu extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Неверный ключ';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorRu extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Сбой потока';
+	@override String get connection_error => 'Ошибка подключения';
+	@override String get start_failed => 'Запуск потока не удался, пожалуйста, проверьте баланс';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsRu {
 			case 'most_zapped_streamers': return 'Самые прыткие стримеры';
 			case 'no_user_found': return 'Пользователь не найден';
 			case 'anon': return 'Аноним';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ru').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
 				one: '1 зритель',
 				other: '${NumberFormat.decimalPattern('ru').format(n)} зрителей',
@@ -457,6 +499,8 @@ extension on TranslationsRu {
 			case 'settings.wallet.disconnect_wallet': return 'Отключить кошелек';
 			case 'settings.wallet.connect_1tap': return '1-кратное соединение';
 			case 'settings.wallet.paste': return 'Вставить URL';
+			case 'settings.wallet.balance': return 'Баланс';
+			case 'settings.wallet.name': return 'Кошелек';
 			case 'settings.wallet.error.logged_out': return 'Невозможно подключить кошелек при выходе из системы';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Событие аутентификации кошелька не найдено';
 			case 'login.username': return 'Имя пользователя';
@@ -464,6 +508,23 @@ extension on TranslationsRu {
 			case 'login.key': return 'Вход в систему с помощью ключа';
 			case 'login.create': return 'Создать аккаунт';
 			case 'login.error.invalid_key': return 'Неверный ключ';
+			case 'live.start': return 'ПЕРЕЙТИ В ПРЯМОЙ ЭФИР';
+			case 'live.configure_stream': return 'Настроить поток';
+			case 'live.endpoint': return 'Конечная точка';
+			case 'live.accept_tos': return 'Принять TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Название';
+			case 'live.summary': return 'Резюме';
+			case 'live.image': return 'Изображение на обложке';
+			case 'live.tags': return 'Теги';
+			case 'live.nsfw': return 'NSFW-контент';
+			case 'live.nsfw_description': return 'Отметьте здесь, если этот поток содержит наготу или порнографические материалы.';
+			case 'live.error.failed': return 'Сбой потока';
+			case 'live.error.connection_error': return 'Ошибка подключения';
+			case 'live.error.start_failed': return 'Запуск потока не удался, пожалуйста, проверьте баланс';
 			default: return null;
 		}
 	}

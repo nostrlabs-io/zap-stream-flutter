@@ -51,6 +51,8 @@ class TranslationsDa extends Translations {
 	/// En anonym bruger
 	@override String get anon => 'Anon';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('da').format(n)} sats';
+
 	/// Antal seere af streamingen
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
 		one: '1 seer',
@@ -69,6 +71,7 @@ class TranslationsDa extends Translations {
 	@override late final _TranslationsProfileDa profile = _TranslationsProfileDa._(_root);
 	@override late final _TranslationsSettingsDa settings = _TranslationsSettingsDa._(_root);
 	@override late final _TranslationsLoginDa login = _TranslationsLoginDa._(_root);
+	@override late final _TranslationsLiveDa live = _TranslationsLiveDa._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginDa extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorDa error = _TranslationsLoginErrorDa._(_root);
 }
 
+// Path: live
+class _TranslationsLiveDa extends TranslationsLiveEn {
+	_TranslationsLiveDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'GO LIVE';
+	@override String get configure_stream => 'Konfigurer stream';
+	@override String get endpoint => 'Slutpunkt';
+	@override String get accept_tos => 'Accepter TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Titel';
+	@override String get summary => 'Sammenfatning';
+	@override String get image => 'Forsidebillede';
+	@override String get tags => 'Tags';
+	@override String get nsfw => 'NSFW-indhold';
+	@override String get nsfw_description => 'Tjek her, om denne stream indeholder nøgenhed eller pornografisk indhold.';
+	@override late final _TranslationsLiveErrorDa error = _TranslationsLiveErrorDa._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusDa extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusDa._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletDa extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Afbryd forbindelsen til tegnebogen';
 	@override String get connect_1tap => '1-Tap-forbindelse';
 	@override String get paste => 'Indsæt URL';
+	@override String get balance => 'Balance';
+	@override String get name => 'Tegnebog';
 	@override late final _TranslationsSettingsWalletErrorDa error = _TranslationsSettingsWalletErrorDa._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorDa extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Ugyldig nøgle';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorDa extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Strømmen mislykkedes';
+	@override String get connection_error => 'Forbindelsesfejl';
+	@override String get start_failed => 'Stream-start mislykkedes, tjek venligst din saldo';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsDa {
 			case 'most_zapped_streamers': return 'De fleste zappede streamere';
 			case 'no_user_found': return 'Ingen bruger fundet';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('da').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
 				one: '1 seer',
 				other: '${NumberFormat.decimalPattern('da').format(n)} seere',
@@ -457,6 +499,8 @@ extension on TranslationsDa {
 			case 'settings.wallet.disconnect_wallet': return 'Afbryd forbindelsen til tegnebogen';
 			case 'settings.wallet.connect_1tap': return '1-Tap-forbindelse';
 			case 'settings.wallet.paste': return 'Indsæt URL';
+			case 'settings.wallet.balance': return 'Balance';
+			case 'settings.wallet.name': return 'Tegnebog';
 			case 'settings.wallet.error.logged_out': return 'Kan ikke oprette forbindelse til wallet, når jeg er logget ud';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Ingen wallet-auth-begivenhed fundet';
 			case 'login.username': return 'Brugernavn';
@@ -464,6 +508,23 @@ extension on TranslationsDa {
 			case 'login.key': return 'Login med nøgle';
 			case 'login.create': return 'Opret konto';
 			case 'login.error.invalid_key': return 'Ugyldig nøgle';
+			case 'live.start': return 'GO LIVE';
+			case 'live.configure_stream': return 'Konfigurer stream';
+			case 'live.endpoint': return 'Slutpunkt';
+			case 'live.accept_tos': return 'Accepter TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Titel';
+			case 'live.summary': return 'Sammenfatning';
+			case 'live.image': return 'Forsidebillede';
+			case 'live.tags': return 'Tags';
+			case 'live.nsfw': return 'NSFW-indhold';
+			case 'live.nsfw_description': return 'Tjek her, om denne stream indeholder nøgenhed eller pornografisk indhold.';
+			case 'live.error.failed': return 'Strømmen mislykkedes';
+			case 'live.error.connection_error': return 'Forbindelsesfejl';
+			case 'live.error.start_failed': return 'Stream-start mislykkedes, tjek venligst din saldo';
 			default: return null;
 		}
 	}

@@ -51,6 +51,8 @@ class TranslationsNl extends Translations {
 	/// Een anonieme gebruiker
 	@override String get anon => 'Anon';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('nl').format(n)} sats';
+
 	/// Aantal kijkers van de stream
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
 		one: '1 kijker',
@@ -69,6 +71,7 @@ class TranslationsNl extends Translations {
 	@override late final _TranslationsProfileNl profile = _TranslationsProfileNl._(_root);
 	@override late final _TranslationsSettingsNl settings = _TranslationsSettingsNl._(_root);
 	@override late final _TranslationsLoginNl login = _TranslationsLoginNl._(_root);
+	@override late final _TranslationsLiveNl live = _TranslationsLiveNl._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginNl extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorNl error = _TranslationsLoginErrorNl._(_root);
 }
 
+// Path: live
+class _TranslationsLiveNl extends TranslationsLiveEn {
+	_TranslationsLiveNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'LIVE GAAN';
+	@override String get configure_stream => 'Stream configureren';
+	@override String get endpoint => 'Eindpunt';
+	@override String get accept_tos => 'TOS accepteren';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Titel';
+	@override String get summary => 'Samenvatting';
+	@override String get image => 'Afbeelding omslag';
+	@override String get tags => 'Tags';
+	@override String get nsfw => 'NSFW-inhoud';
+	@override String get nsfw_description => 'Controleer hier of deze stream naaktheid of pornografische inhoud bevat.';
+	@override late final _TranslationsLiveErrorNl error = _TranslationsLiveErrorNl._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusNl extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusNl._(TranslationsNl root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletNl extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Portefeuille loskoppelen';
 	@override String get connect_1tap => '1-Tap Aansluiting';
 	@override String get paste => 'URL plakken';
+	@override String get balance => 'Saldo';
+	@override String get name => 'Portemonnee';
 	@override late final _TranslationsSettingsWalletErrorNl error = _TranslationsSettingsWalletErrorNl._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorNl extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Ongeldige sleutel';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorNl extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Stream mislukt';
+	@override String get connection_error => 'Fout bij verbinding';
+	@override String get start_failed => 'Stream start mislukt, controleer uw saldo';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsNl {
 			case 'most_zapped_streamers': return 'Meeste Zapped Streamers';
 			case 'no_user_found': return 'Geen gebruiker gevonden';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('nl').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
 				one: '1 kijker',
 				other: '${NumberFormat.decimalPattern('nl').format(n)} kijkers',
@@ -457,6 +499,8 @@ extension on TranslationsNl {
 			case 'settings.wallet.disconnect_wallet': return 'Portefeuille loskoppelen';
 			case 'settings.wallet.connect_1tap': return '1-Tap Aansluiting';
 			case 'settings.wallet.paste': return 'URL plakken';
+			case 'settings.wallet.balance': return 'Saldo';
+			case 'settings.wallet.name': return 'Portemonnee';
 			case 'settings.wallet.error.logged_out': return 'Kan geen verbinding maken met portemonnee als ik ben uitgelogd';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Geen portemonnee-auth-gebeurtenis gevonden';
 			case 'login.username': return 'Gebruikersnaam';
@@ -464,6 +508,23 @@ extension on TranslationsNl {
 			case 'login.key': return 'Inloggen met sleutel';
 			case 'login.create': return 'Account aanmaken';
 			case 'login.error.invalid_key': return 'Ongeldige sleutel';
+			case 'live.start': return 'LIVE GAAN';
+			case 'live.configure_stream': return 'Stream configureren';
+			case 'live.endpoint': return 'Eindpunt';
+			case 'live.accept_tos': return 'TOS accepteren';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('nl'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Titel';
+			case 'live.summary': return 'Samenvatting';
+			case 'live.image': return 'Afbeelding omslag';
+			case 'live.tags': return 'Tags';
+			case 'live.nsfw': return 'NSFW-inhoud';
+			case 'live.nsfw_description': return 'Controleer hier of deze stream naaktheid of pornografische inhoud bevat.';
+			case 'live.error.failed': return 'Stream mislukt';
+			case 'live.error.connection_error': return 'Fout bij verbinding';
+			case 'live.error.start_failed': return 'Stream start mislukt, controleer uw saldo';
 			default: return null;
 		}
 	}

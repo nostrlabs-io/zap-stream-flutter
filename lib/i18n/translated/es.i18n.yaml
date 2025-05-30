@@ -9,6 +9,7 @@ no_user_found: No se ha encontrado ningún usuario
 "@no_user_found":
   description: No se ha encontrado ningún usuario al realizar la búsqueda
 anon: Anónimo
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 espectador
   other: ${n:decimalPattern} espectadores
@@ -127,6 +128,8 @@ settings:
     disconnect_wallet: Desconectar Cartera
     connect_1tap: Conexión de 1 toma
     paste: Pegar URL
+    balance: Saldo
+    name: Cartera
     error:
       logged_out: No se puede conectar el monedero al cerrar la sesión
       nwc_auth_event_not_found: No se ha encontrado ningún evento de autenticación de cartera
@@ -137,3 +140,21 @@ login:
   create: Crear una cuenta
   error:
     invalid_key: Clave no válida
+live:
+  start: EN VIVO
+  configure_stream: Configurar Stream
+  endpoint: Punto final
+  accept_tos: Aceptar TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Título
+  summary: Resumen
+  image: Imagen de portada
+  tags: Etiquetas
+  nsfw: Contenido NSFW
+  nsfw_description: Compruebe aquí si este flujo contiene desnudos o contenido pornográfico.
+  error:
+    failed: Corriente fallida
+    connection_error: Error de conexión
+    start_failed: Error en el inicio de la transmisión, compruebe su saldo

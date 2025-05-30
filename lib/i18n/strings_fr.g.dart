@@ -51,10 +51,12 @@ class TranslationsFr extends Translations {
 	/// Un utilisateur anonyme
 	@override String get anon => 'Anonyme';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('fr').format(n)} sats';
+
 	/// Nombre de spectateurs du flux
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 		one: '1 téléspectateur',
-		other: '{n:decimalPattern} téléspectateurs',
+		other: '${NumberFormat.decimalPattern('fr').format(n)} téléspectateurs',
 	);
 
 	@override late final _TranslationsStreamFr stream = _TranslationsStreamFr._(_root);
@@ -69,6 +71,7 @@ class TranslationsFr extends Translations {
 	@override late final _TranslationsProfileFr profile = _TranslationsProfileFr._(_root);
 	@override late final _TranslationsSettingsFr settings = _TranslationsSettingsFr._(_root);
 	@override late final _TranslationsLoginFr login = _TranslationsLoginFr._(_root);
+	@override late final _TranslationsLiveFr live = _TranslationsLiveFr._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginFr extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorFr error = _TranslationsLoginErrorFr._(_root);
 }
 
+// Path: live
+class _TranslationsLiveFr extends TranslationsLiveEn {
+	_TranslationsLiveFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'GO LIVE';
+	@override String get configure_stream => 'Configurer le flux';
+	@override String get endpoint => 'Point final';
+	@override String get accept_tos => 'Accepter les CGU';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Titre';
+	@override String get summary => 'Résumé';
+	@override String get image => 'Image de couverture';
+	@override String get tags => 'Tags';
+	@override String get nsfw => 'Contenu NSFW';
+	@override String get nsfw_description => 'Cochez cette case si ce flux contient de la nudité ou du contenu pornographique.';
+	@override late final _TranslationsLiveErrorFr error = _TranslationsLiveErrorFr._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusFr extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusFr._(TranslationsFr root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletFr extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Déconnecter le portefeuille';
 	@override String get connect_1tap => 'Connexion à 1 robinet';
 	@override String get paste => 'Coller l\'URL';
+	@override String get balance => 'Équilibre';
+	@override String get name => 'Portefeuille';
 	@override late final _TranslationsSettingsWalletErrorFr error = _TranslationsSettingsWalletErrorFr._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorFr extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Clé non valide';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorFr extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Échec du flux';
+	@override String get connection_error => 'Erreur de connexion';
+	@override String get start_failed => 'Le démarrage du flux a échoué, veuillez vérifier votre solde';
 }
 
 // Path: stream.chat.write
@@ -380,9 +421,10 @@ extension on TranslationsFr {
 			case 'most_zapped_streamers': return 'Les Streamers les plus zappés';
 			case 'no_user_found': return 'Aucun utilisateur trouvé';
 			case 'anon': return 'Anonyme';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('fr').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 				one: '1 téléspectateur',
-				other: '{n:decimalPattern} téléspectateurs',
+				other: '${NumberFormat.decimalPattern('fr').format(n)} téléspectateurs',
 			);
 			case 'stream.status.live': return 'VIVRE';
 			case 'stream.status.ended': return 'FINI';
@@ -457,6 +499,8 @@ extension on TranslationsFr {
 			case 'settings.wallet.disconnect_wallet': return 'Déconnecter le portefeuille';
 			case 'settings.wallet.connect_1tap': return 'Connexion à 1 robinet';
 			case 'settings.wallet.paste': return 'Coller l\'URL';
+			case 'settings.wallet.balance': return 'Équilibre';
+			case 'settings.wallet.name': return 'Portefeuille';
 			case 'settings.wallet.error.logged_out': return 'Impossible de se connecter au portefeuille lorsque l\'on est déconnecté';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Aucun événement d\'authentification de portefeuille n\'a été trouvé';
 			case 'login.username': return 'Nom d’utilisateur';
@@ -464,6 +508,23 @@ extension on TranslationsFr {
 			case 'login.key': return 'Connexion avec la clé';
 			case 'login.create': return 'Créer un Compte';
 			case 'login.error.invalid_key': return 'Clé non valide';
+			case 'live.start': return 'GO LIVE';
+			case 'live.configure_stream': return 'Configurer le flux';
+			case 'live.endpoint': return 'Point final';
+			case 'live.accept_tos': return 'Accepter les CGU';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Titre';
+			case 'live.summary': return 'Résumé';
+			case 'live.image': return 'Image de couverture';
+			case 'live.tags': return 'Tags';
+			case 'live.nsfw': return 'Contenu NSFW';
+			case 'live.nsfw_description': return 'Cochez cette case si ce flux contient de la nudité ou du contenu pornographique.';
+			case 'live.error.failed': return 'Échec du flux';
+			case 'live.error.connection_error': return 'Erreur de connexion';
+			case 'live.error.start_failed': return 'Le démarrage du flux a échoué, veuillez vérifier votre solde';
 			default: return null;
 		}
 	}

@@ -9,9 +9,10 @@ no_user_found: Aucun utilisateur trouvé
 "@no_user_found":
   description: Aucun utilisateur n'a été trouvé lors de la recherche
 anon: Anonyme
+full_amount_sats: "${n:decimalPattern} sats"
 viewers:
   one: 1 téléspectateur
-  other: "{n:decimalPattern} téléspectateurs"
+  other: "${n:decimalPattern} téléspectateurs"
 "@viewers":
   description: Nombre de spectateurs du flux
 "@anon":
@@ -124,6 +125,8 @@ settings:
     disconnect_wallet: Déconnecter le portefeuille
     connect_1tap: Connexion à 1 robinet
     paste: Coller l'URL
+    balance: Équilibre
+    name: Portefeuille
     error:
       logged_out: Impossible de se connecter au portefeuille lorsque l'on est déconnecté
       nwc_auth_event_not_found: Aucun événement d'authentification de portefeuille n'a été trouvé
@@ -134,3 +137,22 @@ login:
   create: Créer un Compte
   error:
     invalid_key: Clé non valide
+live:
+  start: GO LIVE
+  configure_stream: Configurer le flux
+  endpoint: Point final
+  accept_tos: Accepter les CGU
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Titre
+  summary: Résumé
+  image: Image de couverture
+  tags: Tags
+  nsfw: Contenu NSFW
+  nsfw_description: Cochez cette case si ce flux contient de la nudité ou du
+    contenu pornographique.
+  error:
+    failed: Échec du flux
+    connection_error: Erreur de connexion
+    start_failed: Le démarrage du flux a échoué, veuillez vérifier votre solde

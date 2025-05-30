@@ -9,6 +9,7 @@ no_user_found: Kein Benutzer gefunden
 "@no_user_found":
   description: Kein Benutzer bei der Suche gefunden
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 Zuschauer
   other: ${n:decimalPattern} Zuschauer
@@ -125,6 +126,8 @@ settings:
     disconnect_wallet: Brieftasche abtrennen
     connect_1tap: 1-Tap-Verbindung
     paste: URL einfügen
+    balance: Bilanz
+    name: Brieftasche
     error:
       logged_out: Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin
       nwc_auth_event_not_found: Kein Wallet-Authentifizierungsereignis gefunden
@@ -135,3 +138,22 @@ login:
   create: Konto erstellen
   error:
     invalid_key: Ungültiger Schlüssel
+live:
+  start: LIVE GEHEN
+  configure_stream: Stream konfigurieren
+  endpoint: Endpunkt
+  accept_tos: TOS akzeptieren
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Titel
+  summary: Zusammenfassung
+  image: Titelbild
+  tags: Tags
+  nsfw: NSFW-Inhalt
+  nsfw_description: Prüfen Sie hier, ob dieser Stream Nacktheit oder
+    pornografische Inhalte enthält.
+  error:
+    failed: Stream fehlgeschlagen
+    connection_error: Verbindungsfehler
+    start_failed: Streamstart fehlgeschlagen, bitte überprüfen Sie Ihr Guthaben

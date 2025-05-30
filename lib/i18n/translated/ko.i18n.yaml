@@ -8,6 +8,7 @@ no_user_found: 사용자를 찾을 수 없습니다.
 "@no_user_found":
   description: 검색 시 사용자를 찾을 수 없음
 anon: Anon
+full_amount_sats: "${n:decimalPattern} sats"
 viewers:
   one: 시청자 1명
   other: "{n:decimalPattern} 시청자"
@@ -122,6 +123,8 @@ settings:
     disconnect_wallet: 지갑 연결 해제
     connect_1tap: 1-탭 연결
     paste: URL 붙여넣기
+    balance: 잔액
+    name: 지갑
     error:
       logged_out: 로그아웃 시 지갑 연결 불가
       nwc_auth_event_not_found: 지갑 인증 이벤트를 찾을 수 없습니다.
@@ -132,3 +135,21 @@ login:
   create: 계정 만들기
   error:
     invalid_key: 잘못된 키
+live:
+  start: 라이브 시작하기
+  configure_stream: 스트림 구성
+  endpoint: 엔드포인트
+  accept_tos: TOS 수락
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: 제목
+  summary: 요약
+  image: 표지 이미지
+  tags: 태그
+  nsfw: NSFW 콘텐츠
+  nsfw_description: 이 스트림에 노출 또는 음란 콘텐츠가 포함되어 있는지 여기에서 확인하세요.
+  error:
+    failed: 스트림 실패
+    connection_error: 연결 오류
+    start_failed: 스트림 시작에 실패했습니다. 잔액을 확인해 주세요.

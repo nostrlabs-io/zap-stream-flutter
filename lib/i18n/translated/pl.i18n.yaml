@@ -9,6 +9,7 @@ no_user_found: Nie znaleziono użytkownika
 "@no_user_found":
   description: Nie znaleziono użytkownika podczas wyszukiwania
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 przeglądarka
   other: "{n:decimalPattern} widzów"
@@ -125,6 +126,8 @@ settings:
     disconnect_wallet: Odłącz portfel
     connect_1tap: Połączenie 1-wtykowe
     paste: Wklej adres URL
+    balance: Równowaga
+    name: Portfel
     error:
       logged_out: Nie można połączyć portfela po wylogowaniu
       nwc_auth_event_not_found: Nie znaleziono zdarzenia autoryzacji portfela
@@ -135,3 +138,21 @@ login:
   create: Utwórz konto
   error:
     invalid_key: Nieprawidłowy klucz
+live:
+  start: GO LIVE
+  configure_stream: Konfiguracja strumienia
+  endpoint: Punkt końcowy
+  accept_tos: Zaakceptuj Regulamin
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Tytuł
+  summary: Podsumowanie
+  image: Obraz na okładce
+  tags: Tagi
+  nsfw: Treści NSFW
+  nsfw_description: Sprawdź tutaj, czy ten stream zawiera nagość lub treści pornograficzne.
+  error:
+    failed: Strumień nie powiódł się
+    connection_error: Błąd połączenia
+    start_failed: Uruchomienie strumienia nie powiodło się, sprawdź saldo

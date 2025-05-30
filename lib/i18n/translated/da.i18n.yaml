@@ -9,6 +9,7 @@ no_user_found: Ingen bruger fundet
 "@no_user_found":
   description: Ingen bruger fundet ved søgning
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 seer
   other: ${n:decimalPattern} seere
@@ -124,6 +125,8 @@ settings:
     disconnect_wallet: Afbryd forbindelsen til tegnebogen
     connect_1tap: 1-Tap-forbindelse
     paste: Indsæt URL
+    balance: Balance
+    name: Tegnebog
     error:
       logged_out: Kan ikke oprette forbindelse til wallet, når jeg er logget ud
       nwc_auth_event_not_found: Ingen wallet-auth-begivenhed fundet
@@ -134,3 +137,21 @@ login:
   create: Opret konto
   error:
     invalid_key: Ugyldig nøgle
+live:
+  start: GO LIVE
+  configure_stream: Konfigurer stream
+  endpoint: Slutpunkt
+  accept_tos: Accepter TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Titel
+  summary: Sammenfatning
+  image: Forsidebillede
+  tags: Tags
+  nsfw: NSFW-indhold
+  nsfw_description: Tjek her, om denne stream indeholder nøgenhed eller pornografisk indhold.
+  error:
+    failed: Strømmen mislykkedes
+    connection_error: Forbindelsesfejl
+    start_failed: Stream-start mislykkedes, tjek venligst din saldo

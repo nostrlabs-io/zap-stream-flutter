@@ -51,6 +51,8 @@ class TranslationsEs extends Translations {
 	/// Un usuario anónimo
 	@override String get anon => 'Anónimo';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('es').format(n)} sats';
+
 	/// Número de espectadores del flujo
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 		one: '1 espectador',
@@ -69,6 +71,7 @@ class TranslationsEs extends Translations {
 	@override late final _TranslationsProfileEs profile = _TranslationsProfileEs._(_root);
 	@override late final _TranslationsSettingsEs settings = _TranslationsSettingsEs._(_root);
 	@override late final _TranslationsLoginEs login = _TranslationsLoginEs._(_root);
+	@override late final _TranslationsLiveEs live = _TranslationsLiveEs._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginEs extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorEs error = _TranslationsLoginErrorEs._(_root);
 }
 
+// Path: live
+class _TranslationsLiveEs extends TranslationsLiveEn {
+	_TranslationsLiveEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'EN VIVO';
+	@override String get configure_stream => 'Configurar Stream';
+	@override String get endpoint => 'Punto final';
+	@override String get accept_tos => 'Aceptar TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Título';
+	@override String get summary => 'Resumen';
+	@override String get image => 'Imagen de portada';
+	@override String get tags => 'Etiquetas';
+	@override String get nsfw => 'Contenido NSFW';
+	@override String get nsfw_description => 'Compruebe aquí si este flujo contiene desnudos o contenido pornográfico.';
+	@override late final _TranslationsLiveErrorEs error = _TranslationsLiveErrorEs._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusEs extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusEs._(TranslationsEs root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletEs extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Desconectar Cartera';
 	@override String get connect_1tap => 'Conexión de 1 toma';
 	@override String get paste => 'Pegar URL';
+	@override String get balance => 'Saldo';
+	@override String get name => 'Cartera';
 	@override late final _TranslationsSettingsWalletErrorEs error = _TranslationsSettingsWalletErrorEs._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorEs extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Clave no válida';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorEs extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Corriente fallida';
+	@override String get connection_error => 'Error de conexión';
+	@override String get start_failed => 'Error en el inicio de la transmisión, compruebe su saldo';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsEs {
 			case 'most_zapped_streamers': return 'Serpentinas más derribadas';
 			case 'no_user_found': return 'No se ha encontrado ningún usuario';
 			case 'anon': return 'Anónimo';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('es').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 				one: '1 espectador',
 				other: '${NumberFormat.decimalPattern('es').format(n)} espectadores',
@@ -457,6 +499,8 @@ extension on TranslationsEs {
 			case 'settings.wallet.disconnect_wallet': return 'Desconectar Cartera';
 			case 'settings.wallet.connect_1tap': return 'Conexión de 1 toma';
 			case 'settings.wallet.paste': return 'Pegar URL';
+			case 'settings.wallet.balance': return 'Saldo';
+			case 'settings.wallet.name': return 'Cartera';
 			case 'settings.wallet.error.logged_out': return 'No se puede conectar el monedero al cerrar la sesión';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'No se ha encontrado ningún evento de autenticación de cartera';
 			case 'login.username': return 'Usuario';
@@ -464,6 +508,23 @@ extension on TranslationsEs {
 			case 'login.key': return 'Inicio de sesión con clave';
 			case 'login.create': return 'Crear una cuenta';
 			case 'login.error.invalid_key': return 'Clave no válida';
+			case 'live.start': return 'EN VIVO';
+			case 'live.configure_stream': return 'Configurar Stream';
+			case 'live.endpoint': return 'Punto final';
+			case 'live.accept_tos': return 'Aceptar TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Título';
+			case 'live.summary': return 'Resumen';
+			case 'live.image': return 'Imagen de portada';
+			case 'live.tags': return 'Etiquetas';
+			case 'live.nsfw': return 'Contenido NSFW';
+			case 'live.nsfw_description': return 'Compruebe aquí si este flujo contiene desnudos o contenido pornográfico.';
+			case 'live.error.failed': return 'Corriente fallida';
+			case 'live.error.connection_error': return 'Error de conexión';
+			case 'live.error.start_failed': return 'Error en el inicio de la transmisión, compruebe su saldo';
 			default: return null;
 		}
 	}

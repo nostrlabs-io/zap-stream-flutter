@@ -136,13 +136,13 @@ login:
   error:
     invalid_key: Invalid key
 live:
-  start: "GO LIVE"
+  start: GO LIVE
   configure_stream: Configure Stream
   endpoint: Endpoint
   accept_tos: Accept TOS
   balance_left:
-    zero: "∞"
-    other: "~${time}"
+    zero: ∞
+    other: ~${time}
   title: Title
   summary: Summary
   image: Cover Image

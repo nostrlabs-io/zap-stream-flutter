@@ -9,6 +9,7 @@ no_user_found: Ingen användare hittades
 "@no_user_found":
   description: Ingen användare hittades vid sökning
 anon: Anno
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 tittare
   other: ${n:decimalPattern} tittare
@@ -124,6 +125,8 @@ settings:
     disconnect_wallet: Koppla bort plånboken
     connect_1tap: 1-tryck anslutning
     paste: Klistra in URL
+    balance: Balans
+    name: Plånbok
     error:
       logged_out: Kan inte ansluta plånbok när du är utloggad
       nwc_auth_event_not_found: Inget autentiseringshändelse för plånbok hittades
@@ -134,3 +137,21 @@ login:
   create: Skapa konto
   error:
     invalid_key: Ogiltig nyckel
+live:
+  start: GÅ DIREKT
+  configure_stream: Konfigurera ström
+  endpoint: Slutpunkt
+  accept_tos: Acceptera TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Titel
+  summary: Sammanfattning
+  image: Omslagsbild
+  tags: Etiketter
+  nsfw: NSFW-innehåll
+  nsfw_description: Markera här om denna stream innehåller nakenhet eller pornografiskt innehåll.
+  error:
+    failed: Strömmen misslyckades
+    connection_error: Anslutningsfel
+    start_failed: Stream start misslyckades, vänligen kontrollera ditt saldo

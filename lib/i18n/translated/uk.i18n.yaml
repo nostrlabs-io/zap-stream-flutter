@@ -9,6 +9,7 @@ no_user_found: Користувача не знайдено
 "@no_user_found":
   description: Користувача не знайдено при пошуку
 anon: Анонім.
+full_amount_sats: ${n:decimalPattern} сатів
 viewers:
   one: 1 глядач
   other: ${n:decimalPattern} глядачів
@@ -126,6 +127,8 @@ settings:
     disconnect_wallet: Відключити гаманець
     connect_1tap: Підключення в 1 кран
     paste: Вставити URL-адресу
+    balance: Баланс
+    name: Гаманець
     error:
       logged_out: Не вдається підключити гаманець, коли ви вийшли з системи
       nwc_auth_event_not_found: Не знайдено жодної події авторизації гаманця
@@ -136,3 +139,22 @@ login:
   create: Створити обліковий запис
   error:
     invalid_key: Неправильний ключ
+live:
+  start: GO LIVE
+  configure_stream: Налаштувати потік
+  endpoint: Кінцева точка
+  accept_tos: Прийміть ТЗ
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Назва
+  summary: Підсумок
+  image: Зображення обкладинки
+  tags: Теги
+  nsfw: Нецензурна лексика
+  nsfw_description: Перевірте тут, чи містить цей потік оголену натуру або
+    порнографічний контент.
+  error:
+    failed: Потік не вдалося запустити
+    connection_error: Помилка з'єднання
+    start_failed: Не вдалося запустити трансляцію, будь ласка, перевірте свій баланс

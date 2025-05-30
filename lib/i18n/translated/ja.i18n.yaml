@@ -8,6 +8,7 @@ no_user_found: ユーザーが見つかりません
 "@no_user_found":
   description: 検索してもユーザーが見つからない
 anon: 匿名
+full_amount_sats: "${n:decimalPattern} サッツ"
 viewers:
   one: 1 視聴者
   other: ${n:decimalPattern} 人が視聴中
@@ -122,6 +123,8 @@ settings:
     disconnect_wallet: ウォレットの切断
     connect_1tap: 1タップ接続
     paste: URLを貼り付ける
+    balance: バランス
+    name: 財布
     error:
       logged_out: ログアウト時にウォレットに接続できない
       nwc_auth_event_not_found: ウォレットの認証イベントが見つかりません
@@ -132,3 +135,21 @@ login:
   create: アカウントを作成する
   error:
     invalid_key: 無効なキー
+live:
+  start: ライブ中継
+  configure_stream: ストリームの設定
+  endpoint: エンドポイント
+  accept_tos: TOSを受け入れる
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: タイトル
+  summary: 概要
+  image: 表紙画像
+  tags: タグ
+  nsfw: NSFWコンテンツ
+  nsfw_description: このストリームにヌードやポルノが含まれている場合は、ここをチェックしてください。
+  error:
+    failed: ストリーム失敗
+    connection_error: 接続エラー
+    start_failed: ストリームの開始に失敗しました。

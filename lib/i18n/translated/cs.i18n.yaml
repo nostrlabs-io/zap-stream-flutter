@@ -9,6 +9,7 @@ no_user_found: Nebyl nalezen žádný uživatel
 "@no_user_found":
   description: Při vyhledávání nebyl nalezen žádný uživatel
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 divák
   other: ${n:decimalPattern} diváků
@@ -124,6 +125,8 @@ settings:
     disconnect_wallet: Odpojení peněženky
     connect_1tap: Připojení 1 kohoutku
     paste: Vložit adresu URL
+    balance: Bilance
+    name: Peněženka
     error:
       logged_out: Nelze se připojit k peněžence, když jste odhlášeni
       nwc_auth_event_not_found: Nebyla nalezena žádná událost autentizace peněženky
@@ -134,3 +137,21 @@ login:
   create: Vytvořit účet
   error:
     invalid_key: Neplatný klíč
+live:
+  start: PŘEJÍT NA ŽIVOT
+  configure_stream: Konfigurace streamu
+  endpoint: Koncový bod
+  accept_tos: Přijmout TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Název
+  summary: Souhrn
+  image: Obrázek na obálce
+  tags: Štítky
+  nsfw: Obsah NSFW
+  nsfw_description: Zde zkontrolujte, zda tento stream obsahuje nahotu nebo pornografický obsah.
+  error:
+    failed: Stream se nezdařil
+    connection_error: Chyba připojení
+    start_failed: Spuštění streamu se nezdařilo, zkontrolujte prosím zůstatek

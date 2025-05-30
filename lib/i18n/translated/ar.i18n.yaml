@@ -8,6 +8,7 @@ no_user_found: لم يتم العثور على مستخدم
 "@no_user_found":
   description: لم يتم العثور على مستخدم عند البحث
 anon: هوية مخفية
+full_amount_sats: "${n:decimalPattern} دولار ساتس"
 viewers:
   one: 1 مشاهد
   other: "{n:decimalPattern} المشاهدين"
@@ -123,6 +124,8 @@ settings:
     disconnect_wallet: محفظة قطع الاتصال
     connect_1tap: 1-التوصيل بنقرة 1
     paste: لصق عنوان URL
+    balance: الرصيد
+    name: المحفظة
     error:
       logged_out: لا يمكن الاتصال بالمحفظة عند تسجيل الخروج
       nwc_auth_event_not_found: لم يتم العثور على حدث مصادقة المحفظة
@@ -133,3 +136,21 @@ login:
   create: إنشاء حساب
   error:
     invalid_key: مفتاح غير صالح
+live:
+  start: ابدأ البث المباشر
+  configure_stream: تكوين الدفق
+  endpoint: نقطة النهاية
+  accept_tos: قبول شروط الخدمة
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: العنوان
+  summary: الملخص
+  image: صورة الغلاف
+  tags: الوسوم
+  nsfw: محتوى غير لائق جنسيًا
+  nsfw_description: تحقق هنا إذا كان هذا البث يحتوي على محتوى إباحي أو عري.
+  error:
+    failed: فشل البث
+    connection_error: خطأ في الاتصال
+    start_failed: فشل بدء البث فشل، يرجى التحقق من رصيدك

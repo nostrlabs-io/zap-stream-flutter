@@ -51,6 +51,8 @@ class TranslationsFi extends Translations {
 	/// Nimetön käyttäjä
 	@override String get anon => 'Anon';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('fi').format(n)} sats';
+
 	/// Streamin katsojien määrä
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
 		one: '1 katsoja',
@@ -69,6 +71,7 @@ class TranslationsFi extends Translations {
 	@override late final _TranslationsProfileFi profile = _TranslationsProfileFi._(_root);
 	@override late final _TranslationsSettingsFi settings = _TranslationsSettingsFi._(_root);
 	@override late final _TranslationsLoginFi login = _TranslationsLoginFi._(_root);
+	@override late final _TranslationsLiveFi live = _TranslationsLiveFi._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginFi extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorFi error = _TranslationsLoginErrorFi._(_root);
 }
 
+// Path: live
+class _TranslationsLiveFi extends TranslationsLiveEn {
+	_TranslationsLiveFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'GO LIVE';
+	@override String get configure_stream => 'Määritä Stream';
+	@override String get endpoint => 'Loppupiste';
+	@override String get accept_tos => 'Hyväksy TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Otsikko';
+	@override String get summary => 'Yhteenveto';
+	@override String get image => 'Kansikuva';
+	@override String get tags => 'Tunnisteet';
+	@override String get nsfw => 'NSFW-sisältö';
+	@override String get nsfw_description => 'Tarkista täältä, jos tämä stream sisältää alastomuutta tai pornografista sisältöä.';
+	@override late final _TranslationsLiveErrorFi error = _TranslationsLiveErrorFi._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusFi extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusFi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletFi extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Irrota lompakko';
 	@override String get connect_1tap => '1-Tap-liitäntä';
 	@override String get paste => 'Liitä URL-osoite';
+	@override String get balance => 'Balance';
+	@override String get name => 'Lompakko';
 	@override late final _TranslationsSettingsWalletErrorFi error = _TranslationsSettingsWalletErrorFi._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorFi extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Virheellinen avain';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorFi extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Stream epäonnistui';
+	@override String get connection_error => 'Yhteysvirhe';
+	@override String get start_failed => 'Virran käynnistys epäonnistui, tarkista saldosi';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsFi {
 			case 'most_zapped_streamers': return 'Eniten Zapped Streamers';
 			case 'no_user_found': return 'Käyttäjää ei löytynyt';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('fi').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
 				one: '1 katsoja',
 				other: '${NumberFormat.decimalPattern('fi').format(n)} katsojat',
@@ -457,6 +499,8 @@ extension on TranslationsFi {
 			case 'settings.wallet.disconnect_wallet': return 'Irrota lompakko';
 			case 'settings.wallet.connect_1tap': return '1-Tap-liitäntä';
 			case 'settings.wallet.paste': return 'Liitä URL-osoite';
+			case 'settings.wallet.balance': return 'Balance';
+			case 'settings.wallet.name': return 'Lompakko';
 			case 'settings.wallet.error.logged_out': return 'Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Ei lompakko-auth-tapahtumaa löydetty';
 			case 'login.username': return 'Käyttäjätunnus';
@@ -464,6 +508,23 @@ extension on TranslationsFi {
 			case 'login.key': return 'Kirjaudu sisään avaimella';
 			case 'login.create': return 'Luo tili';
 			case 'login.error.invalid_key': return 'Virheellinen avain';
+			case 'live.start': return 'GO LIVE';
+			case 'live.configure_stream': return 'Määritä Stream';
+			case 'live.endpoint': return 'Loppupiste';
+			case 'live.accept_tos': return 'Hyväksy TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Otsikko';
+			case 'live.summary': return 'Yhteenveto';
+			case 'live.image': return 'Kansikuva';
+			case 'live.tags': return 'Tunnisteet';
+			case 'live.nsfw': return 'NSFW-sisältö';
+			case 'live.nsfw_description': return 'Tarkista täältä, jos tämä stream sisältää alastomuutta tai pornografista sisältöä.';
+			case 'live.error.failed': return 'Stream epäonnistui';
+			case 'live.error.connection_error': return 'Yhteysvirhe';
+			case 'live.error.start_failed': return 'Virran käynnistys epäonnistui, tarkista saldosi';
 			default: return null;
 		}
 	}

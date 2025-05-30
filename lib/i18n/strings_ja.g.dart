@@ -51,6 +51,8 @@ class TranslationsJa extends Translations {
 	/// 匿名ユーザー
 	@override String get anon => '匿名';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('ja').format(n)} サッツ';
+
 	/// ストリームの視聴者数
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
 		one: '1 視聴者',
@@ -69,6 +71,7 @@ class TranslationsJa extends Translations {
 	@override late final _TranslationsProfileJa profile = _TranslationsProfileJa._(_root);
 	@override late final _TranslationsSettingsJa settings = _TranslationsSettingsJa._(_root);
 	@override late final _TranslationsLoginJa login = _TranslationsLoginJa._(_root);
+	@override late final _TranslationsLiveJa live = _TranslationsLiveJa._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginJa extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorJa error = _TranslationsLoginErrorJa._(_root);
 }
 
+// Path: live
+class _TranslationsLiveJa extends TranslationsLiveEn {
+	_TranslationsLiveJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'ライブ中継';
+	@override String get configure_stream => 'ストリームの設定';
+	@override String get endpoint => 'エンドポイント';
+	@override String get accept_tos => 'TOSを受け入れる';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'タイトル';
+	@override String get summary => '概要';
+	@override String get image => '表紙画像';
+	@override String get tags => 'タグ';
+	@override String get nsfw => 'NSFWコンテンツ';
+	@override String get nsfw_description => 'このストリームにヌードやポルノが含まれている場合は、ここをチェックしてください。';
+	@override late final _TranslationsLiveErrorJa error = _TranslationsLiveErrorJa._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusJa extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusJa._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletJa extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'ウォレットの切断';
 	@override String get connect_1tap => '1タップ接続';
 	@override String get paste => 'URLを貼り付ける';
+	@override String get balance => 'バランス';
+	@override String get name => '財布';
 	@override late final _TranslationsSettingsWalletErrorJa error = _TranslationsSettingsWalletErrorJa._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorJa extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => '無効なキー';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorJa extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'ストリーム失敗';
+	@override String get connection_error => '接続エラー';
+	@override String get start_failed => 'ストリームの開始に失敗しました。';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsJa {
 			case 'most_zapped_streamers': return '最もザッピングされたストリーマー';
 			case 'no_user_found': return 'ユーザーが見つかりません';
 			case 'anon': return '匿名';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ja').format(n)} サッツ';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
 				one: '1 視聴者',
 				other: '${NumberFormat.decimalPattern('ja').format(n)} 人が視聴中',
@@ -457,6 +499,8 @@ extension on TranslationsJa {
 			case 'settings.wallet.disconnect_wallet': return 'ウォレットの切断';
 			case 'settings.wallet.connect_1tap': return '1タップ接続';
 			case 'settings.wallet.paste': return 'URLを貼り付ける';
+			case 'settings.wallet.balance': return 'バランス';
+			case 'settings.wallet.name': return '財布';
 			case 'settings.wallet.error.logged_out': return 'ログアウト時にウォレットに接続できない';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'ウォレットの認証イベントが見つかりません';
 			case 'login.username': return 'ユーザー名';
@@ -464,6 +508,23 @@ extension on TranslationsJa {
 			case 'login.key': return 'キーでログイン';
 			case 'login.create': return 'アカウントを作成する';
 			case 'login.error.invalid_key': return '無効なキー';
+			case 'live.start': return 'ライブ中継';
+			case 'live.configure_stream': return 'ストリームの設定';
+			case 'live.endpoint': return 'エンドポイント';
+			case 'live.accept_tos': return 'TOSを受け入れる';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'タイトル';
+			case 'live.summary': return '概要';
+			case 'live.image': return '表紙画像';
+			case 'live.tags': return 'タグ';
+			case 'live.nsfw': return 'NSFWコンテンツ';
+			case 'live.nsfw_description': return 'このストリームにヌードやポルノが含まれている場合は、ここをチェックしてください。';
+			case 'live.error.failed': return 'ストリーム失敗';
+			case 'live.error.connection_error': return '接続エラー';
+			case 'live.error.start_failed': return 'ストリームの開始に失敗しました。';
 			default: return null;
 		}
 	}

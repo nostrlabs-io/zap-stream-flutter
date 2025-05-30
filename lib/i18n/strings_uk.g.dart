@@ -51,6 +51,8 @@ class TranslationsUk extends Translations {
 	/// Анонімний користувач
 	@override String get anon => 'Анонім.';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('uk').format(n)} сатів';
+
 	/// Кількість глядачів стріму
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(n,
 		one: '1 глядач',
@@ -69,6 +71,7 @@ class TranslationsUk extends Translations {
 	@override late final _TranslationsProfileUk profile = _TranslationsProfileUk._(_root);
 	@override late final _TranslationsSettingsUk settings = _TranslationsSettingsUk._(_root);
 	@override late final _TranslationsLoginUk login = _TranslationsLoginUk._(_root);
+	@override late final _TranslationsLiveUk live = _TranslationsLiveUk._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginUk extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorUk error = _TranslationsLoginErrorUk._(_root);
 }
 
+// Path: live
+class _TranslationsLiveUk extends TranslationsLiveEn {
+	_TranslationsLiveUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'GO LIVE';
+	@override String get configure_stream => 'Налаштувати потік';
+	@override String get endpoint => 'Кінцева точка';
+	@override String get accept_tos => 'Прийміть ТЗ';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Назва';
+	@override String get summary => 'Підсумок';
+	@override String get image => 'Зображення обкладинки';
+	@override String get tags => 'Теги';
+	@override String get nsfw => 'Нецензурна лексика';
+	@override String get nsfw_description => 'Перевірте тут, чи містить цей потік оголену натуру або порнографічний контент.';
+	@override late final _TranslationsLiveErrorUk error = _TranslationsLiveErrorUk._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusUk extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusUk._(TranslationsUk root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletUk extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Відключити гаманець';
 	@override String get connect_1tap => 'Підключення в 1 кран';
 	@override String get paste => 'Вставити URL-адресу';
+	@override String get balance => 'Баланс';
+	@override String get name => 'Гаманець';
 	@override late final _TranslationsSettingsWalletErrorUk error = _TranslationsSettingsWalletErrorUk._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorUk extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Неправильний ключ';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorUk extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Потік не вдалося запустити';
+	@override String get connection_error => 'Помилка з\'єднання';
+	@override String get start_failed => 'Не вдалося запустити трансляцію, будь ласка, перевірте свій баланс';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsUk {
 			case 'most_zapped_streamers': return 'Більшість стримерів, які були під напругою';
 			case 'no_user_found': return 'Користувача не знайдено';
 			case 'anon': return 'Анонім.';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('uk').format(n)} сатів';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(n,
 				one: '1 глядач',
 				other: '${NumberFormat.decimalPattern('uk').format(n)} глядачів',
@@ -457,6 +499,8 @@ extension on TranslationsUk {
 			case 'settings.wallet.disconnect_wallet': return 'Відключити гаманець';
 			case 'settings.wallet.connect_1tap': return 'Підключення в 1 кран';
 			case 'settings.wallet.paste': return 'Вставити URL-адресу';
+			case 'settings.wallet.balance': return 'Баланс';
+			case 'settings.wallet.name': return 'Гаманець';
 			case 'settings.wallet.error.logged_out': return 'Не вдається підключити гаманець, коли ви вийшли з системи';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Не знайдено жодної події авторизації гаманця';
 			case 'login.username': return 'Ім\'я користувача';
@@ -464,6 +508,23 @@ extension on TranslationsUk {
 			case 'login.key': return 'Увійдіть за допомогою ключа';
 			case 'login.create': return 'Створити обліковий запис';
 			case 'login.error.invalid_key': return 'Неправильний ключ';
+			case 'live.start': return 'GO LIVE';
+			case 'live.configure_stream': return 'Налаштувати потік';
+			case 'live.endpoint': return 'Кінцева точка';
+			case 'live.accept_tos': return 'Прийміть ТЗ';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uk'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Назва';
+			case 'live.summary': return 'Підсумок';
+			case 'live.image': return 'Зображення обкладинки';
+			case 'live.tags': return 'Теги';
+			case 'live.nsfw': return 'Нецензурна лексика';
+			case 'live.nsfw_description': return 'Перевірте тут, чи містить цей потік оголену натуру або порнографічний контент.';
+			case 'live.error.failed': return 'Потік не вдалося запустити';
+			case 'live.error.connection_error': return 'Помилка з\'єднання';
+			case 'live.error.start_failed': return 'Не вдалося запустити трансляцію, будь ласка, перевірте свій баланс';
 			default: return null;
 		}
 	}

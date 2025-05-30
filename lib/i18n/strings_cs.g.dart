@@ -51,6 +51,8 @@ class TranslationsCs extends Translations {
 	/// Anonymní uživatel
 	@override String get anon => 'Anon';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('cs').format(n)} sats';
+
 	/// Počet diváků streamu
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
 		one: '1 divák',
@@ -69,6 +71,7 @@ class TranslationsCs extends Translations {
 	@override late final _TranslationsProfileCs profile = _TranslationsProfileCs._(_root);
 	@override late final _TranslationsSettingsCs settings = _TranslationsSettingsCs._(_root);
 	@override late final _TranslationsLoginCs login = _TranslationsLoginCs._(_root);
+	@override late final _TranslationsLiveCs live = _TranslationsLiveCs._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginCs extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorCs error = _TranslationsLoginErrorCs._(_root);
 }
 
+// Path: live
+class _TranslationsLiveCs extends TranslationsLiveEn {
+	_TranslationsLiveCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'PŘEJÍT NA ŽIVOT';
+	@override String get configure_stream => 'Konfigurace streamu';
+	@override String get endpoint => 'Koncový bod';
+	@override String get accept_tos => 'Přijmout TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Název';
+	@override String get summary => 'Souhrn';
+	@override String get image => 'Obrázek na obálce';
+	@override String get tags => 'Štítky';
+	@override String get nsfw => 'Obsah NSFW';
+	@override String get nsfw_description => 'Zde zkontrolujte, zda tento stream obsahuje nahotu nebo pornografický obsah.';
+	@override late final _TranslationsLiveErrorCs error = _TranslationsLiveErrorCs._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusCs extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusCs._(TranslationsCs root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletCs extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Odpojení peněženky';
 	@override String get connect_1tap => 'Připojení 1 kohoutku';
 	@override String get paste => 'Vložit adresu URL';
+	@override String get balance => 'Bilance';
+	@override String get name => 'Peněženka';
 	@override late final _TranslationsSettingsWalletErrorCs error = _TranslationsSettingsWalletErrorCs._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorCs extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Neplatný klíč';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorCs extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Stream se nezdařil';
+	@override String get connection_error => 'Chyba připojení';
+	@override String get start_failed => 'Spuštění streamu se nezdařilo, zkontrolujte prosím zůstatek';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsCs {
 			case 'most_zapped_streamers': return 'Nejvíce zapnutých streamerů';
 			case 'no_user_found': return 'Nebyl nalezen žádný uživatel';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('cs').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
 				one: '1 divák',
 				other: '${NumberFormat.decimalPattern('cs').format(n)} diváků',
@@ -457,6 +499,8 @@ extension on TranslationsCs {
 			case 'settings.wallet.disconnect_wallet': return 'Odpojení peněženky';
 			case 'settings.wallet.connect_1tap': return 'Připojení 1 kohoutku';
 			case 'settings.wallet.paste': return 'Vložit adresu URL';
+			case 'settings.wallet.balance': return 'Bilance';
+			case 'settings.wallet.name': return 'Peněženka';
 			case 'settings.wallet.error.logged_out': return 'Nelze se připojit k peněžence, když jste odhlášeni';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nebyla nalezena žádná událost autentizace peněženky';
 			case 'login.username': return 'Uživatelské jméno';
@@ -464,6 +508,23 @@ extension on TranslationsCs {
 			case 'login.key': return 'Přihlášení pomocí klíče';
 			case 'login.create': return 'Vytvořit účet';
 			case 'login.error.invalid_key': return 'Neplatný klíč';
+			case 'live.start': return 'PŘEJÍT NA ŽIVOT';
+			case 'live.configure_stream': return 'Konfigurace streamu';
+			case 'live.endpoint': return 'Koncový bod';
+			case 'live.accept_tos': return 'Přijmout TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Název';
+			case 'live.summary': return 'Souhrn';
+			case 'live.image': return 'Obrázek na obálce';
+			case 'live.tags': return 'Štítky';
+			case 'live.nsfw': return 'Obsah NSFW';
+			case 'live.nsfw_description': return 'Zde zkontrolujte, zda tento stream obsahuje nahotu nebo pornografický obsah.';
+			case 'live.error.failed': return 'Stream se nezdařil';
+			case 'live.error.connection_error': return 'Chyba připojení';
+			case 'live.error.start_failed': return 'Spuštění streamu se nezdařilo, zkontrolujte prosím zůstatek';
 			default: return null;
 		}
 	}

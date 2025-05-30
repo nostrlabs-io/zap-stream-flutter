@@ -51,6 +51,8 @@ class TranslationsEl extends Translations {
 	/// Ένας ανώνυμος χρήστης
 	@override String get anon => 'Anon';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('el').format(n)} sats';
+
 	/// Αριθμός θεατών της ροής
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
 		one: '1 θεατής',
@@ -69,6 +71,7 @@ class TranslationsEl extends Translations {
 	@override late final _TranslationsProfileEl profile = _TranslationsProfileEl._(_root);
 	@override late final _TranslationsSettingsEl settings = _TranslationsSettingsEl._(_root);
 	@override late final _TranslationsLoginEl login = _TranslationsLoginEl._(_root);
+	@override late final _TranslationsLiveEl live = _TranslationsLiveEl._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginEl extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorEl error = _TranslationsLoginErrorEl._(_root);
 }
 
+// Path: live
+class _TranslationsLiveEl extends TranslationsLiveEn {
+	_TranslationsLiveEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'GO LIVE';
+	@override String get configure_stream => 'Διαμόρφωση ροής';
+	@override String get endpoint => 'Τελικό σημείο';
+	@override String get accept_tos => 'Αποδοχή TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Τίτλος';
+	@override String get summary => 'Περίληψη';
+	@override String get image => 'Εικόνα εξωφύλλου';
+	@override String get tags => 'Ετικέτες';
+	@override String get nsfw => 'Περιεχόμενο NSFW';
+	@override String get nsfw_description => 'Ελέγξτε εδώ αν αυτή η ροή περιέχει γυμνό ή πορνογραφικό περιεχόμενο.';
+	@override late final _TranslationsLiveErrorEl error = _TranslationsLiveErrorEl._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusEl extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusEl._(TranslationsEl root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletEl extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Αποσύνδεση πορτοφολιού';
 	@override String get connect_1tap => 'Σύνδεση 1 βρύσης';
 	@override String get paste => 'Επικόλληση URL';
+	@override String get balance => 'Υπόλοιπο';
+	@override String get name => 'Πορτοφόλι';
 	@override late final _TranslationsSettingsWalletErrorEl error = _TranslationsSettingsWalletErrorEl._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorEl extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Μη έγκυρο κλειδί';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorEl extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Το ρεύμα απέτυχε';
+	@override String get connection_error => 'Σφάλμα σύνδεσης';
+	@override String get start_failed => 'Η εκκίνηση της ροής απέτυχε, παρακαλούμε ελέγξτε το υπόλοιπό σας';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsEl {
 			case 'most_zapped_streamers': return 'Τα περισσότερα Zapped Streamers';
 			case 'no_user_found': return 'Δεν βρέθηκε χρήστης';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('el').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
 				one: '1 θεατής',
 				other: '${NumberFormat.decimalPattern('el').format(n)} θεατές',
@@ -457,6 +499,8 @@ extension on TranslationsEl {
 			case 'settings.wallet.disconnect_wallet': return 'Αποσύνδεση πορτοφολιού';
 			case 'settings.wallet.connect_1tap': return 'Σύνδεση 1 βρύσης';
 			case 'settings.wallet.paste': return 'Επικόλληση URL';
+			case 'settings.wallet.balance': return 'Υπόλοιπο';
+			case 'settings.wallet.name': return 'Πορτοφόλι';
 			case 'settings.wallet.error.logged_out': return 'Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Δεν βρέθηκε συμβάν εξουσιοδότησης πορτοφολιού';
 			case 'login.username': return 'Όνομα χρήστη';
@@ -464,6 +508,23 @@ extension on TranslationsEl {
 			case 'login.key': return 'Σύνδεση με κλειδί';
 			case 'login.create': return 'Δημιουργία λογαριασμού';
 			case 'login.error.invalid_key': return 'Μη έγκυρο κλειδί';
+			case 'live.start': return 'GO LIVE';
+			case 'live.configure_stream': return 'Διαμόρφωση ροής';
+			case 'live.endpoint': return 'Τελικό σημείο';
+			case 'live.accept_tos': return 'Αποδοχή TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Τίτλος';
+			case 'live.summary': return 'Περίληψη';
+			case 'live.image': return 'Εικόνα εξωφύλλου';
+			case 'live.tags': return 'Ετικέτες';
+			case 'live.nsfw': return 'Περιεχόμενο NSFW';
+			case 'live.nsfw_description': return 'Ελέγξτε εδώ αν αυτή η ροή περιέχει γυμνό ή πορνογραφικό περιεχόμενο.';
+			case 'live.error.failed': return 'Το ρεύμα απέτυχε';
+			case 'live.error.connection_error': return 'Σφάλμα σύνδεσης';
+			case 'live.error.start_failed': return 'Η εκκίνηση της ροής απέτυχε, παρακαλούμε ελέγξτε το υπόλοιπό σας';
 			default: return null;
 		}
 	}

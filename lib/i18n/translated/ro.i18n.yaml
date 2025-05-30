@@ -9,6 +9,7 @@ no_user_found: Niciun utilizator găsit
 "@no_user_found":
   description: Nu s-a găsit niciun utilizator la căutare
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 vizualizator
   other: ${n:decimalPattern} telespectatori
@@ -126,6 +127,8 @@ settings:
     disconnect_wallet: Deconectați portofelul
     connect_1tap: Conexiune 1-Tap
     paste: Lipiți URL
+    balance: Echilibru
+    name: Portofel
     error:
       logged_out: Nu puteți conecta portofelul atunci când sunteți deconectat
       nwc_auth_event_not_found: Nu a fost găsit niciun eveniment de autorizare a portofelului
@@ -136,3 +139,21 @@ login:
   create: Creare cont
   error:
     invalid_key: Cheie invalidă
+live:
+  start: GO LIVE
+  configure_stream: Configurați fluxul
+  endpoint: Punct final
+  accept_tos: Acceptați TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Titlu
+  summary: Rezumat
+  image: Imagine de copertă
+  tags: Etichete
+  nsfw: Conținut NSFW
+  nsfw_description: Bifați aici dacă acest flux conține nuditate sau conținut pornografic.
+  error:
+    failed: Fluxul a eșuat
+    connection_error: Eroare de conectare
+    start_failed: Pornirea fluxului a eșuat, vă rugăm să verificați soldul

@@ -9,6 +9,7 @@ no_user_found: Käyttäjää ei löytynyt
 "@no_user_found":
   description: Käyttäjää ei löytynyt haun yhteydessä
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 katsoja
   other: ${n:decimalPattern} katsojat
@@ -125,6 +126,8 @@ settings:
     disconnect_wallet: Irrota lompakko
     connect_1tap: 1-Tap-liitäntä
     paste: Liitä URL-osoite
+    balance: Balance
+    name: Lompakko
     error:
       logged_out: Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos
       nwc_auth_event_not_found: Ei lompakko-auth-tapahtumaa löydetty
@@ -135,3 +138,22 @@ login:
   create: Luo tili
   error:
     invalid_key: Virheellinen avain
+live:
+  start: GO LIVE
+  configure_stream: Määritä Stream
+  endpoint: Loppupiste
+  accept_tos: Hyväksy TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Otsikko
+  summary: Yhteenveto
+  image: Kansikuva
+  tags: Tunnisteet
+  nsfw: NSFW-sisältö
+  nsfw_description: Tarkista täältä, jos tämä stream sisältää alastomuutta tai
+    pornografista sisältöä.
+  error:
+    failed: Stream epäonnistui
+    connection_error: Yhteysvirhe
+    start_failed: Virran käynnistys epäonnistui, tarkista saldosi

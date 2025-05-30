@@ -9,6 +9,7 @@ no_user_found: Geen gebruiker gevonden
 "@no_user_found":
   description: Geen gebruiker gevonden bij het zoeken
 anon: Anon
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 kijker
   other: ${n:decimalPattern} kijkers
@@ -125,6 +126,8 @@ settings:
     disconnect_wallet: Portefeuille loskoppelen
     connect_1tap: 1-Tap Aansluiting
     paste: URL plakken
+    balance: Saldo
+    name: Portemonnee
     error:
       logged_out: Kan geen verbinding maken met portemonnee als ik ben uitgelogd
       nwc_auth_event_not_found: Geen portemonnee-auth-gebeurtenis gevonden
@@ -135,3 +138,21 @@ login:
   create: Account aanmaken
   error:
     invalid_key: Ongeldige sleutel
+live:
+  start: LIVE GAAN
+  configure_stream: Stream configureren
+  endpoint: Eindpunt
+  accept_tos: TOS accepteren
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Titel
+  summary: Samenvatting
+  image: Afbeelding omslag
+  tags: Tags
+  nsfw: NSFW-inhoud
+  nsfw_description: Controleer hier of deze stream naaktheid of pornografische inhoud bevat.
+  error:
+    failed: Stream mislukt
+    connection_error: Fout bij verbinding
+    start_failed: Stream start mislukt, controleer uw saldo

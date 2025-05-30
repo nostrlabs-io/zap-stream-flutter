@@ -51,6 +51,8 @@ class TranslationsRo extends Translations {
 	/// Un utilizator anonim
 	@override String get anon => 'Anon';
 
+	@override String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('ro').format(n)} sats';
+
 	/// Numărul de telespectatori ai fluxului
 	@override String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
 		one: '1 vizualizator',
@@ -69,6 +71,7 @@ class TranslationsRo extends Translations {
 	@override late final _TranslationsProfileRo profile = _TranslationsProfileRo._(_root);
 	@override late final _TranslationsSettingsRo settings = _TranslationsSettingsRo._(_root);
 	@override late final _TranslationsLoginRo login = _TranslationsLoginRo._(_root);
+	@override late final _TranslationsLiveRo live = _TranslationsLiveRo._(_root);
 }
 
 // Path: stream
@@ -205,6 +208,30 @@ class _TranslationsLoginRo extends TranslationsLoginEn {
 	@override late final _TranslationsLoginErrorRo error = _TranslationsLoginErrorRo._(_root);
 }
 
+// Path: live
+class _TranslationsLiveRo extends TranslationsLiveEn {
+	_TranslationsLiveRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'GO LIVE';
+	@override String get configure_stream => 'Configurați fluxul';
+	@override String get endpoint => 'Punct final';
+	@override String get accept_tos => 'Acceptați TOS';
+	@override String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	@override String get title => 'Titlu';
+	@override String get summary => 'Rezumat';
+	@override String get image => 'Imagine de copertă';
+	@override String get tags => 'Etichete';
+	@override String get nsfw => 'Conținut NSFW';
+	@override String get nsfw_description => 'Bifați aici dacă acest flux conține nuditate sau conținut pornografic.';
+	@override late final _TranslationsLiveErrorRo error = _TranslationsLiveErrorRo._(_root);
+}
+
 // Path: stream.status
 class _TranslationsStreamStatusRo extends TranslationsStreamStatusEn {
 	_TranslationsStreamStatusRo._(TranslationsRo root) : this._root = root, super.internal(root);
@@ -289,6 +316,8 @@ class _TranslationsSettingsWalletRo extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Deconectați portofelul';
 	@override String get connect_1tap => 'Conexiune 1-Tap';
 	@override String get paste => 'Lipiți URL';
+	@override String get balance => 'Echilibru';
+	@override String get name => 'Portofel';
 	@override late final _TranslationsSettingsWalletErrorRo error = _TranslationsSettingsWalletErrorRo._(_root);
 }
 
@@ -300,6 +329,18 @@ class _TranslationsLoginErrorRo extends TranslationsLoginErrorEn {
 
 	// Translations
 	@override String get invalid_key => 'Cheie invalidă';
+}
+
+// Path: live.error
+class _TranslationsLiveErrorRo extends TranslationsLiveErrorEn {
+	_TranslationsLiveErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get failed => 'Fluxul a eșuat';
+	@override String get connection_error => 'Eroare de conectare';
+	@override String get start_failed => 'Pornirea fluxului a eșuat, vă rugăm să verificați soldul';
 }
 
 // Path: stream.chat.write
@@ -380,6 +421,7 @@ extension on TranslationsRo {
 			case 'most_zapped_streamers': return 'Cele mai multe Streamers Zapped';
 			case 'no_user_found': return 'Niciun utilizator găsit';
 			case 'anon': return 'Anon';
+			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ro').format(n)} sats';
 			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
 				one: '1 vizualizator',
 				other: '${NumberFormat.decimalPattern('ro').format(n)} telespectatori',
@@ -457,6 +499,8 @@ extension on TranslationsRo {
 			case 'settings.wallet.disconnect_wallet': return 'Deconectați portofelul';
 			case 'settings.wallet.connect_1tap': return 'Conexiune 1-Tap';
 			case 'settings.wallet.paste': return 'Lipiți URL';
+			case 'settings.wallet.balance': return 'Echilibru';
+			case 'settings.wallet.name': return 'Portofel';
 			case 'settings.wallet.error.logged_out': return 'Nu puteți conecta portofelul atunci când sunteți deconectat';
 			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nu a fost găsit niciun eveniment de autorizare a portofelului';
 			case 'login.username': return 'Nume utilizator';
@@ -464,6 +508,23 @@ extension on TranslationsRo {
 			case 'login.key': return 'Autentificare cu cheie';
 			case 'login.create': return 'Creare cont';
 			case 'login.error.invalid_key': return 'Cheie invalidă';
+			case 'live.start': return 'GO LIVE';
+			case 'live.configure_stream': return 'Configurați fluxul';
+			case 'live.endpoint': return 'Punct final';
+			case 'live.accept_tos': return 'Acceptați TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Titlu';
+			case 'live.summary': return 'Rezumat';
+			case 'live.image': return 'Imagine de copertă';
+			case 'live.tags': return 'Etichete';
+			case 'live.nsfw': return 'Conținut NSFW';
+			case 'live.nsfw_description': return 'Bifați aici dacă acest flux conține nuditate sau conținut pornografic.';
+			case 'live.error.failed': return 'Fluxul a eșuat';
+			case 'live.error.connection_error': return 'Eroare de conectare';
+			case 'live.error.start_failed': return 'Pornirea fluxului a eșuat, vă rugăm să verificați soldul';
 			default: return null;
 		}
 	}

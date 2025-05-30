@@ -9,6 +9,7 @@ no_user_found: Nessun utente trovato
 "@no_user_found":
   description: Nessun utente trovato durante la ricerca
 anon: Anonimo
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 spettatore
   other: ${n:decimalPattern} spettatori
@@ -125,6 +126,8 @@ settings:
     disconnect_wallet: Disconnettere il portafoglio
     connect_1tap: Connessione a 1 rubinetto
     paste: Incolla URL
+    balance: Equilibrio
+    name: Portafoglio
     error:
       logged_out: Impossibile connettere il portafoglio quando si è disconnessi
       nwc_auth_event_not_found: Nessun evento wallet auth trovato
@@ -135,3 +138,21 @@ login:
   create: Crea un account
   error:
     invalid_key: Chiave non valida
+live:
+  start: VAI IN DIRETTA
+  configure_stream: Configurare il flusso
+  endpoint: Punto finale
+  accept_tos: Accettare i TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Titolo
+  summary: Sintesi
+  image: Immagine di copertina
+  tags: Tag
+  nsfw: Contenuto NSFW
+  nsfw_description: Controllare qui se questo streaming contiene nudità o contenuti pornografici.
+  error:
+    failed: Flusso fallito
+    connection_error: Errore di connessione
+    start_failed: Avvio del flusso fallito, controllare il saldo

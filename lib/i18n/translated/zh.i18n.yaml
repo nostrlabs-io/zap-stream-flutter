@@ -8,6 +8,7 @@ no_user_found: 未找到使用者
 "@no_user_found":
   description: 搜尋時未找到使用者
 anon: 匿名
+full_amount_sats: ${n:decimalPattern} Sats
 viewers:
   one: 1 個檢視器
   other: ${n:decimalPattern} 觀眾
@@ -122,6 +123,8 @@ settings:
     disconnect_wallet: 斷開錢包
     connect_1tap: 1 抽頭連接
     paste: 貼上 URL
+    balance: 平衡
+    name: 錢包
     error:
       logged_out: 登出時無法連接錢包
       nwc_auth_event_not_found: 未找到錢包認證事件
@@ -132,3 +135,21 @@ login:
   create: 創建帳戶
   error:
     invalid_key: 無效按鍵
+live:
+  start: 開始直播
+  configure_stream: 設定串流
+  endpoint: 終點
+  accept_tos: 接受服務條款
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: 標題
+  summary: 摘要
+  image: 封面圖片
+  tags: 標籤
+  nsfw: NSFW 內容
+  nsfw_description: 請檢查此串流是否包含裸體或色情內容。
+  error:
+    failed: 串流失敗
+    connection_error: 連線錯誤
+    start_failed: 串流啟動失敗，請檢查您的餘額

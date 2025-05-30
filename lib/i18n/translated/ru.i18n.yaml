@@ -9,6 +9,7 @@ no_user_found: Пользователь не найден
 "@no_user_found":
   description: Пользователь не найден при поиске
 anon: Аноним
+full_amount_sats: ${n:decimalPattern} sats
 viewers:
   one: 1 зритель
   other: ${n:decimalPattern} зрителей
@@ -126,6 +127,8 @@ settings:
     disconnect_wallet: Отключить кошелек
     connect_1tap: 1-кратное соединение
     paste: Вставить URL
+    balance: Баланс
+    name: Кошелек
     error:
       logged_out: Невозможно подключить кошелек при выходе из системы
       nwc_auth_event_not_found: Событие аутентификации кошелька не найдено
@@ -136,3 +139,22 @@ login:
   create: Создать аккаунт
   error:
     invalid_key: Неверный ключ
+live:
+  start: ПЕРЕЙТИ В ПРЯМОЙ ЭФИР
+  configure_stream: Настроить поток
+  endpoint: Конечная точка
+  accept_tos: Принять TOS
+  balance_left:
+    zero: ∞
+    other: ~${time}
+  title: Название
+  summary: Резюме
+  image: Изображение на обложке
+  tags: Теги
+  nsfw: NSFW-контент
+  nsfw_description: Отметьте здесь, если этот поток содержит наготу или
+    порнографические материалы.
+  error:
+    failed: Сбой потока
+    connection_error: Ошибка подключения
+    start_failed: Запуск потока не удался, пожалуйста, проверьте баланс
