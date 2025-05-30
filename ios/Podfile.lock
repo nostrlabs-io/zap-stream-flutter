@@ -1,4 +1,14 @@
 PODS:
+  - apivideo_live_stream (0.0.1):
+    - ApiVideoLiveStream (= 1.4.1)
+    - Flutter
+  - ApiVideoLiveStream (1.4.1):
+    - HaishinKit (= 1.7.3)
+  - audio_service (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - audio_session (0.0.1):
+    - Flutter
   - emoji_picker_flutter (0.0.1):
     - Flutter
   - Firebase/CoreOnly (11.10.0):
@@ -65,17 +75,22 @@ PODS:
   - GoogleUtilities/UserDefaults (8.1.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
+  - HaishinKit (1.7.3):
+    - Logboard (~> 2.4.1)
   - image_picker_ios (0.0.1):
     - Flutter
+  - Logboard (2.4.2)
   - nanopb (3.30910.0):
     - nanopb/decode (= 3.30910.0)
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
-  - ObjectBox (4.2.0)
+  - native_device_orientation (0.0.1):
+    - Flutter
+  - ObjectBox (4.3.0)
   - objectbox_flutter_libs (0.0.1):
     - Flutter
-    - ObjectBox (= 4.2.0)
+    - ObjectBox (= 4.3.0)
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_foundation (0.0.1):
@@ -103,6 +118,9 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - apivideo_live_stream (from `.symlinks/plugins/apivideo_live_stream/ios`)
+  - audio_service (from `.symlinks/plugins/audio_service/darwin`)
+  - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - emoji_picker_flutter (from `.symlinks/plugins/emoji_picker_flutter/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -110,6 +128,7 @@ DEPENDENCIES:
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
   - objectbox_flutter_libs (from `.symlinks/plugins/objectbox_flutter_libs/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -124,6 +143,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - ApiVideoLiveStream
     - Firebase
     - FirebaseCore
     - FirebaseCoreInternal
@@ -131,11 +151,19 @@ SPEC REPOS:
     - FirebaseMessaging
     - GoogleDataTransport
     - GoogleUtilities
+    - HaishinKit
+    - Logboard
     - nanopb
     - ObjectBox
     - PromisesObjC
 
 EXTERNAL SOURCES:
+  apivideo_live_stream:
+    :path: ".symlinks/plugins/apivideo_live_stream/ios"
+  audio_service:
+    :path: ".symlinks/plugins/audio_service/darwin"
+  audio_session:
+    :path: ".symlinks/plugins/audio_session/ios"
   emoji_picker_flutter:
     :path: ".symlinks/plugins/emoji_picker_flutter/ios"
   firebase_core:
@@ -150,6 +178,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  native_device_orientation:
+    :path: ".symlinks/plugins/native_device_orientation/ios"
   objectbox_flutter_libs:
     :path: ".symlinks/plugins/objectbox_flutter_libs/ios"
   package_info_plus:
@@ -174,6 +204,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
+  apivideo_live_stream: caab45dd35fb3b140d423c099d0f6672378e7abe
+  ApiVideoLiveStream: 8f9dce7f6d15d5e4bb3c7a25e406bf2a36337a5a
+  audio_service: aa99a6ba2ae7565996015322b0bb024e1d25c6fd
+  audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
   emoji_picker_flutter: ece213fc274bdddefb77d502d33080dc54e616cc
   Firebase: 1fe1c0a7d9aaea32efe01fbea5f0ebd8d70e53a2
   firebase_core: ba71b44041571da878cb624ce0d80250bcbe58ad
@@ -187,10 +221,13 @@ SPEC CHECKSUMS:
   flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
+  HaishinKit: 326e27c4d06427ba53bffc68e516a92033293051
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
+  Logboard: 759d82599c439945d430d5a0958455b5a1974a0c
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
-  ObjectBox: 2b4c925852ea99f070492f21328bf4002165cbd9
-  objectbox_flutter_libs: 50402e45f47f385d47fc041aba4607b89c4a3a1f
+  native_device_orientation: d6a4dc6887cd8a5ce1049962367aec60139ea0f1
+  ObjectBox: 7760fa9072adcffe102a6adf4646ca84ba70ab6b
+  objectbox_flutter_libs: 4014e38f57250b074b99893ae84579aba8f02876
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
