@@ -53,17 +53,17 @@ dependency_overrides:
     git:
       url: https://github.com/relaystr/ndk
       path: packages/ndk
-      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
+      ref: 00eee5460ca478a02ec9a91c0a6100f2e50eddce
   ndk_objectbox:
     git:
       url: https://github.com/relaystr/ndk
       path: packages/objectbox
-      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
+      ref: 00eee5460ca478a02ec9a91c0a6100f2e50eddce
   ndk_amber:
     git:
       url: https://github.com/relaystr/ndk
       path: packages/amber
-      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
+      ref: 00eee5460ca478a02ec9a91c0a6100f2e50eddce
   emoji_picker_flutter:
     git:
       url: https://github.com/nostrlabs-io/emoji_picker_flutter
