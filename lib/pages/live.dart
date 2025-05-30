@@ -178,8 +178,8 @@ class _LivePage extends State<LivePage>
               final ev = streamState
                   ?.sortedBy((e) => e.createdAt)
                   .firstWhereOrNull((e) => e.getFirstTag("status") == "live");
-              if (ev == null) return SizedBox();
-              final stream = StreamEvent(ev);
+
+              final stream = ev != null ? StreamEvent(ev) : null;
               return Stack(
                 children: [
                   ApiVideoCameraPreview(controller: _controller),
@@ -207,11 +207,11 @@ class _LivePage extends State<LivePage>
                             ],
                           ),
                         ),
-                        if ((stream.info.participants ?? 0) > 0)
+                        if ((stream?.info.participants ?? 0) > 0)
                           PillWidget(
                             color: LAYER_2,
                             child: Text(
-                              t.viewers(n: stream.info.participants!),
+                              t.viewers(n: stream?.info.participants ?? 0),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
@@ -348,7 +348,7 @@ class _LivePage extends State<LivePage>
                         ],
                       ),
                     ),
-                  if (_account != null)
+                  if (_account != null && stream != null)
                     Positioned(
                       bottom: 80,
                       child: Container(
