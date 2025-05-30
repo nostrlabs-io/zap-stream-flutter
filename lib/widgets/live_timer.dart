@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:zap_stream_flutter/theme.dart';
-import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/pill.dart';
 
 class LiveTimerWidget extends StatefulWidget {
@@ -37,12 +37,13 @@ class _LiveTimerWidget extends State<LiveTimerWidget> {
     return PillWidget(
       color: LAYER_2,
       child: Text(
-        formatSecondsToHHMMSS(
-          ((DateTime.now().millisecondsSinceEpoch -
-                      widget.started.millisecondsSinceEpoch) /
-                  1000)
-              .toInt(),
-        ),
+        Duration(
+          seconds:
+              ((DateTime.now().millisecondsSinceEpoch -
+                          widget.started.millisecondsSinceEpoch) /
+                      1000)
+                  .toInt(),
+        ).pretty(abbreviated: true),
       ),
     );
   }

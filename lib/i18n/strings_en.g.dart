@@ -72,6 +72,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsProfileEn profile = TranslationsProfileEn.internal(_root);
 	late final TranslationsSettingsEn settings = TranslationsSettingsEn.internal(_root);
 	late final TranslationsLoginEn login = TranslationsLoginEn.internal(_root);
+	late final TranslationsLiveEn live = TranslationsLiveEn.internal(_root);
 }
 
 // Path: stream
@@ -208,6 +209,30 @@ class TranslationsLoginEn {
 	late final TranslationsLoginErrorEn error = TranslationsLoginErrorEn.internal(_root);
 }
 
+// Path: live
+class TranslationsLiveEn {
+	TranslationsLiveEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get start => 'GO LIVE';
+	String get configure_stream => 'Configure Stream';
+	String get endpoint => 'Endpoint';
+	String get accept_tos => 'Accept TOS';
+	String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: '∞',
+		other: '~${time}',
+	);
+	String get title => 'Title';
+	String get summary => 'Summary';
+	String get image => 'Cover Image';
+	String get tags => 'Tags';
+	String get nsfw => 'NSFW Content';
+	String get nsfw_description => 'Check here if this stream contains nudity or pornographic content.';
+	late final TranslationsLiveErrorEn error = TranslationsLiveErrorEn.internal(_root);
+}
+
 // Path: stream.status
 class TranslationsStreamStatusEn {
 	TranslationsStreamStatusEn.internal(this._root);
@@ -305,6 +330,18 @@ class TranslationsLoginErrorEn {
 
 	// Translations
 	String get invalid_key => 'Invalid key';
+}
+
+// Path: live.error
+class TranslationsLiveErrorEn {
+	TranslationsLiveErrorEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get failed => 'Stream failed';
+	String get connection_error => 'Connection Error';
+	String get start_failed => 'Stream start failed, please check your balance';
 }
 
 // Path: stream.chat.write
@@ -472,6 +509,23 @@ extension on Translations {
 			case 'login.key': return 'Login with Key';
 			case 'login.create': return 'Create Account';
 			case 'login.error.invalid_key': return 'Invalid key';
+			case 'live.start': return 'GO LIVE';
+			case 'live.configure_stream': return 'Configure Stream';
+			case 'live.endpoint': return 'Endpoint';
+			case 'live.accept_tos': return 'Accept TOS';
+			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: '∞',
+				other: '~${time}',
+			);
+			case 'live.title': return 'Title';
+			case 'live.summary': return 'Summary';
+			case 'live.image': return 'Cover Image';
+			case 'live.tags': return 'Tags';
+			case 'live.nsfw': return 'NSFW Content';
+			case 'live.nsfw_description': return 'Check here if this stream contains nudity or pornographic content.';
+			case 'live.error.failed': return 'Stream failed';
+			case 'live.error.connection_error': return 'Connection Error';
+			case 'live.error.start_failed': return 'Stream start failed, please check your balance';
 			default: return null;
 		}
 	}

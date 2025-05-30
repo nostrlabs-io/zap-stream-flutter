@@ -1,6 +1,7 @@
 import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk_amber/ndk_amber.dart';
@@ -36,6 +37,7 @@ const defaultRelays = [
 ];
 const searchRelays = ["wss://relay.nostr.band", "wss://search.nos.today"];
 const nwcRelays = ["wss://relay.getalby.com/v1"];
+final apiUrl = dotenv.env["API_URL"] ?? "https://api.zap.stream/api/nostr";
 
 final loginData = LoginData();
 final RouteObserver<ModalRoute<void>> routeObserver =

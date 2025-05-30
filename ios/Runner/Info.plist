@@ -91,5 +91,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Live streaming</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Live streaming</string>
 </dict>
 </plist>

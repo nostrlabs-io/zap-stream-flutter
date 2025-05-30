@@ -144,10 +144,8 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                   ? MainVideoPlayerWidget(
                     url: stream.info.stream!,
                     placeholder: stream.info.image,
-                    aspectRatio: 16 / 9,
                     isLive: true,
                     title: stream.info.title,
-                    
                   )
                   : (stream.info.image?.isNotEmpty ?? false)
                   ? ProxyImg(url: stream.info.image)

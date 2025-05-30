@@ -83,6 +83,7 @@ class LoginAccount {
   final String? privateKey;
   final List<String>? signerRelays;
   final WalletConfig? wallet;
+  final String? streamEndpoint;
 
   SimpleWallet? _cachedWallet;
 
@@ -92,6 +93,7 @@ class LoginAccount {
     this.privateKey,
     this.signerRelays,
     this.wallet,
+    this.streamEndpoint,
   });
 
   static LoginAccount nip19(String key) {
@@ -139,6 +141,7 @@ class LoginAccount {
     "pubKey": acc?.pubkey,
     "privateKey": acc?.privateKey,
     "wallet": acc?.wallet?.toJson(),
+    "streamEndpoint": acc?.streamEndpoint,
   };
 
   static LoginAccount? fromJson(Map<String, dynamic> json) {
@@ -162,6 +165,7 @@ class LoginAccount {
             json.containsKey("wallet") && json["wallet"] != null
                 ? WalletConfig.fromJson(json["wallet"])
                 : null,
+        streamEndpoint: json["streamEndpoint"],
       );
     }
     return null;
@@ -213,6 +217,23 @@ class LoginData extends ValueNotifier<LoginAccount?> {
       } catch (e) {
         developer.log(e.toString());
       }
+    }
+  }
+
+  void configure({
+    List<String>? signerRelays,
+    WalletConfig? wallet,
+    String? streamEndpoint,
+  }) {
+    if (value != null) {
+      value = LoginAccount(
+        type: value!.type,
+        pubkey: value!.pubkey,
+        privateKey: value!.privateKey,
+        signerRelays: signerRelays ?? value!.signerRelays,
+        wallet: wallet,
+        streamEndpoint: streamEndpoint ?? value!.streamEndpoint,
+      );
     }
   }
 }

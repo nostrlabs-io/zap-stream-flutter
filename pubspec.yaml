@@ -46,23 +46,24 @@ dependencies:
   flutter_dotenv: ^5.2.1
   protocol_handler: ^0.2.0
   audio_service: ^0.18.18
+  apivideo_live_stream: ^1.2.0
 
 dependency_overrides:
   ndk:
     git:
       url: https://github.com/relaystr/ndk
       path: packages/ndk
-      ref: 6242899ee4ff7f65e57518d4eb29e2a253b3c4da
+      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
   ndk_objectbox:
     git:
       url: https://github.com/relaystr/ndk
       path: packages/objectbox
-      ref: 6242899ee4ff7f65e57518d4eb29e2a253b3c4da
+      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
   ndk_amber:
     git:
       url: https://github.com/relaystr/ndk
       path: packages/amber
-      ref: 6242899ee4ff7f65e57518d4eb29e2a253b3c4da
+      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
   emoji_picker_flutter:
     git:
       url: https://github.com/nostrlabs-io/emoji_picker_flutter

@@ -24,6 +24,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
   OverlayEntry? _entry;
   late FocusNode _focusNode;
   List<List<String>> _tags = List.empty(growable: true);
+  final GlobalKey _positioned = GlobalKey();
 
   @override
   void initState() {
@@ -69,7 +70,8 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
       _entry = null;
     }
 
-    final pos = context.findRenderObject() as RenderBox?;
+    final pos = _positioned.currentContext!.findRenderObject() as RenderBox?;
+    final posGlobal = pos?.localToGlobal(Offset.zero);
     _entry = OverlayEntry(
       builder: (context) {
         return ValueListenableBuilder(
@@ -85,12 +87,13 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
             if (search.isEmpty) {
               return SizedBox();
             }
+            final mq = MediaQuery.of(context);
             return Stack(
               children: [
                 Positioned(
-                  left: 0,
-                  bottom: (pos?.paintBounds.bottom ?? 0),
-                  width: MediaQuery.of(context).size.width,
+                  left: posGlobal?.dx,
+                  bottom: mq.size.height - (posGlobal?.dy ?? 0) - 30,
+                  width: pos?.size.width,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                     decoration: BoxDecoration(
@@ -162,15 +165,17 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
       _entry = null;
     }
 
-    final pos = context.findRenderObject() as RenderBox?;
+    final pos = _positioned.currentContext!.findRenderObject() as RenderBox?;
+    final posGlobal = pos?.localToGlobal(Offset.zero);
     _entry = OverlayEntry(
       builder: (context) {
+        final mq = MediaQuery.of(context);
         return Stack(
           children: [
             Positioned(
-              left: 0,
-              bottom: (pos?.paintBounds.bottom ?? 0),
-              width: MediaQuery.of(context).size.width,
+              left: posGlobal?.dx,
+              bottom: mq.size.height - (posGlobal?.dy ?? 0) - 30,
+              width: pos?.size.width,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                 decoration: BoxDecoration(
@@ -239,9 +244,13 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
     final isLogin = ndk.accounts.isLoggedIn;
 
     return Container(
+      key: _positioned,
       margin: EdgeInsets.fromLTRB(4, 8, 4, 0),
       padding: EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(color: LAYER_2, borderRadius: DEFAULT_BR),
+      decoration: BoxDecoration(
+        color: LAYER_2.withAlpha(200),
+        borderRadius: DEFAULT_BR,
+      ),
       child:
           canSign
               ? Row(

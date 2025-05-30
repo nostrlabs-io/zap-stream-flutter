@@ -100,13 +100,7 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
   }
 
   _setWallet(WalletConfig? cfg) {
-    loginData.value = LoginAccount(
-      type: loginData.value!.type,
-      pubkey: loginData.value!.pubkey,
-      privateKey: loginData.value!.privateKey,
-      signerRelays: loginData.value!.signerRelays,
-      wallet: cfg,
-    );
+    loginData.configure(wallet: cfg);
   }
 
   @override

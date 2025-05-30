@@ -6,6 +6,7 @@ import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
+import 'package:zap_stream_flutter/widgets/button.dart';
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({super.key});
@@ -39,12 +40,36 @@ class LoginButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (ndk.accounts.isLoggedIn) {
-      return GestureDetector(
-        onTap:
-            () => context.go(
-              "/p/${Nip19.encodePubKey(ndk.accounts.getPublicKey()!)}",
+      return Row(
+        spacing: 8,
+        children: [
+          BasicButton(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              border: Border.all(color: WARNING),
+              borderRadius: DEFAULT_BR,
             ),
-        child: AvatarWidget.pubkey(ndk.accounts.getPublicKey()!),
+            Row(
+              spacing: 4,
+              children: [
+                Icon(Icons.videocam),
+                Text(
+                  t.live.start,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            onTap: (context) => context.push("/live"),
+          ),
+
+          GestureDetector(
+            onTap:
+                () => context.push(
+                  "/p/${Nip19.encodePubKey(ndk.accounts.getPublicKey()!)}",
+                ),
+            child: AvatarWidget.pubkey(ndk.accounts.getPublicKey()!),
+          ),
+        ],
       );
     } else {
       return GestureDetector(
@@ -59,10 +84,7 @@ class LoginButtonWidget extends StatelessWidget {
           ),
           child: Row(
             spacing: 8,
-            children: [
-              Text(t.button.login),
-              Icon(Icons.login, size: 16),
-            ],
+            children: [Text(t.button.login), Icon(Icons.login, size: 16)],
           ),
         ),
       );

@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.9"
+  apivideo_live_stream:
+    dependency: "direct main"
+    description:
+      name: apivideo_live_stream
+      sha256: f873f8cdd3e35838d6e32ce55c1963f8889b9bfccf4a37f9ed86cfe79512b309
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   archive:
     dependency: transitive
     description:
@@ -798,12 +806,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  native_device_orientation:
+    dependency: transitive
+    description:
+      name: native_device_orientation
+      sha256: "744a03030fad5a332a54833cd34f1e2ee51ae9acf477b4ef85bacc8823af9937"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   ndk:
     dependency: "direct main"
     description:
       path: "packages/ndk"
-      ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
-      resolved-ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
+      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
+      resolved-ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
       url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.3.2"
@@ -811,8 +827,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/amber"
-      ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
-      resolved-ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
+      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
+      resolved-ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
       url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.3.0"
@@ -820,8 +836,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/objectbox"
-      ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
-      resolved-ref: "6242899ee4ff7f65e57518d4eb29e2a253b3c4da"
+      ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
+      resolved-ref: a829c2805efe9a929c4c8a679d9c4324f0ebd20e
       url: "https://github.com/relaystr/ndk"
     source: git
     version: "0.2.3"
@@ -1498,10 +1514,10 @@ packages:
     dependency: transitive
     description:
       name: web_socket_client
-      sha256: "0ec5230852349191188c013112e4d2be03e3fc83dbe80139ead9bf3a136e53b5"
+      sha256: "394789177aa3bc1b7b071622a1dbf52a4631d7ce23c555c39bb2523e92316b07"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.5"
+    version: "0.2.1"
   win32:
     dependency: transitive
     description:

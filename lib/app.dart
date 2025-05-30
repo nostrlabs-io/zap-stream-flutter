@@ -6,6 +6,7 @@ import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/pages/category.dart';
 import 'package:zap_stream_flutter/pages/hashtag.dart';
 import 'package:zap_stream_flutter/pages/home.dart';
+import 'package:zap_stream_flutter/pages/live.dart';
 import 'package:zap_stream_flutter/pages/login.dart';
 import 'package:zap_stream_flutter/pages/login_input.dart';
 import 'package:zap_stream_flutter/pages/new_account.dart';
@@ -134,6 +135,10 @@ void runZapStream() {
                     ],
                   ),
                 ],
+              ),
+              GoRoute(
+                path: "/live",
+                builder: (context, state) => LivePage(),
               ),
               GoRoute(
                 path: "/:id",

@@ -135,3 +135,21 @@ login:
   create: Create Account
   error:
     invalid_key: Invalid key
+live:
+  start: "GO LIVE"
+  configure_stream: Configure Stream
+  endpoint: Endpoint
+  accept_tos: Accept TOS
+  balance_left:
+    zero: "∞"
+    other: "~${time}"
+  title: Title
+  summary: Summary
+  image: Cover Image
+  tags: Tags
+  nsfw: NSFW Content
+  nsfw_description: Check here if this stream contains nudity or pornographic content.
+  error:
+    failed: Stream failed
+    connection_error: Connection Error
+    start_failed: Stream start failed, please check your balance

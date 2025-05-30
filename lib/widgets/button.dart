@@ -3,6 +3,7 @@ import 'package:zap_stream_flutter/theme.dart';
 
 class BasicButton extends StatelessWidget {
   final Widget? child;
+  final Color? color;
   final BoxDecoration? decoration;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -12,6 +13,7 @@ class BasicButton extends StatelessWidget {
   const BasicButton(
     this.child, {
     super.key,
+    this.color,
     this.decoration,
     this.padding,
     this.margin,
@@ -21,6 +23,7 @@ class BasicButton extends StatelessWidget {
 
   static Widget text(
     String text, {
+    Color? color,
     BoxDecoration? decoration,
     EdgeInsetsGeometry? padding,
     EdgeInsetsGeometry? margin,
@@ -46,6 +49,7 @@ class BasicButton extends StatelessWidget {
         ),
       ),
       disabled: disabled,
+      color: color,
       decoration: decoration,
       padding: padding ?? EdgeInsets.symmetric(vertical: 4, horizontal: 12),
       margin: margin,
@@ -55,12 +59,17 @@ class BasicButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    assert(
+      !(color != null && decoration != null),
+      "Cant set both 'color' and 'decoration'",
+    );
     final defaultBr = BorderRadius.all(Radius.circular(100));
     final inner = Container(
       padding: padding,
       margin: margin,
       decoration:
-          decoration ?? BoxDecoration(color: LAYER_2, borderRadius: defaultBr),
+          decoration ??
+          BoxDecoration(color: color ?? LAYER_2, borderRadius: defaultBr),
       child: Center(child: child),
     );
     return GestureDetector(
