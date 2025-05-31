@@ -241,7 +241,7 @@ Future<void> _showNotification(
       android: AndroidNotificationDetails(
         notification.android!.channelId ?? "fcm",
         "Push Notifications",
-        category: AndroidNotificationCategory.social
+        category: AndroidNotificationCategory.social,
       ),
     ),
   );
@@ -270,45 +270,48 @@ Future<void> setupNotifications() async {
 
   final signer = ndk.accounts.getLoggedAccount()?.signer;
   if (signer != null) {
-    FirebaseMessaging.onMessage.listen(_onNotification);
-    //FirebaseMessaging.onBackgroundMessage(_onBackgroundNotification);
-    FirebaseMessaging.onMessageOpenedApp.listen(_onOpenMessage);
-
-    final settings = await FirebaseMessaging.instance.requestPermission(
-      provisional: true,
-    );
-    await FirebaseMessaging.instance.setAutoInitEnabled(true);
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-
-    if (Platform.isIOS) {
-      final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-      if (apnsToken == null) {
-        throw "APNS token not availble";
-      }
-    }
-    await _initLocalNotifications();
-
-    final pusher = Notepush(dotenv.env["NOTEPUSH_URL"]!, signer: signer);
-    FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
-      developer.log("NEW TOKEN: $token");
-      await pusher.register(token);
-      await pusher.setNotificationSettings(token, [30_311]);
-    });
-
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    if (fcmToken == null) {
-      throw "Push token is null";
-    }
-    await pusher.register(fcmToken);
-    await pusher.setNotificationSettings(fcmToken, [30_311]);
-
-    notifications.value = await NotificationsState.init(
-      settings.authorizationStatus,
-    );
+    await configureNotifications(signer);
   }
+}
+
+Future<void> configureNotifications(EventSigner signer) async {
+  FirebaseMessaging.onMessage.listen(_onNotification);
+  //FirebaseMessaging.onBackgroundMessage(_onBackgroundNotification);
+  FirebaseMessaging.onMessageOpenedApp.listen(_onOpenMessage);
+
+  final settings = await FirebaseMessaging.instance.requestPermission(
+    provisional: true,
+  );
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  if (Platform.isIOS) {
+    final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+    if (apnsToken == null) {
+      throw "APNS token not availble";
+    }
+  }
+  await _initLocalNotifications();
+
+  final pusher = Notepush(dotenv.env["NOTEPUSH_URL"]!, signer: signer);
+  FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
+    developer.log("NEW TOKEN: $token");
+    await pusher.register(token);
+    await pusher.setNotificationSettings(token, [30_311]);
+  });
+
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  if (fcmToken == null) {
+    throw "Push token is null";
+  }
+  await pusher.register(fcmToken);
+  await pusher.setNotificationSettings(fcmToken, [30_311]);
+
+  notifications.value = await NotificationsState.init(
+    settings.authorizationStatus,
+  );
 }

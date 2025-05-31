@@ -17,7 +17,8 @@ class _NotificationsButtonWidget extends State<NotificationsButtonWidget> {
     return ValueListenableBuilder(
       valueListenable: notifications,
       builder: (context, state, _) {
-        final isNotified = (state?.notifyKeys ?? []).contains(widget.pubkey);
+        if (state == null) return SizedBox();
+        final isNotified = state.notifyKeys.contains(widget.pubkey);
         return IconButton(
           iconSize: 20,
           onPressed: () async {
