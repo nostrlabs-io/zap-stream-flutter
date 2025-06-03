@@ -28,9 +28,43 @@ class PlayerState {
 }
 
 class MainPlayer extends BaseAudioHandler {
+  String? _url;
   VideoPlayerController? _controller;
   ChewieController? _chewieController;
   ValueNotifier<PlayerState?> state = ValueNotifier(null);
+
+  MainPlayer() {
+    AppLifecycleListener(onStateChange: _onStateChanged);
+  }
+
+  void _onStateChanged(AppLifecycleState state) async {
+    developer.log(state.name);
+    switch (state) {
+      case AppLifecycleState.detached:
+        {
+          await dispose();
+          break;
+        }
+      case AppLifecycleState.resumed:
+        {
+          if (_controller == null && _url != null) {
+            await loadUrl(_url!);
+          }
+          break;
+        }
+      default:
+        {}
+    }
+  }
+
+  Future<void> dispose() async {
+    await super.stop();
+    await _controller?.dispose();
+    _chewieController!.dispose();
+    _controller = null;
+    _chewieController = null;
+    state.value = null;
+  }
 
   ChewieController? get chewie {
     return _chewieController;
@@ -48,7 +82,7 @@ class MainPlayer extends BaseAudioHandler {
 
   @override
   Future<void> stop() async {
-    await _chewieController?.pause();
+    await dispose();
   }
 
   Future<void> loadUrl(
@@ -105,6 +139,7 @@ class MainPlayer extends BaseAudioHandler {
                   : null,
         ),
       );
+      _url = url;
     } catch (e) {
       if (e is PlatformException && e.code == "VideoError") {
         state.value = PlayerState(
@@ -133,6 +168,7 @@ class MainPlayer extends BaseAudioHandler {
           MediaControl.stop,
         ],
         playing: isPlaying,
+        androidCompactActionIndices: [1],
         processingState: switch (_chewieController
             ?.videoPlayerController
             .value
