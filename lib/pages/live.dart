@@ -177,6 +177,7 @@ class _LivePage extends State<LivePage>
             builder: (context, streamState) {
               final ev = streamState
                   ?.sortedBy((e) => e.createdAt)
+                  .reversed
                   .firstWhereOrNull((e) => e.getFirstTag("status") == "live");
 
               final stream = ev != null ? StreamEvent(ev) : null;
@@ -337,6 +338,7 @@ class _LivePage extends State<LivePage>
                                     api: _api,
                                     account: _account!,
                                     hideEndpointConfig: _streaming,
+                                    currentStream: ev,
                                   );
                                 },
                               ).then((_) {

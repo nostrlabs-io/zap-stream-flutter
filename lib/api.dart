@@ -143,6 +143,7 @@ class ZapStreamApi {
   }
 
   Future<void> updateDefaultStreamInfo({
+    String? id,
     String? title,
     String? summary,
     String? image,
@@ -154,6 +155,7 @@ class ZapStreamApi {
     await _sendPatchRequest(
       url,
       body: {
+        "id": id,
         "title": title,
         "summary": summary,
         "image": image,
