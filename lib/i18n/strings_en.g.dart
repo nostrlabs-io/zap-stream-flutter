@@ -86,6 +86,7 @@ class TranslationsStreamEn {
 	String started({required Object timestamp}) => 'Started ${timestamp}';
 	String notification({required Object name}) => '${name} went live!';
 	late final TranslationsStreamChatEn chat = TranslationsStreamChatEn.internal(_root);
+	late final TranslationsStreamErrorEn error = TranslationsStreamErrorEn.internal(_root);
 }
 
 // Path: goal
@@ -280,6 +281,16 @@ class TranslationsStreamChatEn {
 	late final TranslationsStreamChatRaidEn raid = TranslationsStreamChatRaidEn.internal(_root);
 }
 
+// Path: stream.error
+class TranslationsStreamErrorEn {
+	TranslationsStreamErrorEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String load_failed({required Object url}) => 'Failed to load stream from ${url}';
+}
+
 // Path: zap.error
 class TranslationsZapErrorEn {
 	TranslationsZapErrorEn.internal(this._root);
@@ -455,6 +466,7 @@ extension on Translations {
 			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
 			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
 			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding in ${time}';
+			case 'stream.error.load_failed': return ({required Object url}) => 'Failed to load stream from ${url}';
 			case 'goal.title': return ({required Object amount}) => 'Goal: ${amount}';
 			case 'goal.remaining': return ({required Object amount}) => 'Remaining: ${amount}';
 			case 'goal.complete': return 'COMPLETE';

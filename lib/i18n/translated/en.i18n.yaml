@@ -59,6 +59,8 @@ stream:
       countdown: Raiding in ${time}
       "@countdown":
         description: Countdown timer for auto-raiding
+  error:
+    load_failed: Failed to load stream from ${url}
 goal:
   title: "Goal: $amount"
   remaining: "Remaining: $amount"

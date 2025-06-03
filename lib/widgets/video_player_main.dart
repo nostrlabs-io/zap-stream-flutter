@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:zap_stream_flutter/main.dart';
+import 'package:zap_stream_flutter/theme.dart';
 
 class MainVideoPlayerWidget extends StatefulWidget {
   final String url;
@@ -34,7 +35,7 @@ class _MainVideoPlayerWidget extends State<MainVideoPlayerWidget> {
       aspectRatio: widget.aspectRatio,
       autoPlay: widget.autoPlay,
       isLive: widget.isLive,
-      artist: "zap.stream"
+      artist: "zap.stream",
     );
 
     super.initState();
@@ -48,6 +49,26 @@ class _MainVideoPlayerWidget extends State<MainVideoPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Chewie(controller: mainPlayer.chewie!);
+    return ValueListenableBuilder(
+      valueListenable: mainPlayer.state,
+      builder: (context, state, _) {
+        final innerWidget =
+            mainPlayer.chewie != null
+                ? Chewie(controller: mainPlayer.chewie!)
+                : Center(
+                  child:
+                      state?.error != null
+                          ? Text(
+                            state!.error.toString(),
+                            style: TextStyle(color: WARNING),
+                          )
+                          : CircularProgressIndicator(),
+                );
+        if (state?.isPortrait == true) {
+          return innerWidget;
+        }
+        return AspectRatio(aspectRatio: 16 / 9, child: innerWidget);
+      },
+    );
   }
 }

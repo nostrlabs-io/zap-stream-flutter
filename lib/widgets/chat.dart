@@ -18,16 +18,16 @@ import 'package:zap_stream_flutter/widgets/profile.dart';
 
 class ChatWidget extends StatelessWidget {
   final StreamEvent stream;
-  final bool? showGoals;
-  final bool? showTopZappers;
-  final bool? showRaids;
+  final bool showGoals;
+  final bool showTopZappers;
+  final bool showRaids;
 
   const ChatWidget({
     super.key,
     required this.stream,
-    this.showGoals,
-    this.showTopZappers,
-    this.showRaids,
+    this.showGoals = true,
+    this.showTopZappers = true,
+    this.showRaids = true,
   });
 
   @override
@@ -40,7 +40,7 @@ class ChatWidget extends StatelessWidget {
 
     var filters = [
       Filter(kinds: [1311, 9735], limit: 200, aTags: [stream.aTag]),
-      if (showRaids ?? true)
+      if (showRaids)
         Filter(kinds: [1312, 1313], limit: 200, aTags: [stream.aTag]),
       Filter(kinds: [Nip51List.kMute], authors: moderators),
       Filter(kinds: [1314], authors: moderators),
@@ -118,9 +118,9 @@ class ChatWidget extends StatelessWidget {
           spacing: 8,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (zaps.isNotEmpty && (showTopZappers ?? true))
+            if (zaps.isNotEmpty && showTopZappers)
               _TopZappersWidget(events: zaps),
-            if (stream.info.goal != null && (showGoals ?? true))
+            if (stream.info.goal != null && showGoals)
               GoalWidget.id(stream.info.goal!),
             Expanded(
               child: ListView.builder(
