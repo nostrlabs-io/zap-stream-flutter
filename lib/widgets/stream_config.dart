@@ -171,8 +171,20 @@ class _StreamConfigWidget extends State<StreamConfigWidget> {
               BasicButton.text(
                 t.button.save,
                 onTap: (context) async {
+                  final current = widget.currentStream?.getFirstTag("d");
+
+                  // Update current first
+                  if (current != null) {
+                    await widget.api.updateDefaultStreamInfo(
+                      id: current,
+                      title: _title.text,
+                      summary: _summary.text,
+                      contentWarning: _nsfw ? "nsfw" : null,
+                      tags: _tags.text.split(","),
+                    );
+                  }
+                  // Updated default stream info (no id)
                   await widget.api.updateDefaultStreamInfo(
-                    id: widget.currentStream?.getFirstTag("d"),
                     title: _title.text,
                     summary: _summary.text,
                     contentWarning: _nsfw ? "nsfw" : null,
