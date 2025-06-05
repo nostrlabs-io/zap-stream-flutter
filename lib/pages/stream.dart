@@ -57,7 +57,7 @@ class StreamPage extends StatefulWidget {
 
 class _StreamPage extends State<StreamPage> with RouteAware {
   bool _offScreen = false;
-  StreamEvent? _stream;
+  final GlobalKey _playerKey = GlobalKey();
 
   bool isWidgetVisible(BuildContext context) {
     final router = GoRouter.of(context);
@@ -132,11 +132,11 @@ class _StreamPage extends State<StreamPage> with RouteAware {
         final streamWidget = _buildPlayer(ctx, stream);
         return ValueListenableBuilder(
           valueListenable: mainPlayer.state,
-          builder: (context, state, player) {
-            if (state?.isPortrait == true) {
-              return _buildPortraitStream(context, stream, player!);
+          builder: (context, playerState, child) {
+            if (playerState?.isPortrait == true) {
+              return _buildPortraitStream(context, stream, child!);
             }
-            return _buildLandscapeStream(context, stream, player!);
+            return _buildLandscapeStream(context, stream, child!);
           },
           child: streamWidget,
         );
@@ -147,6 +147,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
   Widget _buildPlayer(BuildContext context, StreamEvent stream) {
     return (stream.info.stream != null && !_offScreen)
         ? MainVideoPlayerWidget(
+          key: _playerKey,
           url: stream.info.stream!,
           placeholder: stream.info.image,
           isLive: true,
@@ -170,7 +171,6 @@ class _StreamPage extends State<StreamPage> with RouteAware {
 
     return Stack(
       children: [
-        child,
         Positioned(child: child),
         Positioned(
           child: Container(

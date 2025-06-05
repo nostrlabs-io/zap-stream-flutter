@@ -139,17 +139,13 @@ class _LivePage extends State<LivePage>
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     return PopScope(
-      canPop: false,
+      canPop: !_streaming,
       onPopInvokedWithResult: (didPop, result) async {
-        if (_streaming) {
+        if (_streaming && !didPop) {
           final go = await showExitStreamDialog(context);
-          if (context.mounted) {
-            if (go == true) {
-              context.go("/");
-            }
+          if (context.mounted && go == true) {
+            context.go("/");
           }
-        } else {
-          context.go("/");
         }
       },
       child: ValueListenableBuilder(

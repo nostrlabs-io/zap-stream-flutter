@@ -60,7 +60,7 @@ class MainPlayer extends BaseAudioHandler {
   Future<void> dispose() async {
     await super.stop();
     await _controller?.dispose();
-    _chewieController!.dispose();
+    _chewieController?.dispose();
     _controller = null;
     _chewieController = null;
     state.value = null;
@@ -126,6 +126,7 @@ class MainPlayer extends BaseAudioHandler {
                 : null,
       );
 
+
       // insert media item
       mediaItem.add(
         MediaItem(
@@ -139,6 +140,8 @@ class MainPlayer extends BaseAudioHandler {
                   : null,
         ),
       );
+      // Update player state immediately after initialization
+      updatePlayerState();
       _url = url;
     } catch (e) {
       if (e is PlatformException && e.code == "VideoError") {
@@ -179,10 +182,13 @@ class MainPlayer extends BaseAudioHandler {
         },
       ),
     );
-    state.value = PlayerState(
-      width: _controller!.value.size.width.floor(),
-      height: _controller!.value.size.height.floor(),
-      isPlaying: isPlaying,
-    );
+    
+    if (_controller?.value.isInitialized == true && _controller!.value.size != Size.zero) {
+      state.value = PlayerState(
+        width: _controller!.value.size.width.floor(),
+        height: _controller!.value.size.height.floor(),
+        isPlaying: isPlaying,
+      );
+    }
   }
 }
