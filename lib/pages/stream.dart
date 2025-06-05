@@ -174,17 +174,17 @@ class _StreamPage extends State<StreamPage> with RouteAware {
         Positioned(child: child),
         Positioned(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
+            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
                 colors: [
-                  LAYER_0.withAlpha(50),
-                  LAYER_0.withAlpha(200),
                   LAYER_0.withAlpha(255),
+                  LAYER_0.withAlpha(200),
+                  LAYER_0.withAlpha(10),
                 ],
-                stops: [0.0, 0.2, 1.0],
+                stops: [0.0, 0.7, 1.0],
               ),
             ),
             child: Column(
@@ -200,20 +200,31 @@ class _StreamPage extends State<StreamPage> with RouteAware {
             width: mq.size.width,
             height: mq.size.height * 0.4,
             padding: EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  LAYER_0.withAlpha(200),
+                  LAYER_0.withAlpha(150),
+                  LAYER_0.withAlpha(0),
+                ],
+                stops: [0.0, 0.8, 1.0],
+              ),
+            ),
             child: ShaderMask(
-              shaderCallback: (Rect bounds) {
-                return LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    LAYER_0.withAlpha(255),
-                    LAYER_0.withAlpha(200),
-                    LAYER_0.withAlpha(0),
-                  ],
-                  stops: [0.0, 0.8, 1.0],
-                ).createShader(bounds);
-              },
               blendMode: BlendMode.dstIn,
+              shaderCallback:
+                  (rect) => LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      LAYER_0.withAlpha(255),
+                      LAYER_0.withAlpha(200),
+                      LAYER_0.withAlpha(0),
+                    ],
+                    stops: [0.0, 0.8, 1.0],
+                  ).createShader(rect),
               child: ChatWidget(
                 stream: stream,
                 showGoals: false,
