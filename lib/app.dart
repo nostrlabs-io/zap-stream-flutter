@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
+import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/pages/category.dart';
@@ -18,6 +21,26 @@ import 'package:zap_stream_flutter/pages/stream.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/header.dart';
+
+/// Resolves a NIP-05 identifier to a pubkey
+Future<String?> resolveNip05(String handle, String domain) async {
+  try {
+    final url = "https://$domain/.well-known/nostr.json?name=$handle";
+    final response = await http.get(Uri.parse(url));
+    
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      final names = json["names"] as Map<String, dynamic>?;
+      
+      if (names != null) {
+        return names[handle] as String?;
+      }
+    }
+  } catch (e) {
+    // NIP-05 resolution failed
+  }
+  return null;
+}
 
 void runZapStream() {
   runApp(
@@ -142,7 +165,7 @@ void runZapStream() {
               ),
               GoRoute(
                 path: "/:id",
-                redirect: (context, state) {
+                redirect: (context, state) async {
                   final id = state.pathParameters["id"]!;
                   if (id.startsWith("naddr1") ||
                       id.startsWith("nevent1") ||
@@ -151,6 +174,30 @@ void runZapStream() {
                   } else if (id.startsWith("npub1") ||
                       id.startsWith("nprofile1")) {
                     return "/p/$id";
+                  } else {
+                    // Handle short URL format (handle@domain or just handle)
+                    try {
+                      final handleParts = id.contains("@") 
+                          ? id.split("@") 
+                          : [id, "zap.stream"];
+                      
+                      if (handleParts.length == 2) {
+                        final handle = handleParts[0];
+                        final domain = handleParts[1];
+                        
+                        // Try to resolve NIP-05
+                        final hexPubkey = await resolveNip05(handle, domain);
+                        if (hexPubkey != null) {
+                          // Check if they have a current live stream
+                          // For now, redirect to profile - we could enhance this later
+                          // to check for active streams and redirect to /e/{stream_id} instead
+                          final npub = Nip19.encodePubKey(hexPubkey);
+                          return "/p/$npub";
+                        }
+                      }
+                    } catch (e) {
+                      // If NIP-05 resolution fails, continue to show 404 or fallback
+                    }
                   }
                   return null;
                 },
