@@ -33,11 +33,15 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
 
     _from =
         widget.event.tags.firstWhereOrNull(
-          (t) => t[0] == "a" && (t[3] == "from" || t[3] == "root"),
+          (t) =>
+              t[0] == "a" && t.length > 3 && (t[3] == "from" || t[3] == "root"),
         )?[1];
     _to =
         widget.event.tags.firstWhereOrNull(
-          (t) => t[0] == "a" && (t[3] == "to" || t[3] == "mention"),
+          (t) =>
+              t[0] == "a" &&
+              t.length > 3 &&
+              (t[3] == "to" || t[3] == "mention"),
         )?[1];
     _isRaiding = _from == widget.stream.aTag;
     final isAutoRaid =
