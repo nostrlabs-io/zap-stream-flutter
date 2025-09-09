@@ -16,6 +16,38 @@ import 'package:zap_stream_flutter/widgets/countdown.dart';
 import 'package:zap_stream_flutter/widgets/goal.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
+class ChatMessageParsed {
+  late final Nip01Event _event;
+  ZapReceipt? _zap;
+
+  ChatMessageParsed(Nip01Event ev) {
+    _event = ev;
+    if (ev.kind == 9735) {
+      try {
+        _zap = ZapReceipt.fromEvent(ev);
+      } catch (e) {
+        _zap = null;
+      }
+    }
+  }
+
+  Nip01Event get event {
+    return _event;
+  }
+
+  bool isZap() {
+    return _zap != null;
+  }
+
+  ZapReceipt get zap {
+    return _zap!;
+  }
+
+  String get authorPubKey {
+    return _zap?.sender ?? _event.pubKey;
+  }
+}
+
 class ChatWidget extends StatelessWidget {
   final StreamEvent stream;
   final bool showGoals;
@@ -64,17 +96,19 @@ class ChatWidget extends StatelessWidget {
                     _ => true,
                   },
                 )
+                .map((e) => ChatMessageParsed(e))
                 .toList();
         final mutedPubkeys =
             firstPassEvents
                 .where(
                   (e) =>
-                      e.kind == Nip51List.kMute ||
-                      (e.kind == 1314 &&
-                          e.createdAt < now &&
-                          double.parse(e.getFirstTag("expiration")!) > now),
+                      e.event.kind == Nip51List.kMute ||
+                      (e.event.kind == 1314 &&
+                          e.event.createdAt < now &&
+                          double.parse(e.event.getFirstTag("expiration")!) >
+                              now),
                 )
-                .map((e) => e.tags)
+                .map((e) => e.event.tags)
                 .expand((e) => e)
                 .where((e) => e[0] == "p")
                 .map((e) => e[1])
@@ -84,30 +118,25 @@ class ChatWidget extends StatelessWidget {
         final filteredChat =
             firstPassEvents
                 .where((e) {
-                  final author = switch (e.kind) {
-                    9735 => ZapReceipt.fromEvent(e).sender ?? e.pubKey,
-                    _ => e.pubKey,
-                  };
-                  return moderators.contains(
-                        author,
-                      ) || // cant mute self or host
-                      !mutedPubkeys.contains(author);
+                  return moderators.contains(e.authorPubKey) ||
+                      !mutedPubkeys.contains(e.authorPubKey);
                 })
                 // filter events that are created before stream start time
-                .where((e) => e.createdAt >= (stream.info.starts ?? 0))
-                .sortedBy((e) => e.createdAt)
+                .where((e) => e.event.createdAt >= (stream.info.starts ?? 0))
+                .sortedBy((e) => e.event.createdAt)
                 .reversed
                 .toList();
 
         final zaps =
-            filteredChat
-                .where((e) => e.kind == 9735)
-                .map((e) => ZapReceipt.fromEvent(e))
-                .toList();
+            filteredChat.where((e) => e.isZap()).map((e) => e.zap).toList();
         // pubkey -> Set<badge a tag>
         final badgeAwards = filteredChat
-            .where((e) => e.kind == 8)
-            .map((e) => e.getTags("p").map((p) => (p, e.getFirstTag("a")!)))
+            .where((e) => e.event.kind == 8)
+            .map(
+              (e) => e.event
+                  .getTags("p")
+                  .map((p) => (p, e.event.getFirstTag("a")!)),
+            )
             .expand((v) => v)
             .groupFoldBy(
               (e) => e.$1,
@@ -129,24 +158,24 @@ class ChatWidget extends StatelessWidget {
                 itemCount: filteredChat.length,
                 itemBuilder: (ctx, idx) {
                   final msg = filteredChat[idx];
-                  final widget = switch (msg.kind) {
+                  final widget = switch (msg.event.kind) {
                     1311 => ChatMessageWidget(
                       stream: stream,
-                      msg: msg,
+                      msg: msg.event,
                       badges:
-                          badgeAwards[msg.pubKey]
+                          badgeAwards[msg.event.pubKey]
                               ?.map(
                                 (a) => ChatBadgeWidget.fromATag(
                                   a,
-                                  key: Key("${msg.pubKey}:$a"),
+                                  key: Key("${msg.event.pubKey}:$a"),
                                 ),
                               )
                               .toList(),
                     ),
-                    1312 => ChatRaidMessage(event: msg, stream: stream),
-                    1314 => ChatTimeoutWidget(timeout: msg),
-                    9735 => ChatZapWidget(stream: stream, zap: msg),
-                    8 => ChatBadgeAwardWidget(event: msg, stream: stream),
+                    1312 => ChatRaidMessage(event: msg.event, stream: stream),
+                    1314 => ChatTimeoutWidget(timeout: msg.event),
+                    9735 => ChatZapWidget(stream: stream, zap: msg.event),
+                    8 => ChatBadgeAwardWidget(event: msg.event, stream: stream),
                     _ => SizedBox(),
                   };
 
@@ -179,10 +208,10 @@ class ChatWidget extends StatelessWidget {
     );
   }
 
-  Widget _chatDisabled(List<Nip01Event> events) {
+  Widget _chatDisabled(List<ChatMessageParsed> events) {
     final myKey = ndk.accounts.getPublicKey();
     final timeoutEvent = events.firstWhereOrNull(
-      (e) => e.kind == 1314 && e.pTags.contains(myKey),
+      (e) => e.event.kind == 1314 && e.event.pTags.contains(myKey),
     );
     return Container(
       padding: EdgeInsets.all(12),
@@ -201,7 +230,7 @@ class ChatWidget extends StatelessWidget {
               format: (time) => t.stream.chat.disabled_timeout(time: time),
               style: TextStyle(color: LAYER_5),
               triggerAt: DateTime.fromMillisecondsSinceEpoch(
-                int.parse(timeoutEvent.getFirstTag("expiration")!) * 1000,
+                int.parse(timeoutEvent.event.getFirstTag("expiration")!) * 1000,
               ),
             ),
         ],
