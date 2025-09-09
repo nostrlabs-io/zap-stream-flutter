@@ -25,7 +25,7 @@ class AvatarWidget extends StatelessWidget {
       child: ProxyImg(
         url:
             profile.picture ??
-            "https://nostr.api.v0l.io/api/v1/avatar/cyberpunks/${profile.pubKey}",
+            "https://nostr-api.v0l.io/api/v1/avatar/cyberpunks/${profile.pubKey}",
         resize: thisSize.ceil(),
         width: thisSize,
         height: thisSize,

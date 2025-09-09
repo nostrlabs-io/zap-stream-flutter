@@ -33,7 +33,10 @@ class StreamTileWidget extends StatelessWidget {
                 children: [
                   Center(
                     child: ProxyImg(
-                      url: stream.info.image ?? "",
+                      url:
+                          (stream.info.image?.isNotEmpty ?? false)
+                              ? stream.info.image
+                              : stream.info.thumbnail,
                       placeholderSize: 100,
                     ),
                   ),

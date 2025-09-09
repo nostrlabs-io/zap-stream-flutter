@@ -123,6 +123,7 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
     matchTag(t, 'summary', (v) => ret.summary = v);
     matchTag(t, 'image', (v) => ret.image = v);
     matchTag(t, 'thumbnail', (v) => ret.thumbnail = v);
+    matchTag(t, 'thumb', (v) => ret.thumbnail = v);
     matchTag(
       t,
       'status',

@@ -37,7 +37,7 @@ const defaultRelays = [
 ];
 const searchRelays = ["wss://relay.nostr.band", "wss://search.nos.today"];
 const nwcRelays = ["wss://relay.getalby.com/v1"];
-final apiUrl = dotenv.env["API_URL"] ?? "https://api.zap.stream/api/nostr";
+final apiUrl = dotenv.env["API_URL"] ?? "https://api-core.zap.stream/api/v1";
 
 final loginData = LoginData();
 final RouteObserver<ModalRoute<void>> routeObserver =
