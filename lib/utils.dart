@@ -9,6 +9,32 @@ import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/hrps.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 
+/// Check if a stream URL is valid (not localhost or unreachable addresses)
+bool isValidStreamUrl(String? url) {
+  if (url == null || url.isEmpty) return false;
+
+  final lowerUrl = url.toLowerCase();
+
+  // Block localhost variations
+  if (lowerUrl.contains('localhost') ||
+      lowerUrl.contains('127.0.0.1') ||
+      lowerUrl.contains('::1') ||
+      lowerUrl.contains('0.0.0.0')) {
+    return false;
+  }
+
+  // Block private IP ranges (simplified check)
+  final privateIpPattern = RegExp(
+    r'^https?://(10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.)',
+    caseSensitive: false,
+  );
+  if (privateIpPattern.hasMatch(url)) {
+    return false;
+  }
+
+  return true;
+}
+
 /// Container class over event and stream info
 class StreamEvent {
   late final StreamInfo info;
