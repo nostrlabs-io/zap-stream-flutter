@@ -27,6 +27,7 @@ class StreamGrid extends StatelessWidget {
         events
             .map((e) => StreamEvent(e))
             .where((e) => e.info.stream?.contains(".m3u8") ?? false)
+            .where((e) => isValidStreamUrl(e.info.stream))
             .where(
               (e) =>
                   (e.info.starts ?? e.event.createdAt) <=
