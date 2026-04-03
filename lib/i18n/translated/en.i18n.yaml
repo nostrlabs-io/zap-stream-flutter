@@ -61,6 +61,7 @@ stream:
         description: Countdown timer for auto-raiding
   error:
     load_failed: Failed to load stream from ${url}
+  select_quality: Select Quality
 goal:
   title: "Goal: $amount"
   remaining: "Remaining: $amount"

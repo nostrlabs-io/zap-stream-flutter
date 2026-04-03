@@ -167,7 +167,7 @@ void runZapStream() {
               GoRoute(
                 path: "/search",
                 builder: (context, state) => SearchPage(
-                  query: state.queryParams["q"],
+                  query: state.uri.queryParameters["q"],
                 ),
               ),
               GoRoute(

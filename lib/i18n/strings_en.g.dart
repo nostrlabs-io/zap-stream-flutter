@@ -41,20 +41,31 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 
 	/// Text prompting user to hit avatar placeholder to begin upload
+	///
+	/// en: 'Upload Avatar'
 	String get upload_avatar => 'Upload Avatar';
 
 	/// Heading over listed top streamers by zaps
+	///
+	/// en: 'Most Zapped Streamers'
 	String get most_zapped_streamers => 'Most Zapped Streamers';
 
 	/// No user found when searching
+	///
+	/// en: 'No user found'
 	String get no_user_found => 'No user found';
 
 	/// An anonymous user
+	///
+	/// en: 'Anon'
 	String get anon => 'Anon';
 
+	/// en: '${n:decimalPattern} sats'
 	String full_amount_sats({required num n}) => '${NumberFormat.decimalPattern('en').format(n)} sats';
 
 	/// Number of viewers of the stream
+	///
+	/// en: '(one) {1 viewer} (other) {${n:decimalPattern} viewers}'
 	String viewers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		one: '1 viewer',
 		other: '${NumberFormat.decimalPattern('en').format(n)} viewers',
@@ -83,10 +94,18 @@ class TranslationsStreamEn {
 
 	// Translations
 	late final TranslationsStreamStatusEn status = TranslationsStreamStatusEn.internal(_root);
+
+	/// en: 'Started $timestamp'
 	String started({required Object timestamp}) => 'Started ${timestamp}';
+
+	/// en: '${name} went live!'
 	String notification({required Object name}) => '${name} went live!';
+
 	late final TranslationsStreamChatEn chat = TranslationsStreamChatEn.internal(_root);
 	late final TranslationsStreamErrorEn error = TranslationsStreamErrorEn.internal(_root);
+
+	/// en: 'Select Quality'
+	String get select_quality => 'Select Quality';
 }
 
 // Path: goal
@@ -96,8 +115,14 @@ class TranslationsGoalEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Goal: $amount'
 	String title({required Object amount}) => 'Goal: ${amount}';
+
+	/// en: 'Remaining: $amount'
 	String remaining({required Object amount}) => 'Remaining: ${amount}';
+
+	/// en: 'COMPLETE'
 	String get complete => 'COMPLETE';
 }
 
@@ -110,22 +135,42 @@ class TranslationsButtonEn {
 	// Translations
 
 	/// Button text for the login button
+	///
+	/// en: 'Login'
 	String get login => 'Login';
 
+	/// en: 'Logout'
 	String get logout => 'Logout';
+
+	/// en: 'Edit Profile'
 	String get edit_profile => 'Edit Profile';
 
 	/// Button text for the follow button
+	///
+	/// en: 'Follow'
 	String get follow => 'Follow';
 
 	/// Button text for the unfollow button
+	///
+	/// en: 'Unfollow'
 	String get unfollow => 'Unfollow';
 
+	/// en: 'Mute'
 	String get mute => 'Mute';
+
+	/// en: 'Unmute'
 	String get unmute => 'Unmute';
+
+	/// en: 'Share'
 	String get share => 'Share';
+
+	/// en: 'Save'
 	String get save => 'Save';
+
+	/// en: 'Connect'
 	String get connect => 'Connect';
+
+	/// en: 'Settings'
 	String get settings => 'Settings';
 }
 
@@ -136,8 +181,14 @@ class TranslationsEmbedEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Article by ${name}'
 	String article_by({required Object name}) => 'Article by ${name}';
+
+	/// en: 'Note by $name'
 	String note_by({required Object name}) => 'Note by ${name}';
+
+	/// en: 'Live stream by ${name}'
 	String live_stream_by({required Object name}) => 'Live stream by ${name}';
 }
 
@@ -148,9 +199,17 @@ class TranslationsStreamListEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Following'
 	String get following => 'Following';
+
+	/// en: 'Live'
 	String get live => 'Live';
+
+	/// en: 'Planned'
 	String get planned => 'Planned';
+
+	/// en: 'Ended'
 	String get ended => 'Ended';
 }
 
@@ -161,15 +220,34 @@ class TranslationsZapEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Zap $name'
 	String title({required Object name}) => 'Zap ${name}';
+
+	/// en: 'Custom Amount'
 	String get custom_amount => 'Custom Amount';
+
+	/// en: 'Confirm'
 	String get confirm => 'Confirm';
+
+	/// en: 'Comment'
 	String get comment => 'Comment';
+
+	/// en: 'Zap $amount sats'
 	String button_zap_ready({required Object amount}) => 'Zap ${amount} sats';
+
+	/// en: 'Zap'
 	String get button_zap => 'Zap';
+
+	/// en: 'Open in Wallet'
 	String get button_open_wallet => 'Open in Wallet';
+
+	/// en: 'Connect Wallet'
 	String get button_connect_wallet => 'Connect Wallet';
+
+	/// en: 'Copied to clipboard'
 	String get copy => 'Copied to clipboard';
+
 	late final TranslationsZapErrorEn error = TranslationsZapErrorEn.internal(_root);
 }
 
@@ -180,6 +258,8 @@ class TranslationsProfileEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Past Streams'
 	String get past_streams => 'Past Streams';
 }
 
@@ -190,8 +270,13 @@ class TranslationsSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Edit Profile'
 	String get button_profile => 'Edit Profile';
+
+	/// en: 'Wallet Settings'
 	String get button_wallet => 'Wallet Settings';
+
 	late final TranslationsSettingsProfileEn profile = TranslationsSettingsProfileEn.internal(_root);
 	late final TranslationsSettingsWalletEn wallet = TranslationsSettingsWalletEn.internal(_root);
 }
@@ -203,10 +288,19 @@ class TranslationsLoginEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Username'
 	String get username => 'Username';
+
+	/// en: 'Login with Amber'
 	String get amber => 'Login with Amber';
+
+	/// en: 'Login with Key'
 	String get key => 'Login with Key';
+
+	/// en: 'Create Account'
 	String get create => 'Create Account';
+
 	late final TranslationsLoginErrorEn error = TranslationsLoginErrorEn.internal(_root);
 }
 
@@ -217,20 +311,43 @@ class TranslationsLiveEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'GO LIVE'
 	String get start => 'GO LIVE';
+
+	/// en: 'Configure Stream'
 	String get configure_stream => 'Configure Stream';
+
+	/// en: 'Endpoint'
 	String get endpoint => 'Endpoint';
+
+	/// en: 'Accept TOS'
 	String get accept_tos => 'Accept TOS';
+
+	/// en: '(zero) {∞} (other) {~${time}}'
 	String balance_left({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: '∞',
 		other: '~${time}',
 	);
+
+	/// en: 'Title'
 	String get title => 'Title';
+
+	/// en: 'Summary'
 	String get summary => 'Summary';
+
+	/// en: 'Cover Image'
 	String get image => 'Cover Image';
+
+	/// en: 'Tags'
 	String get tags => 'Tags';
+
+	/// en: 'NSFW Content'
 	String get nsfw => 'NSFW Content';
+
+	/// en: 'Check here if this stream contains nudity or pornographic content.'
 	String get nsfw_description => 'Check here if this stream contains nudity or pornographic content.';
+
 	late final TranslationsLiveErrorEn error = TranslationsLiveErrorEn.internal(_root);
 }
 
@@ -241,8 +358,14 @@ class TranslationsStreamStatusEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'LIVE'
 	String get live => 'LIVE';
+
+	/// en: 'ENDED'
 	String get ended => 'ENDED';
+
+	/// en: 'PLANNED'
 	String get planned => 'PLANNED';
 }
 
@@ -253,10 +376,16 @@ class TranslationsStreamChatEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'CHAT DISABLED'
 	String get disabled => 'CHAT DISABLED';
+
+	/// en: 'Timeout expires: $time'
 	String disabled_timeout({required Object time}) => 'Timeout expires: ${time}';
 
 	/// Chat message showing timeout events
+	///
+	/// en: '$mod timed out $user for ${time}'
 	TextSpan timeout({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
 		mod,
 		const TextSpan(text: ' timed out '),
@@ -266,9 +395,13 @@ class TranslationsStreamChatEn {
 	]);
 
 	/// Stream ended footer at bottom of chat
+	///
+	/// en: 'STREAM ENDED'
 	String get ended => 'STREAM ENDED';
 
 	/// Chat message showing stream zaps
+	///
+	/// en: '$user zapped $amount sats'
 	TextSpan zap({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
 		user,
 		const TextSpan(text: ' zapped '),
@@ -288,6 +421,8 @@ class TranslationsStreamErrorEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Failed to load stream from ${url}'
 	String load_failed({required Object url}) => 'Failed to load stream from ${url}';
 }
 
@@ -298,8 +433,14 @@ class TranslationsZapErrorEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Invalid custom amount'
 	String get invalid_custom_amount => 'Invalid custom amount';
+
+	/// en: 'No lightning wallet installed'
 	String get no_wallet => 'No lightning wallet installed';
+
+	/// en: 'No lightning address found'
 	String get no_lud16 => 'No lightning address found';
 }
 
@@ -310,10 +451,19 @@ class TranslationsSettingsProfileEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Display Name'
 	String get display_name => 'Display Name';
+
+	/// en: 'About'
 	String get about => 'About';
+
+	/// en: 'Nostr Address'
 	String get nip05 => 'Nostr Address';
+
+	/// en: 'Lightning Address'
 	String get lud16 => 'Lightning Address';
+
 	late final TranslationsSettingsProfileErrorEn error = TranslationsSettingsProfileErrorEn.internal(_root);
 }
 
@@ -324,12 +474,25 @@ class TranslationsSettingsWalletEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Connect Wallet (NWC nostr+walletconnect://)'
 	String get connect_wallet => 'Connect Wallet (NWC nostr+walletconnect://)';
+
+	/// en: 'Disconnect Wallet'
 	String get disconnect_wallet => 'Disconnect Wallet';
+
+	/// en: '1-Tap Connection'
 	String get connect_1tap => '1-Tap Connection';
+
+	/// en: 'Paste URL'
 	String get paste => 'Paste URL';
+
+	/// en: 'Balance'
 	String get balance => 'Balance';
+
+	/// en: 'Wallet'
 	String get name => 'Wallet';
+
 	late final TranslationsSettingsWalletErrorEn error = TranslationsSettingsWalletErrorEn.internal(_root);
 }
 
@@ -340,6 +503,8 @@ class TranslationsLoginErrorEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Invalid key'
 	String get invalid_key => 'Invalid key';
 }
 
@@ -350,8 +515,14 @@ class TranslationsLiveErrorEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Stream failed'
 	String get failed => 'Stream failed';
+
+	/// en: 'Connection Error'
 	String get connection_error => 'Connection Error';
+
+	/// en: 'Stream start failed, please check your balance'
 	String get start_failed => 'Stream start failed, please check your balance';
 }
 
@@ -364,12 +535,18 @@ class TranslationsStreamChatWriteEn {
 	// Translations
 
 	/// Label on the chat message input box
+	///
+	/// en: 'Write message'
 	String get label => 'Write message';
 
 	/// Chat input message shown when the user is logged in only with pubkey
+	///
+	/// en: 'Can't write messages with npub login'
 	String get no_signer => 'Can\'t write messages with npub login';
 
 	/// Chat input message shown when the user is logged out
+	///
+	/// en: 'Please login to send messages'
 	String get login => 'Please login to send messages';
 }
 
@@ -382,6 +559,8 @@ class TranslationsStreamChatBadgeEn {
 	// Translations
 
 	/// Heading over list of users who are awarded a badge
+	///
+	/// en: 'Awarded to:'
 	String get awarded_to => 'Awarded to:';
 }
 
@@ -394,12 +573,18 @@ class TranslationsStreamChatRaidEn {
 	// Translations
 
 	/// Chat raid message to another stream
+	///
+	/// en: 'RAIDING ${name}'
 	String to({required Object name}) => 'RAIDING ${name}';
 
 	/// Chat raid message from another stream
+	///
+	/// en: 'RAID FROM ${name}'
 	String from({required Object name}) => 'RAID FROM ${name}';
 
 	/// Countdown timer for auto-raiding
+	///
+	/// en: 'Raiding in ${time}'
 	String countdown({required Object time}) => 'Raiding in ${time}';
 }
 
@@ -410,6 +595,8 @@ class TranslationsSettingsProfileErrorEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Cant edit profile when logged out'
 	String get logged_out => 'Cant edit profile when logged out';
 }
 
@@ -420,7 +607,11 @@ class TranslationsSettingsWalletErrorEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Cant connect wallet when logged out'
 	String get logged_out => 'Cant connect wallet when logged out';
+
+	/// en: 'No wallet auth event found'
 	String get nwc_auth_event_not_found => 'No wallet auth event found';
 }
 
@@ -467,6 +658,7 @@ extension on Translations {
 			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
 			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding in ${time}';
 			case 'stream.error.load_failed': return ({required Object url}) => 'Failed to load stream from ${url}';
+			case 'stream.select_quality': return 'Select Quality';
 			case 'goal.title': return ({required Object amount}) => 'Goal: ${amount}';
 			case 'goal.remaining': return ({required Object amount}) => 'Remaining: ${amount}';
 			case 'goal.complete': return 'COMPLETE';

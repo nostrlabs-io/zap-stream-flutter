@@ -14,7 +14,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _controller = TextEditingController();
-  List<List<String>> _filters = [];
+  List<Filter> _filters = [];
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
 
     setState(() {
       _filters = [
-        Filter(kinds: [30_311], limit: 50, content: query),
+        Filter(kinds: [30_311], limit: 50, search: query),
       ];
     });
   }
@@ -50,20 +50,20 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.all(5.0),
+        margin: const EdgeInsets.all(5.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: TextField(
                 controller: _controller,
                 decoration: InputDecoration(
                   hintText: "Search streams...",
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   suffixIcon: _controller.text.isNotEmpty
                       ? IconButton(
-                          icon: Icon(Icons.clear),
+                          icon: const Icon(Icons.clear),
                           onPressed: () {
                             _controller.clear();
                             _updateFilters("");
@@ -79,7 +79,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             if (_filters.isEmpty && _controller.text.isEmpty)
               Container(
-                padding: EdgeInsets.all(32),
+                padding: const EdgeInsets.all(32),
                 alignment: Alignment.center,
                 child: Text(
                   "Enter a search term to find streams",
@@ -93,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
                 builder: (ctx, state) {
                   if (state == null || state.isEmpty) {
                     return Container(
-                      padding: EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(32),
                       alignment: Alignment.center,
                       child: Text(
                         "No streams found",

@@ -7,7 +7,6 @@ import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
-import 'package:zap_stream_flutter/pages/search.dart';
 
 class HeaderWidget extends StatefulWidget {
   final VoidCallback? onConfigureStream;

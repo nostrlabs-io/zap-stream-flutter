@@ -305,6 +305,11 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ),
+          if (stream.info.streams.length > 1)
+            IconButton(
+              onPressed: () => _showQualitySelector(context, stream),
+              icon: Icon(Icons.slow_motion_video),
+            ),
           GestureDetector(
             onTap: () {
               showModalBottomSheet(
@@ -319,5 +324,56 @@ class _StreamPage extends State<StreamPage> with RouteAware {
         ],
       ),
     ];
+  }
+
+  void _showQualitySelector(BuildContext context, StreamEvent stream) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                t.stream.select_quality,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              ...stream.info.streams.map((url) {
+                final isCurrent = url == stream.info.stream;
+                return ListTile(
+                  title: Text(_formatQualityName(url)),
+                  trailing: isCurrent ? Icon(Icons.check, color: PRIMARY_1) : null,
+                  onTap: () {
+                    mainPlayer.loadUrl(
+                      url,
+                      title: stream.info.title,
+                      placeholder: stream.info.image,
+                      aspectRatio: 16 / 9,
+                      autoPlay: true,
+                      isLive: true,
+                      artist: "zap.stream",
+                    );
+                    Navigator.pop(context);
+                  },
+                );
+              }),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  String _formatQualityName(String url) {
+    if (url.contains('1080p')) return '1080p (HD)';
+    if (url.contains('720p')) return '720p';
+    if (url.contains('480p')) return '480p';
+    if (url.contains('360p')) return '360p';
+    if (url.contains('source')) return 'Source';
+    if (url.contains('auto')) return 'Auto';
+    return url;
   }
 }
