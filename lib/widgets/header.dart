@@ -10,7 +10,9 @@ import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/pages/search.dart';
 
 class HeaderWidget extends StatefulWidget {
-  const HeaderWidget({super.key});
+  final VoidCallback? onConfigureStream;
+
+  const HeaderWidget({super.key, this.onConfigureStream});
 
   @override
   State<StatefulWidget> createState() => _HeaderWidget();
@@ -35,6 +37,11 @@ class _HeaderWidget extends State<HeaderWidget> {
                 onPressed: () => context.push("/search"),
                 icon: Icon(Icons.search),
               ),
+              if (ndk.accounts.isLoggedIn && widget.onConfigureStream != null)
+                IconButton(
+                  onPressed: widget.onConfigureStream,
+                  icon: Icon(Icons.settings),
+                ),
               LoginButtonWidget(),
             ],
           ),
