@@ -70,8 +70,12 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
       _entry = null;
     }
 
-    final pos = _positioned.currentContext!.findRenderObject() as RenderBox?;
-    final posGlobal = pos?.localToGlobal(Offset.zero);
+    final RenderBox? textFieldBox = _focusNode.context?.findRenderObject() as RenderBox?;
+    if (textFieldBox == null) return;
+    
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+    final Offset textFieldPosition = textFieldBox.localToGlobal(Offset.zero, ancestor: overlay);
+    
     _entry = OverlayEntry(
       builder: (context) {
         return ValueListenableBuilder(
@@ -87,14 +91,11 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
             if (search.isEmpty) {
               return SizedBox();
             }
-            final mq = MediaQuery.of(context);
-            return Stack(
-              children: [
-                Positioned(
-                  left: posGlobal?.dx,
-                  bottom: mq.size.height - (posGlobal?.dy ?? 0) - 30,
-                  width: pos?.size.width,
-                  child: Container(
+            return Positioned(
+              left: textFieldPosition.dx,
+              top: textFieldPosition.dy + textFieldBox.size.height,
+              width: textFieldBox.size.width,
+              child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                     decoration: BoxDecoration(
                       color: LAYER_2,
@@ -165,18 +166,19 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
       _entry = null;
     }
 
-    final pos = _positioned.currentContext!.findRenderObject() as RenderBox?;
-    final posGlobal = pos?.localToGlobal(Offset.zero);
+    final RenderBox? textFieldBox = _focusNode.context?.findRenderObject() as RenderBox?;
+    if (textFieldBox == null) return;
+    
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+    final Offset textFieldPosition = textFieldBox.localToGlobal(Offset.zero, ancestor: overlay);
+    
     _entry = OverlayEntry(
       builder: (context) {
-        final mq = MediaQuery.of(context);
-        return Stack(
-          children: [
-            Positioned(
-              left: posGlobal?.dx,
-              bottom: mq.size.height - (posGlobal?.dy ?? 0) - 30,
-              width: pos?.size.width,
-              child: Container(
+        return Positioned(
+          left: textFieldPosition.dx,
+          top: textFieldPosition.dy + textFieldBox.size.height,
+          width: textFieldBox.size.width,
+          child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                 decoration: BoxDecoration(
                   color: LAYER_2,
@@ -200,11 +202,9 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                       });
                     }
                   },
-                ),
+               ),
               ),
-            ),
-          ],
-        );
+            );
       },
     );
     Overlay.of(context).insert(_entry!);

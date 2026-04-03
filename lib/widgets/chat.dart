@@ -84,8 +84,10 @@ class ChatWidget extends StatelessWidget {
       filters: filters,
       builder: (ctx, state) {
         final now = DateTime.now().millisecondsSinceEpoch / 1000;
+        final seenEventIds = <String>{};
         final firstPassEvents =
             (state ?? [])
+                .where((e) => seenEventIds.add(e.id))
                 .where(
                   (e) => switch (e.kind) {
                     1314 =>
@@ -162,6 +164,7 @@ class ChatWidget extends StatelessWidget {
                     1311 => ChatMessageWidget(
                       stream: stream,
                       msg: msg.event,
+                      key: Key("chat-msg:${msg.event.id}"),
                       badges:
                           badgeAwards[msg.event.pubKey]
                               ?.map(
@@ -172,10 +175,25 @@ class ChatWidget extends StatelessWidget {
                               )
                               .toList(),
                     ),
-                    1312 => ChatRaidMessage(event: msg.event, stream: stream),
-                    1314 => ChatTimeoutWidget(timeout: msg.event),
-                    9735 => ChatZapWidget(stream: stream, zap: msg.event),
-                    8 => ChatBadgeAwardWidget(event: msg.event, stream: stream),
+                    1312 => ChatRaidMessage(
+                      event: msg.event,
+                      stream: stream,
+                      key: Key("chat-raid:${msg.event.id}"),
+                    ),
+                    1314 => ChatTimeoutWidget(
+                      timeout: msg.event,
+                      key: Key("chat-timeout:${msg.event.id}"),
+                    ),
+                    9735 => ChatZapWidget(
+                      stream: stream,
+                      zap: msg.event,
+                      key: Key("chat-zap:${msg.event.id}"),
+                    ),
+                    8 => ChatBadgeAwardWidget(
+                      event: msg.event,
+                      stream: stream,
+                      key: Key("chat-badge:${msg.event.id}"),
+                    ),
                     _ => SizedBox(),
                   };
 
