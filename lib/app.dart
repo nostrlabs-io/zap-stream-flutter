@@ -14,6 +14,7 @@ import 'package:zap_stream_flutter/pages/login.dart';
 import 'package:zap_stream_flutter/pages/login_input.dart';
 import 'package:zap_stream_flutter/pages/new_account.dart';
 import 'package:zap_stream_flutter/pages/profile.dart';
+import 'package:zap_stream_flutter/pages/search.dart';
 import 'package:zap_stream_flutter/pages/settings.dart';
 import 'package:zap_stream_flutter/pages/settings_profile.dart';
 import 'package:zap_stream_flutter/pages/settings_wallet.dart';
@@ -162,6 +163,12 @@ void runZapStream() {
               GoRoute(
                 path: "/live",
                 builder: (context, state) => LivePage(),
+              ),
+              GoRoute(
+                path: "/search",
+                builder: (context, state) => SearchPage(
+                  query: state.queryParams["q"],
+                ),
               ),
               GoRoute(
                 path: "/:id",

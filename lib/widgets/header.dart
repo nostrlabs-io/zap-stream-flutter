@@ -7,6 +7,7 @@ import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
+import 'package:zap_stream_flutter/pages/search.dart';
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({super.key});
@@ -27,7 +28,16 @@ class _HeaderWidget extends State<HeaderWidget> {
             onTap: () => context.go("/"),
             child: SvgPicture.asset("assets/svg/logo.svg", height: 23),
           ),
-          LoginButtonWidget(),
+          Row(
+            spacing: 12,
+            children: [
+              IconButton(
+                onPressed: () => context.push("/search"),
+                icon: Icon(Icons.search),
+              ),
+              LoginButtonWidget(),
+            ],
+          ),
         ],
       ),
     );
