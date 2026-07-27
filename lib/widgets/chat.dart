@@ -48,6 +48,18 @@ class ChatMessageParsed {
   }
 }
 
+/// Expiration timestamp of a NIP-based timeout event, or null when the tag is
+/// absent or not a number.
+///
+/// These events arrive from relays, so the tag cannot be assumed well-formed;
+/// parsing it with `double.parse(...!)` threw inside a widget build and broke
+/// chat rendering for everyone in the stream.
+double? _expiryOf(Nip01Event e) {
+  final raw = e.getFirstTag("expiration");
+  if (raw == null) return null;
+  return double.tryParse(raw);
+}
+
 class ChatWidget extends StatelessWidget {
   final StreamEvent stream;
   final bool showGoals;
@@ -90,10 +102,15 @@ class ChatWidget extends StatelessWidget {
                 .where((e) => seenEventIds.add(e.id))
                 .where(
                   (e) => switch (e.kind) {
+                    // filter timeouts to only people allowed to mute.
+                    // `expiration` is attacker-influenced relay data: a 1314
+                    // with the tag missing or non-numeric used to throw out of
+                    // build() and take the whole chat down for every viewer.
+                    // A malformed timeout is ignored rather than applied, so a
+                    // broken event cannot mute someone indefinitely.
                     1314 =>
                       moderators.contains(e.pubKey) &&
-                          double.parse(e.getFirstTag("expiration")!) >
-                              now, // filter timeouts to only people allowed to mute
+                          (_expiryOf(e) ?? 0) > now,
                     // TODO: check other kinds are valid for this stream
                     _ => true,
                   },
@@ -107,8 +124,7 @@ class ChatWidget extends StatelessWidget {
                       e.event.kind == Nip51List.kMute ||
                       (e.event.kind == 1314 &&
                           e.event.createdAt < now &&
-                          double.parse(e.event.getFirstTag("expiration")!) >
-                              now),
+                          (_expiryOf(e.event) ?? 0) > now),
                 )
                 .map((e) => e.event.tags)
                 .expand((e) => e)
@@ -134,6 +150,9 @@ class ChatWidget extends StatelessWidget {
         // pubkey -> Set<badge a tag>
         final badgeAwards = filteredChat
             .where((e) => e.event.kind == 8)
+            // a kind 8 without an `a` tag is malformed; skip it rather than
+            // letting the `!` throw out of build()
+            .where((e) => e.event.getFirstTag("a") != null)
             .map(
               (e) => e.event
                   .getTags("p")
