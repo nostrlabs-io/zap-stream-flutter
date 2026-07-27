@@ -7,7 +7,7 @@ on:
 
 env:
   # keep in step with build.yml and the `flutter:` constraint in pubspec.yaml
-  FLUTTER_VERSION: "3.32.0"
+  FLUTTER_VERSION: "3.41.6"
 
 jobs:
   android:

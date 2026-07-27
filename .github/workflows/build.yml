@@ -11,7 +11,7 @@ on:
 
 env:
   # single source of truth; keep in step with the `flutter:` constraint in pubspec.yaml
-  FLUTTER_VERSION: "3.32.0"
+  FLUTTER_VERSION: "3.41.6"
 
 jobs:
   # Fast gate that needs no signing secrets, so it can also run on pull requests.
@@ -114,15 +114,6 @@ jobs:
           flutter --version
           xcodebuild -version
           pod --version || true
-      # ios/Podfile.lock is stale and is what has broken this job on every run
-      # since 2025-09-09. It was last regenerated 2025-05-30 and pins
-      # Firebase/CoreOnly 11.10.0, but pubspec.lock now resolves firebase_core to
-      # 3.15.2, which requires Firebase/CoreOnly 11.15.0. CocoaPods refuses the
-      # conflict outright, so `flutter build ios` never gets as far as compiling.
-      # Refreshing the pods here resolves against the current podspecs.
-      # The committed lock still wants regenerating on a Mac (`cd ios && pod
-      # install --repo-update`, then commit it); once that lands this step is
-      # redundant but harmless.
       # TEMPORARY: the dependency bump moved firebase_core 3.15.2 -> 4.12.1, so
       # the committed Podfile.lock is stale again. Regenerate here and publish
       # the result so it can be committed; both this step and the upload come

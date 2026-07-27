@@ -4,8 +4,10 @@ publish_to: "none"
 version: 1.1.5+19
 
 environment:
-  sdk: ^3.7.2
-  flutter: ^3.32.0
+  # raised by the dependency bump: flutter_local_notifications 22 and friends
+  # require Dart ^3.10.0, which ships with Flutter 3.38+
+  sdk: ^3.10.0
+  flutter: ^3.41.6
 
 dependencies:
   flutter:
