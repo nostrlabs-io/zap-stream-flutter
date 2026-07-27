@@ -8,7 +8,14 @@ import 'package:zap_stream_flutter/widgets/avatar_upload.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
-class SettingsProfilePage extends StatelessWidget {
+class SettingsProfilePage extends StatefulWidget {
+  const SettingsProfilePage({super.key});
+
+  @override
+  State<SettingsProfilePage> createState() => _SettingsProfilePage();
+}
+
+class _SettingsProfilePage extends State<SettingsProfilePage> {
   final TextEditingController _picture = TextEditingController();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _about = TextEditingController();
@@ -16,7 +23,22 @@ class SettingsProfilePage extends StatelessWidget {
   final TextEditingController _lud16 = TextEditingController();
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 
-  SettingsProfilePage({super.key});
+  /// The loaded profile is copied into the fields exactly once. Re-copying on
+  /// every build overwrote whatever the user had typed as soon as anything
+  /// triggered a rebuild (toggling `_loading` on save is enough), so edits
+  /// silently reverted to the stored profile.
+  bool _seeded = false;
+
+  @override
+  void dispose() {
+    _picture.dispose();
+    _name.dispose();
+    _about.dispose();
+    _nip5.dispose();
+    _lud16.dispose();
+    _loading.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +46,8 @@ class SettingsProfilePage extends StatelessWidget {
     if (pubkey == null) return Text(t.settings.profile.error.logged_out);
 
     return ProfileLoaderWidget(pubkey, (context, state) {
-      if (state.hasData) {
+      if (state.hasData && !_seeded) {
+        _seeded = true;
         _name.text = state.data!.name ?? "";
         _about.text = state.data!.about ?? "";
         _nip5.text = state.data!.nip05 ?? "";

@@ -150,7 +150,7 @@ void runZapStream() {
                     routes: [
                       GoRoute(
                         path: "profile",
-                        builder: (context, state) => SettingsProfilePage(),
+                        builder: (context, state) => const SettingsProfilePage(),
                       ),
                       GoRoute(
                         path: "wallet",

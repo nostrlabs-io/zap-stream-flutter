@@ -44,6 +44,14 @@ class _StreamConfigWidget extends State<StreamConfigWidget> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _title.dispose();
+    _summary.dispose();
+    _tags.dispose();
+    super.dispose();
+  }
+
   Widget _variantWidget(String cap) {
     if (cap.startsWith("variant:")) {
       final caps = cap.split(":");

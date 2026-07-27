@@ -16,6 +16,12 @@ class LoginInputPage extends StatefulWidget {
 
 class _LoginInputPage extends State<LoginInputPage> {
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   String? _error;
 
   @override

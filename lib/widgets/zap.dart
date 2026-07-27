@@ -39,6 +39,13 @@ class ZapWidget extends StatefulWidget {
 class _ZapWidget extends State<ZapWidget> {
   final TextEditingController _comment = TextEditingController();
   final TextEditingController _customAmount = TextEditingController();
+
+  @override
+  void dispose() {
+    _comment.dispose();
+    _customAmount.dispose();
+    super.dispose();
+  }
   final FocusNode _customAmountFocus = FocusNode();
   bool _loading = false;
   String? _error;

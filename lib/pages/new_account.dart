@@ -19,6 +19,12 @@ class NewAccountPage extends StatefulWidget {
 
 class _NewAccountPage extends State<NewAccountPage> {
   final TextEditingController _name = TextEditingController();
+
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
+  }
   final FocusNode _nameFocus = FocusNode();
   String? _avatar;
   String? _error;
