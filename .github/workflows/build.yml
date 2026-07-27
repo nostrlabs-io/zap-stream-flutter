@@ -123,7 +123,17 @@ jobs:
       # The committed lock still wants regenerating on a Mac (`cd ios && pod
       # install --repo-update`, then commit it); once that lands this step is
       # redundant but harmless.
+      # `pod install --repo-update` is not enough: CocoaPods keeps honouring the
+      # locked 11.10.0 and errors out, telling you to run `pod update` for the
+      # pod whose constraint moved. Regenerate instead.
       - name: Refresh CocoaPods
         working-directory: ios
-        run: pod install --repo-update
+        run: pod update
+      # The regenerated lock is the artifact we actually want committed, so
+      # publish it for a maintainer (or a follow-up commit) to pick up.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: "ios-Podfile.lock"
+          path: "ios/Podfile.lock"
       - run: flutter build ios --no-codesign --verbose
