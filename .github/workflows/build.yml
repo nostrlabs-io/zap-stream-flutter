@@ -114,4 +114,16 @@ jobs:
           flutter --version
           xcodebuild -version
           pod --version || true
+      # ios/Podfile.lock is stale and is what has broken this job on every run
+      # since 2025-09-09. It was last regenerated 2025-05-30 and pins
+      # Firebase/CoreOnly 11.10.0, but pubspec.lock now resolves firebase_core to
+      # 3.15.2, which requires Firebase/CoreOnly 11.15.0. CocoaPods refuses the
+      # conflict outright, so `flutter build ios` never gets as far as compiling.
+      # Refreshing the pods here resolves against the current podspecs.
+      # The committed lock still wants regenerating on a Mac (`cd ios && pod
+      # install --repo-update`, then commit it); once that lands this step is
+      # redundant but harmless.
+      - name: Refresh CocoaPods
+        working-directory: ios
+        run: pod install --repo-update
       - run: flutter build ios --no-codesign --verbose
