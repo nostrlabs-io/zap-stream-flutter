@@ -60,7 +60,7 @@ double? _expiryOf(Nip01Event e) {
   return double.tryParse(raw);
 }
 
-class ChatWidget extends StatelessWidget {
+class ChatWidget extends StatefulWidget {
   final StreamEvent stream;
   final bool showGoals;
   final bool showTopZappers;
@@ -75,7 +75,30 @@ class ChatWidget extends StatelessWidget {
   });
 
   @override
+  State<ChatWidget> createState() => _ChatWidget();
+}
+
+class _ChatWidget extends State<ChatWidget> {
+  /// Parsed chat messages, keyed by event id.
+  ///
+  /// The builder below re-runs for *every* incoming chat event, and it used to
+  /// rebuild a `ChatMessageParsed` for every event in the window each time. For
+  /// kind 9735 that means `ZapReceipt.fromEvent`, which `jsonDecode`s the
+  /// embedded zap request and constructs a second `Nip01Event` from it - so a
+  /// stream with a lot of zaps re-parsed all of them on the UI thread on every
+  /// single message. Events are immutable and their id is a content hash, so the
+  /// parse result can be cached against it and reused.
+  final Map<String, ChatMessageParsed> _parsed = {};
+
+  @override
   Widget build(BuildContext context) {
+    // local aliases so the pipeline below reads the same as before the widget
+    // became stateful
+    final stream = widget.stream;
+    final showGoals = widget.showGoals;
+    final showTopZappers = widget.showTopZappers;
+    final showRaids = widget.showRaids;
+
     var moderators = [stream.info.host];
     final myKey = ndk.accounts.getPublicKey();
     if (myKey != null) {
@@ -115,8 +138,16 @@ class ChatWidget extends StatelessWidget {
                     _ => true,
                   },
                 )
-                .map((e) => ChatMessageParsed(e))
+                .map(
+                  (e) => _parsed.putIfAbsent(e.id, () => ChatMessageParsed(e)),
+                )
                 .toList();
+
+        // keep the cache to the live relay window rather than letting it grow
+        // for the lifetime of the stream
+        if (_parsed.length > seenEventIds.length) {
+          _parsed.removeWhere((id, _) => !seenEventIds.contains(id));
+        }
         final mutedPubkeys =
             firstPassEvents
                 .where(
