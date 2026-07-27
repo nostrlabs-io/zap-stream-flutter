@@ -2,17 +2,60 @@ name: build
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  # lets a maintainer trigger a run on demand - needed to capture fresh logs,
+  # since Actions log retention expires and the iOS failures below are older
+  # than the retention window
+  workflow_dispatch:
+
+env:
+  # single source of truth; keep in step with the `flutter:` constraint in pubspec.yaml
+  FLUTTER_VERSION: "3.32.0"
+
 jobs:
-  android:
+  # Fast gate that needs no signing secrets, so it can also run on pull requests.
+  analyze:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: 3.32.0
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+      - run: flutter pub get
+      # Errors only. The tree currently has 11 warnings/infos (experimental_member_use
+      # from the nostr package, two unused_element, three use_build_context_synchronously)
+      # and a bare `flutter analyze` exits 1 on those, which would leave CI red from the
+      # first run. Drop these flags once those 11 are cleared.
+      - run: flutter analyze --no-fatal-warnings --no-fatal-infos
+
+  android:
+    # release builds need the signing secrets, which are not exposed to pull
+    # requests from forks, so keep them on push/dispatch only
+    if: github.event_name != 'pull_request'
+    needs: analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v5
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('android/**/*.gradle*', 'android/**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
       - run: flutter pub get
       - run: flutter build appbundle
         env:
@@ -44,15 +87,31 @@ jobs:
         with:
           name: "app-x86_64-release.apk"
           path: "build/app/outputs/flutter-apk/app-x86_64-release.apk"
+
   ios:
+    # Deliberately not run on pull requests *yet*: this job has failed on every
+    # run since 2025-09-09, so wiring it to PRs would mark every PR red and
+    # destroy the signal the analyze gate is meant to provide. Once the failure
+    # below is diagnosed and fixed, drop this `if` so PRs cover iOS too.
+    if: github.event_name != 'pull_request'
+    needs: analyze
     runs-on: macos-latest
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: 3.32.0
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
       - run: flutter pub get
-      - run: flutter build ios --no-codesign
+      # Records the toolchain in the log. This job has failed on every run since
+      # 2025-09-09 and the logs have expired, so the next run needs to capture
+      # enough context to actually diagnose it.
+      - name: Toolchain versions
+        run: |
+          flutter --version
+          xcodebuild -version
+          pod --version || true
+      - run: flutter build ios --no-codesign --verbose

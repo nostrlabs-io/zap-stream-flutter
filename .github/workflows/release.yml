@@ -4,6 +4,11 @@ on:
     tags:
       - v[0-9]+.[0-9]+.[0-9]+
       - v[0-9]+.[0-9]+.[0-9]+-*
+
+env:
+  # keep in step with build.yml and the `flutter:` constraint in pubspec.yaml
+  FLUTTER_VERSION: "3.32.0"
+
 jobs:
   android:
     runs-on: ubuntu-latest
@@ -11,12 +16,21 @@ jobs:
       contents: write
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: 3.32.0
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('android/**/*.gradle*', 'android/**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
       - run: flutter pub get
       - name: Build apk
         env:
@@ -39,7 +53,7 @@ jobs:
           name: "app-x86_64-release.apk"
           path: "build/app/outputs/flutter-apk/app-x86_64-release.apk"
       - name: Upload assets
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
