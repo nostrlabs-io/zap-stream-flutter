@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsDa extends Translations {
+class TranslationsDa extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsDa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsDa extends Translations {
 		other: '${NumberFormat.decimalPattern('da').format(n)} seere',
 	);
 
-	@override late final _TranslationsStreamDa stream = _TranslationsStreamDa._(_root);
-	@override late final _TranslationsGoalDa goal = _TranslationsGoalDa._(_root);
-	@override late final _TranslationsButtonDa button = _TranslationsButtonDa._(_root);
-	@override late final _TranslationsEmbedDa embed = _TranslationsEmbedDa._(_root);
+	@override late final _Translations$stream$da stream = _Translations$stream$da._(_root);
+	@override late final _Translations$goal$da goal = _Translations$goal$da._(_root);
+	@override late final _Translations$button$da button = _Translations$button$da._(_root);
+	@override late final _Translations$embed$da embed = _Translations$embed$da._(_root);
 
 	/// Overskrifter på streaminglister efter streamingtype live/afsluttet/planlagt osv.
-	@override late final _TranslationsStreamListDa stream_list = _TranslationsStreamListDa._(_root);
+	@override late final _Translations$stream_list$da stream_list = _Translations$stream_list$da._(_root);
 
-	@override late final _TranslationsZapDa zap = _TranslationsZapDa._(_root);
-	@override late final _TranslationsProfileDa profile = _TranslationsProfileDa._(_root);
-	@override late final _TranslationsSettingsDa settings = _TranslationsSettingsDa._(_root);
-	@override late final _TranslationsLoginDa login = _TranslationsLoginDa._(_root);
-	@override late final _TranslationsLiveDa live = _TranslationsLiveDa._(_root);
+	@override late final _Translations$zap$da zap = _Translations$zap$da._(_root);
+	@override late final _Translations$profile$da profile = _Translations$profile$da._(_root);
+	@override late final _Translations$settings$da settings = _Translations$settings$da._(_root);
+	@override late final _Translations$login$da login = _Translations$login$da._(_root);
+	@override late final _Translations$live$da live = _Translations$live$da._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamDa extends TranslationsStreamEn {
-	_TranslationsStreamDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$stream$da extends Translations$stream$en {
+	_Translations$stream$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusDa status = _TranslationsStreamStatusDa._(_root);
+	@override late final _Translations$stream$status$da status = _Translations$stream$status$da._(_root);
 	@override String started({required Object timestamp}) => 'Startet ${timestamp}';
 	@override String notification({required Object name}) => '${name} gik live!';
-	@override late final _TranslationsStreamChatDa chat = _TranslationsStreamChatDa._(_root);
+	@override late final _Translations$stream$chat$da chat = _Translations$stream$chat$da._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalDa extends TranslationsGoalEn {
-	_TranslationsGoalDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$goal$da extends Translations$goal$en {
+	_Translations$goal$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalDa extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonDa extends TranslationsButtonEn {
-	_TranslationsButtonDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$button$da extends Translations$button$en {
+	_Translations$button$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonDa extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedDa extends TranslationsEmbedEn {
-	_TranslationsEmbedDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$embed$da extends Translations$embed$en {
+	_Translations$embed$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedDa extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListDa extends TranslationsStreamListEn {
-	_TranslationsStreamListDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$stream_list$da extends Translations$stream_list$en {
+	_Translations$stream_list$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListDa extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapDa extends TranslationsZapEn {
-	_TranslationsZapDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$zap$da extends Translations$zap$en {
+	_Translations$zap$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapDa extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Åbn i tegnebogen';
 	@override String get button_connect_wallet => 'Forbind tegnebog';
 	@override String get copy => 'Kopieret til udklipsholder';
-	@override late final _TranslationsZapErrorDa error = _TranslationsZapErrorDa._(_root);
+	@override late final _Translations$zap$error$da error = _Translations$zap$error$da._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileDa extends TranslationsProfileEn {
-	_TranslationsProfileDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$profile$da extends Translations$profile$en {
+	_Translations$profile$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileDa extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsDa extends TranslationsSettingsEn {
-	_TranslationsSettingsDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$settings$da extends Translations$settings$en {
+	_Translations$settings$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Rediger profil';
 	@override String get button_wallet => 'Indstillinger for tegnebog';
-	@override late final _TranslationsSettingsProfileDa profile = _TranslationsSettingsProfileDa._(_root);
-	@override late final _TranslationsSettingsWalletDa wallet = _TranslationsSettingsWalletDa._(_root);
+	@override late final _Translations$settings$profile$da profile = _Translations$settings$profile$da._(_root);
+	@override late final _Translations$settings$wallet$da wallet = _Translations$settings$wallet$da._(_root);
 }
 
 // Path: login
-class _TranslationsLoginDa extends TranslationsLoginEn {
-	_TranslationsLoginDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$login$da extends Translations$login$en {
+	_Translations$login$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginDa extends TranslationsLoginEn {
 	@override String get amber => 'Log ind med Amber';
 	@override String get key => 'Login med nøgle';
 	@override String get create => 'Opret konto';
-	@override late final _TranslationsLoginErrorDa error = _TranslationsLoginErrorDa._(_root);
+	@override late final _Translations$login$error$da error = _Translations$login$error$da._(_root);
 }
 
 // Path: live
-class _TranslationsLiveDa extends TranslationsLiveEn {
-	_TranslationsLiveDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$live$da extends Translations$live$en {
+	_Translations$live$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveDa extends TranslationsLiveEn {
 	@override String get tags => 'Tags';
 	@override String get nsfw => 'NSFW-indhold';
 	@override String get nsfw_description => 'Tjek her, om denne stream indeholder nøgenhed eller pornografisk indhold.';
-	@override late final _TranslationsLiveErrorDa error = _TranslationsLiveErrorDa._(_root);
+	@override late final _Translations$live$error$da error = _Translations$live$error$da._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusDa extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$stream$status$da extends Translations$stream$status$en {
+	_Translations$stream$status$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusDa extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatDa extends TranslationsStreamChatEn {
-	_TranslationsStreamChatDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$da extends Translations$stream$chat$en {
+	_Translations$stream$chat$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatDa extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteDa write = _TranslationsStreamChatWriteDa._(_root);
-	@override late final _TranslationsStreamChatBadgeDa badge = _TranslationsStreamChatBadgeDa._(_root);
-	@override late final _TranslationsStreamChatRaidDa raid = _TranslationsStreamChatRaidDa._(_root);
+	@override late final _Translations$stream$chat$write$da write = _Translations$stream$chat$write$da._(_root);
+	@override late final _Translations$stream$chat$badge$da badge = _Translations$stream$chat$badge$da._(_root);
+	@override late final _Translations$stream$chat$raid$da raid = _Translations$stream$chat$raid$da._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorDa extends TranslationsZapErrorEn {
-	_TranslationsZapErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$zap$error$da extends Translations$zap$error$en {
+	_Translations$zap$error$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorDa extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileDa extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$da extends Translations$settings$profile$en {
+	_Translations$settings$profile$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileDa extends TranslationsSettingsProfileEn {
 	@override String get about => 'Omkring';
 	@override String get nip05 => 'Nostr-adresse';
 	@override String get lud16 => 'Adresse for lynnedslag';
-	@override late final _TranslationsSettingsProfileErrorDa error = _TranslationsSettingsProfileErrorDa._(_root);
+	@override late final _Translations$settings$profile$error$da error = _Translations$settings$profile$error$da._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletDa extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$da extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletDa extends TranslationsSettingsWalletEn {
 	@override String get paste => 'Indsæt URL';
 	@override String get balance => 'Balance';
 	@override String get name => 'Tegnebog';
-	@override late final _TranslationsSettingsWalletErrorDa error = _TranslationsSettingsWalletErrorDa._(_root);
+	@override late final _Translations$settings$wallet$error$da error = _Translations$settings$wallet$error$da._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorDa extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$login$error$da extends Translations$login$error$en {
+	_Translations$login$error$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorDa extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorDa extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$live$error$da extends Translations$live$error$en {
+	_Translations$live$error$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorDa extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteDa extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$da extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteDa extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeDa extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$da extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeDa extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidDa extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$da extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidDa extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorDa extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$da extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorDa extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorDa extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorDa._(TranslationsDa root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$da extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$da._(TranslationsDa root) : this._root = root, super.internal(root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorDa extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Ingen wallet-auth-begivenhed fundet';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <da>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsDa {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Upload avatar';
-			case 'most_zapped_streamers': return 'De fleste zappede streamere';
-			case 'no_user_found': return 'Ingen bruger fundet';
-			case 'anon': return 'Anon';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('da').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
-				one: '1 seer',
-				other: '${NumberFormat.decimalPattern('da').format(n)} seere',
-			);
-			case 'stream.status.live': return 'LIVE';
-			case 'stream.status.ended': return 'AFSLUTTET';
-			case 'stream.status.planned': return 'PLANLAGT';
-			case 'stream.started': return ({required Object timestamp}) => 'Startet ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} gik live!';
-			case 'stream.chat.disabled': return 'CHAT DEAKTIVERET';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timeout udløber: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' udløbet '),
-				user,
-				const TextSpan(text: ' for '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'STREAM AFSLUTTET';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' zappet '),
-				amount,
-				const TextSpan(text: ' sats'),
-			]);
-			case 'stream.chat.write.label': return 'Skriv en besked';
-			case 'stream.chat.write.no_signer': return 'Kan ikke skrive beskeder med npub-login';
-			case 'stream.chat.write.login': return 'Log ind for at sende beskeder';
-			case 'stream.chat.badge.awarded_to': return 'Tildelt til:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FRA ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding i ${time}';
-			case 'goal.title': return ({required Object amount}) => 'Mål: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Resterende: ${amount}';
-			case 'goal.complete': return 'KOMPLET';
-			case 'button.login': return 'Login';
-			case 'button.logout': return 'Log ud';
-			case 'button.edit_profile': return 'Rediger profil';
-			case 'button.follow': return 'Følg med';
-			case 'button.unfollow': return 'Ikke følge';
-			case 'button.mute': return 'Dæmpet';
-			case 'button.unmute': return 'Slå lyden fra';
-			case 'button.share': return 'Del';
-			case 'button.save': return 'Gemme';
-			case 'button.connect': return 'Opret forbindelse';
-			case 'button.settings': return 'Indstillinger';
-			case 'embed.article_by': return ({required Object name}) => 'Artikel af ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Note fra ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Livestream på ${name}';
-			case 'stream_list.following': return 'Efterfølgende';
-			case 'stream_list.live': return 'Live';
-			case 'stream_list.planned': return 'Planlagt';
-			case 'stream_list.ended': return 'Afsluttet';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Brugerdefineret beløb';
-			case 'zap.confirm': return 'Bekræft';
-			case 'zap.comment': return 'Kommentar';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Åbn i tegnebogen';
-			case 'zap.button_connect_wallet': return 'Forbind tegnebog';
-			case 'zap.copy': return 'Kopieret til udklipsholder';
-			case 'zap.error.invalid_custom_amount': return 'Ugyldigt brugerdefineret beløb';
-			case 'zap.error.no_wallet': return 'Ingen lightning wallet installeret';
-			case 'zap.error.no_lud16': return 'Ingen lyn-adresse fundet';
-			case 'profile.past_streams': return 'Tidligere strømme';
-			case 'settings.button_profile': return 'Rediger profil';
-			case 'settings.button_wallet': return 'Indstillinger for tegnebog';
-			case 'settings.profile.display_name': return 'Vis navn';
-			case 'settings.profile.about': return 'Omkring';
-			case 'settings.profile.nip05': return 'Nostr-adresse';
-			case 'settings.profile.lud16': return 'Adresse for lynnedslag';
-			case 'settings.profile.error.logged_out': return 'Kan ikke redigere profil, når jeg er logget ud';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Afbryd forbindelsen til tegnebogen';
-			case 'settings.wallet.connect_1tap': return '1-Tap-forbindelse';
-			case 'settings.wallet.paste': return 'Indsæt URL';
-			case 'settings.wallet.balance': return 'Balance';
-			case 'settings.wallet.name': return 'Tegnebog';
-			case 'settings.wallet.error.logged_out': return 'Kan ikke oprette forbindelse til wallet, når jeg er logget ud';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Ingen wallet-auth-begivenhed fundet';
-			case 'login.username': return 'Brugernavn';
-			case 'login.amber': return 'Log ind med Amber';
-			case 'login.key': return 'Login med nøgle';
-			case 'login.create': return 'Opret konto';
-			case 'login.error.invalid_key': return 'Ugyldig nøgle';
-			case 'live.start': return 'GO LIVE';
-			case 'live.configure_stream': return 'Konfigurer stream';
-			case 'live.endpoint': return 'Slutpunkt';
-			case 'live.accept_tos': return 'Accepter TOS';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'Titel';
-			case 'live.summary': return 'Sammenfatning';
-			case 'live.image': return 'Forsidebillede';
-			case 'live.tags': return 'Tags';
-			case 'live.nsfw': return 'NSFW-indhold';
-			case 'live.nsfw_description': return 'Tjek her, om denne stream indeholder nøgenhed eller pornografisk indhold.';
-			case 'live.error.failed': return 'Strømmen mislykkedes';
-			case 'live.error.connection_error': return 'Forbindelsesfejl';
-			case 'live.error.start_failed': return 'Stream-start mislykkedes, tjek venligst din saldo';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Upload avatar',
+			'most_zapped_streamers' => 'De fleste zappede streamere',
+			'no_user_found' => 'Ingen bruger fundet',
+			'anon' => 'Anon',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('da').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n, one: '1 seer', other: '${NumberFormat.decimalPattern('da').format(n)} seere', ), 
+			'stream.status.live' => 'LIVE',
+			'stream.status.ended' => 'AFSLUTTET',
+			'stream.status.planned' => 'PLANLAGT',
+			'stream.started' => ({required Object timestamp}) => 'Startet ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} gik live!',
+			'stream.chat.disabled' => 'CHAT DEAKTIVERET',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Timeout udløber: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' udløbet '), user, const TextSpan(text: ' for '), time, ]), 
+			'stream.chat.ended' => 'STREAM AFSLUTTET',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' zappet '), amount, const TextSpan(text: ' sats'), ]), 
+			'stream.chat.write.label' => 'Skriv en besked',
+			'stream.chat.write.no_signer' => 'Kan ikke skrive beskeder med npub-login',
+			'stream.chat.write.login' => 'Log ind for at sende beskeder',
+			'stream.chat.badge.awarded_to' => 'Tildelt til:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID FRA ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Raiding i ${time}',
+			'goal.title' => ({required Object amount}) => 'Mål: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Resterende: ${amount}',
+			'goal.complete' => 'KOMPLET',
+			'button.login' => 'Login',
+			'button.logout' => 'Log ud',
+			'button.edit_profile' => 'Rediger profil',
+			'button.follow' => 'Følg med',
+			'button.unfollow' => 'Ikke følge',
+			'button.mute' => 'Dæmpet',
+			'button.unmute' => 'Slå lyden fra',
+			'button.share' => 'Del',
+			'button.save' => 'Gemme',
+			'button.connect' => 'Opret forbindelse',
+			'button.settings' => 'Indstillinger',
+			'embed.article_by' => ({required Object name}) => 'Artikel af ${name}',
+			'embed.note_by' => ({required Object name}) => 'Note fra ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Livestream på ${name}',
+			'stream_list.following' => 'Efterfølgende',
+			'stream_list.live' => 'Live',
+			'stream_list.planned' => 'Planlagt',
+			'stream_list.ended' => 'Afsluttet',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Brugerdefineret beløb',
+			'zap.confirm' => 'Bekræft',
+			'zap.comment' => 'Kommentar',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} sats',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Åbn i tegnebogen',
+			'zap.button_connect_wallet' => 'Forbind tegnebog',
+			'zap.copy' => 'Kopieret til udklipsholder',
+			'zap.error.invalid_custom_amount' => 'Ugyldigt brugerdefineret beløb',
+			'zap.error.no_wallet' => 'Ingen lightning wallet installeret',
+			'zap.error.no_lud16' => 'Ingen lyn-adresse fundet',
+			'profile.past_streams' => 'Tidligere strømme',
+			'settings.button_profile' => 'Rediger profil',
+			'settings.button_wallet' => 'Indstillinger for tegnebog',
+			'settings.profile.display_name' => 'Vis navn',
+			'settings.profile.about' => 'Omkring',
+			'settings.profile.nip05' => 'Nostr-adresse',
+			'settings.profile.lud16' => 'Adresse for lynnedslag',
+			'settings.profile.error.logged_out' => 'Kan ikke redigere profil, når jeg er logget ud',
+			'settings.wallet.connect_wallet' => 'Connect Wallet (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Afbryd forbindelsen til tegnebogen',
+			'settings.wallet.connect_1tap' => '1-Tap-forbindelse',
+			'settings.wallet.paste' => 'Indsæt URL',
+			'settings.wallet.balance' => 'Balance',
+			'settings.wallet.name' => 'Tegnebog',
+			'settings.wallet.error.logged_out' => 'Kan ikke oprette forbindelse til wallet, når jeg er logget ud',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Ingen wallet-auth-begivenhed fundet',
+			'login.username' => 'Brugernavn',
+			'login.amber' => 'Log ind med Amber',
+			'login.key' => 'Login med nøgle',
+			'login.create' => 'Opret konto',
+			'login.error.invalid_key' => 'Ugyldig nøgle',
+			'live.start' => 'GO LIVE',
+			'live.configure_stream' => 'Konfigurer stream',
+			'live.endpoint' => 'Slutpunkt',
+			'live.accept_tos' => 'Accepter TOS',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'Titel',
+			'live.summary' => 'Sammenfatning',
+			'live.image' => 'Forsidebillede',
+			'live.tags' => 'Tags',
+			'live.nsfw' => 'NSFW-indhold',
+			'live.nsfw_description' => 'Tjek her, om denne stream indeholder nøgenhed eller pornografisk indhold.',
+			'live.error.failed' => 'Strømmen mislykkedes',
+			'live.error.connection_error' => 'Forbindelsesfejl',
+			'live.error.start_failed' => 'Stream-start mislykkedes, tjek venligst din saldo',
+			_ => null,
+		};
 	}
 }
-

@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsHu extends Translations {
+class TranslationsHu extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsHu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -57,36 +58,36 @@ class TranslationsHu extends Translations {
 		other: '${NumberFormat.decimalPattern('hu').format(n)} nézők',
 	);
 
-	@override late final _TranslationsStreamHu stream = _TranslationsStreamHu._(_root);
-	@override late final _TranslationsGoalHu goal = _TranslationsGoalHu._(_root);
-	@override late final _TranslationsButtonHu button = _TranslationsButtonHu._(_root);
-	@override late final _TranslationsEmbedHu embed = _TranslationsEmbedHu._(_root);
+	@override late final _Translations$stream$hu stream = _Translations$stream$hu._(_root);
+	@override late final _Translations$goal$hu goal = _Translations$goal$hu._(_root);
+	@override late final _Translations$button$hu button = _Translations$button$hu._(_root);
+	@override late final _Translations$embed$hu embed = _Translations$embed$hu._(_root);
 
 	/// A stream-listák címsorai stream-típusonként élő/befejezett/tervezett stb.
-	@override late final _TranslationsStreamListHu stream_list = _TranslationsStreamListHu._(_root);
+	@override late final _Translations$stream_list$hu stream_list = _Translations$stream_list$hu._(_root);
 
-	@override late final _TranslationsZapHu zap = _TranslationsZapHu._(_root);
-	@override late final _TranslationsProfileHu profile = _TranslationsProfileHu._(_root);
-	@override late final _TranslationsSettingsHu settings = _TranslationsSettingsHu._(_root);
-	@override late final _TranslationsLoginHu login = _TranslationsLoginHu._(_root);
+	@override late final _Translations$zap$hu zap = _Translations$zap$hu._(_root);
+	@override late final _Translations$profile$hu profile = _Translations$profile$hu._(_root);
+	@override late final _Translations$settings$hu settings = _Translations$settings$hu._(_root);
+	@override late final _Translations$login$hu login = _Translations$login$hu._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamHu extends TranslationsStreamEn {
-	_TranslationsStreamHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$stream$hu extends Translations$stream$en {
+	_Translations$stream$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusHu status = _TranslationsStreamStatusHu._(_root);
+	@override late final _Translations$stream$status$hu status = _Translations$stream$status$hu._(_root);
 	@override String started({required Object timestamp}) => 'Elindult ${timestamp}';
 	@override String notification({required Object name}) => '${name} elindult!';
-	@override late final _TranslationsStreamChatHu chat = _TranslationsStreamChatHu._(_root);
+	@override late final _Translations$stream$chat$hu chat = _Translations$stream$chat$hu._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalHu extends TranslationsGoalEn {
-	_TranslationsGoalHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$goal$hu extends Translations$goal$en {
+	_Translations$goal$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -97,8 +98,8 @@ class _TranslationsGoalHu extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonHu extends TranslationsButtonEn {
-	_TranslationsButtonHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$button$hu extends Translations$button$en {
+	_Translations$button$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -125,8 +126,8 @@ class _TranslationsButtonHu extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedHu extends TranslationsEmbedEn {
-	_TranslationsEmbedHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$embed$hu extends Translations$embed$en {
+	_Translations$embed$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -137,8 +138,8 @@ class _TranslationsEmbedHu extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListHu extends TranslationsStreamListEn {
-	_TranslationsStreamListHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$stream_list$hu extends Translations$stream_list$en {
+	_Translations$stream_list$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -150,8 +151,8 @@ class _TranslationsStreamListHu extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapHu extends TranslationsZapEn {
-	_TranslationsZapHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$zap$hu extends Translations$zap$en {
+	_Translations$zap$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -165,12 +166,12 @@ class _TranslationsZapHu extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Megnyitás a pénztárcában';
 	@override String get button_connect_wallet => 'Connect Wallet';
 	@override String get copy => 'Vágólapra másolva';
-	@override late final _TranslationsZapErrorHu error = _TranslationsZapErrorHu._(_root);
+	@override late final _Translations$zap$error$hu error = _Translations$zap$error$hu._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileHu extends TranslationsProfileEn {
-	_TranslationsProfileHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$profile$hu extends Translations$profile$en {
+	_Translations$profile$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -179,21 +180,21 @@ class _TranslationsProfileHu extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsHu extends TranslationsSettingsEn {
-	_TranslationsSettingsHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$settings$hu extends Translations$settings$en {
+	_Translations$settings$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Profil szerkesztése';
 	@override String get button_wallet => 'Pénztárca beállítások';
-	@override late final _TranslationsSettingsProfileHu profile = _TranslationsSettingsProfileHu._(_root);
-	@override late final _TranslationsSettingsWalletHu wallet = _TranslationsSettingsWalletHu._(_root);
+	@override late final _Translations$settings$profile$hu profile = _Translations$settings$profile$hu._(_root);
+	@override late final _Translations$settings$wallet$hu wallet = _Translations$settings$wallet$hu._(_root);
 }
 
 // Path: login
-class _TranslationsLoginHu extends TranslationsLoginEn {
-	_TranslationsLoginHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$login$hu extends Translations$login$en {
+	_Translations$login$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -202,12 +203,12 @@ class _TranslationsLoginHu extends TranslationsLoginEn {
 	@override String get amber => 'Bejelentkezés Amber segítségével';
 	@override String get key => 'Bejelentkezés kulccsal';
 	@override String get create => 'Fiók Létrehozása';
-	@override late final _TranslationsLoginErrorHu error = _TranslationsLoginErrorHu._(_root);
+	@override late final _Translations$login$error$hu error = _Translations$login$error$hu._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusHu extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$stream$status$hu extends Translations$stream$status$en {
+	_Translations$stream$status$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -218,8 +219,8 @@ class _TranslationsStreamStatusHu extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatHu extends TranslationsStreamChatEn {
-	_TranslationsStreamChatHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$hu extends Translations$stream$chat$en {
+	_Translations$stream$chat$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -248,14 +249,14 @@ class _TranslationsStreamChatHu extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteHu write = _TranslationsStreamChatWriteHu._(_root);
-	@override late final _TranslationsStreamChatBadgeHu badge = _TranslationsStreamChatBadgeHu._(_root);
-	@override late final _TranslationsStreamChatRaidHu raid = _TranslationsStreamChatRaidHu._(_root);
+	@override late final _Translations$stream$chat$write$hu write = _Translations$stream$chat$write$hu._(_root);
+	@override late final _Translations$stream$chat$badge$hu badge = _Translations$stream$chat$badge$hu._(_root);
+	@override late final _Translations$stream$chat$raid$hu raid = _Translations$stream$chat$raid$hu._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorHu extends TranslationsZapErrorEn {
-	_TranslationsZapErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$zap$error$hu extends Translations$zap$error$en {
+	_Translations$zap$error$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -266,8 +267,8 @@ class _TranslationsZapErrorHu extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileHu extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$hu extends Translations$settings$profile$en {
+	_Translations$settings$profile$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -276,12 +277,12 @@ class _TranslationsSettingsProfileHu extends TranslationsSettingsProfileEn {
 	@override String get about => 'A  oldalról';
 	@override String get nip05 => 'Nostr cím';
 	@override String get lud16 => 'Villám cím';
-	@override late final _TranslationsSettingsProfileErrorHu error = _TranslationsSettingsProfileErrorHu._(_root);
+	@override late final _Translations$settings$profile$error$hu error = _Translations$settings$profile$error$hu._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletHu extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$hu extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -290,12 +291,12 @@ class _TranslationsSettingsWalletHu extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Pénztárca lekapcsolása';
 	@override String get connect_1tap => '1-Tap csatlakozás';
 	@override String get paste => 'URL beillesztése';
-	@override late final _TranslationsSettingsWalletErrorHu error = _TranslationsSettingsWalletErrorHu._(_root);
+	@override late final _Translations$settings$wallet$error$hu error = _Translations$settings$wallet$error$hu._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorHu extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$login$error$hu extends Translations$login$error$en {
+	_Translations$login$error$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -304,8 +305,8 @@ class _TranslationsLoginErrorHu extends TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteHu extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$hu extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -322,8 +323,8 @@ class _TranslationsStreamChatWriteHu extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeHu extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$hu extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -334,8 +335,8 @@ class _TranslationsStreamChatBadgeHu extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidHu extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$hu extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -352,8 +353,8 @@ class _TranslationsStreamChatRaidHu extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorHu extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$hu extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsSettingsProfileErrorHu extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorHu extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorHu._(TranslationsHu root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$hu extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$hu._(TranslationsHu root) : this._root = root, super.internal(root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
@@ -372,102 +373,89 @@ class _TranslationsSettingsWalletErrorHu extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Nem találtak pénztárca-auth eseményt';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <hu>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsHu {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Avatár feltöltése';
-			case 'most_zapped_streamers': return 'A legtöbb Zapped Streamers';
-			case 'no_user_found': return 'Nem talált felhasználó';
-			case 'anon': return 'Névtelen';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(n,
-				one: '1 néző',
-				other: '${NumberFormat.decimalPattern('hu').format(n)} nézők',
-			);
-			case 'stream.status.live': return 'ÉLŐ';
-			case 'stream.status.ended': return 'ENDED';
-			case 'stream.status.planned': return 'TERVEZETT';
-			case 'stream.started': return ({required Object timestamp}) => 'Elindult ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} elindult!';
-			case 'stream.chat.disabled': return 'CHAT KIKAPCSOLVA';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Az időkorlát lejár: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' időzített '),
-				user,
-				const TextSpan(text: ' a '),
-				time,
-				const TextSpan(text: 'számára'),
-			]);
-			case 'stream.chat.ended': return 'STREAM MEGSZÜNTETETT';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' zap-elt '),
-				amount,
-				const TextSpan(text: ' sats'),
-			]);
-			case 'stream.chat.write.label': return 'Üzenet írása';
-			case 'stream.chat.write.no_signer': return 'Nem tud üzeneteket írni az npub bejelentkezéssel';
-			case 'stream.chat.write.login': return 'Kérjük, jelentkezzen be az üzenetek küldéséhez';
-			case 'stream.chat.badge.awarded_to': return 'Elnyerte:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiding a ${time} oldalon';
-			case 'goal.title': return ({required Object amount}) => 'Cél: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Maradék: ${amount}';
-			case 'goal.complete': return 'TELJES';
-			case 'button.login': return 'Bejelentkezés';
-			case 'button.logout': return 'Kijelentkezés';
-			case 'button.edit_profile': return 'Profil szerkesztése';
-			case 'button.follow': return 'Követés';
-			case 'button.unfollow': return 'Követés megszüntetése';
-			case 'button.mute': return 'Némítás';
-			case 'button.unmute': return 'Némítás visszavonása';
-			case 'button.share': return 'Megosztás';
-			case 'button.save': return 'Mentés';
-			case 'button.connect': return 'Csatlakozás';
-			case 'button.settings': return 'Beállítások';
-			case 'embed.article_by': return ({required Object name}) => 'Cikk ${name}';
-			case 'embed.note_by': return ({required Object name}) => '${name} bejegyzése';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Élő közvetítés a ${name} oldalon';
-			case 'stream_list.following': return 'Követettek bejegyzései';
-			case 'stream_list.live': return 'Élő';
-			case 'stream_list.planned': return 'Tervezett';
-			case 'stream_list.ended': return 'Véget ért';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Egyéni összeg';
-			case 'zap.confirm': return 'Megerősítés';
-			case 'zap.comment': return 'Hozzászólás';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} satoshi';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Megnyitás a pénztárcában';
-			case 'zap.button_connect_wallet': return 'Connect Wallet';
-			case 'zap.copy': return 'Vágólapra másolva';
-			case 'zap.error.invalid_custom_amount': return 'Érvénytelen egyéni összeg';
-			case 'zap.error.no_wallet': return 'Nincs telepített villám tárca';
-			case 'zap.error.no_lud16': return 'Nem talált villámcím';
-			case 'profile.past_streams': return 'Múltbeli Streamek';
-			case 'settings.button_profile': return 'Profil szerkesztése';
-			case 'settings.button_wallet': return 'Pénztárca beállítások';
-			case 'settings.profile.display_name': return 'Megjelenített név';
-			case 'settings.profile.about': return 'A  oldalról';
-			case 'settings.profile.nip05': return 'Nostr cím';
-			case 'settings.profile.lud16': return 'Villám cím';
-			case 'settings.profile.error.logged_out': return 'Kijelentkezve nem lehet profilt szerkeszteni';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Pénztárca lekapcsolása';
-			case 'settings.wallet.connect_1tap': return '1-Tap csatlakozás';
-			case 'settings.wallet.paste': return 'URL beillesztése';
-			case 'settings.wallet.error.logged_out': return 'Kijelentkezve nem lehet csatlakozni a pénztárcához';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nem találtak pénztárca-auth eseményt';
-			case 'login.username': return 'Felhasználónév';
-			case 'login.amber': return 'Bejelentkezés Amber segítségével';
-			case 'login.key': return 'Bejelentkezés kulccsal';
-			case 'login.create': return 'Fiók Létrehozása';
-			case 'login.error.invalid_key': return 'Érvénytelen kulcs';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Avatár feltöltése',
+			'most_zapped_streamers' => 'A legtöbb Zapped Streamers',
+			'no_user_found' => 'Nem talált felhasználó',
+			'anon' => 'Névtelen',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(n, one: '1 néző', other: '${NumberFormat.decimalPattern('hu').format(n)} nézők', ), 
+			'stream.status.live' => 'ÉLŐ',
+			'stream.status.ended' => 'ENDED',
+			'stream.status.planned' => 'TERVEZETT',
+			'stream.started' => ({required Object timestamp}) => 'Elindult ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} elindult!',
+			'stream.chat.disabled' => 'CHAT KIKAPCSOLVA',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Az időkorlát lejár: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' időzített '), user, const TextSpan(text: ' a '), time, const TextSpan(text: 'számára'), ]), 
+			'stream.chat.ended' => 'STREAM MEGSZÜNTETETT',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' zap-elt '), amount, const TextSpan(text: ' sats'), ]), 
+			'stream.chat.write.label' => 'Üzenet írása',
+			'stream.chat.write.no_signer' => 'Nem tud üzeneteket írni az npub bejelentkezéssel',
+			'stream.chat.write.login' => 'Kérjük, jelentkezzen be az üzenetek küldéséhez',
+			'stream.chat.badge.awarded_to' => 'Elnyerte:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID FROM ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Raiding a ${time} oldalon',
+			'goal.title' => ({required Object amount}) => 'Cél: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Maradék: ${amount}',
+			'goal.complete' => 'TELJES',
+			'button.login' => 'Bejelentkezés',
+			'button.logout' => 'Kijelentkezés',
+			'button.edit_profile' => 'Profil szerkesztése',
+			'button.follow' => 'Követés',
+			'button.unfollow' => 'Követés megszüntetése',
+			'button.mute' => 'Némítás',
+			'button.unmute' => 'Némítás visszavonása',
+			'button.share' => 'Megosztás',
+			'button.save' => 'Mentés',
+			'button.connect' => 'Csatlakozás',
+			'button.settings' => 'Beállítások',
+			'embed.article_by' => ({required Object name}) => 'Cikk ${name}',
+			'embed.note_by' => ({required Object name}) => '${name} bejegyzése',
+			'embed.live_stream_by' => ({required Object name}) => 'Élő közvetítés a ${name} oldalon',
+			'stream_list.following' => 'Követettek bejegyzései',
+			'stream_list.live' => 'Élő',
+			'stream_list.planned' => 'Tervezett',
+			'stream_list.ended' => 'Véget ért',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Egyéni összeg',
+			'zap.confirm' => 'Megerősítés',
+			'zap.comment' => 'Hozzászólás',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} satoshi',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Megnyitás a pénztárcában',
+			'zap.button_connect_wallet' => 'Connect Wallet',
+			'zap.copy' => 'Vágólapra másolva',
+			'zap.error.invalid_custom_amount' => 'Érvénytelen egyéni összeg',
+			'zap.error.no_wallet' => 'Nincs telepített villám tárca',
+			'zap.error.no_lud16' => 'Nem talált villámcím',
+			'profile.past_streams' => 'Múltbeli Streamek',
+			'settings.button_profile' => 'Profil szerkesztése',
+			'settings.button_wallet' => 'Pénztárca beállítások',
+			'settings.profile.display_name' => 'Megjelenített név',
+			'settings.profile.about' => 'A  oldalról',
+			'settings.profile.nip05' => 'Nostr cím',
+			'settings.profile.lud16' => 'Villám cím',
+			'settings.profile.error.logged_out' => 'Kijelentkezve nem lehet profilt szerkeszteni',
+			'settings.wallet.connect_wallet' => 'Connect Wallet (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Pénztárca lekapcsolása',
+			'settings.wallet.connect_1tap' => '1-Tap csatlakozás',
+			'settings.wallet.paste' => 'URL beillesztése',
+			'settings.wallet.error.logged_out' => 'Kijelentkezve nem lehet csatlakozni a pénztárcához',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Nem találtak pénztárca-auth eseményt',
+			'login.username' => 'Felhasználónév',
+			'login.amber' => 'Bejelentkezés Amber segítségével',
+			'login.key' => 'Bejelentkezés kulccsal',
+			'login.create' => 'Fiók Létrehozása',
+			'login.error.invalid_key' => 'Érvénytelen kulcs',
+			_ => null,
+		};
 	}
 }
-

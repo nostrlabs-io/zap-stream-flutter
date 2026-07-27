@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsAr extends Translations {
+class TranslationsAr extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsAr extends Translations {
 		other: '{n:decimalPattern} المشاهدين',
 	);
 
-	@override late final _TranslationsStreamAr stream = _TranslationsStreamAr._(_root);
-	@override late final _TranslationsGoalAr goal = _TranslationsGoalAr._(_root);
-	@override late final _TranslationsButtonAr button = _TranslationsButtonAr._(_root);
-	@override late final _TranslationsEmbedAr embed = _TranslationsEmbedAr._(_root);
+	@override late final _Translations$stream$ar stream = _Translations$stream$ar._(_root);
+	@override late final _Translations$goal$ar goal = _Translations$goal$ar._(_root);
+	@override late final _Translations$button$ar button = _Translations$button$ar._(_root);
+	@override late final _Translations$embed$ar embed = _Translations$embed$ar._(_root);
 
 	/// العناوين في قوائم البث حسب نوع البث المباشر/المُنتهي/المخطط له وما إلى ذلك.
-	@override late final _TranslationsStreamListAr stream_list = _TranslationsStreamListAr._(_root);
+	@override late final _Translations$stream_list$ar stream_list = _Translations$stream_list$ar._(_root);
 
-	@override late final _TranslationsZapAr zap = _TranslationsZapAr._(_root);
-	@override late final _TranslationsProfileAr profile = _TranslationsProfileAr._(_root);
-	@override late final _TranslationsSettingsAr settings = _TranslationsSettingsAr._(_root);
-	@override late final _TranslationsLoginAr login = _TranslationsLoginAr._(_root);
-	@override late final _TranslationsLiveAr live = _TranslationsLiveAr._(_root);
+	@override late final _Translations$zap$ar zap = _Translations$zap$ar._(_root);
+	@override late final _Translations$profile$ar profile = _Translations$profile$ar._(_root);
+	@override late final _Translations$settings$ar settings = _Translations$settings$ar._(_root);
+	@override late final _Translations$login$ar login = _Translations$login$ar._(_root);
+	@override late final _Translations$live$ar live = _Translations$live$ar._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamAr extends TranslationsStreamEn {
-	_TranslationsStreamAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$stream$ar extends Translations$stream$en {
+	_Translations$stream$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusAr status = _TranslationsStreamStatusAr._(_root);
+	@override late final _Translations$stream$status$ar status = _Translations$stream$status$ar._(_root);
 	@override String started({required Object timestamp}) => 'بدأ ${timestamp}';
 	@override String notification({required Object name}) => '${name} بدأ البث المباشر!';
-	@override late final _TranslationsStreamChatAr chat = _TranslationsStreamChatAr._(_root);
+	@override late final _Translations$stream$chat$ar chat = _Translations$stream$chat$ar._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalAr extends TranslationsGoalEn {
-	_TranslationsGoalAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$goal$ar extends Translations$goal$en {
+	_Translations$goal$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalAr extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonAr extends TranslationsButtonEn {
-	_TranslationsButtonAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$button$ar extends Translations$button$en {
+	_Translations$button$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonAr extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedAr extends TranslationsEmbedEn {
-	_TranslationsEmbedAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$embed$ar extends Translations$embed$en {
+	_Translations$embed$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedAr extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListAr extends TranslationsStreamListEn {
-	_TranslationsStreamListAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$stream_list$ar extends Translations$stream_list$en {
+	_Translations$stream_list$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListAr extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapAr extends TranslationsZapEn {
-	_TranslationsZapAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$zap$ar extends Translations$zap$en {
+	_Translations$zap$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapAr extends TranslationsZapEn {
 	@override String get button_open_wallet => 'فتح في المحفظة';
 	@override String get button_connect_wallet => 'توصيل المحفظة';
 	@override String get copy => 'نسخ إلى الحافظة';
-	@override late final _TranslationsZapErrorAr error = _TranslationsZapErrorAr._(_root);
+	@override late final _Translations$zap$error$ar error = _Translations$zap$error$ar._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileAr extends TranslationsProfileEn {
-	_TranslationsProfileAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$profile$ar extends Translations$profile$en {
+	_Translations$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileAr extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsAr extends TranslationsSettingsEn {
-	_TranslationsSettingsAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$settings$ar extends Translations$settings$en {
+	_Translations$settings$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'تعديل الملف الشخصي';
 	@override String get button_wallet => 'إعدادات المحفظة';
-	@override late final _TranslationsSettingsProfileAr profile = _TranslationsSettingsProfileAr._(_root);
-	@override late final _TranslationsSettingsWalletAr wallet = _TranslationsSettingsWalletAr._(_root);
+	@override late final _Translations$settings$profile$ar profile = _Translations$settings$profile$ar._(_root);
+	@override late final _Translations$settings$wallet$ar wallet = _Translations$settings$wallet$ar._(_root);
 }
 
 // Path: login
-class _TranslationsLoginAr extends TranslationsLoginEn {
-	_TranslationsLoginAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$login$ar extends Translations$login$en {
+	_Translations$login$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginAr extends TranslationsLoginEn {
 	@override String get amber => 'تسجيل الدخول مع آمبر';
 	@override String get key => 'تسجيل الدخول بالمفتاح';
 	@override String get create => 'إنشاء حساب';
-	@override late final _TranslationsLoginErrorAr error = _TranslationsLoginErrorAr._(_root);
+	@override late final _Translations$login$error$ar error = _Translations$login$error$ar._(_root);
 }
 
 // Path: live
-class _TranslationsLiveAr extends TranslationsLiveEn {
-	_TranslationsLiveAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$live$ar extends Translations$live$en {
+	_Translations$live$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveAr extends TranslationsLiveEn {
 	@override String get tags => 'الوسوم';
 	@override String get nsfw => 'محتوى غير لائق جنسيًا';
 	@override String get nsfw_description => 'تحقق هنا إذا كان هذا البث يحتوي على محتوى إباحي أو عري.';
-	@override late final _TranslationsLiveErrorAr error = _TranslationsLiveErrorAr._(_root);
+	@override late final _Translations$live$error$ar error = _Translations$live$error$ar._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusAr extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$stream$status$ar extends Translations$stream$status$en {
+	_Translations$stream$status$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusAr extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatAr extends TranslationsStreamChatEn {
-	_TranslationsStreamChatAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$ar extends Translations$stream$chat$en {
+	_Translations$stream$chat$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatAr extends TranslationsStreamChatEn {
 		const TextSpan(text: ' ساتس'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteAr write = _TranslationsStreamChatWriteAr._(_root);
-	@override late final _TranslationsStreamChatBadgeAr badge = _TranslationsStreamChatBadgeAr._(_root);
-	@override late final _TranslationsStreamChatRaidAr raid = _TranslationsStreamChatRaidAr._(_root);
+	@override late final _Translations$stream$chat$write$ar write = _Translations$stream$chat$write$ar._(_root);
+	@override late final _Translations$stream$chat$badge$ar badge = _Translations$stream$chat$badge$ar._(_root);
+	@override late final _Translations$stream$chat$raid$ar raid = _Translations$stream$chat$raid$ar._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorAr extends TranslationsZapErrorEn {
-	_TranslationsZapErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$zap$error$ar extends Translations$zap$error$en {
+	_Translations$zap$error$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorAr extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileAr extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$ar extends Translations$settings$profile$en {
+	_Translations$settings$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileAr extends TranslationsSettingsProfileEn {
 	@override String get about => 'نبذة عن';
 	@override String get nip05 => 'عنوان نوستر';
 	@override String get lud16 => 'عنوان البرق';
-	@override late final _TranslationsSettingsProfileErrorAr error = _TranslationsSettingsProfileErrorAr._(_root);
+	@override late final _Translations$settings$profile$error$ar error = _Translations$settings$profile$error$ar._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletAr extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$ar extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletAr extends TranslationsSettingsWalletEn {
 	@override String get paste => 'لصق عنوان URL';
 	@override String get balance => 'الرصيد';
 	@override String get name => 'المحفظة';
-	@override late final _TranslationsSettingsWalletErrorAr error = _TranslationsSettingsWalletErrorAr._(_root);
+	@override late final _Translations$settings$wallet$error$ar error = _Translations$settings$wallet$error$ar._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorAr extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$login$error$ar extends Translations$login$error$en {
+	_Translations$login$error$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorAr extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorAr extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$live$error$ar extends Translations$live$error$en {
+	_Translations$live$error$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorAr extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteAr extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$ar extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteAr extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeAr extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$ar extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeAr extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidAr extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$ar extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidAr extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorAr extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$ar extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorAr extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorAr extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$ar extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorAr extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'لم يتم العثور على حدث مصادقة المحفظة';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ar>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'تحميل الصورة الرمزية';
-			case 'most_zapped_streamers': return 'معظم اللافتات التي يتم بثها';
-			case 'no_user_found': return 'لم يتم العثور على مستخدم';
-			case 'anon': return 'هوية مخفية';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ar').format(n)} دولار ساتس';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
-				one: '1 مشاهد',
-				other: '{n:decimalPattern} المشاهدين',
-			);
-			case 'stream.status.live': return 'بث مباشر';
-			case 'stream.status.ended': return 'انتهى';
-			case 'stream.status.planned': return 'مخطط';
-			case 'stream.started': return ({required Object timestamp}) => 'بدأ ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} بدأ البث المباشر!';
-			case 'stream.chat.disabled': return 'تم تعطيل الدردشة';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'تنتهي المهلة: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' انتهى الوقت '),
-				user,
-				const TextSpan(text: ' لـ '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'انتهى البث';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' انطلق '),
-				amount,
-				const TextSpan(text: ' ساتس'),
-			]);
-			case 'stream.chat.write.label': return 'اكتب رسالة';
-			case 'stream.chat.write.no_signer': return 'لا يمكن كتابة الرسائل باستخدام تسجيل الدخول إلى npub';
-			case 'stream.chat.write.login': return 'الرجاء تسجيل الدخول لإرسال الرسائل';
-			case 'stream.chat.badge.awarded_to': return 'مُنحت الجائزة لـ';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'التصفح ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID من ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'الإغارة في ${time}';
-			case 'goal.title': return ({required Object amount}) => 'الهدف: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'المتبقي: ${amount}';
-			case 'goal.complete': return 'مكتمل';
-			case 'button.login': return 'تسجيل الدخول';
-			case 'button.logout': return 'تسجيل الخروج';
-			case 'button.edit_profile': return 'تعديل الملف الشخصي';
-			case 'button.follow': return 'متابعة';
-			case 'button.unfollow': return 'الغاء المتابعة';
-			case 'button.mute': return 'كتم';
-			case 'button.unmute': return 'رفع الكتم';
-			case 'button.share': return 'مشاركة';
-			case 'button.save': return 'حفظ';
-			case 'button.connect': return 'الاتصال';
-			case 'button.settings': return 'الإعدادات';
-			case 'embed.article_by': return ({required Object name}) => 'مقال بقلم ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'ملاحظة من ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'بث مباشر من ${name}';
-			case 'stream_list.following': return 'المتابَعون';
-			case 'stream_list.live': return 'بث مباشر';
-			case 'stream_list.planned': return 'مخطط';
-			case 'stream_list.ended': return 'انتهى';
-			case 'zap.title': return ({required Object name}) => 'زاب ${name}';
-			case 'zap.custom_amount': return 'المبلغ المخصص';
-			case 'zap.confirm': return 'تأكيد';
-			case 'zap.comment': return 'تعليق';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'أومض ${amount} ساتوشي';
-			case 'zap.button_zap': return 'زاب';
-			case 'zap.button_open_wallet': return 'فتح في المحفظة';
-			case 'zap.button_connect_wallet': return 'توصيل المحفظة';
-			case 'zap.copy': return 'نسخ إلى الحافظة';
-			case 'zap.error.invalid_custom_amount': return 'مبلغ مخصص غير صالح';
-			case 'zap.error.no_wallet': return 'لا توجد محفظة برق مثبتة';
-			case 'zap.error.no_lud16': return 'لم يتم العثور على عنوان البرق';
-			case 'profile.past_streams': return 'التدفقات السابقة';
-			case 'settings.button_profile': return 'تعديل الملف الشخصي';
-			case 'settings.button_wallet': return 'إعدادات المحفظة';
-			case 'settings.profile.display_name': return 'اسم العرض';
-			case 'settings.profile.about': return 'نبذة عن';
-			case 'settings.profile.nip05': return 'عنوان نوستر';
-			case 'settings.profile.lud16': return 'عنوان البرق';
-			case 'settings.profile.error.logged_out': return 'لا يمكن تحرير ملف التعريف عند تسجيل الخروج';
-			case 'settings.wallet.connect_wallet': return 'توصيل المحفظة (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'محفظة قطع الاتصال';
-			case 'settings.wallet.connect_1tap': return '1-التوصيل بنقرة 1';
-			case 'settings.wallet.paste': return 'لصق عنوان URL';
-			case 'settings.wallet.balance': return 'الرصيد';
-			case 'settings.wallet.name': return 'المحفظة';
-			case 'settings.wallet.error.logged_out': return 'لا يمكن الاتصال بالمحفظة عند تسجيل الخروج';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'لم يتم العثور على حدث مصادقة المحفظة';
-			case 'login.username': return 'اسم المستخدم';
-			case 'login.amber': return 'تسجيل الدخول مع آمبر';
-			case 'login.key': return 'تسجيل الدخول بالمفتاح';
-			case 'login.create': return 'إنشاء حساب';
-			case 'login.error.invalid_key': return 'مفتاح غير صالح';
-			case 'live.start': return 'ابدأ البث المباشر';
-			case 'live.configure_stream': return 'تكوين الدفق';
-			case 'live.endpoint': return 'نقطة النهاية';
-			case 'live.accept_tos': return 'قبول شروط الخدمة';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'العنوان';
-			case 'live.summary': return 'الملخص';
-			case 'live.image': return 'صورة الغلاف';
-			case 'live.tags': return 'الوسوم';
-			case 'live.nsfw': return 'محتوى غير لائق جنسيًا';
-			case 'live.nsfw_description': return 'تحقق هنا إذا كان هذا البث يحتوي على محتوى إباحي أو عري.';
-			case 'live.error.failed': return 'فشل البث';
-			case 'live.error.connection_error': return 'خطأ في الاتصال';
-			case 'live.error.start_failed': return 'فشل بدء البث فشل، يرجى التحقق من رصيدك';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'تحميل الصورة الرمزية',
+			'most_zapped_streamers' => 'معظم اللافتات التي يتم بثها',
+			'no_user_found' => 'لم يتم العثور على مستخدم',
+			'anon' => 'هوية مخفية',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('ar').format(n)} دولار ساتس',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n, one: '1 مشاهد', other: '{n:decimalPattern} المشاهدين', ), 
+			'stream.status.live' => 'بث مباشر',
+			'stream.status.ended' => 'انتهى',
+			'stream.status.planned' => 'مخطط',
+			'stream.started' => ({required Object timestamp}) => 'بدأ ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} بدأ البث المباشر!',
+			'stream.chat.disabled' => 'تم تعطيل الدردشة',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'تنتهي المهلة: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' انتهى الوقت '), user, const TextSpan(text: ' لـ '), time, ]), 
+			'stream.chat.ended' => 'انتهى البث',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' انطلق '), amount, const TextSpan(text: ' ساتس'), ]), 
+			'stream.chat.write.label' => 'اكتب رسالة',
+			'stream.chat.write.no_signer' => 'لا يمكن كتابة الرسائل باستخدام تسجيل الدخول إلى npub',
+			'stream.chat.write.login' => 'الرجاء تسجيل الدخول لإرسال الرسائل',
+			'stream.chat.badge.awarded_to' => 'مُنحت الجائزة لـ',
+			'stream.chat.raid.to' => ({required Object name}) => 'التصفح ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID من ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'الإغارة في ${time}',
+			'goal.title' => ({required Object amount}) => 'الهدف: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'المتبقي: ${amount}',
+			'goal.complete' => 'مكتمل',
+			'button.login' => 'تسجيل الدخول',
+			'button.logout' => 'تسجيل الخروج',
+			'button.edit_profile' => 'تعديل الملف الشخصي',
+			'button.follow' => 'متابعة',
+			'button.unfollow' => 'الغاء المتابعة',
+			'button.mute' => 'كتم',
+			'button.unmute' => 'رفع الكتم',
+			'button.share' => 'مشاركة',
+			'button.save' => 'حفظ',
+			'button.connect' => 'الاتصال',
+			'button.settings' => 'الإعدادات',
+			'embed.article_by' => ({required Object name}) => 'مقال بقلم ${name}',
+			'embed.note_by' => ({required Object name}) => 'ملاحظة من ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'بث مباشر من ${name}',
+			'stream_list.following' => 'المتابَعون',
+			'stream_list.live' => 'بث مباشر',
+			'stream_list.planned' => 'مخطط',
+			'stream_list.ended' => 'انتهى',
+			'zap.title' => ({required Object name}) => 'زاب ${name}',
+			'zap.custom_amount' => 'المبلغ المخصص',
+			'zap.confirm' => 'تأكيد',
+			'zap.comment' => 'تعليق',
+			'zap.button_zap_ready' => ({required Object amount}) => 'أومض ${amount} ساتوشي',
+			'zap.button_zap' => 'زاب',
+			'zap.button_open_wallet' => 'فتح في المحفظة',
+			'zap.button_connect_wallet' => 'توصيل المحفظة',
+			'zap.copy' => 'نسخ إلى الحافظة',
+			'zap.error.invalid_custom_amount' => 'مبلغ مخصص غير صالح',
+			'zap.error.no_wallet' => 'لا توجد محفظة برق مثبتة',
+			'zap.error.no_lud16' => 'لم يتم العثور على عنوان البرق',
+			'profile.past_streams' => 'التدفقات السابقة',
+			'settings.button_profile' => 'تعديل الملف الشخصي',
+			'settings.button_wallet' => 'إعدادات المحفظة',
+			'settings.profile.display_name' => 'اسم العرض',
+			'settings.profile.about' => 'نبذة عن',
+			'settings.profile.nip05' => 'عنوان نوستر',
+			'settings.profile.lud16' => 'عنوان البرق',
+			'settings.profile.error.logged_out' => 'لا يمكن تحرير ملف التعريف عند تسجيل الخروج',
+			'settings.wallet.connect_wallet' => 'توصيل المحفظة (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'محفظة قطع الاتصال',
+			'settings.wallet.connect_1tap' => '1-التوصيل بنقرة 1',
+			'settings.wallet.paste' => 'لصق عنوان URL',
+			'settings.wallet.balance' => 'الرصيد',
+			'settings.wallet.name' => 'المحفظة',
+			'settings.wallet.error.logged_out' => 'لا يمكن الاتصال بالمحفظة عند تسجيل الخروج',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'لم يتم العثور على حدث مصادقة المحفظة',
+			'login.username' => 'اسم المستخدم',
+			'login.amber' => 'تسجيل الدخول مع آمبر',
+			'login.key' => 'تسجيل الدخول بالمفتاح',
+			'login.create' => 'إنشاء حساب',
+			'login.error.invalid_key' => 'مفتاح غير صالح',
+			'live.start' => 'ابدأ البث المباشر',
+			'live.configure_stream' => 'تكوين الدفق',
+			'live.endpoint' => 'نقطة النهاية',
+			'live.accept_tos' => 'قبول شروط الخدمة',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'العنوان',
+			'live.summary' => 'الملخص',
+			'live.image' => 'صورة الغلاف',
+			'live.tags' => 'الوسوم',
+			'live.nsfw' => 'محتوى غير لائق جنسيًا',
+			'live.nsfw_description' => 'تحقق هنا إذا كان هذا البث يحتوي على محتوى إباحي أو عري.',
+			'live.error.failed' => 'فشل البث',
+			'live.error.connection_error' => 'خطأ في الاتصال',
+			'live.error.start_failed' => 'فشل بدء البث فشل، يرجى التحقق من رصيدك',
+			_ => null,
+		};
 	}
 }
-

@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsFi extends Translations {
+class TranslationsFi extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsFi extends Translations {
 		other: '${NumberFormat.decimalPattern('fi').format(n)} katsojat',
 	);
 
-	@override late final _TranslationsStreamFi stream = _TranslationsStreamFi._(_root);
-	@override late final _TranslationsGoalFi goal = _TranslationsGoalFi._(_root);
-	@override late final _TranslationsButtonFi button = _TranslationsButtonFi._(_root);
-	@override late final _TranslationsEmbedFi embed = _TranslationsEmbedFi._(_root);
+	@override late final _Translations$stream$fi stream = _Translations$stream$fi._(_root);
+	@override late final _Translations$goal$fi goal = _Translations$goal$fi._(_root);
+	@override late final _Translations$button$fi button = _Translations$button$fi._(_root);
+	@override late final _Translations$embed$fi embed = _Translations$embed$fi._(_root);
 
 	/// Stream-luetteloiden otsikot stream-tyypeittäin live/päättynyt/suunniteltu jne.
-	@override late final _TranslationsStreamListFi stream_list = _TranslationsStreamListFi._(_root);
+	@override late final _Translations$stream_list$fi stream_list = _Translations$stream_list$fi._(_root);
 
-	@override late final _TranslationsZapFi zap = _TranslationsZapFi._(_root);
-	@override late final _TranslationsProfileFi profile = _TranslationsProfileFi._(_root);
-	@override late final _TranslationsSettingsFi settings = _TranslationsSettingsFi._(_root);
-	@override late final _TranslationsLoginFi login = _TranslationsLoginFi._(_root);
-	@override late final _TranslationsLiveFi live = _TranslationsLiveFi._(_root);
+	@override late final _Translations$zap$fi zap = _Translations$zap$fi._(_root);
+	@override late final _Translations$profile$fi profile = _Translations$profile$fi._(_root);
+	@override late final _Translations$settings$fi settings = _Translations$settings$fi._(_root);
+	@override late final _Translations$login$fi login = _Translations$login$fi._(_root);
+	@override late final _Translations$live$fi live = _Translations$live$fi._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamFi extends TranslationsStreamEn {
-	_TranslationsStreamFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$stream$fi extends Translations$stream$en {
+	_Translations$stream$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusFi status = _TranslationsStreamStatusFi._(_root);
+	@override late final _Translations$stream$status$fi status = _Translations$stream$status$fi._(_root);
 	@override String started({required Object timestamp}) => 'Aloitettu ${timestamp}';
 	@override String notification({required Object name}) => '${name} meni suoraksi!';
-	@override late final _TranslationsStreamChatFi chat = _TranslationsStreamChatFi._(_root);
+	@override late final _Translations$stream$chat$fi chat = _Translations$stream$chat$fi._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalFi extends TranslationsGoalEn {
-	_TranslationsGoalFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$goal$fi extends Translations$goal$en {
+	_Translations$goal$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalFi extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonFi extends TranslationsButtonEn {
-	_TranslationsButtonFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$button$fi extends Translations$button$en {
+	_Translations$button$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonFi extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedFi extends TranslationsEmbedEn {
-	_TranslationsEmbedFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$embed$fi extends Translations$embed$en {
+	_Translations$embed$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedFi extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListFi extends TranslationsStreamListEn {
-	_TranslationsStreamListFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$stream_list$fi extends Translations$stream_list$en {
+	_Translations$stream_list$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListFi extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapFi extends TranslationsZapEn {
-	_TranslationsZapFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$zap$fi extends Translations$zap$en {
+	_Translations$zap$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapFi extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Avaa lompakossa';
 	@override String get button_connect_wallet => 'Yhdistä lompakko';
 	@override String get copy => 'Kopioitu leikepöydälle';
-	@override late final _TranslationsZapErrorFi error = _TranslationsZapErrorFi._(_root);
+	@override late final _Translations$zap$error$fi error = _Translations$zap$error$fi._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileFi extends TranslationsProfileEn {
-	_TranslationsProfileFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$profile$fi extends Translations$profile$en {
+	_Translations$profile$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileFi extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsFi extends TranslationsSettingsEn {
-	_TranslationsSettingsFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$settings$fi extends Translations$settings$en {
+	_Translations$settings$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Muokkaa profiilia';
 	@override String get button_wallet => 'Lompakon asetukset';
-	@override late final _TranslationsSettingsProfileFi profile = _TranslationsSettingsProfileFi._(_root);
-	@override late final _TranslationsSettingsWalletFi wallet = _TranslationsSettingsWalletFi._(_root);
+	@override late final _Translations$settings$profile$fi profile = _Translations$settings$profile$fi._(_root);
+	@override late final _Translations$settings$wallet$fi wallet = _Translations$settings$wallet$fi._(_root);
 }
 
 // Path: login
-class _TranslationsLoginFi extends TranslationsLoginEn {
-	_TranslationsLoginFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$login$fi extends Translations$login$en {
+	_Translations$login$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginFi extends TranslationsLoginEn {
 	@override String get amber => 'Kirjaudu sisään Amber kanssa';
 	@override String get key => 'Kirjaudu sisään avaimella';
 	@override String get create => 'Luo tili';
-	@override late final _TranslationsLoginErrorFi error = _TranslationsLoginErrorFi._(_root);
+	@override late final _Translations$login$error$fi error = _Translations$login$error$fi._(_root);
 }
 
 // Path: live
-class _TranslationsLiveFi extends TranslationsLiveEn {
-	_TranslationsLiveFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$live$fi extends Translations$live$en {
+	_Translations$live$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveFi extends TranslationsLiveEn {
 	@override String get tags => 'Tunnisteet';
 	@override String get nsfw => 'NSFW-sisältö';
 	@override String get nsfw_description => 'Tarkista täältä, jos tämä stream sisältää alastomuutta tai pornografista sisältöä.';
-	@override late final _TranslationsLiveErrorFi error = _TranslationsLiveErrorFi._(_root);
+	@override late final _Translations$live$error$fi error = _Translations$live$error$fi._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusFi extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$stream$status$fi extends Translations$stream$status$en {
+	_Translations$stream$status$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusFi extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatFi extends TranslationsStreamChatEn {
-	_TranslationsStreamChatFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$fi extends Translations$stream$chat$en {
+	_Translations$stream$chat$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatFi extends TranslationsStreamChatEn {
 		const TextSpan(text: ' satsia'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteFi write = _TranslationsStreamChatWriteFi._(_root);
-	@override late final _TranslationsStreamChatBadgeFi badge = _TranslationsStreamChatBadgeFi._(_root);
-	@override late final _TranslationsStreamChatRaidFi raid = _TranslationsStreamChatRaidFi._(_root);
+	@override late final _Translations$stream$chat$write$fi write = _Translations$stream$chat$write$fi._(_root);
+	@override late final _Translations$stream$chat$badge$fi badge = _Translations$stream$chat$badge$fi._(_root);
+	@override late final _Translations$stream$chat$raid$fi raid = _Translations$stream$chat$raid$fi._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorFi extends TranslationsZapErrorEn {
-	_TranslationsZapErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$zap$error$fi extends Translations$zap$error$en {
+	_Translations$zap$error$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorFi extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileFi extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$fi extends Translations$settings$profile$en {
+	_Translations$settings$profile$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileFi extends TranslationsSettingsProfileEn {
 	@override String get about => 'Tietoja';
 	@override String get nip05 => 'Nostr Osoite';
 	@override String get lud16 => 'Salama osoite';
-	@override late final _TranslationsSettingsProfileErrorFi error = _TranslationsSettingsProfileErrorFi._(_root);
+	@override late final _Translations$settings$profile$error$fi error = _Translations$settings$profile$error$fi._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletFi extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$fi extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletFi extends TranslationsSettingsWalletEn {
 	@override String get paste => 'Liitä URL-osoite';
 	@override String get balance => 'Balance';
 	@override String get name => 'Lompakko';
-	@override late final _TranslationsSettingsWalletErrorFi error = _TranslationsSettingsWalletErrorFi._(_root);
+	@override late final _Translations$settings$wallet$error$fi error = _Translations$settings$wallet$error$fi._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorFi extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$login$error$fi extends Translations$login$error$en {
+	_Translations$login$error$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorFi extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorFi extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$live$error$fi extends Translations$live$error$en {
+	_Translations$live$error$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorFi extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteFi extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$fi extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteFi extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeFi extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$fi extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeFi extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidFi extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$fi extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidFi extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorFi extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$fi extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorFi extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorFi extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorFi._(TranslationsFi root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$fi extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$fi._(TranslationsFi root) : this._root = root, super.internal(root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorFi extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Ei lompakko-auth-tapahtumaa löydetty';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <fi>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsFi {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Lataa avatar';
-			case 'most_zapped_streamers': return 'Eniten Zapped Streamers';
-			case 'no_user_found': return 'Käyttäjää ei löytynyt';
-			case 'anon': return 'Anon';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('fi').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
-				one: '1 katsoja',
-				other: '${NumberFormat.decimalPattern('fi').format(n)} katsojat',
-			);
-			case 'stream.status.live': return 'LIVE';
-			case 'stream.status.ended': return 'ENDED';
-			case 'stream.status.planned': return 'SUUNNITELTU';
-			case 'stream.started': return ({required Object timestamp}) => 'Aloitettu ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} meni suoraksi!';
-			case 'stream.chat.disabled': return 'CHAT POISTETTU KÄYTÖSTÄ';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Aikakatkaisu päättyy: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' ajastettu '),
-				user,
-				const TextSpan(text: ' for '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'STREAM PÄÄTTYNYT';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' zappasi '),
-				amount,
-				const TextSpan(text: ' satsia'),
-			]);
-			case 'stream.chat.write.label': return 'Kirjoita viesti';
-			case 'stream.chat.write.no_signer': return 'Ei voi kirjoittaa viestejä npub-kirjautumisella';
-			case 'stream.chat.write.login': return 'Kirjaudu sisään lähettääksesi viestejä';
-			case 'stream.chat.badge.awarded_to': return 'Myönnetty:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Ryöstöretket osoitteessa ${time}';
-			case 'goal.title': return ({required Object amount}) => 'Tavoite: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Jäljellä: ${amount}';
-			case 'goal.complete': return 'TÄYDELLINEN';
-			case 'button.login': return 'Kirjaudu sisään';
-			case 'button.logout': return 'Kirjaudu ulos';
-			case 'button.edit_profile': return 'Muokkaa profiilia';
-			case 'button.follow': return 'Seuraa';
-			case 'button.unfollow': return 'Älä seuraa';
-			case 'button.mute': return 'Mykistä';
-			case 'button.unmute': return 'Poista mykistys';
-			case 'button.share': return 'Jaa';
-			case 'button.save': return 'Tallenna';
-			case 'button.connect': return 'Yhdistä';
-			case 'button.settings': return 'Asetukset';
-			case 'embed.article_by': return ({required Object name}) => 'Artikkeli ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Viesti lähettäjältä ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Suora lähetys osoitteessa ${name}';
-			case 'stream_list.following': return 'Seuraa';
-			case 'stream_list.live': return 'Live';
-			case 'stream_list.planned': return 'Suunniteltu';
-			case 'stream_list.ended': return 'Päättynyt';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Mukautettu määrä';
-			case 'zap.confirm': return 'Vahvista';
-			case 'zap.comment': return 'Kommentoi';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} satsia';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Avaa lompakossa';
-			case 'zap.button_connect_wallet': return 'Yhdistä lompakko';
-			case 'zap.copy': return 'Kopioitu leikepöydälle';
-			case 'zap.error.invalid_custom_amount': return 'Virheellinen mukautettu määrä';
-			case 'zap.error.no_wallet': return 'Ei asennettua salamalompakkoa';
-			case 'zap.error.no_lud16': return 'Salamaosoitetta ei löytynyt';
-			case 'profile.past_streams': return 'Aikaisemmat lähetykset';
-			case 'settings.button_profile': return 'Muokkaa profiilia';
-			case 'settings.button_wallet': return 'Lompakon asetukset';
-			case 'settings.profile.display_name': return 'Näytön nimi';
-			case 'settings.profile.about': return 'Tietoja';
-			case 'settings.profile.nip05': return 'Nostr Osoite';
-			case 'settings.profile.lud16': return 'Salama osoite';
-			case 'settings.profile.error.logged_out': return 'Ei voi muokata profiilia, kun on kirjautunut ulos';
-			case 'settings.wallet.connect_wallet': return 'Connect-lompakko (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Irrota lompakko';
-			case 'settings.wallet.connect_1tap': return '1-Tap-liitäntä';
-			case 'settings.wallet.paste': return 'Liitä URL-osoite';
-			case 'settings.wallet.balance': return 'Balance';
-			case 'settings.wallet.name': return 'Lompakko';
-			case 'settings.wallet.error.logged_out': return 'Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Ei lompakko-auth-tapahtumaa löydetty';
-			case 'login.username': return 'Käyttäjätunnus';
-			case 'login.amber': return 'Kirjaudu sisään Amber kanssa';
-			case 'login.key': return 'Kirjaudu sisään avaimella';
-			case 'login.create': return 'Luo tili';
-			case 'login.error.invalid_key': return 'Virheellinen avain';
-			case 'live.start': return 'GO LIVE';
-			case 'live.configure_stream': return 'Määritä Stream';
-			case 'live.endpoint': return 'Loppupiste';
-			case 'live.accept_tos': return 'Hyväksy TOS';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'Otsikko';
-			case 'live.summary': return 'Yhteenveto';
-			case 'live.image': return 'Kansikuva';
-			case 'live.tags': return 'Tunnisteet';
-			case 'live.nsfw': return 'NSFW-sisältö';
-			case 'live.nsfw_description': return 'Tarkista täältä, jos tämä stream sisältää alastomuutta tai pornografista sisältöä.';
-			case 'live.error.failed': return 'Stream epäonnistui';
-			case 'live.error.connection_error': return 'Yhteysvirhe';
-			case 'live.error.start_failed': return 'Virran käynnistys epäonnistui, tarkista saldosi';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Lataa avatar',
+			'most_zapped_streamers' => 'Eniten Zapped Streamers',
+			'no_user_found' => 'Käyttäjää ei löytynyt',
+			'anon' => 'Anon',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('fi').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n, one: '1 katsoja', other: '${NumberFormat.decimalPattern('fi').format(n)} katsojat', ), 
+			'stream.status.live' => 'LIVE',
+			'stream.status.ended' => 'ENDED',
+			'stream.status.planned' => 'SUUNNITELTU',
+			'stream.started' => ({required Object timestamp}) => 'Aloitettu ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} meni suoraksi!',
+			'stream.chat.disabled' => 'CHAT POISTETTU KÄYTÖSTÄ',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Aikakatkaisu päättyy: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' ajastettu '), user, const TextSpan(text: ' for '), time, ]), 
+			'stream.chat.ended' => 'STREAM PÄÄTTYNYT',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' zappasi '), amount, const TextSpan(text: ' satsia'), ]), 
+			'stream.chat.write.label' => 'Kirjoita viesti',
+			'stream.chat.write.no_signer' => 'Ei voi kirjoittaa viestejä npub-kirjautumisella',
+			'stream.chat.write.login' => 'Kirjaudu sisään lähettääksesi viestejä',
+			'stream.chat.badge.awarded_to' => 'Myönnetty:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID FROM ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Ryöstöretket osoitteessa ${time}',
+			'goal.title' => ({required Object amount}) => 'Tavoite: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Jäljellä: ${amount}',
+			'goal.complete' => 'TÄYDELLINEN',
+			'button.login' => 'Kirjaudu sisään',
+			'button.logout' => 'Kirjaudu ulos',
+			'button.edit_profile' => 'Muokkaa profiilia',
+			'button.follow' => 'Seuraa',
+			'button.unfollow' => 'Älä seuraa',
+			'button.mute' => 'Mykistä',
+			'button.unmute' => 'Poista mykistys',
+			'button.share' => 'Jaa',
+			'button.save' => 'Tallenna',
+			'button.connect' => 'Yhdistä',
+			'button.settings' => 'Asetukset',
+			'embed.article_by' => ({required Object name}) => 'Artikkeli ${name}',
+			'embed.note_by' => ({required Object name}) => 'Viesti lähettäjältä ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Suora lähetys osoitteessa ${name}',
+			'stream_list.following' => 'Seuraa',
+			'stream_list.live' => 'Live',
+			'stream_list.planned' => 'Suunniteltu',
+			'stream_list.ended' => 'Päättynyt',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Mukautettu määrä',
+			'zap.confirm' => 'Vahvista',
+			'zap.comment' => 'Kommentoi',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} satsia',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Avaa lompakossa',
+			'zap.button_connect_wallet' => 'Yhdistä lompakko',
+			'zap.copy' => 'Kopioitu leikepöydälle',
+			'zap.error.invalid_custom_amount' => 'Virheellinen mukautettu määrä',
+			'zap.error.no_wallet' => 'Ei asennettua salamalompakkoa',
+			'zap.error.no_lud16' => 'Salamaosoitetta ei löytynyt',
+			'profile.past_streams' => 'Aikaisemmat lähetykset',
+			'settings.button_profile' => 'Muokkaa profiilia',
+			'settings.button_wallet' => 'Lompakon asetukset',
+			'settings.profile.display_name' => 'Näytön nimi',
+			'settings.profile.about' => 'Tietoja',
+			'settings.profile.nip05' => 'Nostr Osoite',
+			'settings.profile.lud16' => 'Salama osoite',
+			'settings.profile.error.logged_out' => 'Ei voi muokata profiilia, kun on kirjautunut ulos',
+			'settings.wallet.connect_wallet' => 'Connect-lompakko (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Irrota lompakko',
+			'settings.wallet.connect_1tap' => '1-Tap-liitäntä',
+			'settings.wallet.paste' => 'Liitä URL-osoite',
+			'settings.wallet.balance' => 'Balance',
+			'settings.wallet.name' => 'Lompakko',
+			'settings.wallet.error.logged_out' => 'Ei voi muodostaa yhteyttä lompakkoon, kun on kirjautunut ulos',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Ei lompakko-auth-tapahtumaa löydetty',
+			'login.username' => 'Käyttäjätunnus',
+			'login.amber' => 'Kirjaudu sisään Amber kanssa',
+			'login.key' => 'Kirjaudu sisään avaimella',
+			'login.create' => 'Luo tili',
+			'login.error.invalid_key' => 'Virheellinen avain',
+			'live.start' => 'GO LIVE',
+			'live.configure_stream' => 'Määritä Stream',
+			'live.endpoint' => 'Loppupiste',
+			'live.accept_tos' => 'Hyväksy TOS',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'Otsikko',
+			'live.summary' => 'Yhteenveto',
+			'live.image' => 'Kansikuva',
+			'live.tags' => 'Tunnisteet',
+			'live.nsfw' => 'NSFW-sisältö',
+			'live.nsfw_description' => 'Tarkista täältä, jos tämä stream sisältää alastomuutta tai pornografista sisältöä.',
+			'live.error.failed' => 'Stream epäonnistui',
+			'live.error.connection_error' => 'Yhteysvirhe',
+			'live.error.start_failed' => 'Virran käynnistys epäonnistui, tarkista saldosi',
+			_ => null,
+		};
 	}
 }
-

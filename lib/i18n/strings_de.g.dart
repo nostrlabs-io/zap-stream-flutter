@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsDe extends Translations {
+class TranslationsDe extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsDe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsDe extends Translations {
 		other: '${NumberFormat.decimalPattern('de').format(n)} Zuschauer',
 	);
 
-	@override late final _TranslationsStreamDe stream = _TranslationsStreamDe._(_root);
-	@override late final _TranslationsGoalDe goal = _TranslationsGoalDe._(_root);
-	@override late final _TranslationsButtonDe button = _TranslationsButtonDe._(_root);
-	@override late final _TranslationsEmbedDe embed = _TranslationsEmbedDe._(_root);
+	@override late final _Translations$stream$de stream = _Translations$stream$de._(_root);
+	@override late final _Translations$goal$de goal = _Translations$goal$de._(_root);
+	@override late final _Translations$button$de button = _Translations$button$de._(_root);
+	@override late final _Translations$embed$de embed = _Translations$embed$de._(_root);
 
 	/// Überschriften auf Stream-Listen nach Stream-Typ live/beendet/geplant usw.
-	@override late final _TranslationsStreamListDe stream_list = _TranslationsStreamListDe._(_root);
+	@override late final _Translations$stream_list$de stream_list = _Translations$stream_list$de._(_root);
 
-	@override late final _TranslationsZapDe zap = _TranslationsZapDe._(_root);
-	@override late final _TranslationsProfileDe profile = _TranslationsProfileDe._(_root);
-	@override late final _TranslationsSettingsDe settings = _TranslationsSettingsDe._(_root);
-	@override late final _TranslationsLoginDe login = _TranslationsLoginDe._(_root);
-	@override late final _TranslationsLiveDe live = _TranslationsLiveDe._(_root);
+	@override late final _Translations$zap$de zap = _Translations$zap$de._(_root);
+	@override late final _Translations$profile$de profile = _Translations$profile$de._(_root);
+	@override late final _Translations$settings$de settings = _Translations$settings$de._(_root);
+	@override late final _Translations$login$de login = _Translations$login$de._(_root);
+	@override late final _Translations$live$de live = _Translations$live$de._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamDe extends TranslationsStreamEn {
-	_TranslationsStreamDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$stream$de extends Translations$stream$en {
+	_Translations$stream$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusDe status = _TranslationsStreamStatusDe._(_root);
+	@override late final _Translations$stream$status$de status = _Translations$stream$status$de._(_root);
 	@override String started({required Object timestamp}) => 'Gestartet ${timestamp}';
 	@override String notification({required Object name}) => '${name} ging live!';
-	@override late final _TranslationsStreamChatDe chat = _TranslationsStreamChatDe._(_root);
+	@override late final _Translations$stream$chat$de chat = _Translations$stream$chat$de._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalDe extends TranslationsGoalEn {
-	_TranslationsGoalDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$goal$de extends Translations$goal$en {
+	_Translations$goal$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalDe extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonDe extends TranslationsButtonEn {
-	_TranslationsButtonDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$button$de extends Translations$button$en {
+	_Translations$button$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonDe extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedDe extends TranslationsEmbedEn {
-	_TranslationsEmbedDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$embed$de extends Translations$embed$en {
+	_Translations$embed$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedDe extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListDe extends TranslationsStreamListEn {
-	_TranslationsStreamListDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$stream_list$de extends Translations$stream_list$en {
+	_Translations$stream_list$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListDe extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapDe extends TranslationsZapEn {
-	_TranslationsZapDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$zap$de extends Translations$zap$en {
+	_Translations$zap$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapDe extends TranslationsZapEn {
 	@override String get button_open_wallet => 'In Brieftasche öffnen';
 	@override String get button_connect_wallet => 'Brieftasche verbinden';
 	@override String get copy => 'In die Zwischenablage kopiert';
-	@override late final _TranslationsZapErrorDe error = _TranslationsZapErrorDe._(_root);
+	@override late final _Translations$zap$error$de error = _Translations$zap$error$de._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileDe extends TranslationsProfileEn {
-	_TranslationsProfileDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$profile$de extends Translations$profile$en {
+	_Translations$profile$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileDe extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsDe extends TranslationsSettingsEn {
-	_TranslationsSettingsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$settings$de extends Translations$settings$en {
+	_Translations$settings$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Profil bearbeiten';
 	@override String get button_wallet => 'Wallet-Einstellungen';
-	@override late final _TranslationsSettingsProfileDe profile = _TranslationsSettingsProfileDe._(_root);
-	@override late final _TranslationsSettingsWalletDe wallet = _TranslationsSettingsWalletDe._(_root);
+	@override late final _Translations$settings$profile$de profile = _Translations$settings$profile$de._(_root);
+	@override late final _Translations$settings$wallet$de wallet = _Translations$settings$wallet$de._(_root);
 }
 
 // Path: login
-class _TranslationsLoginDe extends TranslationsLoginEn {
-	_TranslationsLoginDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$login$de extends Translations$login$en {
+	_Translations$login$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginDe extends TranslationsLoginEn {
 	@override String get amber => 'Anmeldung mit Amber';
 	@override String get key => 'Anmeldung mit Schlüssel';
 	@override String get create => 'Konto erstellen';
-	@override late final _TranslationsLoginErrorDe error = _TranslationsLoginErrorDe._(_root);
+	@override late final _Translations$login$error$de error = _Translations$login$error$de._(_root);
 }
 
 // Path: live
-class _TranslationsLiveDe extends TranslationsLiveEn {
-	_TranslationsLiveDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$live$de extends Translations$live$en {
+	_Translations$live$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveDe extends TranslationsLiveEn {
 	@override String get tags => 'Tags';
 	@override String get nsfw => 'NSFW-Inhalt';
 	@override String get nsfw_description => 'Prüfen Sie hier, ob dieser Stream Nacktheit oder pornografische Inhalte enthält.';
-	@override late final _TranslationsLiveErrorDe error = _TranslationsLiveErrorDe._(_root);
+	@override late final _Translations$live$error$de error = _Translations$live$error$de._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusDe extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$stream$status$de extends Translations$stream$status$en {
+	_Translations$stream$status$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusDe extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatDe extends TranslationsStreamChatEn {
-	_TranslationsStreamChatDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$de extends Translations$stream$chat$en {
+	_Translations$stream$chat$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatDe extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats gezappt'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteDe write = _TranslationsStreamChatWriteDe._(_root);
-	@override late final _TranslationsStreamChatBadgeDe badge = _TranslationsStreamChatBadgeDe._(_root);
-	@override late final _TranslationsStreamChatRaidDe raid = _TranslationsStreamChatRaidDe._(_root);
+	@override late final _Translations$stream$chat$write$de write = _Translations$stream$chat$write$de._(_root);
+	@override late final _Translations$stream$chat$badge$de badge = _Translations$stream$chat$badge$de._(_root);
+	@override late final _Translations$stream$chat$raid$de raid = _Translations$stream$chat$raid$de._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorDe extends TranslationsZapErrorEn {
-	_TranslationsZapErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$zap$error$de extends Translations$zap$error$en {
+	_Translations$zap$error$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorDe extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileDe extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$de extends Translations$settings$profile$en {
+	_Translations$settings$profile$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileDe extends TranslationsSettingsProfileEn {
 	@override String get about => 'Über';
 	@override String get nip05 => 'Nostr-Adresse';
 	@override String get lud16 => 'Blitz-Adresse';
-	@override late final _TranslationsSettingsProfileErrorDe error = _TranslationsSettingsProfileErrorDe._(_root);
+	@override late final _Translations$settings$profile$error$de error = _Translations$settings$profile$error$de._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletDe extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$de extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletDe extends TranslationsSettingsWalletEn {
 	@override String get paste => 'URL einfügen';
 	@override String get balance => 'Bilanz';
 	@override String get name => 'Brieftasche';
-	@override late final _TranslationsSettingsWalletErrorDe error = _TranslationsSettingsWalletErrorDe._(_root);
+	@override late final _Translations$settings$wallet$error$de error = _Translations$settings$wallet$error$de._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorDe extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$login$error$de extends Translations$login$error$en {
+	_Translations$login$error$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorDe extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorDe extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$live$error$de extends Translations$live$error$en {
+	_Translations$live$error$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorDe extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteDe extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$de extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteDe extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeDe extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$de extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeDe extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidDe extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$de extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidDe extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorDe extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$de extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorDe extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorDe extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$de extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorDe extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Kein Wallet-Authentifizierungsereignis gefunden';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <de>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsDe {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Avatar hochladen';
-			case 'most_zapped_streamers': return 'Meistgezappte Streamer';
-			case 'no_user_found': return 'Kein Benutzer gefunden';
-			case 'anon': return 'Anon';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('de').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(n,
-				one: '1 Zuschauer',
-				other: '${NumberFormat.decimalPattern('de').format(n)} Zuschauer',
-			);
-			case 'stream.status.live': return 'LIVE';
-			case 'stream.status.ended': return 'BEENDET';
-			case 'stream.status.planned': return 'GEPLANT';
-			case 'stream.started': return ({required Object timestamp}) => 'Gestartet ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} ging live!';
-			case 'stream.chat.disabled': return 'CHAT DEAKTIVIERT';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timeout läuft ab: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' gibt '),
-				user,
-				const TextSpan(text: ' einen Timeout für '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'STREAM BEENDET';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' hat '),
-				amount,
-				const TextSpan(text: ' sats gezappt'),
-			]);
-			case 'stream.chat.write.label': return 'Nachricht schreiben';
-			case 'stream.chat.write.no_signer': return 'Mit npub-Login können keine Nachrichten geschrieben werden';
-			case 'stream.chat.write.login': return 'Bitte anmelden, um Nachrichten zu senden';
-			case 'stream.chat.badge.awarded_to': return 'Verliehen an:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID VON ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raubzüge auf ${time}';
-			case 'goal.title': return ({required Object amount}) => 'Ziel: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Verbleibend: ${amount}';
-			case 'goal.complete': return 'COMPLETE';
-			case 'button.login': return 'Anmelden';
-			case 'button.logout': return 'Abmelden';
-			case 'button.edit_profile': return 'Profil anpassen';
-			case 'button.follow': return 'Folgen';
-			case 'button.unfollow': return 'Entfolgen';
-			case 'button.mute': return 'Stummschalten';
-			case 'button.unmute': return 'Entstummen';
-			case 'button.share': return 'Teilen';
-			case 'button.save': return 'Speichern';
-			case 'button.connect': return 'Verbinden Sie';
-			case 'button.settings': return 'Einstellungen';
-			case 'embed.article_by': return ({required Object name}) => 'Artikel von ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Note von ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Live-Stream von ${name}';
-			case 'stream_list.following': return 'Folge ich';
-			case 'stream_list.live': return 'Live';
-			case 'stream_list.planned': return 'Geplant';
-			case 'stream_list.ended': return 'Beendet';
-			case 'zap.title': return ({required Object name}) => '${name} zappen';
-			case 'zap.custom_amount': return 'Benutzerdefinierter Betrag';
-			case 'zap.confirm': return 'Bestätigen';
-			case 'zap.comment': return 'Kommentar';
-			case 'zap.button_zap_ready': return ({required Object amount}) => '${amount} sats zappen';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'In Brieftasche öffnen';
-			case 'zap.button_connect_wallet': return 'Brieftasche verbinden';
-			case 'zap.copy': return 'In die Zwischenablage kopiert';
-			case 'zap.error.invalid_custom_amount': return 'Ungültiger benutzerdefinierter Betrag';
-			case 'zap.error.no_wallet': return 'Keine Lightning-Brieftasche installiert';
-			case 'zap.error.no_lud16': return 'Keine Blitzadresse gefunden';
-			case 'profile.past_streams': return 'Vergangene Streams';
-			case 'settings.button_profile': return 'Profil bearbeiten';
-			case 'settings.button_wallet': return 'Wallet-Einstellungen';
-			case 'settings.profile.display_name': return 'Name anzeigen';
-			case 'settings.profile.about': return 'Über';
-			case 'settings.profile.nip05': return 'Nostr-Adresse';
-			case 'settings.profile.lud16': return 'Blitz-Adresse';
-			case 'settings.profile.error.logged_out': return 'Profil kann nicht bearbeitet werden, wenn es abgemeldet ist';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Brieftasche abtrennen';
-			case 'settings.wallet.connect_1tap': return '1-Tap-Verbindung';
-			case 'settings.wallet.paste': return 'URL einfügen';
-			case 'settings.wallet.balance': return 'Bilanz';
-			case 'settings.wallet.name': return 'Brieftasche';
-			case 'settings.wallet.error.logged_out': return 'Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Kein Wallet-Authentifizierungsereignis gefunden';
-			case 'login.username': return 'Benutzername';
-			case 'login.amber': return 'Anmeldung mit Amber';
-			case 'login.key': return 'Anmeldung mit Schlüssel';
-			case 'login.create': return 'Konto erstellen';
-			case 'login.error.invalid_key': return 'Ungültiger Schlüssel';
-			case 'live.start': return 'LIVE GEHEN';
-			case 'live.configure_stream': return 'Stream konfigurieren';
-			case 'live.endpoint': return 'Endpunkt';
-			case 'live.accept_tos': return 'TOS akzeptieren';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'Titel';
-			case 'live.summary': return 'Zusammenfassung';
-			case 'live.image': return 'Titelbild';
-			case 'live.tags': return 'Tags';
-			case 'live.nsfw': return 'NSFW-Inhalt';
-			case 'live.nsfw_description': return 'Prüfen Sie hier, ob dieser Stream Nacktheit oder pornografische Inhalte enthält.';
-			case 'live.error.failed': return 'Stream fehlgeschlagen';
-			case 'live.error.connection_error': return 'Verbindungsfehler';
-			case 'live.error.start_failed': return 'Streamstart fehlgeschlagen, bitte überprüfen Sie Ihr Guthaben';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Avatar hochladen',
+			'most_zapped_streamers' => 'Meistgezappte Streamer',
+			'no_user_found' => 'Kein Benutzer gefunden',
+			'anon' => 'Anon',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('de').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(n, one: '1 Zuschauer', other: '${NumberFormat.decimalPattern('de').format(n)} Zuschauer', ), 
+			'stream.status.live' => 'LIVE',
+			'stream.status.ended' => 'BEENDET',
+			'stream.status.planned' => 'GEPLANT',
+			'stream.started' => ({required Object timestamp}) => 'Gestartet ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} ging live!',
+			'stream.chat.disabled' => 'CHAT DEAKTIVIERT',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Timeout läuft ab: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' gibt '), user, const TextSpan(text: ' einen Timeout für '), time, ]), 
+			'stream.chat.ended' => 'STREAM BEENDET',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' hat '), amount, const TextSpan(text: ' sats gezappt'), ]), 
+			'stream.chat.write.label' => 'Nachricht schreiben',
+			'stream.chat.write.no_signer' => 'Mit npub-Login können keine Nachrichten geschrieben werden',
+			'stream.chat.write.login' => 'Bitte anmelden, um Nachrichten zu senden',
+			'stream.chat.badge.awarded_to' => 'Verliehen an:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID VON ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Raubzüge auf ${time}',
+			'goal.title' => ({required Object amount}) => 'Ziel: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Verbleibend: ${amount}',
+			'goal.complete' => 'COMPLETE',
+			'button.login' => 'Anmelden',
+			'button.logout' => 'Abmelden',
+			'button.edit_profile' => 'Profil anpassen',
+			'button.follow' => 'Folgen',
+			'button.unfollow' => 'Entfolgen',
+			'button.mute' => 'Stummschalten',
+			'button.unmute' => 'Entstummen',
+			'button.share' => 'Teilen',
+			'button.save' => 'Speichern',
+			'button.connect' => 'Verbinden Sie',
+			'button.settings' => 'Einstellungen',
+			'embed.article_by' => ({required Object name}) => 'Artikel von ${name}',
+			'embed.note_by' => ({required Object name}) => 'Note von ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Live-Stream von ${name}',
+			'stream_list.following' => 'Folge ich',
+			'stream_list.live' => 'Live',
+			'stream_list.planned' => 'Geplant',
+			'stream_list.ended' => 'Beendet',
+			'zap.title' => ({required Object name}) => '${name} zappen',
+			'zap.custom_amount' => 'Benutzerdefinierter Betrag',
+			'zap.confirm' => 'Bestätigen',
+			'zap.comment' => 'Kommentar',
+			'zap.button_zap_ready' => ({required Object amount}) => '${amount} sats zappen',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'In Brieftasche öffnen',
+			'zap.button_connect_wallet' => 'Brieftasche verbinden',
+			'zap.copy' => 'In die Zwischenablage kopiert',
+			'zap.error.invalid_custom_amount' => 'Ungültiger benutzerdefinierter Betrag',
+			'zap.error.no_wallet' => 'Keine Lightning-Brieftasche installiert',
+			'zap.error.no_lud16' => 'Keine Blitzadresse gefunden',
+			'profile.past_streams' => 'Vergangene Streams',
+			'settings.button_profile' => 'Profil bearbeiten',
+			'settings.button_wallet' => 'Wallet-Einstellungen',
+			'settings.profile.display_name' => 'Name anzeigen',
+			'settings.profile.about' => 'Über',
+			'settings.profile.nip05' => 'Nostr-Adresse',
+			'settings.profile.lud16' => 'Blitz-Adresse',
+			'settings.profile.error.logged_out' => 'Profil kann nicht bearbeitet werden, wenn es abgemeldet ist',
+			'settings.wallet.connect_wallet' => 'Connect Wallet (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Brieftasche abtrennen',
+			'settings.wallet.connect_1tap' => '1-Tap-Verbindung',
+			'settings.wallet.paste' => 'URL einfügen',
+			'settings.wallet.balance' => 'Bilanz',
+			'settings.wallet.name' => 'Brieftasche',
+			'settings.wallet.error.logged_out' => 'Kann keine Verbindung zur Brieftasche herstellen, wenn ich abgemeldet bin',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Kein Wallet-Authentifizierungsereignis gefunden',
+			'login.username' => 'Benutzername',
+			'login.amber' => 'Anmeldung mit Amber',
+			'login.key' => 'Anmeldung mit Schlüssel',
+			'login.create' => 'Konto erstellen',
+			'login.error.invalid_key' => 'Ungültiger Schlüssel',
+			'live.start' => 'LIVE GEHEN',
+			'live.configure_stream' => 'Stream konfigurieren',
+			'live.endpoint' => 'Endpunkt',
+			'live.accept_tos' => 'TOS akzeptieren',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'Titel',
+			'live.summary' => 'Zusammenfassung',
+			'live.image' => 'Titelbild',
+			'live.tags' => 'Tags',
+			'live.nsfw' => 'NSFW-Inhalt',
+			'live.nsfw_description' => 'Prüfen Sie hier, ob dieser Stream Nacktheit oder pornografische Inhalte enthält.',
+			'live.error.failed' => 'Stream fehlgeschlagen',
+			'live.error.connection_error' => 'Verbindungsfehler',
+			'live.error.start_failed' => 'Streamstart fehlgeschlagen, bitte überprüfen Sie Ihr Guthaben',
+			_ => null,
+		};
 	}
 }
-

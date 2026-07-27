@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsCs extends Translations {
+class TranslationsCs extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsCs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsCs extends Translations {
 		other: '${NumberFormat.decimalPattern('cs').format(n)} diváků',
 	);
 
-	@override late final _TranslationsStreamCs stream = _TranslationsStreamCs._(_root);
-	@override late final _TranslationsGoalCs goal = _TranslationsGoalCs._(_root);
-	@override late final _TranslationsButtonCs button = _TranslationsButtonCs._(_root);
-	@override late final _TranslationsEmbedCs embed = _TranslationsEmbedCs._(_root);
+	@override late final _Translations$stream$cs stream = _Translations$stream$cs._(_root);
+	@override late final _Translations$goal$cs goal = _Translations$goal$cs._(_root);
+	@override late final _Translations$button$cs button = _Translations$button$cs._(_root);
+	@override late final _Translations$embed$cs embed = _Translations$embed$cs._(_root);
 
 	/// Nadpisy v seznamech proudů podle typu proudu živě/konec/plánovaně atd.
-	@override late final _TranslationsStreamListCs stream_list = _TranslationsStreamListCs._(_root);
+	@override late final _Translations$stream_list$cs stream_list = _Translations$stream_list$cs._(_root);
 
-	@override late final _TranslationsZapCs zap = _TranslationsZapCs._(_root);
-	@override late final _TranslationsProfileCs profile = _TranslationsProfileCs._(_root);
-	@override late final _TranslationsSettingsCs settings = _TranslationsSettingsCs._(_root);
-	@override late final _TranslationsLoginCs login = _TranslationsLoginCs._(_root);
-	@override late final _TranslationsLiveCs live = _TranslationsLiveCs._(_root);
+	@override late final _Translations$zap$cs zap = _Translations$zap$cs._(_root);
+	@override late final _Translations$profile$cs profile = _Translations$profile$cs._(_root);
+	@override late final _Translations$settings$cs settings = _Translations$settings$cs._(_root);
+	@override late final _Translations$login$cs login = _Translations$login$cs._(_root);
+	@override late final _Translations$live$cs live = _Translations$live$cs._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamCs extends TranslationsStreamEn {
-	_TranslationsStreamCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$stream$cs extends Translations$stream$en {
+	_Translations$stream$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusCs status = _TranslationsStreamStatusCs._(_root);
+	@override late final _Translations$stream$status$cs status = _Translations$stream$status$cs._(_root);
 	@override String started({required Object timestamp}) => 'Založeno ${timestamp}';
 	@override String notification({required Object name}) => '${name} byl spuštěn!';
-	@override late final _TranslationsStreamChatCs chat = _TranslationsStreamChatCs._(_root);
+	@override late final _Translations$stream$chat$cs chat = _Translations$stream$chat$cs._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalCs extends TranslationsGoalEn {
-	_TranslationsGoalCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$goal$cs extends Translations$goal$en {
+	_Translations$goal$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalCs extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonCs extends TranslationsButtonEn {
-	_TranslationsButtonCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$button$cs extends Translations$button$en {
+	_Translations$button$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonCs extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedCs extends TranslationsEmbedEn {
-	_TranslationsEmbedCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$embed$cs extends Translations$embed$en {
+	_Translations$embed$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedCs extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListCs extends TranslationsStreamListEn {
-	_TranslationsStreamListCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$stream_list$cs extends Translations$stream_list$en {
+	_Translations$stream_list$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListCs extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapCs extends TranslationsZapEn {
-	_TranslationsZapCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$zap$cs extends Translations$zap$en {
+	_Translations$zap$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapCs extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Otevřít v peněžence';
 	@override String get button_connect_wallet => 'Připojení peněženky';
 	@override String get copy => 'Zkopírováno do schránky';
-	@override late final _TranslationsZapErrorCs error = _TranslationsZapErrorCs._(_root);
+	@override late final _Translations$zap$error$cs error = _Translations$zap$error$cs._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileCs extends TranslationsProfileEn {
-	_TranslationsProfileCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$profile$cs extends Translations$profile$en {
+	_Translations$profile$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileCs extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsCs extends TranslationsSettingsEn {
-	_TranslationsSettingsCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$settings$cs extends Translations$settings$en {
+	_Translations$settings$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Upravit profil';
 	@override String get button_wallet => 'Nastavení peněženky';
-	@override late final _TranslationsSettingsProfileCs profile = _TranslationsSettingsProfileCs._(_root);
-	@override late final _TranslationsSettingsWalletCs wallet = _TranslationsSettingsWalletCs._(_root);
+	@override late final _Translations$settings$profile$cs profile = _Translations$settings$profile$cs._(_root);
+	@override late final _Translations$settings$wallet$cs wallet = _Translations$settings$wallet$cs._(_root);
 }
 
 // Path: login
-class _TranslationsLoginCs extends TranslationsLoginEn {
-	_TranslationsLoginCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$login$cs extends Translations$login$en {
+	_Translations$login$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginCs extends TranslationsLoginEn {
 	@override String get amber => 'Přihlášení pomocí Amber';
 	@override String get key => 'Přihlášení pomocí klíče';
 	@override String get create => 'Vytvořit účet';
-	@override late final _TranslationsLoginErrorCs error = _TranslationsLoginErrorCs._(_root);
+	@override late final _Translations$login$error$cs error = _Translations$login$error$cs._(_root);
 }
 
 // Path: live
-class _TranslationsLiveCs extends TranslationsLiveEn {
-	_TranslationsLiveCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$live$cs extends Translations$live$en {
+	_Translations$live$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveCs extends TranslationsLiveEn {
 	@override String get tags => 'Štítky';
 	@override String get nsfw => 'Obsah NSFW';
 	@override String get nsfw_description => 'Zde zkontrolujte, zda tento stream obsahuje nahotu nebo pornografický obsah.';
-	@override late final _TranslationsLiveErrorCs error = _TranslationsLiveErrorCs._(_root);
+	@override late final _Translations$live$error$cs error = _Translations$live$error$cs._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusCs extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$stream$status$cs extends Translations$stream$status$en {
+	_Translations$stream$status$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusCs extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatCs extends TranslationsStreamChatEn {
-	_TranslationsStreamChatCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$cs extends Translations$stream$chat$en {
+	_Translations$stream$chat$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatCs extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteCs write = _TranslationsStreamChatWriteCs._(_root);
-	@override late final _TranslationsStreamChatBadgeCs badge = _TranslationsStreamChatBadgeCs._(_root);
-	@override late final _TranslationsStreamChatRaidCs raid = _TranslationsStreamChatRaidCs._(_root);
+	@override late final _Translations$stream$chat$write$cs write = _Translations$stream$chat$write$cs._(_root);
+	@override late final _Translations$stream$chat$badge$cs badge = _Translations$stream$chat$badge$cs._(_root);
+	@override late final _Translations$stream$chat$raid$cs raid = _Translations$stream$chat$raid$cs._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorCs extends TranslationsZapErrorEn {
-	_TranslationsZapErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$zap$error$cs extends Translations$zap$error$en {
+	_Translations$zap$error$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorCs extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileCs extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$cs extends Translations$settings$profile$en {
+	_Translations$settings$profile$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileCs extends TranslationsSettingsProfileEn {
 	@override String get about => 'O stránkách';
 	@override String get nip05 => 'Adresa Nostr';
 	@override String get lud16 => 'Adresa blesku';
-	@override late final _TranslationsSettingsProfileErrorCs error = _TranslationsSettingsProfileErrorCs._(_root);
+	@override late final _Translations$settings$profile$error$cs error = _Translations$settings$profile$error$cs._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletCs extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$cs extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletCs extends TranslationsSettingsWalletEn {
 	@override String get paste => 'Vložit adresu URL';
 	@override String get balance => 'Bilance';
 	@override String get name => 'Peněženka';
-	@override late final _TranslationsSettingsWalletErrorCs error = _TranslationsSettingsWalletErrorCs._(_root);
+	@override late final _Translations$settings$wallet$error$cs error = _Translations$settings$wallet$error$cs._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorCs extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$login$error$cs extends Translations$login$error$en {
+	_Translations$login$error$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorCs extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorCs extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$live$error$cs extends Translations$live$error$en {
+	_Translations$live$error$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorCs extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteCs extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$cs extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteCs extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeCs extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$cs extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeCs extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidCs extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$cs extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidCs extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorCs extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$cs extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorCs extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorCs extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorCs._(TranslationsCs root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$cs extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$cs._(TranslationsCs root) : this._root = root, super.internal(root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorCs extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Nebyla nalezena žádná událost autentizace peněženky';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <cs>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsCs {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Nahrát avatar';
-			case 'most_zapped_streamers': return 'Nejvíce zapnutých streamerů';
-			case 'no_user_found': return 'Nebyl nalezen žádný uživatel';
-			case 'anon': return 'Anon';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('cs').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
-				one: '1 divák',
-				other: '${NumberFormat.decimalPattern('cs').format(n)} diváků',
-			);
-			case 'stream.status.live': return 'LIVE';
-			case 'stream.status.ended': return 'KONEC';
-			case 'stream.status.planned': return 'PLÁNOVANÉ';
-			case 'stream.started': return ({required Object timestamp}) => 'Založeno ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} byl spuštěn!';
-			case 'stream.chat.disabled': return 'CHAT ZRUŠEN';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Časový limit vyprší: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' vypršel čas '),
-				user,
-				const TextSpan(text: ' pro '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'STREAM UKONČEN';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' Zapped '),
-				amount,
-				const TextSpan(text: ' sats'),
-			]);
-			case 'stream.chat.write.label': return 'Napište zprávu';
-			case 'stream.chat.write.no_signer': return 'Nelze psát zprávy s přihlášením npub';
-			case 'stream.chat.write.login': return 'Pro odesílání zpráv se prosím přihlaste';
-			case 'stream.chat.badge.awarded_to': return 'Uděleno:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID Z ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Nájezdy na ${time}';
-			case 'goal.title': return ({required Object amount}) => 'Cíl: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Zbývá: ${amount}';
-			case 'goal.complete': return 'KOMPLETNÍ';
-			case 'button.login': return 'Přihlášení';
-			case 'button.logout': return 'Odhlášení';
-			case 'button.edit_profile': return 'Upravit profil';
-			case 'button.follow': return 'Sledujte';
-			case 'button.unfollow': return 'Zrušit sledování';
-			case 'button.mute': return 'Ztlumit';
-			case 'button.unmute': return 'Zrušit ztlumení';
-			case 'button.share': return 'Sdílet';
-			case 'button.save': return 'Uložit';
-			case 'button.connect': return 'Připojení';
-			case 'button.settings': return 'Nastavení';
-			case 'embed.article_by': return ({required Object name}) => 'Článek na ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Poznámka ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Přímý přenos na adrese ${name}';
-			case 'stream_list.following': return 'Po';
-			case 'stream_list.live': return 'Živě';
-			case 'stream_list.planned': return 'Plánované';
-			case 'stream_list.ended': return 'Ukončeno';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Vlastní částka';
-			case 'zap.confirm': return 'Potvrďte';
-			case 'zap.comment': return 'Komentář:';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Otevřít v peněžence';
-			case 'zap.button_connect_wallet': return 'Připojení peněženky';
-			case 'zap.copy': return 'Zkopírováno do schránky';
-			case 'zap.error.invalid_custom_amount': return 'Neplatná vlastní částka';
-			case 'zap.error.no_wallet': return 'Není nainstalována blesková peněženka';
-			case 'zap.error.no_lud16': return 'Nebyla nalezena žádná adresa blesku';
-			case 'profile.past_streams': return 'Minulé proudy';
-			case 'settings.button_profile': return 'Upravit profil';
-			case 'settings.button_wallet': return 'Nastavení peněženky';
-			case 'settings.profile.display_name': return 'Zobrazení názvu';
-			case 'settings.profile.about': return 'O stránkách';
-			case 'settings.profile.nip05': return 'Adresa Nostr';
-			case 'settings.profile.lud16': return 'Adresa blesku';
-			case 'settings.profile.error.logged_out': return 'Nelze upravit profil, když je odhlášený';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Odpojení peněženky';
-			case 'settings.wallet.connect_1tap': return 'Připojení 1 kohoutku';
-			case 'settings.wallet.paste': return 'Vložit adresu URL';
-			case 'settings.wallet.balance': return 'Bilance';
-			case 'settings.wallet.name': return 'Peněženka';
-			case 'settings.wallet.error.logged_out': return 'Nelze se připojit k peněžence, když jste odhlášeni';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nebyla nalezena žádná událost autentizace peněženky';
-			case 'login.username': return 'Uživatelské jméno';
-			case 'login.amber': return 'Přihlášení pomocí Amber';
-			case 'login.key': return 'Přihlášení pomocí klíče';
-			case 'login.create': return 'Vytvořit účet';
-			case 'login.error.invalid_key': return 'Neplatný klíč';
-			case 'live.start': return 'PŘEJÍT NA ŽIVOT';
-			case 'live.configure_stream': return 'Konfigurace streamu';
-			case 'live.endpoint': return 'Koncový bod';
-			case 'live.accept_tos': return 'Přijmout TOS';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'Název';
-			case 'live.summary': return 'Souhrn';
-			case 'live.image': return 'Obrázek na obálce';
-			case 'live.tags': return 'Štítky';
-			case 'live.nsfw': return 'Obsah NSFW';
-			case 'live.nsfw_description': return 'Zde zkontrolujte, zda tento stream obsahuje nahotu nebo pornografický obsah.';
-			case 'live.error.failed': return 'Stream se nezdařil';
-			case 'live.error.connection_error': return 'Chyba připojení';
-			case 'live.error.start_failed': return 'Spuštění streamu se nezdařilo, zkontrolujte prosím zůstatek';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Nahrát avatar',
+			'most_zapped_streamers' => 'Nejvíce zapnutých streamerů',
+			'no_user_found' => 'Nebyl nalezen žádný uživatel',
+			'anon' => 'Anon',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('cs').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n, one: '1 divák', other: '${NumberFormat.decimalPattern('cs').format(n)} diváků', ), 
+			'stream.status.live' => 'LIVE',
+			'stream.status.ended' => 'KONEC',
+			'stream.status.planned' => 'PLÁNOVANÉ',
+			'stream.started' => ({required Object timestamp}) => 'Založeno ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} byl spuštěn!',
+			'stream.chat.disabled' => 'CHAT ZRUŠEN',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Časový limit vyprší: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' vypršel čas '), user, const TextSpan(text: ' pro '), time, ]), 
+			'stream.chat.ended' => 'STREAM UKONČEN',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' Zapped '), amount, const TextSpan(text: ' sats'), ]), 
+			'stream.chat.write.label' => 'Napište zprávu',
+			'stream.chat.write.no_signer' => 'Nelze psát zprávy s přihlášením npub',
+			'stream.chat.write.login' => 'Pro odesílání zpráv se prosím přihlaste',
+			'stream.chat.badge.awarded_to' => 'Uděleno:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID Z ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Nájezdy na ${time}',
+			'goal.title' => ({required Object amount}) => 'Cíl: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Zbývá: ${amount}',
+			'goal.complete' => 'KOMPLETNÍ',
+			'button.login' => 'Přihlášení',
+			'button.logout' => 'Odhlášení',
+			'button.edit_profile' => 'Upravit profil',
+			'button.follow' => 'Sledujte',
+			'button.unfollow' => 'Zrušit sledování',
+			'button.mute' => 'Ztlumit',
+			'button.unmute' => 'Zrušit ztlumení',
+			'button.share' => 'Sdílet',
+			'button.save' => 'Uložit',
+			'button.connect' => 'Připojení',
+			'button.settings' => 'Nastavení',
+			'embed.article_by' => ({required Object name}) => 'Článek na ${name}',
+			'embed.note_by' => ({required Object name}) => 'Poznámka ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Přímý přenos na adrese ${name}',
+			'stream_list.following' => 'Po',
+			'stream_list.live' => 'Živě',
+			'stream_list.planned' => 'Plánované',
+			'stream_list.ended' => 'Ukončeno',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Vlastní částka',
+			'zap.confirm' => 'Potvrďte',
+			'zap.comment' => 'Komentář:',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} sats',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Otevřít v peněžence',
+			'zap.button_connect_wallet' => 'Připojení peněženky',
+			'zap.copy' => 'Zkopírováno do schránky',
+			'zap.error.invalid_custom_amount' => 'Neplatná vlastní částka',
+			'zap.error.no_wallet' => 'Není nainstalována blesková peněženka',
+			'zap.error.no_lud16' => 'Nebyla nalezena žádná adresa blesku',
+			'profile.past_streams' => 'Minulé proudy',
+			'settings.button_profile' => 'Upravit profil',
+			'settings.button_wallet' => 'Nastavení peněženky',
+			'settings.profile.display_name' => 'Zobrazení názvu',
+			'settings.profile.about' => 'O stránkách',
+			'settings.profile.nip05' => 'Adresa Nostr',
+			'settings.profile.lud16' => 'Adresa blesku',
+			'settings.profile.error.logged_out' => 'Nelze upravit profil, když je odhlášený',
+			'settings.wallet.connect_wallet' => 'Connect Wallet (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Odpojení peněženky',
+			'settings.wallet.connect_1tap' => 'Připojení 1 kohoutku',
+			'settings.wallet.paste' => 'Vložit adresu URL',
+			'settings.wallet.balance' => 'Bilance',
+			'settings.wallet.name' => 'Peněženka',
+			'settings.wallet.error.logged_out' => 'Nelze se připojit k peněžence, když jste odhlášeni',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Nebyla nalezena žádná událost autentizace peněženky',
+			'login.username' => 'Uživatelské jméno',
+			'login.amber' => 'Přihlášení pomocí Amber',
+			'login.key' => 'Přihlášení pomocí klíče',
+			'login.create' => 'Vytvořit účet',
+			'login.error.invalid_key' => 'Neplatný klíč',
+			'live.start' => 'PŘEJÍT NA ŽIVOT',
+			'live.configure_stream' => 'Konfigurace streamu',
+			'live.endpoint' => 'Koncový bod',
+			'live.accept_tos' => 'Přijmout TOS',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'Název',
+			'live.summary' => 'Souhrn',
+			'live.image' => 'Obrázek na obálce',
+			'live.tags' => 'Štítky',
+			'live.nsfw' => 'Obsah NSFW',
+			'live.nsfw_description' => 'Zde zkontrolujte, zda tento stream obsahuje nahotu nebo pornografický obsah.',
+			'live.error.failed' => 'Stream se nezdařil',
+			'live.error.connection_error' => 'Chyba připojení',
+			'live.error.start_failed' => 'Spuštění streamu se nezdařilo, zkontrolujte prosím zůstatek',
+			_ => null,
+		};
 	}
 }
-

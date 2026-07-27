@@ -123,4 +123,16 @@ jobs:
       # The committed lock still wants regenerating on a Mac (`cd ios && pod
       # install --repo-update`, then commit it); once that lands this step is
       # redundant but harmless.
+      # TEMPORARY: the dependency bump moved firebase_core 3.15.2 -> 4.12.1, so
+      # the committed Podfile.lock is stale again. Regenerate here and publish
+      # the result so it can be committed; both this step and the upload come
+      # straight back out once the refreshed lock lands.
+      - name: Refresh CocoaPods
+        working-directory: ios
+        run: pod update
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: "ios-Podfile.lock"
+          path: "ios/Podfile.lock"
       - run: flutter build ios --no-codesign --verbose

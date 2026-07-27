@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsTr extends Translations {
+class TranslationsTr extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsTr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -57,36 +58,36 @@ class TranslationsTr extends Translations {
 		other: '${NumberFormat.decimalPattern('tr').format(n)} izleyiciler',
 	);
 
-	@override late final _TranslationsStreamTr stream = _TranslationsStreamTr._(_root);
-	@override late final _TranslationsGoalTr goal = _TranslationsGoalTr._(_root);
-	@override late final _TranslationsButtonTr button = _TranslationsButtonTr._(_root);
-	@override late final _TranslationsEmbedTr embed = _TranslationsEmbedTr._(_root);
+	@override late final _Translations$stream$tr stream = _Translations$stream$tr._(_root);
+	@override late final _Translations$goal$tr goal = _Translations$goal$tr._(_root);
+	@override late final _Translations$button$tr button = _Translations$button$tr._(_root);
+	@override late final _Translations$embed$tr embed = _Translations$embed$tr._(_root);
 
 	/// Akış türüne göre akış listelerindeki başlıklar canlı/bitmiş/planlanan vb.
-	@override late final _TranslationsStreamListTr stream_list = _TranslationsStreamListTr._(_root);
+	@override late final _Translations$stream_list$tr stream_list = _Translations$stream_list$tr._(_root);
 
-	@override late final _TranslationsZapTr zap = _TranslationsZapTr._(_root);
-	@override late final _TranslationsProfileTr profile = _TranslationsProfileTr._(_root);
-	@override late final _TranslationsSettingsTr settings = _TranslationsSettingsTr._(_root);
-	@override late final _TranslationsLoginTr login = _TranslationsLoginTr._(_root);
+	@override late final _Translations$zap$tr zap = _Translations$zap$tr._(_root);
+	@override late final _Translations$profile$tr profile = _Translations$profile$tr._(_root);
+	@override late final _Translations$settings$tr settings = _Translations$settings$tr._(_root);
+	@override late final _Translations$login$tr login = _Translations$login$tr._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamTr extends TranslationsStreamEn {
-	_TranslationsStreamTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$stream$tr extends Translations$stream$en {
+	_Translations$stream$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusTr status = _TranslationsStreamStatusTr._(_root);
+	@override late final _Translations$stream$status$tr status = _Translations$stream$status$tr._(_root);
 	@override String started({required Object timestamp}) => 'Başlatıldı ${timestamp}';
 	@override String notification({required Object name}) => '${name} yayına girdi!';
-	@override late final _TranslationsStreamChatTr chat = _TranslationsStreamChatTr._(_root);
+	@override late final _Translations$stream$chat$tr chat = _Translations$stream$chat$tr._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalTr extends TranslationsGoalEn {
-	_TranslationsGoalTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$goal$tr extends Translations$goal$en {
+	_Translations$goal$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -97,8 +98,8 @@ class _TranslationsGoalTr extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonTr extends TranslationsButtonEn {
-	_TranslationsButtonTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$button$tr extends Translations$button$en {
+	_Translations$button$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -125,8 +126,8 @@ class _TranslationsButtonTr extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedTr extends TranslationsEmbedEn {
-	_TranslationsEmbedTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$embed$tr extends Translations$embed$en {
+	_Translations$embed$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -137,8 +138,8 @@ class _TranslationsEmbedTr extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListTr extends TranslationsStreamListEn {
-	_TranslationsStreamListTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$stream_list$tr extends Translations$stream_list$en {
+	_Translations$stream_list$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -150,8 +151,8 @@ class _TranslationsStreamListTr extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapTr extends TranslationsZapEn {
-	_TranslationsZapTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$zap$tr extends Translations$zap$en {
+	_Translations$zap$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -165,12 +166,12 @@ class _TranslationsZapTr extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Cüzdanda Aç';
 	@override String get button_connect_wallet => 'Cüzdan Bağlayın';
 	@override String get copy => 'Panoya kopyalandı';
-	@override late final _TranslationsZapErrorTr error = _TranslationsZapErrorTr._(_root);
+	@override late final _Translations$zap$error$tr error = _Translations$zap$error$tr._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileTr extends TranslationsProfileEn {
-	_TranslationsProfileTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$profile$tr extends Translations$profile$en {
+	_Translations$profile$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -179,21 +180,21 @@ class _TranslationsProfileTr extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsTr extends TranslationsSettingsEn {
-	_TranslationsSettingsTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$settings$tr extends Translations$settings$en {
+	_Translations$settings$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Profil Düzenle';
 	@override String get button_wallet => 'Cüzdan Ayarları';
-	@override late final _TranslationsSettingsProfileTr profile = _TranslationsSettingsProfileTr._(_root);
-	@override late final _TranslationsSettingsWalletTr wallet = _TranslationsSettingsWalletTr._(_root);
+	@override late final _Translations$settings$profile$tr profile = _Translations$settings$profile$tr._(_root);
+	@override late final _Translations$settings$wallet$tr wallet = _Translations$settings$wallet$tr._(_root);
 }
 
 // Path: login
-class _TranslationsLoginTr extends TranslationsLoginEn {
-	_TranslationsLoginTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$login$tr extends Translations$login$en {
+	_Translations$login$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -202,12 +203,12 @@ class _TranslationsLoginTr extends TranslationsLoginEn {
 	@override String get amber => 'Amber ile Giriş Yapın';
 	@override String get key => 'Anahtar ile Giriş Yapın';
 	@override String get create => 'Hesap Oluştur';
-	@override late final _TranslationsLoginErrorTr error = _TranslationsLoginErrorTr._(_root);
+	@override late final _Translations$login$error$tr error = _Translations$login$error$tr._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusTr extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$stream$status$tr extends Translations$stream$status$en {
+	_Translations$stream$status$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -218,8 +219,8 @@ class _TranslationsStreamStatusTr extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatTr extends TranslationsStreamChatEn {
-	_TranslationsStreamChatTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$tr extends Translations$stream$chat$en {
+	_Translations$stream$chat$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -248,14 +249,14 @@ class _TranslationsStreamChatTr extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteTr write = _TranslationsStreamChatWriteTr._(_root);
-	@override late final _TranslationsStreamChatBadgeTr badge = _TranslationsStreamChatBadgeTr._(_root);
-	@override late final _TranslationsStreamChatRaidTr raid = _TranslationsStreamChatRaidTr._(_root);
+	@override late final _Translations$stream$chat$write$tr write = _Translations$stream$chat$write$tr._(_root);
+	@override late final _Translations$stream$chat$badge$tr badge = _Translations$stream$chat$badge$tr._(_root);
+	@override late final _Translations$stream$chat$raid$tr raid = _Translations$stream$chat$raid$tr._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorTr extends TranslationsZapErrorEn {
-	_TranslationsZapErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$zap$error$tr extends Translations$zap$error$en {
+	_Translations$zap$error$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -266,8 +267,8 @@ class _TranslationsZapErrorTr extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileTr extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$tr extends Translations$settings$profile$en {
+	_Translations$settings$profile$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -276,12 +277,12 @@ class _TranslationsSettingsProfileTr extends TranslationsSettingsProfileEn {
 	@override String get about => 'Hakkında';
 	@override String get nip05 => 'Nostr Adres';
 	@override String get lud16 => 'Yıldırım Adres';
-	@override late final _TranslationsSettingsProfileErrorTr error = _TranslationsSettingsProfileErrorTr._(_root);
+	@override late final _Translations$settings$profile$error$tr error = _Translations$settings$profile$error$tr._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletTr extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$tr extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -290,12 +291,12 @@ class _TranslationsSettingsWalletTr extends TranslationsSettingsWalletEn {
 	@override String get disconnect_wallet => 'Cüzdan Bağlantısını Kes';
 	@override String get connect_1tap => '1-Tap Bağlantı';
 	@override String get paste => 'URL Yapıştır';
-	@override late final _TranslationsSettingsWalletErrorTr error = _TranslationsSettingsWalletErrorTr._(_root);
+	@override late final _Translations$settings$wallet$error$tr error = _Translations$settings$wallet$error$tr._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorTr extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$login$error$tr extends Translations$login$error$en {
+	_Translations$login$error$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -304,8 +305,8 @@ class _TranslationsLoginErrorTr extends TranslationsLoginErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteTr extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$tr extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -322,8 +323,8 @@ class _TranslationsStreamChatWriteTr extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeTr extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$tr extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -334,8 +335,8 @@ class _TranslationsStreamChatBadgeTr extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidTr extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$tr extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -352,8 +353,8 @@ class _TranslationsStreamChatRaidTr extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorTr extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$tr extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsSettingsProfileErrorTr extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorTr extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorTr._(TranslationsTr root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$tr extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$tr._(TranslationsTr root) : this._root = root, super.internal(root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
@@ -372,102 +373,89 @@ class _TranslationsSettingsWalletErrorTr extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Cüzdan yetkilendirme olayı bulunamadı';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <tr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsTr {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Avatar Yükle';
-			case 'most_zapped_streamers': return 'En Çok Zaplanan Flamalar';
-			case 'no_user_found': return 'Kullanıcı bulunamadı';
-			case 'anon': return 'Anon';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(n,
-				one: '1 izleyici',
-				other: '${NumberFormat.decimalPattern('tr').format(n)} izleyiciler',
-			);
-			case 'stream.status.live': return 'CANLI';
-			case 'stream.status.ended': return 'SONLANDI';
-			case 'stream.status.planned': return 'PLANLANMIŞ';
-			case 'stream.started': return ({required Object timestamp}) => 'Başlatıldı ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} yayına girdi!';
-			case 'stream.chat.disabled': return 'SOHBET DEVRE DIŞI';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Zaman aşımı sona eriyor: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' zaman aşımına uğradı '),
-				user,
-				const TextSpan(text: ' '),
-				time,
-				const TextSpan(text: 'için'),
-			]);
-			case 'stream.chat.ended': return 'YAYIN SONLANDI';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' zapped '),
-				amount,
-				const TextSpan(text: ' sats'),
-			]);
-			case 'stream.chat.write.label': return 'Mesaj yaz';
-			case 'stream.chat.write.no_signer': return 'Npub girişi ile mesaj yazılamıyor';
-			case 'stream.chat.write.login': return 'Mesaj göndermek için lütfen giriş yapın';
-			case 'stream.chat.badge.awarded_to': return 'Ödüllendirildi:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => '${name} ADRESINDEN RAID';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time}adresinde baskın';
-			case 'goal.title': return ({required Object amount}) => 'Hedef: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Kalan: ${amount}';
-			case 'goal.complete': return 'TAMAMLANDI';
-			case 'button.login': return 'Giriş';
-			case 'button.logout': return 'Oturum Kapatma';
-			case 'button.edit_profile': return 'Profil Düzenle';
-			case 'button.follow': return 'Takip et';
-			case 'button.unfollow': return 'Takibi bırak';
-			case 'button.mute': return 'Sessiz';
-			case 'button.unmute': return 'Sesi aç';
-			case 'button.share': return 'Paylaş';
-			case 'button.save': return 'Kaydet';
-			case 'button.connect': return 'Bağlan';
-			case 'button.settings': return 'Ayarlar';
-			case 'embed.article_by': return ({required Object name}) => 'Makale ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Not: ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Canlı yayın: ${name}';
-			case 'stream_list.following': return 'Aşağıdaki';
-			case 'stream_list.live': return 'Canlı';
-			case 'stream_list.planned': return 'Planlanmış';
-			case 'stream_list.ended': return 'Bitti';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Özel Tutar';
-			case 'zap.confirm': return 'Onaylayın';
-			case 'zap.comment': return 'Yorum';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Cüzdanda Aç';
-			case 'zap.button_connect_wallet': return 'Cüzdan Bağlayın';
-			case 'zap.copy': return 'Panoya kopyalandı';
-			case 'zap.error.invalid_custom_amount': return 'Geçersiz özel tutar';
-			case 'zap.error.no_wallet': return 'Lightning cüzdan yüklü değil';
-			case 'zap.error.no_lud16': return 'Yıldırım adresi bulunamadı';
-			case 'profile.past_streams': return 'Geçmiş Akışlar';
-			case 'settings.button_profile': return 'Profil Düzenle';
-			case 'settings.button_wallet': return 'Cüzdan Ayarları';
-			case 'settings.profile.display_name': return 'Ekran Adı';
-			case 'settings.profile.about': return 'Hakkında';
-			case 'settings.profile.nip05': return 'Nostr Adres';
-			case 'settings.profile.lud16': return 'Yıldırım Adres';
-			case 'settings.profile.error.logged_out': return 'Çıkış yapıldığında profil düzenlenemiyor';
-			case 'settings.wallet.connect_wallet': return 'Connect Cüzdan (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Cüzdan Bağlantısını Kes';
-			case 'settings.wallet.connect_1tap': return '1-Tap Bağlantı';
-			case 'settings.wallet.paste': return 'URL Yapıştır';
-			case 'settings.wallet.error.logged_out': return 'Oturumu kapattığımda cüzdana bağlanamıyorum';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Cüzdan yetkilendirme olayı bulunamadı';
-			case 'login.username': return 'Kullanıcı Adı';
-			case 'login.amber': return 'Amber ile Giriş Yapın';
-			case 'login.key': return 'Anahtar ile Giriş Yapın';
-			case 'login.create': return 'Hesap Oluştur';
-			case 'login.error.invalid_key': return 'Geçersiz anahtar';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Avatar Yükle',
+			'most_zapped_streamers' => 'En Çok Zaplanan Flamalar',
+			'no_user_found' => 'Kullanıcı bulunamadı',
+			'anon' => 'Anon',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(n, one: '1 izleyici', other: '${NumberFormat.decimalPattern('tr').format(n)} izleyiciler', ), 
+			'stream.status.live' => 'CANLI',
+			'stream.status.ended' => 'SONLANDI',
+			'stream.status.planned' => 'PLANLANMIŞ',
+			'stream.started' => ({required Object timestamp}) => 'Başlatıldı ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} yayına girdi!',
+			'stream.chat.disabled' => 'SOHBET DEVRE DIŞI',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Zaman aşımı sona eriyor: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' zaman aşımına uğradı '), user, const TextSpan(text: ' '), time, const TextSpan(text: 'için'), ]), 
+			'stream.chat.ended' => 'YAYIN SONLANDI',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' zapped '), amount, const TextSpan(text: ' sats'), ]), 
+			'stream.chat.write.label' => 'Mesaj yaz',
+			'stream.chat.write.no_signer' => 'Npub girişi ile mesaj yazılamıyor',
+			'stream.chat.write.login' => 'Mesaj göndermek için lütfen giriş yapın',
+			'stream.chat.badge.awarded_to' => 'Ödüllendirildi:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => '${name} ADRESINDEN RAID',
+			'stream.chat.raid.countdown' => ({required Object time}) => '${time}adresinde baskın',
+			'goal.title' => ({required Object amount}) => 'Hedef: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Kalan: ${amount}',
+			'goal.complete' => 'TAMAMLANDI',
+			'button.login' => 'Giriş',
+			'button.logout' => 'Oturum Kapatma',
+			'button.edit_profile' => 'Profil Düzenle',
+			'button.follow' => 'Takip et',
+			'button.unfollow' => 'Takibi bırak',
+			'button.mute' => 'Sessiz',
+			'button.unmute' => 'Sesi aç',
+			'button.share' => 'Paylaş',
+			'button.save' => 'Kaydet',
+			'button.connect' => 'Bağlan',
+			'button.settings' => 'Ayarlar',
+			'embed.article_by' => ({required Object name}) => 'Makale ${name}',
+			'embed.note_by' => ({required Object name}) => 'Not: ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Canlı yayın: ${name}',
+			'stream_list.following' => 'Aşağıdaki',
+			'stream_list.live' => 'Canlı',
+			'stream_list.planned' => 'Planlanmış',
+			'stream_list.ended' => 'Bitti',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Özel Tutar',
+			'zap.confirm' => 'Onaylayın',
+			'zap.comment' => 'Yorum',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} sats',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Cüzdanda Aç',
+			'zap.button_connect_wallet' => 'Cüzdan Bağlayın',
+			'zap.copy' => 'Panoya kopyalandı',
+			'zap.error.invalid_custom_amount' => 'Geçersiz özel tutar',
+			'zap.error.no_wallet' => 'Lightning cüzdan yüklü değil',
+			'zap.error.no_lud16' => 'Yıldırım adresi bulunamadı',
+			'profile.past_streams' => 'Geçmiş Akışlar',
+			'settings.button_profile' => 'Profil Düzenle',
+			'settings.button_wallet' => 'Cüzdan Ayarları',
+			'settings.profile.display_name' => 'Ekran Adı',
+			'settings.profile.about' => 'Hakkında',
+			'settings.profile.nip05' => 'Nostr Adres',
+			'settings.profile.lud16' => 'Yıldırım Adres',
+			'settings.profile.error.logged_out' => 'Çıkış yapıldığında profil düzenlenemiyor',
+			'settings.wallet.connect_wallet' => 'Connect Cüzdan (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Cüzdan Bağlantısını Kes',
+			'settings.wallet.connect_1tap' => '1-Tap Bağlantı',
+			'settings.wallet.paste' => 'URL Yapıştır',
+			'settings.wallet.error.logged_out' => 'Oturumu kapattığımda cüzdana bağlanamıyorum',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Cüzdan yetkilendirme olayı bulunamadı',
+			'login.username' => 'Kullanıcı Adı',
+			'login.amber' => 'Amber ile Giriş Yapın',
+			'login.key' => 'Anahtar ile Giriş Yapın',
+			'login.create' => 'Hesap Oluştur',
+			'login.error.invalid_key' => 'Geçersiz anahtar',
+			_ => null,
+		};
 	}
 }
-

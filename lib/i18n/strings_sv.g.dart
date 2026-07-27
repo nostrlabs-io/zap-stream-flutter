@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsSv extends Translations {
+class TranslationsSv extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsSv({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsSv extends Translations {
 		other: '${NumberFormat.decimalPattern('sv').format(n)} tittare',
 	);
 
-	@override late final _TranslationsStreamSv stream = _TranslationsStreamSv._(_root);
-	@override late final _TranslationsGoalSv goal = _TranslationsGoalSv._(_root);
-	@override late final _TranslationsButtonSv button = _TranslationsButtonSv._(_root);
-	@override late final _TranslationsEmbedSv embed = _TranslationsEmbedSv._(_root);
+	@override late final _Translations$stream$sv stream = _Translations$stream$sv._(_root);
+	@override late final _Translations$goal$sv goal = _Translations$goal$sv._(_root);
+	@override late final _Translations$button$sv button = _Translations$button$sv._(_root);
+	@override late final _Translations$embed$sv embed = _Translations$embed$sv._(_root);
 
 	/// Rubriker på strömlistor efter strömtyp live/avslutad/planerad etc.
-	@override late final _TranslationsStreamListSv stream_list = _TranslationsStreamListSv._(_root);
+	@override late final _Translations$stream_list$sv stream_list = _Translations$stream_list$sv._(_root);
 
-	@override late final _TranslationsZapSv zap = _TranslationsZapSv._(_root);
-	@override late final _TranslationsProfileSv profile = _TranslationsProfileSv._(_root);
-	@override late final _TranslationsSettingsSv settings = _TranslationsSettingsSv._(_root);
-	@override late final _TranslationsLoginSv login = _TranslationsLoginSv._(_root);
-	@override late final _TranslationsLiveSv live = _TranslationsLiveSv._(_root);
+	@override late final _Translations$zap$sv zap = _Translations$zap$sv._(_root);
+	@override late final _Translations$profile$sv profile = _Translations$profile$sv._(_root);
+	@override late final _Translations$settings$sv settings = _Translations$settings$sv._(_root);
+	@override late final _Translations$login$sv login = _Translations$login$sv._(_root);
+	@override late final _Translations$live$sv live = _Translations$live$sv._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamSv extends TranslationsStreamEn {
-	_TranslationsStreamSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$stream$sv extends Translations$stream$en {
+	_Translations$stream$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusSv status = _TranslationsStreamStatusSv._(_root);
+	@override late final _Translations$stream$status$sv status = _Translations$stream$status$sv._(_root);
 	@override String started({required Object timestamp}) => 'Startad ${timestamp}';
 	@override String notification({required Object name}) => '${name} gick live!';
-	@override late final _TranslationsStreamChatSv chat = _TranslationsStreamChatSv._(_root);
+	@override late final _Translations$stream$chat$sv chat = _Translations$stream$chat$sv._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalSv extends TranslationsGoalEn {
-	_TranslationsGoalSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$goal$sv extends Translations$goal$en {
+	_Translations$goal$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalSv extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonSv extends TranslationsButtonEn {
-	_TranslationsButtonSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$button$sv extends Translations$button$en {
+	_Translations$button$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonSv extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedSv extends TranslationsEmbedEn {
-	_TranslationsEmbedSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$embed$sv extends Translations$embed$en {
+	_Translations$embed$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedSv extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListSv extends TranslationsStreamListEn {
-	_TranslationsStreamListSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$stream_list$sv extends Translations$stream_list$en {
+	_Translations$stream_list$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListSv extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapSv extends TranslationsZapEn {
-	_TranslationsZapSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$zap$sv extends Translations$zap$en {
+	_Translations$zap$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapSv extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Öppna i plånboken';
 	@override String get button_connect_wallet => 'Anslut plånbok';
 	@override String get copy => 'Kopieras till urklipp';
-	@override late final _TranslationsZapErrorSv error = _TranslationsZapErrorSv._(_root);
+	@override late final _Translations$zap$error$sv error = _Translations$zap$error$sv._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileSv extends TranslationsProfileEn {
-	_TranslationsProfileSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$profile$sv extends Translations$profile$en {
+	_Translations$profile$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileSv extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsSv extends TranslationsSettingsEn {
-	_TranslationsSettingsSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$settings$sv extends Translations$settings$en {
+	_Translations$settings$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Redigera profil';
 	@override String get button_wallet => 'Inställningar för plånbok';
-	@override late final _TranslationsSettingsProfileSv profile = _TranslationsSettingsProfileSv._(_root);
-	@override late final _TranslationsSettingsWalletSv wallet = _TranslationsSettingsWalletSv._(_root);
+	@override late final _Translations$settings$profile$sv profile = _Translations$settings$profile$sv._(_root);
+	@override late final _Translations$settings$wallet$sv wallet = _Translations$settings$wallet$sv._(_root);
 }
 
 // Path: login
-class _TranslationsLoginSv extends TranslationsLoginEn {
-	_TranslationsLoginSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$login$sv extends Translations$login$en {
+	_Translations$login$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginSv extends TranslationsLoginEn {
 	@override String get amber => 'Logga in med Amber';
 	@override String get key => 'Logga in med nyckel';
 	@override String get create => 'Skapa konto';
-	@override late final _TranslationsLoginErrorSv error = _TranslationsLoginErrorSv._(_root);
+	@override late final _Translations$login$error$sv error = _Translations$login$error$sv._(_root);
 }
 
 // Path: live
-class _TranslationsLiveSv extends TranslationsLiveEn {
-	_TranslationsLiveSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$live$sv extends Translations$live$en {
+	_Translations$live$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveSv extends TranslationsLiveEn {
 	@override String get tags => 'Etiketter';
 	@override String get nsfw => 'NSFW-innehåll';
 	@override String get nsfw_description => 'Markera här om denna stream innehåller nakenhet eller pornografiskt innehåll.';
-	@override late final _TranslationsLiveErrorSv error = _TranslationsLiveErrorSv._(_root);
+	@override late final _Translations$live$error$sv error = _Translations$live$error$sv._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusSv extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$stream$status$sv extends Translations$stream$status$en {
+	_Translations$stream$status$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusSv extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatSv extends TranslationsStreamChatEn {
-	_TranslationsStreamChatSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$sv extends Translations$stream$chat$en {
+	_Translations$stream$chat$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatSv extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteSv write = _TranslationsStreamChatWriteSv._(_root);
-	@override late final _TranslationsStreamChatBadgeSv badge = _TranslationsStreamChatBadgeSv._(_root);
-	@override late final _TranslationsStreamChatRaidSv raid = _TranslationsStreamChatRaidSv._(_root);
+	@override late final _Translations$stream$chat$write$sv write = _Translations$stream$chat$write$sv._(_root);
+	@override late final _Translations$stream$chat$badge$sv badge = _Translations$stream$chat$badge$sv._(_root);
+	@override late final _Translations$stream$chat$raid$sv raid = _Translations$stream$chat$raid$sv._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorSv extends TranslationsZapErrorEn {
-	_TranslationsZapErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$zap$error$sv extends Translations$zap$error$en {
+	_Translations$zap$error$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorSv extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileSv extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$sv extends Translations$settings$profile$en {
+	_Translations$settings$profile$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileSv extends TranslationsSettingsProfileEn {
 	@override String get about => 'Om';
 	@override String get nip05 => 'Nostr adress';
 	@override String get lud16 => 'Lightning-adress';
-	@override late final _TranslationsSettingsProfileErrorSv error = _TranslationsSettingsProfileErrorSv._(_root);
+	@override late final _Translations$settings$profile$error$sv error = _Translations$settings$profile$error$sv._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletSv extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$sv extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletSv extends TranslationsSettingsWalletEn {
 	@override String get paste => 'Klistra in URL';
 	@override String get balance => 'Balans';
 	@override String get name => 'Plånbok';
-	@override late final _TranslationsSettingsWalletErrorSv error = _TranslationsSettingsWalletErrorSv._(_root);
+	@override late final _Translations$settings$wallet$error$sv error = _Translations$settings$wallet$error$sv._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorSv extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$login$error$sv extends Translations$login$error$en {
+	_Translations$login$error$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorSv extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorSv extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$live$error$sv extends Translations$live$error$en {
+	_Translations$live$error$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorSv extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteSv extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$sv extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteSv extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeSv extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$sv extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeSv extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidSv extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$sv extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidSv extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorSv extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$sv extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorSv extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorSv extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorSv._(TranslationsSv root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$sv extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$sv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorSv extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Inget autentiseringshändelse för plånbok hittades';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <sv>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsSv {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Ladda upp avatar';
-			case 'most_zapped_streamers': return 'De flest zappade streamers';
-			case 'no_user_found': return 'Ingen användare hittades';
-			case 'anon': return 'Anno';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('sv').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
-				one: '1 tittare',
-				other: '${NumberFormat.decimalPattern('sv').format(n)} tittare',
-			);
-			case 'stream.status.live': return 'LIVE';
-			case 'stream.status.ended': return 'AVSLUTAD';
-			case 'stream.status.planned': return 'PLANERADE';
-			case 'stream.started': return ({required Object timestamp}) => 'Startad ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} gick live!';
-			case 'stream.chat.disabled': return 'CHAT AVSTÄNGD';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Tidsgränsen går ut: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' tidsbegränsad '),
-				user,
-				const TextSpan(text: ' för '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'STREAM AVSLUTAD';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' zapped '),
-				amount,
-				const TextSpan(text: ' sats'),
-			]);
-			case 'stream.chat.write.label': return 'Skriv meddelande';
-			case 'stream.chat.write.no_signer': return 'Det går inte att skriva meddelanden med n-pub inloggning';
-			case 'stream.chat.write.login': return 'Logga in för att skicka meddelanden';
-			case 'stream.chat.badge.awarded_to': return 'Tilldelas till:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FRÅN ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Radiering i ${time}';
-			case 'goal.title': return ({required Object amount}) => 'Mål: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Kvarvarande: ${amount}';
-			case 'goal.complete': return 'KOMPLETT';
-			case 'button.login': return 'Logga in';
-			case 'button.logout': return 'Logga ut';
-			case 'button.edit_profile': return 'Redigera profil';
-			case 'button.follow': return 'Följ';
-			case 'button.unfollow': return 'Sluta följa';
-			case 'button.mute': return 'Tysta';
-			case 'button.unmute': return 'Avtysta';
-			case 'button.share': return 'Dela';
-			case 'button.save': return 'Spara';
-			case 'button.connect': return 'Anslut';
-			case 'button.settings': return 'Inställningar';
-			case 'embed.article_by': return ({required Object name}) => 'Artikel av ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Anteckning av ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Direktsändning via ${name}';
-			case 'stream_list.following': return 'Följer';
-			case 'stream_list.live': return 'Live';
-			case 'stream_list.planned': return 'Planerade';
-			case 'stream_list.ended': return 'Avslutade';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Anpassat belopp';
-			case 'zap.confirm': return 'Bekräfta';
-			case 'zap.comment': return 'Kommentar';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Öppna i plånboken';
-			case 'zap.button_connect_wallet': return 'Anslut plånbok';
-			case 'zap.copy': return 'Kopieras till urklipp';
-			case 'zap.error.invalid_custom_amount': return 'Ogiltigt anpassat belopp';
-			case 'zap.error.no_wallet': return 'Ingen blixtplånbok installerad';
-			case 'zap.error.no_lud16': return 'Ingen blixtadress hittades';
-			case 'profile.past_streams': return 'Tidigare streamar';
-			case 'settings.button_profile': return 'Redigera profil';
-			case 'settings.button_wallet': return 'Inställningar för plånbok';
-			case 'settings.profile.display_name': return 'Visa namn';
-			case 'settings.profile.about': return 'Om';
-			case 'settings.profile.nip05': return 'Nostr adress';
-			case 'settings.profile.lud16': return 'Lightning-adress';
-			case 'settings.profile.error.logged_out': return 'Kan inte redigera profil när jag är utloggad';
-			case 'settings.wallet.connect_wallet': return 'Anslut plånbok (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Koppla bort plånboken';
-			case 'settings.wallet.connect_1tap': return '1-tryck anslutning';
-			case 'settings.wallet.paste': return 'Klistra in URL';
-			case 'settings.wallet.balance': return 'Balans';
-			case 'settings.wallet.name': return 'Plånbok';
-			case 'settings.wallet.error.logged_out': return 'Kan inte ansluta plånbok när du är utloggad';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Inget autentiseringshändelse för plånbok hittades';
-			case 'login.username': return 'Användarnamn';
-			case 'login.amber': return 'Logga in med Amber';
-			case 'login.key': return 'Logga in med nyckel';
-			case 'login.create': return 'Skapa konto';
-			case 'login.error.invalid_key': return 'Ogiltig nyckel';
-			case 'live.start': return 'GÅ DIREKT';
-			case 'live.configure_stream': return 'Konfigurera ström';
-			case 'live.endpoint': return 'Slutpunkt';
-			case 'live.accept_tos': return 'Acceptera TOS';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'Titel';
-			case 'live.summary': return 'Sammanfattning';
-			case 'live.image': return 'Omslagsbild';
-			case 'live.tags': return 'Etiketter';
-			case 'live.nsfw': return 'NSFW-innehåll';
-			case 'live.nsfw_description': return 'Markera här om denna stream innehåller nakenhet eller pornografiskt innehåll.';
-			case 'live.error.failed': return 'Strömmen misslyckades';
-			case 'live.error.connection_error': return 'Anslutningsfel';
-			case 'live.error.start_failed': return 'Stream start misslyckades, vänligen kontrollera ditt saldo';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Ladda upp avatar',
+			'most_zapped_streamers' => 'De flest zappade streamers',
+			'no_user_found' => 'Ingen användare hittades',
+			'anon' => 'Anno',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('sv').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n, one: '1 tittare', other: '${NumberFormat.decimalPattern('sv').format(n)} tittare', ), 
+			'stream.status.live' => 'LIVE',
+			'stream.status.ended' => 'AVSLUTAD',
+			'stream.status.planned' => 'PLANERADE',
+			'stream.started' => ({required Object timestamp}) => 'Startad ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} gick live!',
+			'stream.chat.disabled' => 'CHAT AVSTÄNGD',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Tidsgränsen går ut: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' tidsbegränsad '), user, const TextSpan(text: ' för '), time, ]), 
+			'stream.chat.ended' => 'STREAM AVSLUTAD',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' zapped '), amount, const TextSpan(text: ' sats'), ]), 
+			'stream.chat.write.label' => 'Skriv meddelande',
+			'stream.chat.write.no_signer' => 'Det går inte att skriva meddelanden med n-pub inloggning',
+			'stream.chat.write.login' => 'Logga in för att skicka meddelanden',
+			'stream.chat.badge.awarded_to' => 'Tilldelas till:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID FRÅN ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Radiering i ${time}',
+			'goal.title' => ({required Object amount}) => 'Mål: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Kvarvarande: ${amount}',
+			'goal.complete' => 'KOMPLETT',
+			'button.login' => 'Logga in',
+			'button.logout' => 'Logga ut',
+			'button.edit_profile' => 'Redigera profil',
+			'button.follow' => 'Följ',
+			'button.unfollow' => 'Sluta följa',
+			'button.mute' => 'Tysta',
+			'button.unmute' => 'Avtysta',
+			'button.share' => 'Dela',
+			'button.save' => 'Spara',
+			'button.connect' => 'Anslut',
+			'button.settings' => 'Inställningar',
+			'embed.article_by' => ({required Object name}) => 'Artikel av ${name}',
+			'embed.note_by' => ({required Object name}) => 'Anteckning av ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Direktsändning via ${name}',
+			'stream_list.following' => 'Följer',
+			'stream_list.live' => 'Live',
+			'stream_list.planned' => 'Planerade',
+			'stream_list.ended' => 'Avslutade',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Anpassat belopp',
+			'zap.confirm' => 'Bekräfta',
+			'zap.comment' => 'Kommentar',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} sats',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Öppna i plånboken',
+			'zap.button_connect_wallet' => 'Anslut plånbok',
+			'zap.copy' => 'Kopieras till urklipp',
+			'zap.error.invalid_custom_amount' => 'Ogiltigt anpassat belopp',
+			'zap.error.no_wallet' => 'Ingen blixtplånbok installerad',
+			'zap.error.no_lud16' => 'Ingen blixtadress hittades',
+			'profile.past_streams' => 'Tidigare streamar',
+			'settings.button_profile' => 'Redigera profil',
+			'settings.button_wallet' => 'Inställningar för plånbok',
+			'settings.profile.display_name' => 'Visa namn',
+			'settings.profile.about' => 'Om',
+			'settings.profile.nip05' => 'Nostr adress',
+			'settings.profile.lud16' => 'Lightning-adress',
+			'settings.profile.error.logged_out' => 'Kan inte redigera profil när jag är utloggad',
+			'settings.wallet.connect_wallet' => 'Anslut plånbok (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Koppla bort plånboken',
+			'settings.wallet.connect_1tap' => '1-tryck anslutning',
+			'settings.wallet.paste' => 'Klistra in URL',
+			'settings.wallet.balance' => 'Balans',
+			'settings.wallet.name' => 'Plånbok',
+			'settings.wallet.error.logged_out' => 'Kan inte ansluta plånbok när du är utloggad',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Inget autentiseringshändelse för plånbok hittades',
+			'login.username' => 'Användarnamn',
+			'login.amber' => 'Logga in med Amber',
+			'login.key' => 'Logga in med nyckel',
+			'login.create' => 'Skapa konto',
+			'login.error.invalid_key' => 'Ogiltig nyckel',
+			'live.start' => 'GÅ DIREKT',
+			'live.configure_stream' => 'Konfigurera ström',
+			'live.endpoint' => 'Slutpunkt',
+			'live.accept_tos' => 'Acceptera TOS',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'Titel',
+			'live.summary' => 'Sammanfattning',
+			'live.image' => 'Omslagsbild',
+			'live.tags' => 'Etiketter',
+			'live.nsfw' => 'NSFW-innehåll',
+			'live.nsfw_description' => 'Markera här om denna stream innehåller nakenhet eller pornografiskt innehåll.',
+			'live.error.failed' => 'Strömmen misslyckades',
+			'live.error.connection_error' => 'Anslutningsfel',
+			'live.error.start_failed' => 'Stream start misslyckades, vänligen kontrollera ditt saldo',
+			_ => null,
+		};
 	}
 }
-

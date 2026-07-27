@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsEl extends Translations {
+class TranslationsEl extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsEl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsEl extends Translations {
 		other: '${NumberFormat.decimalPattern('el').format(n)} θεατές',
 	);
 
-	@override late final _TranslationsStreamEl stream = _TranslationsStreamEl._(_root);
-	@override late final _TranslationsGoalEl goal = _TranslationsGoalEl._(_root);
-	@override late final _TranslationsButtonEl button = _TranslationsButtonEl._(_root);
-	@override late final _TranslationsEmbedEl embed = _TranslationsEmbedEl._(_root);
+	@override late final _Translations$stream$el stream = _Translations$stream$el._(_root);
+	@override late final _Translations$goal$el goal = _Translations$goal$el._(_root);
+	@override late final _Translations$button$el button = _Translations$button$el._(_root);
+	@override late final _Translations$embed$el embed = _Translations$embed$el._(_root);
 
 	/// Επικεφαλίδες στις λίστες ροής ανά τύπο ροής ζωντανή/τελειωμένη/προγραμματισμένη κ.λπ.
-	@override late final _TranslationsStreamListEl stream_list = _TranslationsStreamListEl._(_root);
+	@override late final _Translations$stream_list$el stream_list = _Translations$stream_list$el._(_root);
 
-	@override late final _TranslationsZapEl zap = _TranslationsZapEl._(_root);
-	@override late final _TranslationsProfileEl profile = _TranslationsProfileEl._(_root);
-	@override late final _TranslationsSettingsEl settings = _TranslationsSettingsEl._(_root);
-	@override late final _TranslationsLoginEl login = _TranslationsLoginEl._(_root);
-	@override late final _TranslationsLiveEl live = _TranslationsLiveEl._(_root);
+	@override late final _Translations$zap$el zap = _Translations$zap$el._(_root);
+	@override late final _Translations$profile$el profile = _Translations$profile$el._(_root);
+	@override late final _Translations$settings$el settings = _Translations$settings$el._(_root);
+	@override late final _Translations$login$el login = _Translations$login$el._(_root);
+	@override late final _Translations$live$el live = _Translations$live$el._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamEl extends TranslationsStreamEn {
-	_TranslationsStreamEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$stream$el extends Translations$stream$en {
+	_Translations$stream$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusEl status = _TranslationsStreamStatusEl._(_root);
+	@override late final _Translations$stream$status$el status = _Translations$stream$status$el._(_root);
 	@override String started({required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
 	@override String notification({required Object name}) => '${name} βγήκε ζωντανά!';
-	@override late final _TranslationsStreamChatEl chat = _TranslationsStreamChatEl._(_root);
+	@override late final _Translations$stream$chat$el chat = _Translations$stream$chat$el._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalEl extends TranslationsGoalEn {
-	_TranslationsGoalEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$goal$el extends Translations$goal$en {
+	_Translations$goal$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalEl extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonEl extends TranslationsButtonEn {
-	_TranslationsButtonEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$button$el extends Translations$button$en {
+	_Translations$button$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonEl extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedEl extends TranslationsEmbedEn {
-	_TranslationsEmbedEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$embed$el extends Translations$embed$en {
+	_Translations$embed$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedEl extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListEl extends TranslationsStreamListEn {
-	_TranslationsStreamListEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$stream_list$el extends Translations$stream_list$en {
+	_Translations$stream_list$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListEl extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapEl extends TranslationsZapEn {
-	_TranslationsZapEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$zap$el extends Translations$zap$en {
+	_Translations$zap$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapEl extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Άνοιγμα στο πορτοφόλι';
 	@override String get button_connect_wallet => 'Connect Wallet';
 	@override String get copy => 'Αντιγραφή στο πρόχειρο';
-	@override late final _TranslationsZapErrorEl error = _TranslationsZapErrorEl._(_root);
+	@override late final _Translations$zap$error$el error = _Translations$zap$error$el._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileEl extends TranslationsProfileEn {
-	_TranslationsProfileEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$profile$el extends Translations$profile$en {
+	_Translations$profile$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileEl extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsEl extends TranslationsSettingsEn {
-	_TranslationsSettingsEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$settings$el extends Translations$settings$en {
+	_Translations$settings$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Επεξεργασία προφίλ';
 	@override String get button_wallet => 'Ρυθμίσεις πορτοφολιού';
-	@override late final _TranslationsSettingsProfileEl profile = _TranslationsSettingsProfileEl._(_root);
-	@override late final _TranslationsSettingsWalletEl wallet = _TranslationsSettingsWalletEl._(_root);
+	@override late final _Translations$settings$profile$el profile = _Translations$settings$profile$el._(_root);
+	@override late final _Translations$settings$wallet$el wallet = _Translations$settings$wallet$el._(_root);
 }
 
 // Path: login
-class _TranslationsLoginEl extends TranslationsLoginEn {
-	_TranslationsLoginEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$login$el extends Translations$login$en {
+	_Translations$login$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginEl extends TranslationsLoginEn {
 	@override String get amber => 'Σύνδεση με Amber';
 	@override String get key => 'Σύνδεση με κλειδί';
 	@override String get create => 'Δημιουργία λογαριασμού';
-	@override late final _TranslationsLoginErrorEl error = _TranslationsLoginErrorEl._(_root);
+	@override late final _Translations$login$error$el error = _Translations$login$error$el._(_root);
 }
 
 // Path: live
-class _TranslationsLiveEl extends TranslationsLiveEn {
-	_TranslationsLiveEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$live$el extends Translations$live$en {
+	_Translations$live$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveEl extends TranslationsLiveEn {
 	@override String get tags => 'Ετικέτες';
 	@override String get nsfw => 'Περιεχόμενο NSFW';
 	@override String get nsfw_description => 'Ελέγξτε εδώ αν αυτή η ροή περιέχει γυμνό ή πορνογραφικό περιεχόμενο.';
-	@override late final _TranslationsLiveErrorEl error = _TranslationsLiveErrorEl._(_root);
+	@override late final _Translations$live$error$el error = _Translations$live$error$el._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusEl extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$stream$status$el extends Translations$stream$status$en {
+	_Translations$stream$status$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusEl extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatEl extends TranslationsStreamChatEn {
-	_TranslationsStreamChatEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$el extends Translations$stream$chat$en {
+	_Translations$stream$chat$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatEl extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteEl write = _TranslationsStreamChatWriteEl._(_root);
-	@override late final _TranslationsStreamChatBadgeEl badge = _TranslationsStreamChatBadgeEl._(_root);
-	@override late final _TranslationsStreamChatRaidEl raid = _TranslationsStreamChatRaidEl._(_root);
+	@override late final _Translations$stream$chat$write$el write = _Translations$stream$chat$write$el._(_root);
+	@override late final _Translations$stream$chat$badge$el badge = _Translations$stream$chat$badge$el._(_root);
+	@override late final _Translations$stream$chat$raid$el raid = _Translations$stream$chat$raid$el._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorEl extends TranslationsZapErrorEn {
-	_TranslationsZapErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$zap$error$el extends Translations$zap$error$en {
+	_Translations$zap$error$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorEl extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileEl extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$el extends Translations$settings$profile$en {
+	_Translations$settings$profile$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileEl extends TranslationsSettingsProfileEn {
 	@override String get about => 'Σχετικά με το';
 	@override String get nip05 => 'Διεύθυνση Nostr';
 	@override String get lud16 => 'Διεύθυνση Lightning';
-	@override late final _TranslationsSettingsProfileErrorEl error = _TranslationsSettingsProfileErrorEl._(_root);
+	@override late final _Translations$settings$profile$error$el error = _Translations$settings$profile$error$el._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletEl extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$el extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletEl extends TranslationsSettingsWalletEn {
 	@override String get paste => 'Επικόλληση URL';
 	@override String get balance => 'Υπόλοιπο';
 	@override String get name => 'Πορτοφόλι';
-	@override late final _TranslationsSettingsWalletErrorEl error = _TranslationsSettingsWalletErrorEl._(_root);
+	@override late final _Translations$settings$wallet$error$el error = _Translations$settings$wallet$error$el._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorEl extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$login$error$el extends Translations$login$error$en {
+	_Translations$login$error$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorEl extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorEl extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$live$error$el extends Translations$live$error$en {
+	_Translations$live$error$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorEl extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteEl extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$el extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteEl extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeEl extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$el extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeEl extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidEl extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$el extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidEl extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorEl extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$el extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorEl extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorEl extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorEl._(TranslationsEl root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$el extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$el._(TranslationsEl root) : this._root = root, super.internal(root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorEl extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Δεν βρέθηκε συμβάν εξουσιοδότησης πορτοφολιού';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <el>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsEl {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Ανέβασμα Avatar';
-			case 'most_zapped_streamers': return 'Τα περισσότερα Zapped Streamers';
-			case 'no_user_found': return 'Δεν βρέθηκε χρήστης';
-			case 'anon': return 'Anon';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('el').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
-				one: '1 θεατής',
-				other: '${NumberFormat.decimalPattern('el').format(n)} θεατές',
-			);
-			case 'stream.status.live': return 'LIVE';
-			case 'stream.status.ended': return 'ENDED';
-			case 'stream.status.planned': return 'ΣΧΕΔΙΑΣΜΟΣ';
-			case 'stream.started': return ({required Object timestamp}) => 'Ξεκίνησε ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} βγήκε ζωντανά!';
-			case 'stream.chat.disabled': return 'ΑΠΕΝΕΡΓΟΠΟΙΗΜΈΝΗ ΣΥΝΟΜΙΛΊΑ';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Το χρονικό όριο λήγει: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' χρονομετρημένη λήξη '),
-				user,
-				const TextSpan(text: ' για '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'STREAM ΤΕΛΕΙΩΣΕ';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' zapped '),
-				amount,
-				const TextSpan(text: ' sats'),
-			]);
-			case 'stream.chat.write.label': return 'Γράψτε μήνυμα';
-			case 'stream.chat.write.no_signer': return 'Δεν μπορείτε να γράψετε μηνύματα με σύνδεση στο npub';
-			case 'stream.chat.write.login': return 'Παρακαλώ συνδεθείτε για να στείλετε μηνύματα';
-			case 'stream.chat.badge.awarded_to': return 'Απονέμεται σε:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Επιδρομές στο ${time}';
-			case 'goal.title': return ({required Object amount}) => 'Στόχος: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Υπόλοιπο: ${amount}';
-			case 'goal.complete': return 'ΠΛΗΡΗΣ';
-			case 'button.login': return 'Σύνδεση';
-			case 'button.logout': return 'Αποσύνδεση';
-			case 'button.edit_profile': return 'Επεξεργασία προφίλ';
-			case 'button.follow': return 'Ακολουθήστε το';
-			case 'button.unfollow': return 'Ακολουθήστε το';
-			case 'button.mute': return 'Σίγαση';
-			case 'button.unmute': return 'Αποσυνδέστε τη φωνή σας από το';
-			case 'button.share': return 'Μοιραστείτε το';
-			case 'button.save': return 'Αποθήκευση';
-			case 'button.connect': return 'Συνδέστε το';
-			case 'button.settings': return 'Ρυθμίσεις';
-			case 'embed.article_by': return ({required Object name}) => 'Άρθρο από ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Σημείωση του ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Ζωντανή μετάδοση από το ${name}';
-			case 'stream_list.following': return 'Ακολουθώντας το';
-			case 'stream_list.live': return 'Ζωντανό';
-			case 'stream_list.planned': return 'Προγραμματισμένο';
-			case 'stream_list.ended': return 'Τελείωσε';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Προσαρμοσμένο ποσό';
-			case 'zap.confirm': return 'Επιβεβαίωση';
-			case 'zap.comment': return 'Σχόλιο';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Άνοιγμα στο πορτοφόλι';
-			case 'zap.button_connect_wallet': return 'Connect Wallet';
-			case 'zap.copy': return 'Αντιγραφή στο πρόχειρο';
-			case 'zap.error.invalid_custom_amount': return 'Μη έγκυρο προσαρμοσμένο ποσό';
-			case 'zap.error.no_wallet': return 'Δεν έχει εγκατασταθεί πορτοφόλι αστραπής';
-			case 'zap.error.no_lud16': return 'Δεν βρέθηκε διεύθυνση κεραυνού';
-			case 'profile.past_streams': return 'Προηγούμενα ρεύματα';
-			case 'settings.button_profile': return 'Επεξεργασία προφίλ';
-			case 'settings.button_wallet': return 'Ρυθμίσεις πορτοφολιού';
-			case 'settings.profile.display_name': return 'Όνομα οθόνης';
-			case 'settings.profile.about': return 'Σχετικά με το';
-			case 'settings.profile.nip05': return 'Διεύθυνση Nostr';
-			case 'settings.profile.lud16': return 'Διεύθυνση Lightning';
-			case 'settings.profile.error.logged_out': return 'Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί';
-			case 'settings.wallet.connect_wallet': return 'Connect Wallet (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Αποσύνδεση πορτοφολιού';
-			case 'settings.wallet.connect_1tap': return 'Σύνδεση 1 βρύσης';
-			case 'settings.wallet.paste': return 'Επικόλληση URL';
-			case 'settings.wallet.balance': return 'Υπόλοιπο';
-			case 'settings.wallet.name': return 'Πορτοφόλι';
-			case 'settings.wallet.error.logged_out': return 'Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Δεν βρέθηκε συμβάν εξουσιοδότησης πορτοφολιού';
-			case 'login.username': return 'Όνομα χρήστη';
-			case 'login.amber': return 'Σύνδεση με Amber';
-			case 'login.key': return 'Σύνδεση με κλειδί';
-			case 'login.create': return 'Δημιουργία λογαριασμού';
-			case 'login.error.invalid_key': return 'Μη έγκυρο κλειδί';
-			case 'live.start': return 'GO LIVE';
-			case 'live.configure_stream': return 'Διαμόρφωση ροής';
-			case 'live.endpoint': return 'Τελικό σημείο';
-			case 'live.accept_tos': return 'Αποδοχή TOS';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'Τίτλος';
-			case 'live.summary': return 'Περίληψη';
-			case 'live.image': return 'Εικόνα εξωφύλλου';
-			case 'live.tags': return 'Ετικέτες';
-			case 'live.nsfw': return 'Περιεχόμενο NSFW';
-			case 'live.nsfw_description': return 'Ελέγξτε εδώ αν αυτή η ροή περιέχει γυμνό ή πορνογραφικό περιεχόμενο.';
-			case 'live.error.failed': return 'Το ρεύμα απέτυχε';
-			case 'live.error.connection_error': return 'Σφάλμα σύνδεσης';
-			case 'live.error.start_failed': return 'Η εκκίνηση της ροής απέτυχε, παρακαλούμε ελέγξτε το υπόλοιπό σας';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Ανέβασμα Avatar',
+			'most_zapped_streamers' => 'Τα περισσότερα Zapped Streamers',
+			'no_user_found' => 'Δεν βρέθηκε χρήστης',
+			'anon' => 'Anon',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('el').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n, one: '1 θεατής', other: '${NumberFormat.decimalPattern('el').format(n)} θεατές', ), 
+			'stream.status.live' => 'LIVE',
+			'stream.status.ended' => 'ENDED',
+			'stream.status.planned' => 'ΣΧΕΔΙΑΣΜΟΣ',
+			'stream.started' => ({required Object timestamp}) => 'Ξεκίνησε ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} βγήκε ζωντανά!',
+			'stream.chat.disabled' => 'ΑΠΕΝΕΡΓΟΠΟΙΗΜΈΝΗ ΣΥΝΟΜΙΛΊΑ',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Το χρονικό όριο λήγει: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' χρονομετρημένη λήξη '), user, const TextSpan(text: ' για '), time, ]), 
+			'stream.chat.ended' => 'STREAM ΤΕΛΕΙΩΣΕ',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' zapped '), amount, const TextSpan(text: ' sats'), ]), 
+			'stream.chat.write.label' => 'Γράψτε μήνυμα',
+			'stream.chat.write.no_signer' => 'Δεν μπορείτε να γράψετε μηνύματα με σύνδεση στο npub',
+			'stream.chat.write.login' => 'Παρακαλώ συνδεθείτε για να στείλετε μηνύματα',
+			'stream.chat.badge.awarded_to' => 'Απονέμεται σε:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID FROM ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Επιδρομές στο ${time}',
+			'goal.title' => ({required Object amount}) => 'Στόχος: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Υπόλοιπο: ${amount}',
+			'goal.complete' => 'ΠΛΗΡΗΣ',
+			'button.login' => 'Σύνδεση',
+			'button.logout' => 'Αποσύνδεση',
+			'button.edit_profile' => 'Επεξεργασία προφίλ',
+			'button.follow' => 'Ακολουθήστε το',
+			'button.unfollow' => 'Ακολουθήστε το',
+			'button.mute' => 'Σίγαση',
+			'button.unmute' => 'Αποσυνδέστε τη φωνή σας από το',
+			'button.share' => 'Μοιραστείτε το',
+			'button.save' => 'Αποθήκευση',
+			'button.connect' => 'Συνδέστε το',
+			'button.settings' => 'Ρυθμίσεις',
+			'embed.article_by' => ({required Object name}) => 'Άρθρο από ${name}',
+			'embed.note_by' => ({required Object name}) => 'Σημείωση του ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Ζωντανή μετάδοση από το ${name}',
+			'stream_list.following' => 'Ακολουθώντας το',
+			'stream_list.live' => 'Ζωντανό',
+			'stream_list.planned' => 'Προγραμματισμένο',
+			'stream_list.ended' => 'Τελείωσε',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Προσαρμοσμένο ποσό',
+			'zap.confirm' => 'Επιβεβαίωση',
+			'zap.comment' => 'Σχόλιο',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} sats',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Άνοιγμα στο πορτοφόλι',
+			'zap.button_connect_wallet' => 'Connect Wallet',
+			'zap.copy' => 'Αντιγραφή στο πρόχειρο',
+			'zap.error.invalid_custom_amount' => 'Μη έγκυρο προσαρμοσμένο ποσό',
+			'zap.error.no_wallet' => 'Δεν έχει εγκατασταθεί πορτοφόλι αστραπής',
+			'zap.error.no_lud16' => 'Δεν βρέθηκε διεύθυνση κεραυνού',
+			'profile.past_streams' => 'Προηγούμενα ρεύματα',
+			'settings.button_profile' => 'Επεξεργασία προφίλ',
+			'settings.button_wallet' => 'Ρυθμίσεις πορτοφολιού',
+			'settings.profile.display_name' => 'Όνομα οθόνης',
+			'settings.profile.about' => 'Σχετικά με το',
+			'settings.profile.nip05' => 'Διεύθυνση Nostr',
+			'settings.profile.lud16' => 'Διεύθυνση Lightning',
+			'settings.profile.error.logged_out' => 'Δεν μπορείτε να επεξεργαστείτε το προφίλ όταν έχετε αποσυνδεθεί',
+			'settings.wallet.connect_wallet' => 'Connect Wallet (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Αποσύνδεση πορτοφολιού',
+			'settings.wallet.connect_1tap' => 'Σύνδεση 1 βρύσης',
+			'settings.wallet.paste' => 'Επικόλληση URL',
+			'settings.wallet.balance' => 'Υπόλοιπο',
+			'settings.wallet.name' => 'Πορτοφόλι',
+			'settings.wallet.error.logged_out' => 'Δεν μπορώ να συνδεθώ με πορτοφόλι όταν έχω αποσυνδεθεί',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Δεν βρέθηκε συμβάν εξουσιοδότησης πορτοφολιού',
+			'login.username' => 'Όνομα χρήστη',
+			'login.amber' => 'Σύνδεση με Amber',
+			'login.key' => 'Σύνδεση με κλειδί',
+			'login.create' => 'Δημιουργία λογαριασμού',
+			'login.error.invalid_key' => 'Μη έγκυρο κλειδί',
+			'live.start' => 'GO LIVE',
+			'live.configure_stream' => 'Διαμόρφωση ροής',
+			'live.endpoint' => 'Τελικό σημείο',
+			'live.accept_tos' => 'Αποδοχή TOS',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'Τίτλος',
+			'live.summary' => 'Περίληψη',
+			'live.image' => 'Εικόνα εξωφύλλου',
+			'live.tags' => 'Ετικέτες',
+			'live.nsfw' => 'Περιεχόμενο NSFW',
+			'live.nsfw_description' => 'Ελέγξτε εδώ αν αυτή η ροή περιέχει γυμνό ή πορνογραφικό περιεχόμενο.',
+			'live.error.failed' => 'Το ρεύμα απέτυχε',
+			'live.error.connection_error' => 'Σφάλμα σύνδεσης',
+			'live.error.start_failed' => 'Η εκκίνηση της ροής απέτυχε, παρακαλούμε ελέγξτε το υπόλοιπό σας',
+			_ => null,
+		};
 	}
 }
-

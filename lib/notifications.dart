@@ -188,7 +188,7 @@ class NotificationsStore extends ValueNotifier<NotificationsState?> {
 
 Future<void> _initLocalNotifications() async {
   await localNotifications.initialize(
-    InitializationSettings(
+    settings: InitializationSettings(
       android: AndroidInitializationSettings("@drawable/ic_stat_name"),
       iOS: DarwinInitializationSettings(),
     ),
@@ -234,10 +234,10 @@ Future<void> _showNotification(
           : null;
 
   localNotifications.show(
-    notification.hashCode,
-    newTitle ?? notification.title,
-    stream?.info.title ?? notification.body,
-    NotificationDetails(
+    id: notification.hashCode,
+    title: newTitle ?? notification.title,
+    body: stream?.info.title ?? notification.body,
+    notificationDetails: NotificationDetails(
       android: AndroidNotificationDetails(
         notification.android!.channelId ?? "fcm",
         "Push Notifications",

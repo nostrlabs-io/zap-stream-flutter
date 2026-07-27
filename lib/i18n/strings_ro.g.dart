@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsRo extends Translations {
+class TranslationsRo extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsRo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsRo extends Translations {
 		other: '${NumberFormat.decimalPattern('ro').format(n)} telespectatori',
 	);
 
-	@override late final _TranslationsStreamRo stream = _TranslationsStreamRo._(_root);
-	@override late final _TranslationsGoalRo goal = _TranslationsGoalRo._(_root);
-	@override late final _TranslationsButtonRo button = _TranslationsButtonRo._(_root);
-	@override late final _TranslationsEmbedRo embed = _TranslationsEmbedRo._(_root);
+	@override late final _Translations$stream$ro stream = _Translations$stream$ro._(_root);
+	@override late final _Translations$goal$ro goal = _Translations$goal$ro._(_root);
+	@override late final _Translations$button$ro button = _Translations$button$ro._(_root);
+	@override late final _Translations$embed$ro embed = _Translations$embed$ro._(_root);
 
 	/// Rubrici pe listele de fluxuri în funcție de tipul fluxului în direct/terminat/planificat etc.
-	@override late final _TranslationsStreamListRo stream_list = _TranslationsStreamListRo._(_root);
+	@override late final _Translations$stream_list$ro stream_list = _Translations$stream_list$ro._(_root);
 
-	@override late final _TranslationsZapRo zap = _TranslationsZapRo._(_root);
-	@override late final _TranslationsProfileRo profile = _TranslationsProfileRo._(_root);
-	@override late final _TranslationsSettingsRo settings = _TranslationsSettingsRo._(_root);
-	@override late final _TranslationsLoginRo login = _TranslationsLoginRo._(_root);
-	@override late final _TranslationsLiveRo live = _TranslationsLiveRo._(_root);
+	@override late final _Translations$zap$ro zap = _Translations$zap$ro._(_root);
+	@override late final _Translations$profile$ro profile = _Translations$profile$ro._(_root);
+	@override late final _Translations$settings$ro settings = _Translations$settings$ro._(_root);
+	@override late final _Translations$login$ro login = _Translations$login$ro._(_root);
+	@override late final _Translations$live$ro live = _Translations$live$ro._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamRo extends TranslationsStreamEn {
-	_TranslationsStreamRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$stream$ro extends Translations$stream$en {
+	_Translations$stream$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusRo status = _TranslationsStreamStatusRo._(_root);
+	@override late final _Translations$stream$status$ro status = _Translations$stream$status$ro._(_root);
 	@override String started({required Object timestamp}) => 'A început ${timestamp}';
 	@override String notification({required Object name}) => '${name} a intrat în direct!';
-	@override late final _TranslationsStreamChatRo chat = _TranslationsStreamChatRo._(_root);
+	@override late final _Translations$stream$chat$ro chat = _Translations$stream$chat$ro._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalRo extends TranslationsGoalEn {
-	_TranslationsGoalRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$goal$ro extends Translations$goal$en {
+	_Translations$goal$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalRo extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonRo extends TranslationsButtonEn {
-	_TranslationsButtonRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$button$ro extends Translations$button$en {
+	_Translations$button$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonRo extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedRo extends TranslationsEmbedEn {
-	_TranslationsEmbedRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$embed$ro extends Translations$embed$en {
+	_Translations$embed$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedRo extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListRo extends TranslationsStreamListEn {
-	_TranslationsStreamListRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$stream_list$ro extends Translations$stream_list$en {
+	_Translations$stream_list$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListRo extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapRo extends TranslationsZapEn {
-	_TranslationsZapRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$zap$ro extends Translations$zap$en {
+	_Translations$zap$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapRo extends TranslationsZapEn {
 	@override String get button_open_wallet => 'Deschide în portofel';
 	@override String get button_connect_wallet => 'Conectați portofelul';
 	@override String get copy => 'Copiat în clipboard';
-	@override late final _TranslationsZapErrorRo error = _TranslationsZapErrorRo._(_root);
+	@override late final _Translations$zap$error$ro error = _Translations$zap$error$ro._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileRo extends TranslationsProfileEn {
-	_TranslationsProfileRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$profile$ro extends Translations$profile$en {
+	_Translations$profile$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileRo extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsRo extends TranslationsSettingsEn {
-	_TranslationsSettingsRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$settings$ro extends Translations$settings$en {
+	_Translations$settings$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'Editare profil';
 	@override String get button_wallet => 'Setări portofel';
-	@override late final _TranslationsSettingsProfileRo profile = _TranslationsSettingsProfileRo._(_root);
-	@override late final _TranslationsSettingsWalletRo wallet = _TranslationsSettingsWalletRo._(_root);
+	@override late final _Translations$settings$profile$ro profile = _Translations$settings$profile$ro._(_root);
+	@override late final _Translations$settings$wallet$ro wallet = _Translations$settings$wallet$ro._(_root);
 }
 
 // Path: login
-class _TranslationsLoginRo extends TranslationsLoginEn {
-	_TranslationsLoginRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$login$ro extends Translations$login$en {
+	_Translations$login$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginRo extends TranslationsLoginEn {
 	@override String get amber => 'Conectați-vă cu Amber';
 	@override String get key => 'Autentificare cu cheie';
 	@override String get create => 'Creare cont';
-	@override late final _TranslationsLoginErrorRo error = _TranslationsLoginErrorRo._(_root);
+	@override late final _Translations$login$error$ro error = _Translations$login$error$ro._(_root);
 }
 
 // Path: live
-class _TranslationsLiveRo extends TranslationsLiveEn {
-	_TranslationsLiveRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$live$ro extends Translations$live$en {
+	_Translations$live$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveRo extends TranslationsLiveEn {
 	@override String get tags => 'Etichete';
 	@override String get nsfw => 'Conținut NSFW';
 	@override String get nsfw_description => 'Bifați aici dacă acest flux conține nuditate sau conținut pornografic.';
-	@override late final _TranslationsLiveErrorRo error = _TranslationsLiveErrorRo._(_root);
+	@override late final _Translations$live$error$ro error = _Translations$live$error$ro._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusRo extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$stream$status$ro extends Translations$stream$status$en {
+	_Translations$stream$status$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusRo extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatRo extends TranslationsStreamChatEn {
-	_TranslationsStreamChatRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$ro extends Translations$stream$chat$en {
+	_Translations$stream$chat$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatRo extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteRo write = _TranslationsStreamChatWriteRo._(_root);
-	@override late final _TranslationsStreamChatBadgeRo badge = _TranslationsStreamChatBadgeRo._(_root);
-	@override late final _TranslationsStreamChatRaidRo raid = _TranslationsStreamChatRaidRo._(_root);
+	@override late final _Translations$stream$chat$write$ro write = _Translations$stream$chat$write$ro._(_root);
+	@override late final _Translations$stream$chat$badge$ro badge = _Translations$stream$chat$badge$ro._(_root);
+	@override late final _Translations$stream$chat$raid$ro raid = _Translations$stream$chat$raid$ro._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorRo extends TranslationsZapErrorEn {
-	_TranslationsZapErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$zap$error$ro extends Translations$zap$error$en {
+	_Translations$zap$error$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorRo extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileRo extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$ro extends Translations$settings$profile$en {
+	_Translations$settings$profile$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileRo extends TranslationsSettingsProfileEn {
 	@override String get about => 'Despre';
 	@override String get nip05 => 'Adresa Nostr';
 	@override String get lud16 => 'Adresa fulgerului';
-	@override late final _TranslationsSettingsProfileErrorRo error = _TranslationsSettingsProfileErrorRo._(_root);
+	@override late final _Translations$settings$profile$error$ro error = _Translations$settings$profile$error$ro._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletRo extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$ro extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletRo extends TranslationsSettingsWalletEn {
 	@override String get paste => 'Lipiți URL';
 	@override String get balance => 'Echilibru';
 	@override String get name => 'Portofel';
-	@override late final _TranslationsSettingsWalletErrorRo error = _TranslationsSettingsWalletErrorRo._(_root);
+	@override late final _Translations$settings$wallet$error$ro error = _Translations$settings$wallet$error$ro._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorRo extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$login$error$ro extends Translations$login$error$en {
+	_Translations$login$error$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorRo extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorRo extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$live$error$ro extends Translations$live$error$en {
+	_Translations$live$error$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorRo extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteRo extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$ro extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteRo extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeRo extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$ro extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeRo extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidRo extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$ro extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidRo extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorRo extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$ro extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorRo extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorRo extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorRo._(TranslationsRo root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$ro extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorRo extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'Nu a fost găsit niciun eveniment de autorizare a portofelului';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ro>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsRo {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return 'Încărcați Avatar';
-			case 'most_zapped_streamers': return 'Cele mai multe Streamers Zapped';
-			case 'no_user_found': return 'Niciun utilizator găsit';
-			case 'anon': return 'Anon';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ro').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
-				one: '1 vizualizator',
-				other: '${NumberFormat.decimalPattern('ro').format(n)} telespectatori',
-			);
-			case 'stream.status.live': return 'ÎN DIRECT';
-			case 'stream.status.ended': return 'TERMINAT';
-			case 'stream.status.planned': return 'PLANIFICATE';
-			case 'stream.started': return ({required Object timestamp}) => 'A început ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} a intrat în direct!';
-			case 'stream.chat.disabled': return 'CHAT DEZACTIVAT';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'Timpul expiră: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' Timed out '),
-				user,
-				const TextSpan(text: ' pentru '),
-				time,
-			]);
-			case 'stream.chat.ended': return 'STREAM ÎNCHEIAT';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' zapped '),
-				amount,
-				const TextSpan(text: ' sats'),
-			]);
-			case 'stream.chat.write.label': return 'Scrieți mesajul';
-			case 'stream.chat.write.no_signer': return 'Nu se pot scrie mesaje cu autentificarea npub';
-			case 'stream.chat.write.login': return 'Vă rugăm să vă autentificați pentru a trimite mesaje';
-			case 'stream.chat.badge.awarded_to': return 'Premiat pentru:';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID DE LA ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => 'Raiduri în ${time}';
-			case 'goal.title': return ({required Object amount}) => 'Obiectiv: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => 'Rămase: ${amount}';
-			case 'goal.complete': return 'COMPLET';
-			case 'button.login': return 'Autentificare';
-			case 'button.logout': return 'Ieșire';
-			case 'button.edit_profile': return 'Editare profil';
-			case 'button.follow': return 'Urmați';
-			case 'button.unfollow': return 'Unfollow';
-			case 'button.mute': return 'Mut';
-			case 'button.unmute': return 'Dezactivați';
-			case 'button.share': return 'Share';
-			case 'button.save': return 'Salvați';
-			case 'button.connect': return 'Conectare';
-			case 'button.settings': return 'Setări';
-			case 'embed.article_by': return ({required Object name}) => 'Articol de ${name}';
-			case 'embed.note_by': return ({required Object name}) => 'Notă de la ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => 'Transmisiune live prin ${name}';
-			case 'stream_list.following': return 'În urma';
-			case 'stream_list.live': return 'În direct';
-			case 'stream_list.planned': return 'Planificate';
-			case 'stream_list.ended': return 'Încheiat';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return 'Sumă personalizată';
-			case 'zap.confirm': return 'Confirmați';
-			case 'zap.comment': return 'Comentariu';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return 'Deschide în portofel';
-			case 'zap.button_connect_wallet': return 'Conectați portofelul';
-			case 'zap.copy': return 'Copiat în clipboard';
-			case 'zap.error.invalid_custom_amount': return 'Sumă personalizată invalidă';
-			case 'zap.error.no_wallet': return 'Nu este instalat niciun portofel Lightning';
-			case 'zap.error.no_lud16': return 'Nu a fost găsită nicio adresă de fulgere';
-			case 'profile.past_streams': return 'Fluxuri trecute';
-			case 'settings.button_profile': return 'Editare profil';
-			case 'settings.button_wallet': return 'Setări portofel';
-			case 'settings.profile.display_name': return 'Nume afișat';
-			case 'settings.profile.about': return 'Despre';
-			case 'settings.profile.nip05': return 'Adresa Nostr';
-			case 'settings.profile.lud16': return 'Adresa fulgerului';
-			case 'settings.profile.error.logged_out': return 'Nu pot edita profilul când sunt deconectat';
-			case 'settings.wallet.connect_wallet': return 'Conectați portofelul (NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'Deconectați portofelul';
-			case 'settings.wallet.connect_1tap': return 'Conexiune 1-Tap';
-			case 'settings.wallet.paste': return 'Lipiți URL';
-			case 'settings.wallet.balance': return 'Echilibru';
-			case 'settings.wallet.name': return 'Portofel';
-			case 'settings.wallet.error.logged_out': return 'Nu puteți conecta portofelul atunci când sunteți deconectat';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'Nu a fost găsit niciun eveniment de autorizare a portofelului';
-			case 'login.username': return 'Nume utilizator';
-			case 'login.amber': return 'Conectați-vă cu Amber';
-			case 'login.key': return 'Autentificare cu cheie';
-			case 'login.create': return 'Creare cont';
-			case 'login.error.invalid_key': return 'Cheie invalidă';
-			case 'live.start': return 'GO LIVE';
-			case 'live.configure_stream': return 'Configurați fluxul';
-			case 'live.endpoint': return 'Punct final';
-			case 'live.accept_tos': return 'Acceptați TOS';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'Titlu';
-			case 'live.summary': return 'Rezumat';
-			case 'live.image': return 'Imagine de copertă';
-			case 'live.tags': return 'Etichete';
-			case 'live.nsfw': return 'Conținut NSFW';
-			case 'live.nsfw_description': return 'Bifați aici dacă acest flux conține nuditate sau conținut pornografic.';
-			case 'live.error.failed': return 'Fluxul a eșuat';
-			case 'live.error.connection_error': return 'Eroare de conectare';
-			case 'live.error.start_failed': return 'Pornirea fluxului a eșuat, vă rugăm să verificați soldul';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => 'Încărcați Avatar',
+			'most_zapped_streamers' => 'Cele mai multe Streamers Zapped',
+			'no_user_found' => 'Niciun utilizator găsit',
+			'anon' => 'Anon',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('ro').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n, one: '1 vizualizator', other: '${NumberFormat.decimalPattern('ro').format(n)} telespectatori', ), 
+			'stream.status.live' => 'ÎN DIRECT',
+			'stream.status.ended' => 'TERMINAT',
+			'stream.status.planned' => 'PLANIFICATE',
+			'stream.started' => ({required Object timestamp}) => 'A început ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} a intrat în direct!',
+			'stream.chat.disabled' => 'CHAT DEZACTIVAT',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'Timpul expiră: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' Timed out '), user, const TextSpan(text: ' pentru '), time, ]), 
+			'stream.chat.ended' => 'STREAM ÎNCHEIAT',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' zapped '), amount, const TextSpan(text: ' sats'), ]), 
+			'stream.chat.write.label' => 'Scrieți mesajul',
+			'stream.chat.write.no_signer' => 'Nu se pot scrie mesaje cu autentificarea npub',
+			'stream.chat.write.login' => 'Vă rugăm să vă autentificați pentru a trimite mesaje',
+			'stream.chat.badge.awarded_to' => 'Premiat pentru:',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID DE LA ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => 'Raiduri în ${time}',
+			'goal.title' => ({required Object amount}) => 'Obiectiv: ${amount}',
+			'goal.remaining' => ({required Object amount}) => 'Rămase: ${amount}',
+			'goal.complete' => 'COMPLET',
+			'button.login' => 'Autentificare',
+			'button.logout' => 'Ieșire',
+			'button.edit_profile' => 'Editare profil',
+			'button.follow' => 'Urmați',
+			'button.unfollow' => 'Unfollow',
+			'button.mute' => 'Mut',
+			'button.unmute' => 'Dezactivați',
+			'button.share' => 'Share',
+			'button.save' => 'Salvați',
+			'button.connect' => 'Conectare',
+			'button.settings' => 'Setări',
+			'embed.article_by' => ({required Object name}) => 'Articol de ${name}',
+			'embed.note_by' => ({required Object name}) => 'Notă de la ${name}',
+			'embed.live_stream_by' => ({required Object name}) => 'Transmisiune live prin ${name}',
+			'stream_list.following' => 'În urma',
+			'stream_list.live' => 'În direct',
+			'stream_list.planned' => 'Planificate',
+			'stream_list.ended' => 'Încheiat',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => 'Sumă personalizată',
+			'zap.confirm' => 'Confirmați',
+			'zap.comment' => 'Comentariu',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} sats',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => 'Deschide în portofel',
+			'zap.button_connect_wallet' => 'Conectați portofelul',
+			'zap.copy' => 'Copiat în clipboard',
+			'zap.error.invalid_custom_amount' => 'Sumă personalizată invalidă',
+			'zap.error.no_wallet' => 'Nu este instalat niciun portofel Lightning',
+			'zap.error.no_lud16' => 'Nu a fost găsită nicio adresă de fulgere',
+			'profile.past_streams' => 'Fluxuri trecute',
+			'settings.button_profile' => 'Editare profil',
+			'settings.button_wallet' => 'Setări portofel',
+			'settings.profile.display_name' => 'Nume afișat',
+			'settings.profile.about' => 'Despre',
+			'settings.profile.nip05' => 'Adresa Nostr',
+			'settings.profile.lud16' => 'Adresa fulgerului',
+			'settings.profile.error.logged_out' => 'Nu pot edita profilul când sunt deconectat',
+			'settings.wallet.connect_wallet' => 'Conectați portofelul (NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'Deconectați portofelul',
+			'settings.wallet.connect_1tap' => 'Conexiune 1-Tap',
+			'settings.wallet.paste' => 'Lipiți URL',
+			'settings.wallet.balance' => 'Echilibru',
+			'settings.wallet.name' => 'Portofel',
+			'settings.wallet.error.logged_out' => 'Nu puteți conecta portofelul atunci când sunteți deconectat',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'Nu a fost găsit niciun eveniment de autorizare a portofelului',
+			'login.username' => 'Nume utilizator',
+			'login.amber' => 'Conectați-vă cu Amber',
+			'login.key' => 'Autentificare cu cheie',
+			'login.create' => 'Creare cont',
+			'login.error.invalid_key' => 'Cheie invalidă',
+			'live.start' => 'GO LIVE',
+			'live.configure_stream' => 'Configurați fluxul',
+			'live.endpoint' => 'Punct final',
+			'live.accept_tos' => 'Acceptați TOS',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'Titlu',
+			'live.summary' => 'Rezumat',
+			'live.image' => 'Imagine de copertă',
+			'live.tags' => 'Etichete',
+			'live.nsfw' => 'Conținut NSFW',
+			'live.nsfw_description' => 'Bifați aici dacă acest flux conține nuditate sau conținut pornografic.',
+			'live.error.failed' => 'Fluxul a eșuat',
+			'live.error.connection_error' => 'Eroare de conectare',
+			'live.error.start_failed' => 'Pornirea fluxului a eșuat, vă rugăm să verificați soldul',
+			_ => null,
+		};
 	}
 }
-

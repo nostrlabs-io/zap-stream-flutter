@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsKo extends Translations {
+class TranslationsKo extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsKo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsKo extends Translations {
 		other: '{n:decimalPattern} 시청자',
 	);
 
-	@override late final _TranslationsStreamKo stream = _TranslationsStreamKo._(_root);
-	@override late final _TranslationsGoalKo goal = _TranslationsGoalKo._(_root);
-	@override late final _TranslationsButtonKo button = _TranslationsButtonKo._(_root);
-	@override late final _TranslationsEmbedKo embed = _TranslationsEmbedKo._(_root);
+	@override late final _Translations$stream$ko stream = _Translations$stream$ko._(_root);
+	@override late final _Translations$goal$ko goal = _Translations$goal$ko._(_root);
+	@override late final _Translations$button$ko button = _Translations$button$ko._(_root);
+	@override late final _Translations$embed$ko embed = _Translations$embed$ko._(_root);
 
 	/// 실시간/종료/예정 등 스트림 유형별로 스트림 목록의 제목을 표시합니다.
-	@override late final _TranslationsStreamListKo stream_list = _TranslationsStreamListKo._(_root);
+	@override late final _Translations$stream_list$ko stream_list = _Translations$stream_list$ko._(_root);
 
-	@override late final _TranslationsZapKo zap = _TranslationsZapKo._(_root);
-	@override late final _TranslationsProfileKo profile = _TranslationsProfileKo._(_root);
-	@override late final _TranslationsSettingsKo settings = _TranslationsSettingsKo._(_root);
-	@override late final _TranslationsLoginKo login = _TranslationsLoginKo._(_root);
-	@override late final _TranslationsLiveKo live = _TranslationsLiveKo._(_root);
+	@override late final _Translations$zap$ko zap = _Translations$zap$ko._(_root);
+	@override late final _Translations$profile$ko profile = _Translations$profile$ko._(_root);
+	@override late final _Translations$settings$ko settings = _Translations$settings$ko._(_root);
+	@override late final _Translations$login$ko login = _Translations$login$ko._(_root);
+	@override late final _Translations$live$ko live = _Translations$live$ko._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamKo extends TranslationsStreamEn {
-	_TranslationsStreamKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$stream$ko extends Translations$stream$en {
+	_Translations$stream$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusKo status = _TranslationsStreamStatusKo._(_root);
+	@override late final _Translations$stream$status$ko status = _Translations$stream$status$ko._(_root);
 	@override String started({required Object timestamp}) => '시작 ${timestamp}';
 	@override String notification({required Object name}) => '${name} 라이브가 시작되었습니다!';
-	@override late final _TranslationsStreamChatKo chat = _TranslationsStreamChatKo._(_root);
+	@override late final _Translations$stream$chat$ko chat = _Translations$stream$chat$ko._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalKo extends TranslationsGoalEn {
-	_TranslationsGoalKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$goal$ko extends Translations$goal$en {
+	_Translations$goal$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalKo extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonKo extends TranslationsButtonEn {
-	_TranslationsButtonKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$button$ko extends Translations$button$en {
+	_Translations$button$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonKo extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedKo extends TranslationsEmbedEn {
-	_TranslationsEmbedKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$embed$ko extends Translations$embed$en {
+	_Translations$embed$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedKo extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListKo extends TranslationsStreamListEn {
-	_TranslationsStreamListKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$stream_list$ko extends Translations$stream_list$en {
+	_Translations$stream_list$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListKo extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapKo extends TranslationsZapEn {
-	_TranslationsZapKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$zap$ko extends Translations$zap$en {
+	_Translations$zap$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapKo extends TranslationsZapEn {
 	@override String get button_open_wallet => '지갑에서 열기';
 	@override String get button_connect_wallet => '지갑 연결';
 	@override String get copy => '클립보드에 복사';
-	@override late final _TranslationsZapErrorKo error = _TranslationsZapErrorKo._(_root);
+	@override late final _Translations$zap$error$ko error = _Translations$zap$error$ko._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileKo extends TranslationsProfileEn {
-	_TranslationsProfileKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$profile$ko extends Translations$profile$en {
+	_Translations$profile$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileKo extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsKo extends TranslationsSettingsEn {
-	_TranslationsSettingsKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$settings$ko extends Translations$settings$en {
+	_Translations$settings$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => '프로필 수정';
 	@override String get button_wallet => '지갑 설정';
-	@override late final _TranslationsSettingsProfileKo profile = _TranslationsSettingsProfileKo._(_root);
-	@override late final _TranslationsSettingsWalletKo wallet = _TranslationsSettingsWalletKo._(_root);
+	@override late final _Translations$settings$profile$ko profile = _Translations$settings$profile$ko._(_root);
+	@override late final _Translations$settings$wallet$ko wallet = _Translations$settings$wallet$ko._(_root);
 }
 
 // Path: login
-class _TranslationsLoginKo extends TranslationsLoginEn {
-	_TranslationsLoginKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$login$ko extends Translations$login$en {
+	_Translations$login$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginKo extends TranslationsLoginEn {
 	@override String get amber => 'Amber로 로그인';
 	@override String get key => '키로 로그인';
 	@override String get create => '계정 만들기';
-	@override late final _TranslationsLoginErrorKo error = _TranslationsLoginErrorKo._(_root);
+	@override late final _Translations$login$error$ko error = _Translations$login$error$ko._(_root);
 }
 
 // Path: live
-class _TranslationsLiveKo extends TranslationsLiveEn {
-	_TranslationsLiveKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$live$ko extends Translations$live$en {
+	_Translations$live$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveKo extends TranslationsLiveEn {
 	@override String get tags => '태그';
 	@override String get nsfw => 'NSFW 콘텐츠';
 	@override String get nsfw_description => '이 스트림에 노출 또는 음란 콘텐츠가 포함되어 있는지 여기에서 확인하세요.';
-	@override late final _TranslationsLiveErrorKo error = _TranslationsLiveErrorKo._(_root);
+	@override late final _Translations$live$error$ko error = _Translations$live$error$ko._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusKo extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$stream$status$ko extends Translations$stream$status$en {
+	_Translations$stream$status$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusKo extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatKo extends TranslationsStreamChatEn {
-	_TranslationsStreamChatKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$ko extends Translations$stream$chat$en {
+	_Translations$stream$chat$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatKo extends TranslationsStreamChatEn {
 		const TextSpan(text: ' SATS'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteKo write = _TranslationsStreamChatWriteKo._(_root);
-	@override late final _TranslationsStreamChatBadgeKo badge = _TranslationsStreamChatBadgeKo._(_root);
-	@override late final _TranslationsStreamChatRaidKo raid = _TranslationsStreamChatRaidKo._(_root);
+	@override late final _Translations$stream$chat$write$ko write = _Translations$stream$chat$write$ko._(_root);
+	@override late final _Translations$stream$chat$badge$ko badge = _Translations$stream$chat$badge$ko._(_root);
+	@override late final _Translations$stream$chat$raid$ko raid = _Translations$stream$chat$raid$ko._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorKo extends TranslationsZapErrorEn {
-	_TranslationsZapErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$zap$error$ko extends Translations$zap$error$en {
+	_Translations$zap$error$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorKo extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileKo extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$ko extends Translations$settings$profile$en {
+	_Translations$settings$profile$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileKo extends TranslationsSettingsProfileEn {
 	@override String get about => '정보';
 	@override String get nip05 => '노스트르 주소';
 	@override String get lud16 => '라이트닝 주소';
-	@override late final _TranslationsSettingsProfileErrorKo error = _TranslationsSettingsProfileErrorKo._(_root);
+	@override late final _Translations$settings$profile$error$ko error = _Translations$settings$profile$error$ko._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletKo extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$ko extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletKo extends TranslationsSettingsWalletEn {
 	@override String get paste => 'URL 붙여넣기';
 	@override String get balance => '잔액';
 	@override String get name => '지갑';
-	@override late final _TranslationsSettingsWalletErrorKo error = _TranslationsSettingsWalletErrorKo._(_root);
+	@override late final _Translations$settings$wallet$error$ko error = _Translations$settings$wallet$error$ko._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorKo extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$login$error$ko extends Translations$login$error$en {
+	_Translations$login$error$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorKo extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorKo extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$live$error$ko extends Translations$live$error$en {
+	_Translations$live$error$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorKo extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteKo extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$ko extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteKo extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeKo extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$ko extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeKo extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidKo extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$ko extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidKo extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorKo extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$ko extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorKo extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorKo extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorKo._(TranslationsKo root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$ko extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$ko._(TranslationsKo root) : this._root = root, super.internal(root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorKo extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => '지갑 인증 이벤트를 찾을 수 없습니다.';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ko>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsKo {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return '아바타 업로드';
-			case 'most_zapped_streamers': return '가장 많이 재핑된 스트리머';
-			case 'no_user_found': return '사용자를 찾을 수 없습니다.';
-			case 'anon': return 'Anon';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ko').format(n)} sats';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
-				one: '시청자 1명',
-				other: '{n:decimalPattern} 시청자',
-			);
-			case 'stream.status.live': return '라이브';
-			case 'stream.status.ended': return '종료';
-			case 'stream.status.planned': return '계획된';
-			case 'stream.started': return ({required Object timestamp}) => '시작 ${timestamp}';
-			case 'stream.notification': return ({required Object name}) => '${name} 라이브가 시작되었습니다!';
-			case 'stream.chat.disabled': return '채팅 사용 안 함';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => '시간 초과가 만료되었습니다: ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' 시간 초과됨 '),
-				user,
-				const TextSpan(text: ' '),
-				time,
-			]);
-			case 'stream.chat.ended': return '스트림 종료';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' ZAPP '),
-				amount,
-				const TextSpan(text: ' SATS'),
-			]);
-			case 'stream.chat.write.label': return '메시지 작성';
-			case 'stream.chat.write.no_signer': return 'npub 로그인으로 메시지를 작성할 수 없습니다.';
-			case 'stream.chat.write.login': return '메시지를 보내려면 로그인하세요.';
-			case 'stream.chat.badge.awarded_to': return '수상 대상';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDing ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time}에서 레이드';
-			case 'goal.title': return ({required Object amount}) => '목표: ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => '남음: ${amount}';
-			case 'goal.complete': return '완료';
-			case 'button.login': return '로그인';
-			case 'button.logout': return '로그아웃';
-			case 'button.edit_profile': return '프로필 수정';
-			case 'button.follow': return '팔로우';
-			case 'button.unfollow': return '언팔로우';
-			case 'button.mute': return '뮤트';
-			case 'button.unmute': return '뮤트 해제';
-			case 'button.share': return '공유';
-			case 'button.save': return '저장';
-			case 'button.connect': return '연결';
-			case 'button.settings': return '설정';
-			case 'embed.article_by': return ({required Object name}) => '작성자: ${name}';
-			case 'embed.note_by': return ({required Object name}) => '노트 작성됨: ${name}';
-			case 'embed.live_stream_by': return ({required Object name}) => '라이브 스트리밍: ${name}';
-			case 'stream_list.following': return '팔로잉';
-			case 'stream_list.live': return '라이브';
-			case 'stream_list.planned': return '계획된';
-			case 'stream_list.ended': return '종료됨';
-			case 'zap.title': return ({required Object name}) => 'Zap ${name}';
-			case 'zap.custom_amount': return '사용자 지정 금액';
-			case 'zap.confirm': return '확인';
-			case 'zap.comment': return '댓글';
-			case 'zap.button_zap_ready': return ({required Object amount}) => 'Zap ${amount} sats';
-			case 'zap.button_zap': return 'Zap';
-			case 'zap.button_open_wallet': return '지갑에서 열기';
-			case 'zap.button_connect_wallet': return '지갑 연결';
-			case 'zap.copy': return '클립보드에 복사';
-			case 'zap.error.invalid_custom_amount': return '잘못된 사용자 지정 금액';
-			case 'zap.error.no_wallet': return '라이트닝 월렛이 설치되지 않았습니다.';
-			case 'zap.error.no_lud16': return '번개 주소를 찾을 수 없습니다.';
-			case 'profile.past_streams': return '과거 스트림';
-			case 'settings.button_profile': return '프로필 수정';
-			case 'settings.button_wallet': return '지갑 설정';
-			case 'settings.profile.display_name': return '표시 이름';
-			case 'settings.profile.about': return '정보';
-			case 'settings.profile.nip05': return '노스트르 주소';
-			case 'settings.profile.lud16': return '라이트닝 주소';
-			case 'settings.profile.error.logged_out': return '로그아웃 시 프로필 수정 불가';
-			case 'settings.wallet.connect_wallet': return '지갑 연결(NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return '지갑 연결 해제';
-			case 'settings.wallet.connect_1tap': return '1-탭 연결';
-			case 'settings.wallet.paste': return 'URL 붙여넣기';
-			case 'settings.wallet.balance': return '잔액';
-			case 'settings.wallet.name': return '지갑';
-			case 'settings.wallet.error.logged_out': return '로그아웃 시 지갑 연결 불가';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return '지갑 인증 이벤트를 찾을 수 없습니다.';
-			case 'login.username': return '사용자 이름';
-			case 'login.amber': return 'Amber로 로그인';
-			case 'login.key': return '키로 로그인';
-			case 'login.create': return '계정 만들기';
-			case 'login.error.invalid_key': return '잘못된 키';
-			case 'live.start': return '라이브 시작하기';
-			case 'live.configure_stream': return '스트림 구성';
-			case 'live.endpoint': return '엔드포인트';
-			case 'live.accept_tos': return 'TOS 수락';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return '제목';
-			case 'live.summary': return '요약';
-			case 'live.image': return '표지 이미지';
-			case 'live.tags': return '태그';
-			case 'live.nsfw': return 'NSFW 콘텐츠';
-			case 'live.nsfw_description': return '이 스트림에 노출 또는 음란 콘텐츠가 포함되어 있는지 여기에서 확인하세요.';
-			case 'live.error.failed': return '스트림 실패';
-			case 'live.error.connection_error': return '연결 오류';
-			case 'live.error.start_failed': return '스트림 시작에 실패했습니다. 잔액을 확인해 주세요.';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => '아바타 업로드',
+			'most_zapped_streamers' => '가장 많이 재핑된 스트리머',
+			'no_user_found' => '사용자를 찾을 수 없습니다.',
+			'anon' => 'Anon',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('ko').format(n)} sats',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n, one: '시청자 1명', other: '{n:decimalPattern} 시청자', ), 
+			'stream.status.live' => '라이브',
+			'stream.status.ended' => '종료',
+			'stream.status.planned' => '계획된',
+			'stream.started' => ({required Object timestamp}) => '시작 ${timestamp}',
+			'stream.notification' => ({required Object name}) => '${name} 라이브가 시작되었습니다!',
+			'stream.chat.disabled' => '채팅 사용 안 함',
+			'stream.chat.disabled_timeout' => ({required Object time}) => '시간 초과가 만료되었습니다: ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' 시간 초과됨 '), user, const TextSpan(text: ' '), time, ]), 
+			'stream.chat.ended' => '스트림 종료',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' ZAPP '), amount, const TextSpan(text: ' SATS'), ]), 
+			'stream.chat.write.label' => '메시지 작성',
+			'stream.chat.write.no_signer' => 'npub 로그인으로 메시지를 작성할 수 없습니다.',
+			'stream.chat.write.login' => '메시지를 보내려면 로그인하세요.',
+			'stream.chat.badge.awarded_to' => '수상 대상',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDing ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID FROM ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => '${time}에서 레이드',
+			'goal.title' => ({required Object amount}) => '목표: ${amount}',
+			'goal.remaining' => ({required Object amount}) => '남음: ${amount}',
+			'goal.complete' => '완료',
+			'button.login' => '로그인',
+			'button.logout' => '로그아웃',
+			'button.edit_profile' => '프로필 수정',
+			'button.follow' => '팔로우',
+			'button.unfollow' => '언팔로우',
+			'button.mute' => '뮤트',
+			'button.unmute' => '뮤트 해제',
+			'button.share' => '공유',
+			'button.save' => '저장',
+			'button.connect' => '연결',
+			'button.settings' => '설정',
+			'embed.article_by' => ({required Object name}) => '작성자: ${name}',
+			'embed.note_by' => ({required Object name}) => '노트 작성됨: ${name}',
+			'embed.live_stream_by' => ({required Object name}) => '라이브 스트리밍: ${name}',
+			'stream_list.following' => '팔로잉',
+			'stream_list.live' => '라이브',
+			'stream_list.planned' => '계획된',
+			'stream_list.ended' => '종료됨',
+			'zap.title' => ({required Object name}) => 'Zap ${name}',
+			'zap.custom_amount' => '사용자 지정 금액',
+			'zap.confirm' => '확인',
+			'zap.comment' => '댓글',
+			'zap.button_zap_ready' => ({required Object amount}) => 'Zap ${amount} sats',
+			'zap.button_zap' => 'Zap',
+			'zap.button_open_wallet' => '지갑에서 열기',
+			'zap.button_connect_wallet' => '지갑 연결',
+			'zap.copy' => '클립보드에 복사',
+			'zap.error.invalid_custom_amount' => '잘못된 사용자 지정 금액',
+			'zap.error.no_wallet' => '라이트닝 월렛이 설치되지 않았습니다.',
+			'zap.error.no_lud16' => '번개 주소를 찾을 수 없습니다.',
+			'profile.past_streams' => '과거 스트림',
+			'settings.button_profile' => '프로필 수정',
+			'settings.button_wallet' => '지갑 설정',
+			'settings.profile.display_name' => '표시 이름',
+			'settings.profile.about' => '정보',
+			'settings.profile.nip05' => '노스트르 주소',
+			'settings.profile.lud16' => '라이트닝 주소',
+			'settings.profile.error.logged_out' => '로그아웃 시 프로필 수정 불가',
+			'settings.wallet.connect_wallet' => '지갑 연결(NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => '지갑 연결 해제',
+			'settings.wallet.connect_1tap' => '1-탭 연결',
+			'settings.wallet.paste' => 'URL 붙여넣기',
+			'settings.wallet.balance' => '잔액',
+			'settings.wallet.name' => '지갑',
+			'settings.wallet.error.logged_out' => '로그아웃 시 지갑 연결 불가',
+			'settings.wallet.error.nwc_auth_event_not_found' => '지갑 인증 이벤트를 찾을 수 없습니다.',
+			'login.username' => '사용자 이름',
+			'login.amber' => 'Amber로 로그인',
+			'login.key' => '키로 로그인',
+			'login.create' => '계정 만들기',
+			'login.error.invalid_key' => '잘못된 키',
+			'live.start' => '라이브 시작하기',
+			'live.configure_stream' => '스트림 구성',
+			'live.endpoint' => '엔드포인트',
+			'live.accept_tos' => 'TOS 수락',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => '제목',
+			'live.summary' => '요약',
+			'live.image' => '표지 이미지',
+			'live.tags' => '태그',
+			'live.nsfw' => 'NSFW 콘텐츠',
+			'live.nsfw_description' => '이 스트림에 노출 또는 음란 콘텐츠가 포함되어 있는지 여기에서 확인하세요.',
+			'live.error.failed' => '스트림 실패',
+			'live.error.connection_error' => '연결 오류',
+			'live.error.start_failed' => '스트림 시작에 실패했습니다. 잔액을 확인해 주세요.',
+			_ => null,
+		};
 	}
 }
-

@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsJa extends Translations {
+class TranslationsJa extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -59,37 +60,37 @@ class TranslationsJa extends Translations {
 		other: '${NumberFormat.decimalPattern('ja').format(n)} 人が視聴中',
 	);
 
-	@override late final _TranslationsStreamJa stream = _TranslationsStreamJa._(_root);
-	@override late final _TranslationsGoalJa goal = _TranslationsGoalJa._(_root);
-	@override late final _TranslationsButtonJa button = _TranslationsButtonJa._(_root);
-	@override late final _TranslationsEmbedJa embed = _TranslationsEmbedJa._(_root);
+	@override late final _Translations$stream$ja stream = _Translations$stream$ja._(_root);
+	@override late final _Translations$goal$ja goal = _Translations$goal$ja._(_root);
+	@override late final _Translations$button$ja button = _Translations$button$ja._(_root);
+	@override late final _Translations$embed$ja embed = _Translations$embed$ja._(_root);
 
 	/// ライブ／終了／予定など、ストリーム・タイプ別のストリーム・リストの見出し。
-	@override late final _TranslationsStreamListJa stream_list = _TranslationsStreamListJa._(_root);
+	@override late final _Translations$stream_list$ja stream_list = _Translations$stream_list$ja._(_root);
 
-	@override late final _TranslationsZapJa zap = _TranslationsZapJa._(_root);
-	@override late final _TranslationsProfileJa profile = _TranslationsProfileJa._(_root);
-	@override late final _TranslationsSettingsJa settings = _TranslationsSettingsJa._(_root);
-	@override late final _TranslationsLoginJa login = _TranslationsLoginJa._(_root);
-	@override late final _TranslationsLiveJa live = _TranslationsLiveJa._(_root);
+	@override late final _Translations$zap$ja zap = _Translations$zap$ja._(_root);
+	@override late final _Translations$profile$ja profile = _Translations$profile$ja._(_root);
+	@override late final _Translations$settings$ja settings = _Translations$settings$ja._(_root);
+	@override late final _Translations$login$ja login = _Translations$login$ja._(_root);
+	@override late final _Translations$live$ja live = _Translations$live$ja._(_root);
 }
 
 // Path: stream
-class _TranslationsStreamJa extends TranslationsStreamEn {
-	_TranslationsStreamJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$stream$ja extends Translations$stream$en {
+	_Translations$stream$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsStreamStatusJa status = _TranslationsStreamStatusJa._(_root);
+	@override late final _Translations$stream$status$ja status = _Translations$stream$status$ja._(_root);
 	@override String started({required Object timestamp}) => '${timestamp} を開始';
 	@override String notification({required Object name}) => '${name} がライブを開始した！';
-	@override late final _TranslationsStreamChatJa chat = _TranslationsStreamChatJa._(_root);
+	@override late final _Translations$stream$chat$ja chat = _Translations$stream$chat$ja._(_root);
 }
 
 // Path: goal
-class _TranslationsGoalJa extends TranslationsGoalEn {
-	_TranslationsGoalJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$goal$ja extends Translations$goal$en {
+	_Translations$goal$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -100,8 +101,8 @@ class _TranslationsGoalJa extends TranslationsGoalEn {
 }
 
 // Path: button
-class _TranslationsButtonJa extends TranslationsButtonEn {
-	_TranslationsButtonJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$button$ja extends Translations$button$en {
+	_Translations$button$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -128,8 +129,8 @@ class _TranslationsButtonJa extends TranslationsButtonEn {
 }
 
 // Path: embed
-class _TranslationsEmbedJa extends TranslationsEmbedEn {
-	_TranslationsEmbedJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$embed$ja extends Translations$embed$en {
+	_Translations$embed$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -140,8 +141,8 @@ class _TranslationsEmbedJa extends TranslationsEmbedEn {
 }
 
 // Path: stream_list
-class _TranslationsStreamListJa extends TranslationsStreamListEn {
-	_TranslationsStreamListJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$stream_list$ja extends Translations$stream_list$en {
+	_Translations$stream_list$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -153,8 +154,8 @@ class _TranslationsStreamListJa extends TranslationsStreamListEn {
 }
 
 // Path: zap
-class _TranslationsZapJa extends TranslationsZapEn {
-	_TranslationsZapJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$zap$ja extends Translations$zap$en {
+	_Translations$zap$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -168,12 +169,12 @@ class _TranslationsZapJa extends TranslationsZapEn {
 	@override String get button_open_wallet => 'ウォレットで開く';
 	@override String get button_connect_wallet => 'コネクトウォレット';
 	@override String get copy => 'クリップボードにコピー';
-	@override late final _TranslationsZapErrorJa error = _TranslationsZapErrorJa._(_root);
+	@override late final _Translations$zap$error$ja error = _Translations$zap$error$ja._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileJa extends TranslationsProfileEn {
-	_TranslationsProfileJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$profile$ja extends Translations$profile$en {
+	_Translations$profile$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -182,21 +183,21 @@ class _TranslationsProfileJa extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsJa extends TranslationsSettingsEn {
-	_TranslationsSettingsJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$settings$ja extends Translations$settings$en {
+	_Translations$settings$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get button_profile => 'プロフィール編集';
 	@override String get button_wallet => 'ウォレットの設定';
-	@override late final _TranslationsSettingsProfileJa profile = _TranslationsSettingsProfileJa._(_root);
-	@override late final _TranslationsSettingsWalletJa wallet = _TranslationsSettingsWalletJa._(_root);
+	@override late final _Translations$settings$profile$ja profile = _Translations$settings$profile$ja._(_root);
+	@override late final _Translations$settings$wallet$ja wallet = _Translations$settings$wallet$ja._(_root);
 }
 
 // Path: login
-class _TranslationsLoginJa extends TranslationsLoginEn {
-	_TranslationsLoginJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$login$ja extends Translations$login$en {
+	_Translations$login$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -205,12 +206,12 @@ class _TranslationsLoginJa extends TranslationsLoginEn {
 	@override String get amber => '琥珀でログイン';
 	@override String get key => 'キーでログイン';
 	@override String get create => 'アカウントを作成する';
-	@override late final _TranslationsLoginErrorJa error = _TranslationsLoginErrorJa._(_root);
+	@override late final _Translations$login$error$ja error = _Translations$login$error$ja._(_root);
 }
 
 // Path: live
-class _TranslationsLiveJa extends TranslationsLiveEn {
-	_TranslationsLiveJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$live$ja extends Translations$live$en {
+	_Translations$live$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -229,12 +230,12 @@ class _TranslationsLiveJa extends TranslationsLiveEn {
 	@override String get tags => 'タグ';
 	@override String get nsfw => 'NSFWコンテンツ';
 	@override String get nsfw_description => 'このストリームにヌードやポルノが含まれている場合は、ここをチェックしてください。';
-	@override late final _TranslationsLiveErrorJa error = _TranslationsLiveErrorJa._(_root);
+	@override late final _Translations$live$error$ja error = _Translations$live$error$ja._(_root);
 }
 
 // Path: stream.status
-class _TranslationsStreamStatusJa extends TranslationsStreamStatusEn {
-	_TranslationsStreamStatusJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$stream$status$ja extends Translations$stream$status$en {
+	_Translations$stream$status$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -245,8 +246,8 @@ class _TranslationsStreamStatusJa extends TranslationsStreamStatusEn {
 }
 
 // Path: stream.chat
-class _TranslationsStreamChatJa extends TranslationsStreamChatEn {
-	_TranslationsStreamChatJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$ja extends Translations$stream$chat$en {
+	_Translations$stream$chat$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -274,14 +275,14 @@ class _TranslationsStreamChatJa extends TranslationsStreamChatEn {
 		const TextSpan(text: ' sats をザップしました'),
 	]);
 
-	@override late final _TranslationsStreamChatWriteJa write = _TranslationsStreamChatWriteJa._(_root);
-	@override late final _TranslationsStreamChatBadgeJa badge = _TranslationsStreamChatBadgeJa._(_root);
-	@override late final _TranslationsStreamChatRaidJa raid = _TranslationsStreamChatRaidJa._(_root);
+	@override late final _Translations$stream$chat$write$ja write = _Translations$stream$chat$write$ja._(_root);
+	@override late final _Translations$stream$chat$badge$ja badge = _Translations$stream$chat$badge$ja._(_root);
+	@override late final _Translations$stream$chat$raid$ja raid = _Translations$stream$chat$raid$ja._(_root);
 }
 
 // Path: zap.error
-class _TranslationsZapErrorJa extends TranslationsZapErrorEn {
-	_TranslationsZapErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$zap$error$ja extends Translations$zap$error$en {
+	_Translations$zap$error$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -292,8 +293,8 @@ class _TranslationsZapErrorJa extends TranslationsZapErrorEn {
 }
 
 // Path: settings.profile
-class _TranslationsSettingsProfileJa extends TranslationsSettingsProfileEn {
-	_TranslationsSettingsProfileJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$ja extends Translations$settings$profile$en {
+	_Translations$settings$profile$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -302,12 +303,12 @@ class _TranslationsSettingsProfileJa extends TranslationsSettingsProfileEn {
 	@override String get about => 'について';
 	@override String get nip05 => '住所';
 	@override String get lud16 => 'ライトニングアドレス';
-	@override late final _TranslationsSettingsProfileErrorJa error = _TranslationsSettingsProfileErrorJa._(_root);
+	@override late final _Translations$settings$profile$error$ja error = _Translations$settings$profile$error$ja._(_root);
 }
 
 // Path: settings.wallet
-class _TranslationsSettingsWalletJa extends TranslationsSettingsWalletEn {
-	_TranslationsSettingsWalletJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$ja extends Translations$settings$wallet$en {
+	_Translations$settings$wallet$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -318,12 +319,12 @@ class _TranslationsSettingsWalletJa extends TranslationsSettingsWalletEn {
 	@override String get paste => 'URLを貼り付ける';
 	@override String get balance => 'バランス';
 	@override String get name => '財布';
-	@override late final _TranslationsSettingsWalletErrorJa error = _TranslationsSettingsWalletErrorJa._(_root);
+	@override late final _Translations$settings$wallet$error$ja error = _Translations$settings$wallet$error$ja._(_root);
 }
 
 // Path: login.error
-class _TranslationsLoginErrorJa extends TranslationsLoginErrorEn {
-	_TranslationsLoginErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$login$error$ja extends Translations$login$error$en {
+	_Translations$login$error$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -332,8 +333,8 @@ class _TranslationsLoginErrorJa extends TranslationsLoginErrorEn {
 }
 
 // Path: live.error
-class _TranslationsLiveErrorJa extends TranslationsLiveErrorEn {
-	_TranslationsLiveErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$live$error$ja extends Translations$live$error$en {
+	_Translations$live$error$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -344,8 +345,8 @@ class _TranslationsLiveErrorJa extends TranslationsLiveErrorEn {
 }
 
 // Path: stream.chat.write
-class _TranslationsStreamChatWriteJa extends TranslationsStreamChatWriteEn {
-	_TranslationsStreamChatWriteJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$write$ja extends Translations$stream$chat$write$en {
+	_Translations$stream$chat$write$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -362,8 +363,8 @@ class _TranslationsStreamChatWriteJa extends TranslationsStreamChatWriteEn {
 }
 
 // Path: stream.chat.badge
-class _TranslationsStreamChatBadgeJa extends TranslationsStreamChatBadgeEn {
-	_TranslationsStreamChatBadgeJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$badge$ja extends Translations$stream$chat$badge$en {
+	_Translations$stream$chat$badge$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -374,8 +375,8 @@ class _TranslationsStreamChatBadgeJa extends TranslationsStreamChatBadgeEn {
 }
 
 // Path: stream.chat.raid
-class _TranslationsStreamChatRaidJa extends TranslationsStreamChatRaidEn {
-	_TranslationsStreamChatRaidJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$stream$chat$raid$ja extends Translations$stream$chat$raid$en {
+	_Translations$stream$chat$raid$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -392,8 +393,8 @@ class _TranslationsStreamChatRaidJa extends TranslationsStreamChatRaidEn {
 }
 
 // Path: settings.profile.error
-class _TranslationsSettingsProfileErrorJa extends TranslationsSettingsProfileErrorEn {
-	_TranslationsSettingsProfileErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$settings$profile$error$ja extends Translations$settings$profile$error$en {
+	_Translations$settings$profile$error$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -402,8 +403,8 @@ class _TranslationsSettingsProfileErrorJa extends TranslationsSettingsProfileErr
 }
 
 // Path: settings.wallet.error
-class _TranslationsSettingsWalletErrorJa extends TranslationsSettingsWalletErrorEn {
-	_TranslationsSettingsWalletErrorJa._(TranslationsJa root) : this._root = root, super.internal(root);
+class _Translations$settings$wallet$error$ja extends Translations$settings$wallet$error$en {
+	_Translations$settings$wallet$error$ja._(TranslationsJa root) : this._root = root, super.internal(root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -412,121 +413,106 @@ class _TranslationsSettingsWalletErrorJa extends TranslationsSettingsWalletError
 	@override String get nwc_auth_event_not_found => 'ウォレットの認証イベントが見つかりません';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsJa {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'upload_avatar': return '画像アップロード';
-			case 'most_zapped_streamers': return '最もザッピングされたストリーマー';
-			case 'no_user_found': return 'ユーザーが見つかりません';
-			case 'anon': return '匿名';
-			case 'full_amount_sats': return ({required num n}) => '${NumberFormat.decimalPattern('ja').format(n)} サッツ';
-			case 'viewers': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
-				one: '1 視聴者',
-				other: '${NumberFormat.decimalPattern('ja').format(n)} 人が視聴中',
-			);
-			case 'stream.status.live': return 'ライブ';
-			case 'stream.status.ended': return '終了';
-			case 'stream.status.planned': return '予定';
-			case 'stream.started': return ({required Object timestamp}) => '${timestamp} を開始';
-			case 'stream.notification': return ({required Object name}) => '${name} がライブを開始した！';
-			case 'stream.chat.disabled': return 'チャット無効';
-			case 'stream.chat.disabled_timeout': return ({required Object time}) => 'タイムアウト： ${time}';
-			case 'stream.chat.timeout': return ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [
-				mod,
-				const TextSpan(text: ' タイムアウト '),
-				user,
-				const TextSpan(text: ' for '),
-				time,
-			]);
-			case 'stream.chat.ended': return '配信終了';
-			case 'stream.chat.zap': return ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [
-				user,
-				const TextSpan(text: ' が '),
-				amount,
-				const TextSpan(text: ' sats をザップしました'),
-			]);
-			case 'stream.chat.write.label': return 'メッセージを書く';
-			case 'stream.chat.write.no_signer': return 'npubログインでメッセージが書けない';
-			case 'stream.chat.write.login': return 'メッセージを送信するにはログインしてください';
-			case 'stream.chat.badge.awarded_to': return '受賞者';
-			case 'stream.chat.raid.to': return ({required Object name}) => 'RAIDING ${name}';
-			case 'stream.chat.raid.from': return ({required Object name}) => 'RAID FROM ${name}';
-			case 'stream.chat.raid.countdown': return ({required Object time}) => '${time}における襲撃';
-			case 'goal.title': return ({required Object amount}) => '目標額： ${amount}';
-			case 'goal.remaining': return ({required Object amount}) => '残り： ${amount}';
-			case 'goal.complete': return '完了';
-			case 'button.login': return 'ログイン';
-			case 'button.logout': return 'ログアウト';
-			case 'button.edit_profile': return 'プロフィールを編集';
-			case 'button.follow': return 'フォロー';
-			case 'button.unfollow': return 'フォロー解除';
-			case 'button.mute': return 'ミュート';
-			case 'button.unmute': return 'ミュート解除';
-			case 'button.share': return '共有';
-			case 'button.save': return '保存';
-			case 'button.connect': return '接続';
-			case 'button.settings': return '設定';
-			case 'embed.article_by': return ({required Object name}) => '記事： ${name}';
-			case 'embed.note_by': return ({required Object name}) => '${name} の投稿';
-			case 'embed.live_stream_by': return ({required Object name}) => 'ライブ・ストリーム ${name}';
-			case 'stream_list.following': return 'フォロー中';
-			case 'stream_list.live': return 'ライブ配信中';
-			case 'stream_list.planned': return '予定あり';
-			case 'stream_list.ended': return '終了しました';
-			case 'zap.title': return ({required Object name}) => '${name} をザップ';
-			case 'zap.custom_amount': return 'カスタム金額';
-			case 'zap.confirm': return '確認';
-			case 'zap.comment': return 'コメント';
-			case 'zap.button_zap_ready': return ({required Object amount}) => '${amount} satsをザップする';
-			case 'zap.button_zap': return 'ザップ';
-			case 'zap.button_open_wallet': return 'ウォレットで開く';
-			case 'zap.button_connect_wallet': return 'コネクトウォレット';
-			case 'zap.copy': return 'クリップボードにコピー';
-			case 'zap.error.invalid_custom_amount': return '無効なカスタム金額';
-			case 'zap.error.no_wallet': return 'Lightningウォレット未装着';
-			case 'zap.error.no_lud16': return '雷アドレスが見つかりません';
-			case 'profile.past_streams': return '過去の配信';
-			case 'settings.button_profile': return 'プロフィール編集';
-			case 'settings.button_wallet': return 'ウォレットの設定';
-			case 'settings.profile.display_name': return '表示名';
-			case 'settings.profile.about': return 'について';
-			case 'settings.profile.nip05': return '住所';
-			case 'settings.profile.lud16': return 'ライトニングアドレス';
-			case 'settings.profile.error.logged_out': return 'ログアウトするとプロフィールが編集できない';
-			case 'settings.wallet.connect_wallet': return 'コネクトウォレット（NWC nostr+walletconnect://)';
-			case 'settings.wallet.disconnect_wallet': return 'ウォレットの切断';
-			case 'settings.wallet.connect_1tap': return '1タップ接続';
-			case 'settings.wallet.paste': return 'URLを貼り付ける';
-			case 'settings.wallet.balance': return 'バランス';
-			case 'settings.wallet.name': return '財布';
-			case 'settings.wallet.error.logged_out': return 'ログアウト時にウォレットに接続できない';
-			case 'settings.wallet.error.nwc_auth_event_not_found': return 'ウォレットの認証イベントが見つかりません';
-			case 'login.username': return 'ユーザー名';
-			case 'login.amber': return '琥珀でログイン';
-			case 'login.key': return 'キーでログイン';
-			case 'login.create': return 'アカウントを作成する';
-			case 'login.error.invalid_key': return '無効なキー';
-			case 'live.start': return 'ライブ中継';
-			case 'live.configure_stream': return 'ストリームの設定';
-			case 'live.endpoint': return 'エンドポイント';
-			case 'live.accept_tos': return 'TOSを受け入れる';
-			case 'live.balance_left': return ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
-				zero: '∞',
-				other: '~${time}',
-			);
-			case 'live.title': return 'タイトル';
-			case 'live.summary': return '概要';
-			case 'live.image': return '表紙画像';
-			case 'live.tags': return 'タグ';
-			case 'live.nsfw': return 'NSFWコンテンツ';
-			case 'live.nsfw_description': return 'このストリームにヌードやポルノが含まれている場合は、ここをチェックしてください。';
-			case 'live.error.failed': return 'ストリーム失敗';
-			case 'live.error.connection_error': return '接続エラー';
-			case 'live.error.start_failed': return 'ストリームの開始に失敗しました。';
-			default: return null;
-		}
+		return switch (path) {
+			'upload_avatar' => '画像アップロード',
+			'most_zapped_streamers' => '最もザッピングされたストリーマー',
+			'no_user_found' => 'ユーザーが見つかりません',
+			'anon' => '匿名',
+			'full_amount_sats' => ({required num n}) => '${NumberFormat.decimalPattern('ja').format(n)} サッツ',
+			'viewers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n, one: '1 視聴者', other: '${NumberFormat.decimalPattern('ja').format(n)} 人が視聴中', ), 
+			'stream.status.live' => 'ライブ',
+			'stream.status.ended' => '終了',
+			'stream.status.planned' => '予定',
+			'stream.started' => ({required Object timestamp}) => '${timestamp} を開始',
+			'stream.notification' => ({required Object name}) => '${name} がライブを開始した！',
+			'stream.chat.disabled' => 'チャット無効',
+			'stream.chat.disabled_timeout' => ({required Object time}) => 'タイムアウト： ${time}',
+			'stream.chat.timeout' => ({required InlineSpan mod, required InlineSpan user, required InlineSpan time}) => TextSpan(children: [ mod, const TextSpan(text: ' タイムアウト '), user, const TextSpan(text: ' for '), time, ]), 
+			'stream.chat.ended' => '配信終了',
+			'stream.chat.zap' => ({required InlineSpan user, required InlineSpan amount}) => TextSpan(children: [ user, const TextSpan(text: ' が '), amount, const TextSpan(text: ' sats をザップしました'), ]), 
+			'stream.chat.write.label' => 'メッセージを書く',
+			'stream.chat.write.no_signer' => 'npubログインでメッセージが書けない',
+			'stream.chat.write.login' => 'メッセージを送信するにはログインしてください',
+			'stream.chat.badge.awarded_to' => '受賞者',
+			'stream.chat.raid.to' => ({required Object name}) => 'RAIDING ${name}',
+			'stream.chat.raid.from' => ({required Object name}) => 'RAID FROM ${name}',
+			'stream.chat.raid.countdown' => ({required Object time}) => '${time}における襲撃',
+			'goal.title' => ({required Object amount}) => '目標額： ${amount}',
+			'goal.remaining' => ({required Object amount}) => '残り： ${amount}',
+			'goal.complete' => '完了',
+			'button.login' => 'ログイン',
+			'button.logout' => 'ログアウト',
+			'button.edit_profile' => 'プロフィールを編集',
+			'button.follow' => 'フォロー',
+			'button.unfollow' => 'フォロー解除',
+			'button.mute' => 'ミュート',
+			'button.unmute' => 'ミュート解除',
+			'button.share' => '共有',
+			'button.save' => '保存',
+			'button.connect' => '接続',
+			'button.settings' => '設定',
+			'embed.article_by' => ({required Object name}) => '記事： ${name}',
+			'embed.note_by' => ({required Object name}) => '${name} の投稿',
+			'embed.live_stream_by' => ({required Object name}) => 'ライブ・ストリーム ${name}',
+			'stream_list.following' => 'フォロー中',
+			'stream_list.live' => 'ライブ配信中',
+			'stream_list.planned' => '予定あり',
+			'stream_list.ended' => '終了しました',
+			'zap.title' => ({required Object name}) => '${name} をザップ',
+			'zap.custom_amount' => 'カスタム金額',
+			'zap.confirm' => '確認',
+			'zap.comment' => 'コメント',
+			'zap.button_zap_ready' => ({required Object amount}) => '${amount} satsをザップする',
+			'zap.button_zap' => 'ザップ',
+			'zap.button_open_wallet' => 'ウォレットで開く',
+			'zap.button_connect_wallet' => 'コネクトウォレット',
+			'zap.copy' => 'クリップボードにコピー',
+			'zap.error.invalid_custom_amount' => '無効なカスタム金額',
+			'zap.error.no_wallet' => 'Lightningウォレット未装着',
+			'zap.error.no_lud16' => '雷アドレスが見つかりません',
+			'profile.past_streams' => '過去の配信',
+			'settings.button_profile' => 'プロフィール編集',
+			'settings.button_wallet' => 'ウォレットの設定',
+			'settings.profile.display_name' => '表示名',
+			'settings.profile.about' => 'について',
+			'settings.profile.nip05' => '住所',
+			'settings.profile.lud16' => 'ライトニングアドレス',
+			'settings.profile.error.logged_out' => 'ログアウトするとプロフィールが編集できない',
+			'settings.wallet.connect_wallet' => 'コネクトウォレット（NWC nostr+walletconnect://)',
+			'settings.wallet.disconnect_wallet' => 'ウォレットの切断',
+			'settings.wallet.connect_1tap' => '1タップ接続',
+			'settings.wallet.paste' => 'URLを貼り付ける',
+			'settings.wallet.balance' => 'バランス',
+			'settings.wallet.name' => '財布',
+			'settings.wallet.error.logged_out' => 'ログアウト時にウォレットに接続できない',
+			'settings.wallet.error.nwc_auth_event_not_found' => 'ウォレットの認証イベントが見つかりません',
+			'login.username' => 'ユーザー名',
+			'login.amber' => '琥珀でログイン',
+			'login.key' => 'キーでログイン',
+			'login.create' => 'アカウントを作成する',
+			'login.error.invalid_key' => '無効なキー',
+			'live.start' => 'ライブ中継',
+			'live.configure_stream' => 'ストリームの設定',
+			'live.endpoint' => 'エンドポイント',
+			'live.accept_tos' => 'TOSを受け入れる',
+			'live.balance_left' => ({required num n, required Object time}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n, zero: '∞', other: '~${time}', ), 
+			'live.title' => 'タイトル',
+			'live.summary' => '概要',
+			'live.image' => '表紙画像',
+			'live.tags' => 'タグ',
+			'live.nsfw' => 'NSFWコンテンツ',
+			'live.nsfw_description' => 'このストリームにヌードやポルノが含まれている場合は、ここをチェックしてください。',
+			'live.error.failed' => 'ストリーム失敗',
+			'live.error.connection_error' => '接続エラー',
+			'live.error.start_failed' => 'ストリームの開始に失敗しました。',
+			_ => null,
+		};
 	}
 }
-
