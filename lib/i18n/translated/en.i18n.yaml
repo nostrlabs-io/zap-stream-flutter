@@ -62,6 +62,7 @@ stream:
   error:
     load_failed: Failed to load stream from ${url}
   select_quality: Select Quality
+  quality_auto: Auto
 goal:
   title: "Goal: $amount"
   remaining: "Remaining: $amount"

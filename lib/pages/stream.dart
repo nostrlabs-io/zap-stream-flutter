@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:zap_stream_flutter/hls.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/const.dart';
@@ -305,7 +306,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ),
-          if (stream.info.streams.length > 1)
+          if (stream.info.stream != null && isHlsUrl(stream.info.stream!))
             IconButton(
               onPressed: () => _showQualitySelector(context, stream),
               icon: Icon(Icons.slow_motion_video),
@@ -329,10 +330,64 @@ class _StreamPage extends State<StreamPage> with RouteAware {
   void _showQualitySelector(BuildContext context, StreamEvent stream) {
     showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
+      builder: (context) => _QualitySelector(stream: stream),
+    );
+  }
+}
+
+/// Lists the renditions of the stream's multivariant playlist.
+///
+/// The `streaming` tags of a live event are one URL per egress, not per
+/// quality, so the renditions have to come from the playlist itself.
+class _QualitySelector extends StatefulWidget {
+  final StreamEvent stream;
+
+  const _QualitySelector({required this.stream});
+
+  @override
+  State<StatefulWidget> createState() => _QualitySelectorState();
+}
+
+class _QualitySelectorState extends State<_QualitySelector> {
+  late final Future<List<HlsVariant>> _variants;
+
+  @override
+  void initState() {
+    super.initState();
+    _variants = fetchHlsVariants(widget.stream.info.stream!);
+  }
+
+  void _play(String url) {
+    mainPlayer.loadUrl(
+      url,
+      title: widget.stream.info.title,
+      placeholder: widget.stream.info.image,
+      aspectRatio: 16 / 9,
+      autoPlay: true,
+      isLive: true,
+      artist: "zap.stream",
+    );
+    Navigator.pop(context);
+  }
+
+  Widget _row(String label, String url) {
+    final isCurrent = mainPlayer.url == url;
+    return ListTile(
+      title: Text(label),
+      trailing: isCurrent ? Icon(Icons.check, color: PRIMARY_1) : null,
+      onTap: isCurrent ? null : () => _play(url),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final master = widget.stream.info.stream!;
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: FutureBuilder(
+        future: _variants,
+        builder: (context, snapshot) {
+          return Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -341,39 +396,19 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-              ...stream.info.streams.map((url) {
-                final isCurrent = url == stream.info.stream;
-                return ListTile(
-                  title: Text(_formatQualityName(url)),
-                  trailing: isCurrent ? Icon(Icons.check, color: PRIMARY_1) : null,
-                  onTap: () {
-                    mainPlayer.loadUrl(
-                      url,
-                      title: stream.info.title,
-                      placeholder: stream.info.image,
-                      aspectRatio: 16 / 9,
-                      autoPlay: true,
-                      isLive: true,
-                      artist: "zap.stream",
-                    );
-                    Navigator.pop(context);
-                  },
-                );
-              }),
+              if (snapshot.connectionState != ConnectionState.done)
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else ...[
+                _row(t.stream.quality_auto, master),
+                ...?snapshot.data?.map((v) => _row(v.name, v.url)),
+              ],
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
-  }
-
-  String _formatQualityName(String url) {
-    if (url.contains('1080p')) return '1080p (HD)';
-    if (url.contains('720p')) return '720p';
-    if (url.contains('480p')) return '480p';
-    if (url.contains('360p')) return '360p';
-    if (url.contains('source')) return 'Source';
-    if (url.contains('auto')) return 'Auto';
-    return url;
   }
 }

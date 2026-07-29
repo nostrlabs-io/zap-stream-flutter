@@ -70,6 +70,12 @@ class MainPlayer extends BaseAudioHandler {
     return _chewieController;
   }
 
+  /// URL currently loaded, which is not the stream URL of the event once the
+  /// viewer has picked a rendition.
+  String? get url {
+    return _url;
+  }
+
   @override
   Future<void> play() async {
     await _chewieController?.play();
