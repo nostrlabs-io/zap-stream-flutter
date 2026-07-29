@@ -107,6 +107,9 @@ class Translations$stream$en {
 
 	/// en: 'Select Quality'
 	String get select_quality => 'Select Quality';
+
+	/// en: 'Auto'
+	String get quality_auto => 'Auto';
 }
 
 // Path: goal
@@ -649,6 +652,7 @@ extension on Translations {
 			'stream.chat.raid.countdown' => ({required Object time}) => 'Raiding in ${time}',
 			'stream.error.load_failed' => ({required Object url}) => 'Failed to load stream from ${url}',
 			'stream.select_quality' => 'Select Quality',
+			'stream.quality_auto' => 'Auto',
 			'goal.title' => ({required Object amount}) => 'Goal: ${amount}',
 			'goal.remaining' => ({required Object amount}) => 'Remaining: ${amount}',
 			'goal.complete' => 'COMPLETE',

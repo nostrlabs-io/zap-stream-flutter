@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart'
+    show VideoTrack;
+import 'package:zap_stream_flutter/hls.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
 import 'package:zap_stream_flutter/const.dart';
@@ -63,8 +66,9 @@ class _StreamPage extends State<StreamPage> with RouteAware {
     final router = GoRouter.of(context);
     final currentConfiguration = router.routerDelegate.currentConfiguration;
     final match = currentConfiguration.matches.lastOrNull;
-    final lastMatch =
-        match is ShellRouteMatch ? match.matches.lastOrNull : match;
+    final lastMatch = match is ShellRouteMatch
+        ? match.matches.lastOrNull
+        : match;
     return lastMatch != null &&
         (lastMatch.route is GoRoute &&
             (lastMatch.route as GoRoute).path == StreamPage.path);
@@ -147,19 +151,18 @@ class _StreamPage extends State<StreamPage> with RouteAware {
   Widget _buildPlayer(BuildContext context, StreamEvent stream) {
     return (stream.info.stream != null && !_offScreen)
         ? MainVideoPlayerWidget(
-          key: _playerKey,
-          url: stream.info.stream!,
-          placeholder: stream.info.image,
-          isLive: true,
-          title: stream.info.title,
-        )
+            key: _playerKey,
+            url: stream.info.stream!,
+            placeholder: stream.info.image,
+            isLive: true,
+            title: stream.info.title,
+          )
         : AspectRatio(
-          aspectRatio: 16 / 9,
-          child:
-              (stream.info.image?.isNotEmpty ?? false)
-                  ? ProxyImg(url: stream.info.image)
-                  : Container(decoration: BoxDecoration(color: LAYER_1)),
-        );
+            aspectRatio: 16 / 9,
+            child: (stream.info.image?.isNotEmpty ?? false)
+                ? ProxyImg(url: stream.info.image)
+                : Container(decoration: BoxDecoration(color: LAYER_1)),
+          );
   }
 
   Widget _buildPortraitStream(
@@ -214,17 +217,16 @@ class _StreamPage extends State<StreamPage> with RouteAware {
             ),
             child: ShaderMask(
               blendMode: BlendMode.dstIn,
-              shaderCallback:
-                  (rect) => LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      LAYER_0.withAlpha(255),
-                      LAYER_0.withAlpha(200),
-                      LAYER_0.withAlpha(0),
-                    ],
-                    stops: [0.0, 0.8, 1.0],
-                  ).createShader(rect),
+              shaderCallback: (rect) => LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  LAYER_0.withAlpha(255),
+                  LAYER_0.withAlpha(200),
+                  LAYER_0.withAlpha(0),
+                ],
+                stops: [0.0, 0.8, 1.0],
+              ).createShader(rect),
               child: ChatWidget(
                 stream: stream,
                 showGoals: false,
@@ -287,10 +289,10 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                       zapTags:
                           // tag goal onto zap request
                           stream.info.goal != null
-                              ? [
-                                ["e", stream.info.goal!],
-                              ]
-                              : null,
+                          ? [
+                              ["e", stream.info.goal!],
+                            ]
+                          : null,
                     ),
                   );
                 },
@@ -305,7 +307,9 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ),
-          if (stream.info.streams.length > 1)
+          if (stream.info.stream != null &&
+              isHlsUrl(stream.info.stream!) &&
+              mainPlayer.supportsVideoTracks)
             IconButton(
               onPressed: () => _showQualitySelector(context, stream),
               icon: Icon(Icons.slow_motion_video),
@@ -329,10 +333,72 @@ class _StreamPage extends State<StreamPage> with RouteAware {
   void _showQualitySelector(BuildContext context, StreamEvent stream) {
     showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
+      builder: (context) => _QualitySelector(stream: stream),
+    );
+  }
+}
+
+/// Lists the renditions the player itself sees in the adaptive stream.
+///
+/// The `streaming` tags of a live event are one URL per egress, not per
+/// quality, and reloading a rendition URL would restart playback; the platform
+/// player switches tracks in place instead.
+class _QualitySelector extends StatefulWidget {
+  final StreamEvent stream;
+
+  const _QualitySelector({required this.stream});
+
+  @override
+  State<StatefulWidget> createState() => _QualitySelectorState();
+}
+
+class _QualitySelectorState extends State<_QualitySelector> {
+  late final Future<List<VideoTrack>> _tracks;
+
+  @override
+  void initState() {
+    super.initState();
+    _tracks = mainPlayer.videoTracks();
+  }
+
+  /// Height is what viewers recognise; bitrate is the only thing separating
+  /// two renditions of the same height. Null when the platform gave us nothing
+  /// a viewer could read, in which case the track is not worth offering.
+  String? _label(VideoTrack track) {
+    if (track.height != null) return "${track.height}p";
+    if (track.label?.isNotEmpty ?? false) return track.label!;
+    if (track.bitrate != null) {
+      return "${(track.bitrate! / 1000000).toStringAsFixed(1)} Mbps";
+    }
+    return null;
+  }
+
+  Future<void> _select(VideoTrack? track) async {
+    await mainPlayer.selectVideoTrack(track);
+    if (mounted) {
+      Navigator.pop(context);
+    }
+  }
+
+  Widget _row(String label, VideoTrack? track) {
+    final isCurrent = mainPlayer.selectedVideoTrackId == track?.id;
+    return ListTile(
+      title: Text(label),
+      trailing: isCurrent ? Icon(Icons.check, color: PRIMARY_1) : null,
+      onTap: isCurrent ? null : () => _select(track),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: FutureBuilder(
+        future: _tracks,
+        builder: (context, snapshot) {
+          final tracks = (snapshot.data ?? const <VideoTrack>[]).toList()
+            ..sort((a, b) => (b.height ?? 0).compareTo(a.height ?? 0));
+          return Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -341,39 +407,20 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-              ...stream.info.streams.map((url) {
-                final isCurrent = url == stream.info.stream;
-                return ListTile(
-                  title: Text(_formatQualityName(url)),
-                  trailing: isCurrent ? Icon(Icons.check, color: PRIMARY_1) : null,
-                  onTap: () {
-                    mainPlayer.loadUrl(
-                      url,
-                      title: stream.info.title,
-                      placeholder: stream.info.image,
-                      aspectRatio: 16 / 9,
-                      autoPlay: true,
-                      isLive: true,
-                      artist: "zap.stream",
-                    );
-                    Navigator.pop(context);
-                  },
-                );
-              }),
+              if (snapshot.connectionState != ConnectionState.done)
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else ...[
+                _row(t.stream.quality_auto, null),
+                for (final tr in tracks)
+                  if (_label(tr) case final label?) _row(label, tr),
+              ],
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
-  }
-
-  String _formatQualityName(String url) {
-    if (url.contains('1080p')) return '1080p (HD)';
-    if (url.contains('720p')) return '720p';
-    if (url.contains('480p')) return '480p';
-    if (url.contains('360p')) return '360p';
-    if (url.contains('source')) return 'Source';
-    if (url.contains('auto')) return 'Auto';
-    return url;
   }
 }
