@@ -84,7 +84,10 @@ class RxFilterState<T> extends ChangeNotifier
   final bool leaveOpen;
   final T Function(Nip01Event)? mapper;
   final List<String>? relays;
-  HashMap<String, (int, T)>? _events;
+  /// Insertion-ordered so consumers see a stable sequence between updates;
+  /// an unordered map lets equal-timestamp events swap places on every
+  /// notification and the list they render jumps around.
+  LinkedHashMap<String, (int, T)>? _events;
   late final NdkResponse _response;
   late final StreamSubscription _listener;
 
@@ -134,7 +137,7 @@ class RxFilterState<T> extends ChangeNotifier
 
   bool _replaceInto(Nip01Event ev) {
     final evKey = _eventKey(ev);
-    _events ??= HashMap();
+    _events ??= LinkedHashMap();
     final existing = _events![evKey];
     if (existing == null || existing.$1 < ev.createdAt) {
       _events![evKey] = (ev.createdAt, mapper != null ? mapper!(ev) : ev as T);
