@@ -25,6 +25,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
   late FocusNode _focusNode;
   List<List<String>> _tags = List.empty(growable: true);
   final GlobalKey _positioned = GlobalKey();
+  final LayerLink _inputLink = LayerLink();
 
   @override
   void initState() {
@@ -53,6 +54,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
       _entry!.remove();
     }
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -68,12 +70,6 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
       _entry!.remove();
       _entry = null;
     }
-
-    final RenderBox? textFieldBox = _focusNode.context?.findRenderObject() as RenderBox?;
-    if (textFieldBox == null) return;
-
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
-    final Offset textFieldPosition = textFieldBox.localToGlobal(Offset.zero, ancestor: overlay);
 
     _entry = OverlayEntry(
       builder: (context) {
@@ -91,10 +87,14 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
               return const SizedBox();
             }
             return Positioned(
-              left: textFieldPosition.dx,
-              top: textFieldPosition.dy + textFieldBox.size.height,
-              width: textFieldBox.size.width,
-              child: Container(
+              width: _inputWidth,
+              child: CompositedTransformFollower(
+                link: _inputLink,
+                showWhenUnlinked: false,
+                targetAnchor: Alignment.topLeft,
+                followerAnchor: Alignment.bottomLeft,
+                offset: const Offset(0, -4),
+                child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                 decoration: BoxDecoration(
                   color: LAYER_2,
@@ -142,6 +142,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                     );
                   },
                 ),
+                ),
               ),
             );
           },
@@ -151,25 +152,27 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
     Overlay.of(context).insert(_entry!);
   }
 
+  /// Width of the message input, so an overlay anchored to it lines up.
+  double? get _inputWidth =>
+      (_positioned.currentContext?.findRenderObject() as RenderBox?)?.size.width;
+
   void _showEmojiPicker() {
     if (_entry != null) {
       _entry!.remove();
       _entry = null;
     }
 
-    final RenderBox? textFieldBox = _focusNode.context?.findRenderObject() as RenderBox?;
-    if (textFieldBox == null) return;
-
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
-    final Offset textFieldPosition = textFieldBox.localToGlobal(Offset.zero, ancestor: overlay);
-
     _entry = OverlayEntry(
       builder: (context) {
         return Positioned(
-          left: textFieldPosition.dx,
-          top: textFieldPosition.dy + textFieldBox.size.height,
-          width: textFieldBox.size.width,
-          child: Container(
+          width: _inputWidth,
+          child: CompositedTransformFollower(
+            link: _inputLink,
+            showWhenUnlinked: false,
+            targetAnchor: Alignment.topLeft,
+            followerAnchor: Alignment.bottomLeft,
+            offset: const Offset(0, -4),
+            child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
             decoration: BoxDecoration(
               color: LAYER_2,
@@ -186,6 +189,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                   });
                 }
               },
+            ),
             ),
           ),
         );
@@ -227,7 +231,9 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
     final canSign = ndk.accounts.canSign;
     final isLogin = ndk.accounts.isLoggedIn;
 
-    return Container(
+    return CompositedTransformTarget(
+      link: _inputLink,
+      child: Container(
       key: _positioned,
       margin: const EdgeInsets.fromLTRB(4, 8, 4, 0),
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -287,6 +293,7 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                 ],
               ),
             ),
+      ),
     );
   }
 }

@@ -172,9 +172,20 @@ class _ChatWidget extends State<ChatWidget> {
                 })
                 // filter events that are created before stream start time
                 .where((e) => e.event.createdAt >= (stream.info.starts ?? 0))
-                .sortedBy((e) => e.event.createdAt)
+                // second-resolution timestamps tie constantly in a busy chat,
+                // so the id breaks the tie: without it equal-timestamp
+                // messages reorder between rebuilds and the list jumps
+                .sorted(
+                  (a, b) => a.event.createdAt == b.event.createdAt
+                      ? a.event.id.compareTo(b.event.id)
+                      : a.event.createdAt.compareTo(b.event.createdAt),
+                )
                 .reversed
                 .toList();
+
+        final indexOfEventId = {
+          for (final (idx, e) in filteredChat.indexed) e.event.id: idx,
+        };
 
         final zaps =
             filteredChat.where((e) => e.isZap()).map((e) => e.zap).toList();
@@ -208,6 +219,14 @@ class _ChatWidget extends State<ChatWidget> {
                 padding: EdgeInsets.only(top: 80),
                 reverse: true,
                 itemCount: filteredChat.length,
+                // messages arrive at both ends of the window, so match
+                // existing elements by key instead of by index, otherwise
+                // every insert re-homes the widgets below it and the visible
+                // rows shuffle
+                findChildIndexCallback: (key) {
+                  if (key is! ValueKey<String>) return null;
+                  return indexOfEventId[key.value.split(":").last];
+                },
                 itemBuilder: (ctx, idx) {
                   final msg = filteredChat[idx];
                   final widget = switch (msg.event.kind) {
