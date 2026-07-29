@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart'
+    show VideoTrack;
 import 'package:zap_stream_flutter/hls.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/imgproxy.dart';
@@ -64,8 +66,9 @@ class _StreamPage extends State<StreamPage> with RouteAware {
     final router = GoRouter.of(context);
     final currentConfiguration = router.routerDelegate.currentConfiguration;
     final match = currentConfiguration.matches.lastOrNull;
-    final lastMatch =
-        match is ShellRouteMatch ? match.matches.lastOrNull : match;
+    final lastMatch = match is ShellRouteMatch
+        ? match.matches.lastOrNull
+        : match;
     return lastMatch != null &&
         (lastMatch.route is GoRoute &&
             (lastMatch.route as GoRoute).path == StreamPage.path);
@@ -148,19 +151,18 @@ class _StreamPage extends State<StreamPage> with RouteAware {
   Widget _buildPlayer(BuildContext context, StreamEvent stream) {
     return (stream.info.stream != null && !_offScreen)
         ? MainVideoPlayerWidget(
-          key: _playerKey,
-          url: stream.info.stream!,
-          placeholder: stream.info.image,
-          isLive: true,
-          title: stream.info.title,
-        )
+            key: _playerKey,
+            url: stream.info.stream!,
+            placeholder: stream.info.image,
+            isLive: true,
+            title: stream.info.title,
+          )
         : AspectRatio(
-          aspectRatio: 16 / 9,
-          child:
-              (stream.info.image?.isNotEmpty ?? false)
-                  ? ProxyImg(url: stream.info.image)
-                  : Container(decoration: BoxDecoration(color: LAYER_1)),
-        );
+            aspectRatio: 16 / 9,
+            child: (stream.info.image?.isNotEmpty ?? false)
+                ? ProxyImg(url: stream.info.image)
+                : Container(decoration: BoxDecoration(color: LAYER_1)),
+          );
   }
 
   Widget _buildPortraitStream(
@@ -215,17 +217,16 @@ class _StreamPage extends State<StreamPage> with RouteAware {
             ),
             child: ShaderMask(
               blendMode: BlendMode.dstIn,
-              shaderCallback:
-                  (rect) => LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      LAYER_0.withAlpha(255),
-                      LAYER_0.withAlpha(200),
-                      LAYER_0.withAlpha(0),
-                    ],
-                    stops: [0.0, 0.8, 1.0],
-                  ).createShader(rect),
+              shaderCallback: (rect) => LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  LAYER_0.withAlpha(255),
+                  LAYER_0.withAlpha(200),
+                  LAYER_0.withAlpha(0),
+                ],
+                stops: [0.0, 0.8, 1.0],
+              ).createShader(rect),
               child: ChatWidget(
                 stream: stream,
                 showGoals: false,
@@ -288,10 +289,10 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                       zapTags:
                           // tag goal onto zap request
                           stream.info.goal != null
-                              ? [
-                                ["e", stream.info.goal!],
-                              ]
-                              : null,
+                          ? [
+                              ["e", stream.info.goal!],
+                            ]
+                          : null,
                     ),
                   );
                 },
@@ -306,7 +307,9 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ),
-          if (stream.info.stream != null && isHlsUrl(stream.info.stream!))
+          if (stream.info.stream != null &&
+              isHlsUrl(stream.info.stream!) &&
+              mainPlayer.supportsVideoTracks)
             IconButton(
               onPressed: () => _showQualitySelector(context, stream),
               icon: Icon(Icons.slow_motion_video),
@@ -335,10 +338,11 @@ class _StreamPage extends State<StreamPage> with RouteAware {
   }
 }
 
-/// Lists the renditions of the stream's multivariant playlist.
+/// Lists the renditions the player itself sees in the adaptive stream.
 ///
 /// The `streaming` tags of a live event are one URL per egress, not per
-/// quality, so the renditions have to come from the playlist itself.
+/// quality, and reloading a rendition URL would restart playback; the platform
+/// player switches tracks in place instead.
 class _QualitySelector extends StatefulWidget {
   final StreamEvent stream;
 
@@ -349,44 +353,50 @@ class _QualitySelector extends StatefulWidget {
 }
 
 class _QualitySelectorState extends State<_QualitySelector> {
-  late final Future<List<HlsVariant>> _variants;
+  late final Future<List<VideoTrack>> _tracks;
 
   @override
   void initState() {
     super.initState();
-    _variants = fetchHlsVariants(widget.stream.info.stream!);
+    _tracks = mainPlayer.videoTracks();
   }
 
-  void _play(String url) {
-    mainPlayer.loadUrl(
-      url,
-      title: widget.stream.info.title,
-      placeholder: widget.stream.info.image,
-      aspectRatio: 16 / 9,
-      autoPlay: true,
-      isLive: true,
-      artist: "zap.stream",
-    );
-    Navigator.pop(context);
+  /// Height is what viewers recognise; bitrate is the only thing separating
+  /// two renditions of the same height.
+  String _label(VideoTrack track) {
+    if (track.height != null) return "${track.height}p";
+    if (track.label?.isNotEmpty ?? false) return track.label!;
+    if (track.bitrate != null) {
+      return "${(track.bitrate! / 1000000).toStringAsFixed(1)} Mbps";
+    }
+    return track.id;
   }
 
-  Widget _row(String label, String url) {
-    final isCurrent = mainPlayer.url == url;
+  Future<void> _select(VideoTrack? track) async {
+    await mainPlayer.selectVideoTrack(track);
+    if (mounted) {
+      Navigator.pop(context);
+    }
+  }
+
+  Widget _row(String label, VideoTrack? track) {
+    final isCurrent = mainPlayer.selectedVideoTrackId == track?.id;
     return ListTile(
       title: Text(label),
       trailing: isCurrent ? Icon(Icons.check, color: PRIMARY_1) : null,
-      onTap: isCurrent ? null : () => _play(url),
+      onTap: isCurrent ? null : () => _select(track),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final master = widget.stream.info.stream!;
     return Container(
       padding: EdgeInsets.all(16),
       child: FutureBuilder(
-        future: _variants,
+        future: _tracks,
         builder: (context, snapshot) {
+          final tracks = (snapshot.data ?? const <VideoTrack>[]).toList()
+            ..sort((a, b) => (b.height ?? 0).compareTo(a.height ?? 0));
           return Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -402,8 +412,8 @@ class _QualitySelectorState extends State<_QualitySelector> {
                   child: Center(child: CircularProgressIndicator()),
                 )
               else ...[
-                _row(t.stream.quality_auto, master),
-                ...?snapshot.data?.map((v) => _row(v.name, v.url)),
+                _row(t.stream.quality_auto, null),
+                ...tracks.map((tr) => _row(_label(tr), tr)),
               ],
             ],
           );
