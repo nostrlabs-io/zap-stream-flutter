@@ -116,12 +116,16 @@ class MainPlayer extends BaseAudioHandler {
   Future<void> selectVideoTrack(VideoTrack? track) async {
     final controller = _controller;
     if (controller == null || !supportsVideoTracks) return;
-    await VideoPlayerPlatform.instance.selectVideoTrack(
-      // ignore: invalid_use_of_visible_for_testing_member
-      controller.playerId,
-      track,
-    );
-    _selectedVideoTrackId = track?.id;
+    try {
+      await VideoPlayerPlatform.instance.selectVideoTrack(
+        // ignore: invalid_use_of_visible_for_testing_member
+        controller.playerId,
+        track,
+      );
+      _selectedVideoTrackId = track?.id;
+    } catch (e) {
+      developer.log("Failed to select video track: $e");
+    }
   }
 
   @override

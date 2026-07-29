@@ -362,14 +362,15 @@ class _QualitySelectorState extends State<_QualitySelector> {
   }
 
   /// Height is what viewers recognise; bitrate is the only thing separating
-  /// two renditions of the same height.
-  String _label(VideoTrack track) {
+  /// two renditions of the same height. Null when the platform gave us nothing
+  /// a viewer could read, in which case the track is not worth offering.
+  String? _label(VideoTrack track) {
     if (track.height != null) return "${track.height}p";
     if (track.label?.isNotEmpty ?? false) return track.label!;
     if (track.bitrate != null) {
       return "${(track.bitrate! / 1000000).toStringAsFixed(1)} Mbps";
     }
-    return track.id;
+    return null;
   }
 
   Future<void> _select(VideoTrack? track) async {
@@ -413,7 +414,8 @@ class _QualitySelectorState extends State<_QualitySelector> {
                 )
               else ...[
                 _row(t.stream.quality_auto, null),
-                ...tracks.map((tr) => _row(_label(tr), tr)),
+                for (final tr in tracks)
+                  if (_label(tr) case final label?) _row(label, tr),
               ],
             ],
           );
