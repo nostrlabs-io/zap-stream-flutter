@@ -115,8 +115,12 @@ jobs:
           xcodebuild -version
           pod --version || true
       # ios/Podfile.lock is generated on a Mac and goes stale whenever a plugin
-      # bumps a native dependency, which then fails resolution here.
+      # bumps a native dependency; CocoaPods then refuses to move the pinned
+      # version and resolution fails. This job only compiles, so resolve fresh
+      # rather than pin. Regenerate the committed lock on a Mac.
       - name: Refresh pods
         working-directory: ios
-        run: pod install --repo-update
+        run: |
+          rm -f Podfile.lock
+          pod install --repo-update
       - run: flutter build ios --no-codesign --verbose
