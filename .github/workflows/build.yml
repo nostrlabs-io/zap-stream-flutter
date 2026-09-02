@@ -89,10 +89,10 @@ jobs:
           path: "build/app/outputs/flutter-apk/app-x86_64-release.apk"
 
   ios:
-    # Deliberately not run on pull requests *yet*: this job has failed on every
-    # run since 2025-09-09, so wiring it to PRs would mark every PR red and
-    # destroy the signal the analyze gate is meant to provide. Once the failure
-    # below is diagnosed and fixed, drop this `if` so PRs cover iOS too.
+    # Deliberately not run on pull requests *yet*: this job failed on every run
+    # from 2025-09-09, so wiring it to PRs would mark every PR red and destroy
+    # the signal the analyze gate is meant to provide. Drop this `if` once a
+    # run has actually gone green.
     if: github.event_name != 'pull_request'
     needs: analyze
     runs-on: macos-latest
@@ -114,4 +114,9 @@ jobs:
           flutter --version
           xcodebuild -version
           pod --version || true
+      # ios/Podfile.lock is generated on a Mac and goes stale whenever a plugin
+      # bumps a native dependency, which then fails resolution here.
+      - name: Refresh pods
+        working-directory: ios
+        run: pod install --repo-update
       - run: flutter build ios --no-codesign --verbose
