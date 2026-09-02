@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/entities.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -43,7 +43,7 @@ class ChatBadgeAwardWidget extends StatelessWidget {
                 spacing: 8,
                 children: [
                   if (image?.isNotEmpty ?? false)
-                    ProxyImg(url: image, width: 64),
+                    Img(url: image, width: 64),
                   if (name?.isNotEmpty ?? false)
                     Text(
                       name!,
@@ -98,6 +98,6 @@ class ChatBadgeWidget extends StatelessWidget {
     final image = badge.getFirstTag("image");
     if (image?.isEmpty ?? true) return SizedBox();
 
-    return ProxyImg(url: image, resize: 24, height: 24);
+    return Img(url: image, resize: 24, height: 24);
   }
 }

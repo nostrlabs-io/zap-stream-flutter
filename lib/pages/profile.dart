@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
               SizedBox(
                 height: 140,
                 width: double.maxFinite,
-                child: ProxyImg(url: profile.banner!),
+                child: Img(url: profile.banner!),
               ),
             Row(
               spacing: 8,

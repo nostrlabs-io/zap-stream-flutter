@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/ndk.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -43,7 +43,7 @@ class CategoryPage extends StatelessWidget {
                               info!.coverImage!,
                               fit: BoxFit.contain,
                             )
-                            : ProxyImg(url: info!.coverImage!),
+                            : Img(url: info!.coverImage!),
                   ),
                 Expanded(
                   child: Column(

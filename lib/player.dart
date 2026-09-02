@@ -9,7 +9,7 @@ import 'package:video_player_platform_interface/video_player_platform_interface.
     show VideoPlayerPlatform, VideoTrack;
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 
 class PlayerState {
   final int? width;
@@ -183,7 +183,7 @@ class MainPlayer extends BaseAudioHandler {
         isLive: isLive ?? false,
         allowedScreenSleep: false,
         placeholder: (placeholder?.isNotEmpty ?? false)
-            ? ProxyImg(url: placeholder!)
+            ? Img(url: placeholder!)
             : null,
       );
 

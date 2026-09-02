@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/custom_emoji.dart';
@@ -167,7 +167,7 @@ InlineSpan _buildUrlSpan(
       url.endsWith(".mkv") ||
       url.endsWith(".m3u8");
   if (embedMedia && isImage) {
-    return WidgetSpan(child: ProxyImg(url: url));
+    return WidgetSpan(child: Img(url: url));
   }
   if (embedMedia && isVideo) {
     return WidgetSpan(
@@ -195,7 +195,7 @@ InlineSpan _buildUrlSpan(
                     ),
                     child:
                         isImage
-                            ? ProxyImg(url: url)
+                            ? Img(url: url)
                             : AspectRatio(
                               aspectRatio: 16 / 9,
                               child: VideoPlayerWidget(

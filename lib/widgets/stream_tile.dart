@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
@@ -32,7 +32,7 @@ class StreamTileWidget extends StatelessWidget {
               child: Stack(
                 children: [
                   Center(
-                    child: ProxyImg(
+                    child: Img(
                       url:
                           (stream.info.image?.isNotEmpty ?? false)
                               ? stream.info.image

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
 class AvatarWidget extends StatelessWidget {
@@ -22,7 +22,7 @@ class AvatarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final thisSize = size ?? 40;
     return ClipOval(
-      child: ProxyImg(
+      child: Img(
         url:
             profile.picture ??
             "https://nostr-api.v0l.io/api/v1/avatar/cyberpunks/${profile.pubKey}",

@@ -9,7 +9,7 @@ import 'package:video_player_platform_interface/video_player_platform_interface.
     show VideoTrack;
 import 'package:zap_stream_flutter/hls.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
@@ -160,7 +160,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
         : AspectRatio(
             aspectRatio: 16 / 9,
             child: (stream.info.image?.isNotEmpty ?? false)
-                ? ProxyImg(url: stream.info.image)
+                ? Img(url: stream.info.image)
                 : Container(decoration: BoxDecoration(color: LAYER_1)),
           );
   }

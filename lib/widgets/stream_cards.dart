@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:ndk/ndk.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
@@ -74,9 +74,9 @@ class StreamCardsWidget extends StatelessWidget {
                         onTap: () {
                           launchUrl(Uri.parse(link));
                         },
-                        child: ProxyImg(url: link, placeholderSize: 40),
+                        child: Img(url: link, placeholderSize: 40),
                       )
-                      : ProxyImg(url: link, placeholderSize: 40),
+                      : Img(url: link, placeholderSize: 40),
             ),
           MarkdownBody(
             data: card.content,

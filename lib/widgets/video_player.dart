@@ -1,7 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/widgets.dart';
 import 'package:video_player/video_player.dart';
-import 'package:zap_stream_flutter/imgproxy.dart';
+import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/const.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -44,7 +44,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       autoInitialize: true,
       placeholder:
           (widget.placeholder?.isNotEmpty ?? false)
-              ? ProxyImg(url: widget.placeholder!)
+              ? Img(url: widget.placeholder!)
               : null,
     );
   }
