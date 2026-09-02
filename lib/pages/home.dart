@@ -15,19 +15,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final ZapStreamApi _api;
+  ZapStreamApi? _api;
   AccountInfo? _account;
 
   @override
   void initState() {
-    _api = ZapStreamApi.instance();
     _loadAccount();
     super.initState();
   }
 
   Future<void> _loadAccount() async {
     if (!ndk.accounts.isLoggedIn) return;
-    final info = await _api.getAccountInfo();
+    final api = _api ??= ZapStreamApi.instance();
+    final info = await api.getAccountInfo();
     if (mounted) {
       setState(() {
         _account = info;
@@ -36,13 +36,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showStreamConfig() {
-    if (_account == null) return;
+    if (_account == null || _api == null) return;
     showModalBottomSheet(
       context: context,
       constraints: BoxConstraints.expand(),
       builder: (context) {
         return StreamConfigWidget(
-          api: _api,
+          api: _api!,
           account: _account!,
         );
       },
