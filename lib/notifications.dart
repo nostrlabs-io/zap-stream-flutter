@@ -129,7 +129,7 @@ class Notepush {
       content: "",
     );
     await signer.sign(authEvent);
-    return authEvent.toBase64();
+    return Nip01EventModel.fromEntity(authEvent).toBase64();
   }
 }
 
@@ -213,7 +213,9 @@ Future<void> _handleNotification(RemoteMessage msg, DbObjectBox cache) async {
     final String? json = msg.data["nostr_event"];
 
     final event =
-        json != null ? Nip01Event.fromJson(JsonCodec().decode(json)) : null;
+        json != null
+            ? Nip01EventModel.fromJson(JsonCodec().decode(json))
+            : null;
     await _showNotification(notification, ndkCache, event);
   }
 }
@@ -253,7 +255,7 @@ Future<void> _onOpenMessage(RemoteMessage msg) async {
     final String? json = msg.data["nostr_event"];
     if (notification != null && json != null) {
       // Just launch the URL because we support deep links
-      final event = Nip01Event.fromJson(JsonCodec().decode(json));
+      final event = Nip01EventModel.fromJson(JsonCodec().decode(json));
       final stream = StreamEvent(event);
       launchUrl(Uri.parse("https://zap.stream/${stream.link}"));
     }

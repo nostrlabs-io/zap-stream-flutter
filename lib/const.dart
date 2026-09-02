@@ -1,12 +1,10 @@
-import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
-import 'package:ndk_amber/ndk_amber.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:ndk_objectbox/ndk_objectbox.dart';
-import 'package:ndk_rust_verifier/ndk_rust_verifier.dart';
 import 'package:zap_stream_flutter/login.dart';
 
 class NoVerify extends EventVerifier {
@@ -17,7 +15,7 @@ class NoVerify extends EventVerifier {
 }
 
 final ndkCache = DbObjectBox();
-final eventVerifier = kDebugMode ? NoVerify() : RustEventVerifier();
+final eventVerifier = kDebugMode ? NoVerify() : NdkEventVerifier();
 final ndk = Ndk(
   NdkConfig(
     eventVerifier: eventVerifier,
@@ -58,9 +56,11 @@ Future<void> initLogin() async {
             );
           case AccountType.externalSigner:
             ndk.accounts.loginExternalSigner(
-              signer: AmberEventSigner(
+              signer: Nip55EventSigner(
                 publicKey: pubkey,
-                amberFlutterDS: AmberFlutterDS(Amberflutter()),
+                nip55Signer: Nip55Signer(
+                  package: loginData.value!.signerPackage,
+                ),
               ),
             );
           case AccountType.publicKey:

@@ -82,6 +82,10 @@ class LoginAccount {
   final String pubkey;
   final String? privateKey;
   final List<String>? signerRelays;
+
+  /// Package name of the NIP-55 signer app that answered `get_public_key`,
+  /// used to address every later request to the same signer.
+  final String? signerPackage;
   final WalletConfig? wallet;
   final String? streamEndpoint;
 
@@ -92,6 +96,7 @@ class LoginAccount {
     required this.pubkey,
     this.privateKey,
     this.signerRelays,
+    this.signerPackage,
     this.wallet,
     this.streamEndpoint,
   });
@@ -119,8 +124,12 @@ class LoginAccount {
     );
   }
 
-  static LoginAccount externalPublicKeyHex(String key) {
-    return LoginAccount(type: AccountType.externalSigner, pubkey: key);
+  static LoginAccount externalPublicKeyHex(String key, {String? package}) {
+    return LoginAccount(
+      type: AccountType.externalSigner,
+      pubkey: key,
+      signerPackage: package,
+    );
   }
 
   static LoginAccount bunker(
@@ -140,6 +149,7 @@ class LoginAccount {
     "type": acc?.type.name,
     "pubKey": acc?.pubkey,
     "privateKey": acc?.privateKey,
+    "signerPackage": acc?.signerPackage,
     "wallet": acc?.wallet?.toJson(),
     "streamEndpoint": acc?.streamEndpoint,
   };
@@ -161,6 +171,7 @@ class LoginAccount {
         ),
         pubkey: json["pubKey"],
         privateKey: json["privateKey"],
+        signerPackage: json["signerPackage"] as String?,
         wallet:
             json.containsKey("wallet") && json["wallet"] != null
                 ? WalletConfig.fromJson(json["wallet"])

@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:amberflutter/amberflutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/login.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
-import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/button.dart';
 
 class LoginPage extends StatelessWidget {
@@ -19,17 +18,18 @@ class LoginPage extends StatelessWidget {
       children: [
         if (Platform.isAndroid)
           FutureBuilder(
-            future: Amberflutter().isAppInstalled(),
+            future: const Nip55Signer().isAppInstalled(),
             builder: (ctx, state) {
               if (state.data ?? false) {
                 return BasicButton.text(
                   t.login.amber,
                   onTap: (context) async {
-                    final amber = Amberflutter();
-                    final result = await amber.getPublicKey();
-                    if (result['signature'] != null) {
-                      final key = bech32ToHex(result['signature']);
-                      loginData.value = LoginAccount.externalPublicKeyHex(key);
+                    final result = await const Nip55Signer().login();
+                    if (result != null) {
+                      loginData.value = LoginAccount.externalPublicKeyHex(
+                        result.pubkey,
+                        package: result.package,
+                      );
                       if (ctx.mounted) {
                         ctx.go("/");
                       }

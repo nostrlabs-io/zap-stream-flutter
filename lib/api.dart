@@ -257,6 +257,6 @@ class ZapStreamApi {
       content: "",
     );
     await signer.sign(authEvent);
-    return authEvent.toBase64();
+    return Nip01EventModel.fromEntity(authEvent).toBase64();
   }
 }

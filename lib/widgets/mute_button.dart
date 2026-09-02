@@ -27,7 +27,7 @@ class MuteButton extends StatelessWidget {
     }
 
     return FutureBuilder(
-      future: ndk.lists.getSingleNip51List(Nip51List.kMute, signer),
+      future: ndk.lists.getSingleNip51List(Nip51List.kMute),
       builder: (ctx, state) {
         final mutes = (state.data?.pubKeys ?? []).map((e) => e.value).toSet();
         final isMuted = mutes.contains(pubkey);
