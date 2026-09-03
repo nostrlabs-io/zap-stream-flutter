@@ -51,7 +51,11 @@ class IngestCost {
   const IngestCost({required this.unit, required this.rate});
 
   static IngestCost fromJson(Map<String, dynamic> json) {
-    return IngestCost(unit: json["unit"], rate: json["rate"]);
+    // the server may send 10 or 10.0; a plain cast to double threw on ints
+    return IngestCost(
+      unit: json["unit"],
+      rate: (json["rate"] as num).toDouble(),
+    );
   }
 }
 
@@ -80,16 +84,15 @@ class AccountInfo {
   });
 
   static AccountInfo fromJson(Map<String, dynamic> json) {
-    final balance = json["balance"] as int;
+    final balance = json["balance"] as num;
     final endpoints = json["endpoints"] as Iterable<dynamic>;
     return AccountInfo(
       balance: balance.toDouble(),
       endpoints: endpoints.map((e) => IngestEndpoint.fromJson(e)).toList(),
       tos: TosAccepted.fromJson(json["tos"]),
-      details:
-          json.containsKey("details")
-              ? EventInfo.fromJson(json["details"])
-              : null,
+      details: json.containsKey("details")
+          ? EventInfo.fromJson(json["details"])
+          : null,
     );
   }
 }
@@ -185,25 +188,16 @@ class ZapStreamApi {
         )
         .timeout(Duration(seconds: 10));
     developer.log(rsp.body);
+    _checkStatus(rsp);
     return rsp;
   }
 
-  Future<http.Response> _sendPutRequest(String url, {Object? body}) async {
-    final jsonBody = body != null ? JsonCodec().encode(body) : null;
-    final auth = await _makeAuth("PUT", url, body: jsonBody);
-    final rsp = await http
-        .put(
-          Uri.parse(url),
-          body: jsonBody,
-          headers: {
-            "authorization": "Nostr $auth",
-            "accept": "application/json",
-            "content-type": "application/json",
-          },
-        )
-        .timeout(Duration(seconds: 10));
-    developer.log(rsp.body);
-    return rsp;
+  /// An error page used to reach the JSON decoder and surface as a parse
+  /// error, or worse, be treated as success by callers that ignore the body.
+  static void _checkStatus(http.Response rsp) {
+    if (rsp.statusCode >= 400) {
+      throw "API error ${rsp.statusCode}: ${rsp.body}";
+    }
   }
 
   Future<http.Response> _sendGetRequest(String url, {Object? body}) async {
@@ -220,23 +214,7 @@ class ZapStreamApi {
         )
         .timeout(Duration(seconds: 10));
     developer.log(rsp.body);
-    return rsp;
-  }
-
-  Future<http.Response> _sendDeleteRequest(String url, {Object? body}) async {
-    final jsonBody = body != null ? JsonCodec().encode(body) : null;
-    final auth = await _makeAuth("DELETE", url, body: jsonBody);
-    final rsp = await http
-        .delete(
-          Uri.parse(url),
-          headers: {
-            "authorization": "Nostr $auth",
-            "accept": "application/json",
-            "content-type": "application/json",
-          },
-        )
-        .timeout(Duration(seconds: 10));
-    developer.log(rsp.body);
+    _checkStatus(rsp);
     return rsp;
   }
 
@@ -256,7 +234,9 @@ class ZapStreamApi {
       tags: tags,
       content: "",
     );
-    await signer.sign(authEvent);
-    return Nip01EventModel.fromEntity(authEvent).toBase64();
+    // signers return a signed copy rather than mutating the event; using the
+    // original sent an unsigned auth header and every API call was rejected
+    final signed = await signer.sign(authEvent);
+    return Nip01EventModel.fromEntity(signed).toBase64();
   }
 }

@@ -34,6 +34,7 @@ class MainPlayer extends BaseAudioHandler {
   String? _selectedVideoTrackId;
   VideoPlayerController? _controller;
   ChewieController? _chewieController;
+  bool _loading = false;
   ValueNotifier<PlayerState?> state = ValueNotifier(null);
 
   MainPlayer() {
@@ -60,18 +61,41 @@ class MainPlayer extends BaseAudioHandler {
     }
   }
 
+  /// Drops the platform player. Keeps [_url] so [_onStateChanged] can bring
+  /// playback back when the app resumes after the OS or the media
+  /// notification stopped it.
   Future<void> dispose() async {
+    await _teardown();
     await super.stop();
-    await _controller?.dispose();
-    _chewieController?.dispose();
+  }
+
+  /// The player is a singleton shared by every stream page. When a page goes
+  /// away it must only stop playback it still owns: navigating from one
+  /// stream straight to another loads the new URL before the old page is
+  /// disposed, and the old page must not kill the new stream.
+  Future<void> release(String url) async {
+    if (_url != url) return;
+    _url = null;
+    await dispose();
+  }
+
+  Future<void> _teardown() async {
+    final controller = _controller;
+    final chewie = _chewieController;
     _controller = null;
     _chewieController = null;
     state.value = null;
+    controller?.removeListener(updatePlayerState);
+    chewie?.dispose();
+    await controller?.dispose();
   }
 
   ChewieController? get chewie {
     return _chewieController;
   }
+
+  /// True while a URL is being opened
+  bool get isLoading => _loading;
 
   /// URL currently loaded, which is not the stream URL of the event once the
   /// viewer has picked a rendition.
@@ -152,32 +176,32 @@ class MainPlayer extends BaseAudioHandler {
     String? placeholder,
     String? artist,
   }) async {
-    if (_controller?.dataSource == url) {
+    if (_url == url && (_controller != null || _loading)) {
       return;
     }
+    developer.log("PLAYER loading $url");
+    // Set before anything awaits: a page released while we initialise, or a
+    // failed load, must see what was asked for rather than the previous URL.
+    _url = url;
+    _selectedVideoTrackId = null;
+    _loading = true;
     try {
-      developer.log("PLAYER loading $url");
-      if (_chewieController != null) {
-        _controller!.removeListener(updatePlayerState);
-        await _controller!.dispose();
-        _controller = null;
-        _chewieController!.dispose();
-        _chewieController = null;
-      }
-      state.value = null;
-      // Set before the controller exists: on a failed load the picker and the
-      // resume path must reflect what was asked for, not the previous URL.
-      _url = url;
-      _selectedVideoTrackId = null;
-      _controller = VideoPlayerController.networkUrl(
+      await _teardown();
+      final controller = VideoPlayerController.networkUrl(
         Uri.parse(url),
         httpHeaders: Map.from({"user-agent": userAgent}),
         videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true),
       );
-      await _controller!.initialize();
-      _controller!.addListener(updatePlayerState);
+      await controller.initialize();
+      if (_url != url) {
+        // superseded (another stream, or released) while initialising
+        await controller.dispose();
+        return;
+      }
+      _controller = controller;
+      controller.addListener(updatePlayerState);
       _chewieController = ChewieController(
-        videoPlayerController: _controller!,
+        videoPlayerController: controller,
         autoPlay: autoPlay ?? true,
         aspectRatio: aspectRatio,
         isLive: isLive ?? false,
@@ -202,6 +226,7 @@ class MainPlayer extends BaseAudioHandler {
       // Update player state immediately after initialization
       updatePlayerState();
     } catch (e) {
+      if (_url != url) return;
       if (e is PlatformException && e.code == "VideoError") {
         state.value = PlayerState(
           error: Exception(t.stream.error.load_failed(url: url)),
@@ -212,6 +237,8 @@ class MainPlayer extends BaseAudioHandler {
         );
       }
       developer.log("Failed to start player: ${e.toString()}");
+    } finally {
+      if (_url == url) _loading = false;
     }
   }
 
@@ -222,10 +249,7 @@ class MainPlayer extends BaseAudioHandler {
     playbackState.add(
       playbackState.value.copyWith(
         controls: [
-          if (playbackState.value.playing)
-            MediaControl.pause
-          else
-            MediaControl.play,
+          if (isPlaying) MediaControl.pause else MediaControl.play,
           MediaControl.stop,
         ],
         playing: isPlaying,

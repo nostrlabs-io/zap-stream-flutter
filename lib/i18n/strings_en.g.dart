@@ -446,6 +446,9 @@ class Translations$zap$error$en {
 
 	/// en: 'No lightning address found'
 	String get no_lud16 => 'No lightning address found';
+
+	/// en: 'Could not get an invoice from the lightning address'
+	String get no_invoice => 'Could not get an invoice from the lightning address';
 }
 
 // Path: settings.profile
@@ -617,6 +620,9 @@ class Translations$settings$wallet$error$en {
 
 	/// en: 'No wallet auth event found'
 	String get nwc_auth_event_not_found => 'No wallet auth event found';
+
+	/// en: 'Could not connect to the wallet'
+	String get nwc_connect => 'Could not connect to the wallet';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -686,6 +692,7 @@ extension on Translations {
 			'zap.error.invalid_custom_amount' => 'Invalid custom amount',
 			'zap.error.no_wallet' => 'No lightning wallet installed',
 			'zap.error.no_lud16' => 'No lightning address found',
+			'zap.error.no_invoice' => 'Could not get an invoice from the lightning address',
 			'profile.past_streams' => 'Past Streams',
 			'settings.button_profile' => 'Edit Profile',
 			'settings.button_wallet' => 'Wallet Settings',
@@ -702,6 +709,7 @@ extension on Translations {
 			'settings.wallet.name' => 'Wallet',
 			'settings.wallet.error.logged_out' => 'Cant connect wallet when logged out',
 			'settings.wallet.error.nwc_auth_event_not_found' => 'No wallet auth event found',
+			'settings.wallet.error.nwc_connect' => 'Could not connect to the wallet',
 			'login.username' => 'Username',
 			'login.amber' => 'Login with Amber',
 			'login.key' => 'Login with Key',

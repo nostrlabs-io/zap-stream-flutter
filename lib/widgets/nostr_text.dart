@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zap_stream_flutter/widgets/img.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -52,6 +51,19 @@ class NoteText extends StatelessWidget {
 /// Converts a nostr note text containing links
 /// and mentions into multiple spans for rendering
 /// /// https://github.com/leo-lox/camelus/blob/f58455a0ac07fcc780bdc69b8f4544fd5ea4a46d/lib/presentation_layer/components/note_card/note_card_build_split_content.dart#L262
+/// Compiled once; it used to be rebuilt for every chat row on every rebuild.
+final RegExp _tokenExp = RegExp(
+  r'nostr:(nprofile|npub)[a-zA-Z0-9]+|'
+  r'nostr:(note|nevent|naddr)[a-zA-Z0-9]+|'
+  r'(#\$\$\s*[0-9]+\s*\$\$)|'
+  r'(#\w+)|' // Hashtags
+  r'(:\w+:)|' // custom emoji
+  r'(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,10}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))', // URLs
+  caseSensitive: false,
+);
+
+/// [recognizers] collects the tap recognizers created for links so the
+/// owning widget can dispose them; without it they leak with every rebuild.
 List<InlineSpan> textToSpans(
   BuildContext context,
   String content,
@@ -60,20 +72,12 @@ List<InlineSpan> textToSpans(
   bool? showEmbeds,
   bool? embedMedia,
   bool? previewMedia,
+  List<GestureRecognizer>? recognizers,
 }) {
   List<InlineSpan> spans = [];
-  RegExp exp = RegExp(
-    r'nostr:(nprofile|npub)[a-zA-Z0-9]+|'
-    r'nostr:(note|nevent|naddr)[a-zA-Z0-9]+|'
-    r'(#\$\$\s*[0-9]+\s*\$\$)|'
-    r'(#\w+)|' // Hashtags
-    r'(:\w+:)|' // custom emoji
-    r'(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,10}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))', // URLs
-    caseSensitive: false,
-  );
 
   content.splitMapJoin(
-    exp,
+    _tokenExp,
     onMatch: (Match match) {
       String? matched = match.group(0);
       if (matched != null) {
@@ -88,12 +92,14 @@ List<InlineSpan> textToSpans(
               matched,
               embedMedia ?? false,
               previewMedia ?? true,
+              recognizers,
             ),
           );
         } else if (matched.startsWith(":") &&
             matched.endsWith(":") &&
             tags.any(
               (t) =>
+                  t.length > 2 &&
                   t[0] == "emoji" &&
                   t[1] == matched.substring(1, matched.length - 1),
             )) {
@@ -126,8 +132,15 @@ InlineSpan _buildProfileOrNoteSpan(String word, bool showEmbeds) {
       cleanedWord.startsWith("naddr");
 
   if (isProfile) {
-    final hexKey = bech32ToHex(cleanedWord);
-    if (hexKey.isNotEmpty) {
+    // a typo'd or truncated npub in a chat message used to throw out of
+    // build() and blank the whole row
+    String hexKey;
+    try {
+      hexKey = bech32ToHex(cleanedWord);
+    } catch (_) {
+      hexKey = "";
+    }
+    if (hexKey.length == 64) {
       return _inlineMention(hexKey);
     } else {
       return TextSpan(text: "@$cleanedWord");
@@ -139,12 +152,18 @@ InlineSpan _buildProfileOrNoteSpan(String word, bool showEmbeds) {
       alignment: PlaceholderAlignment.middle,
     );
   } else {
-    return TextSpan(text: word, style: TextStyle(color: PRIMARY_1));
+    return TextSpan(
+      text: word,
+      style: TextStyle(color: PRIMARY_1),
+    );
   }
 }
 
 InlineSpan _buildHashtagSpan(String word) {
-  return TextSpan(text: word, style: TextStyle(color: PRIMARY_1));
+  return TextSpan(
+    text: word,
+    style: TextStyle(color: PRIMARY_1),
+  );
 }
 
 InlineSpan _buildUrlSpan(
@@ -152,6 +171,7 @@ InlineSpan _buildUrlSpan(
   String url,
   bool embedMedia,
   bool previewMedia,
+  List<GestureRecognizer>? recognizers,
 ) {
   final isImage =
       url.endsWith(".jpg") ||
@@ -177,39 +197,36 @@ InlineSpan _buildUrlSpan(
       ),
     );
   }
+  final recognizer = TapGestureRecognizer();
+  recognizers?.add(recognizer);
   return TextSpan(
     text: url,
     style: TextStyle(color: PRIMARY_1),
-    recognizer:
-        TapGestureRecognizer()
-          ..onTap = () {
-            if (previewMedia) {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: LAYER_1,
-                      borderRadius: DEFAULT_BR,
-                    ),
-                    child:
-                        isImage
-                            ? Img(url: url)
-                            : AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: VideoPlayerWidget(
-                                url: url,
-                                autoPlay: false,
-                              ),
-                            ),
-                  );
-                },
+    recognizer: recognizer
+      ..onTap = () {
+        if (previewMedia) {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: LAYER_1,
+                  borderRadius: DEFAULT_BR,
+                ),
+                child: isImage
+                    ? Img(url: url)
+                    : AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: VideoPlayerWidget(url: url, autoPlay: false),
+                      ),
               );
-            } else {
-              launchUrl(Uri.parse(url));
-            }
-          },
+            },
+          );
+        } else {
+          launchUrl(Uri.parse(url));
+        }
+      },
   );
 }
 
@@ -218,11 +235,8 @@ InlineSpan _inlineMention(String pubkey) {
     alignment: PlaceholderAlignment.middle,
     child: ProfileLoaderWidget(pubkey, (ctx, profile) {
       return GestureDetector(
-        onTap:
-            () => ctx.push(
-              "/p/${Nip19.encodePubKey(pubkey)}",
-              extra: profile.data,
-            ),
+        onTap: () =>
+            ctx.push("/p/${Nip19.encodePubKey(pubkey)}", extra: profile.data),
         child: Text(
           "@${ProfileNameWidget.nameFromProfile(profile.data ?? Metadata(pubKey: pubkey))}",
           style: TextStyle(color: PRIMARY_1),

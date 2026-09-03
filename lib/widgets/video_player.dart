@@ -42,17 +42,17 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       aspectRatio: widget.aspectRatio,
       isLive: widget.isLive ?? false,
       autoInitialize: true,
-      placeholder:
-          (widget.placeholder?.isNotEmpty ?? false)
-              ? Img(url: widget.placeholder!)
-              : null,
+      placeholder: (widget.placeholder?.isNotEmpty ?? false)
+          ? Img(url: widget.placeholder!)
+          : null,
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    // chewie first: it still listens to the controller
     _chewieController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 

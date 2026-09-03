@@ -5,7 +5,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk_flutter/ndk_flutter.dart';
 import 'package:ndk_objectbox/ndk_objectbox.dart';
+import 'dart:developer' as developer;
+
 import 'package:zap_stream_flutter/login.dart';
+import 'package:zap_stream_flutter/notifications.dart';
 
 class NoVerify extends EventVerifier {
   @override
@@ -69,8 +72,17 @@ Future<void> initLogin() async {
       }
       ndk.metadata.loadMetadata(pubkey);
       ndk.follows.getContactList(pubkey);
+      // push registration needs a signer; logging in after launch used to
+      // leave the notification bell missing until the app was restarted
+      final signer = ndk.accounts.getLoggedAccount()?.signer;
+      if (signer != null && ndk.accounts.canSign) {
+        configureNotifications(signer).catchError((e) {
+          developer.log("Failed to configure notifications: $e");
+        });
+      }
     } else {
       ndk.accounts.logout();
+      resetNotifications();
     }
   });
 

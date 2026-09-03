@@ -28,6 +28,11 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
   late final TextEditingController _uri;
   String? _error;
 
+  /// Wallet info request, keyed on the wallet config it was made for; a
+  /// future built inline in build() re-queried the wallet on every rebuild.
+  Future<WalletInfo?>? _walletInfo;
+  String? _walletInfoFor;
+
   KeyPair? _nwaKey;
 
   @override
@@ -40,6 +45,7 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
   @override
   void dispose() {
     protocolHandler.removeListener(this);
+    _uri.dispose();
     super.dispose();
   }
 
@@ -48,33 +54,43 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
     developer.log("NWA: $url");
 
     if (url == nwaHandlerUrl && _nwaKey != null) {
-      final walletInfos = ndk.requests
-          .query(
-            filters: [
-              Filter(kinds: [13194], pTags: [_nwaKey!.publicKey], limit: 5),
-            ],
-            explicitRelays: nwcRelays,
-          )
-          .stream
-          .timeout(Duration(seconds: 15));
+      try {
+        final walletInfos = ndk.requests
+            .query(
+              filter: Filter(
+                kinds: [13194],
+                pTags: [_nwaKey!.publicKey],
+                limit: 5,
+              ),
+              explicitRelays: nwcRelays,
+            )
+            .stream
+            .timeout(Duration(seconds: 15));
 
-      final walletInfo =
-          (await walletInfos.toList())
-              .sortedBy((e) => e.createdAt)
-              .reversed
-              .firstOrNull;
-      if (walletInfo == null) {
-        setState(() {
-          _error = t.settings.wallet.error.nwc_auth_event_not_found;
-        });
-        return;
-      } else {
+        final walletInfo = (await walletInfos.toList())
+            .sortedBy((e) => e.createdAt)
+            .reversed
+            .firstOrNull;
+        if (!mounted) return;
+        if (walletInfo == null) {
+          setState(() {
+            _error = t.settings.wallet.error.nwc_auth_event_not_found;
+          });
+          return;
+        }
         final nwcUrl = Uri(
           scheme: "nostr+walletconnect",
           host: walletInfo.pubKey,
           queryParameters: {"relay": nwcRelays, "secret": _nwaKey!.privateKey},
         );
         _setWallet(WalletConfig(type: WalletType.nwc, data: nwcUrl.toString()));
+      } catch (e) {
+        // the 15s timeout used to escape here unhandled and the page just
+        // sat on the connect form after coming back from the wallet app
+        if (!mounted) return;
+        setState(() {
+          _error = e.toString();
+        });
       }
     }
   }
@@ -99,8 +115,8 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
     await launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
-  _setWallet(WalletConfig? cfg) {
-    loginData.configure(wallet: cfg);
+  void _setWallet(WalletConfig? cfg) {
+    loginData.configure(wallet: cfg, clearWallet: cfg == null);
   }
 
   @override
@@ -168,11 +184,17 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
             ],
           );
         } else {
+          final walletKey = state!.wallet!.data;
+          if (_walletInfoFor != walletKey) {
+            _walletInfoFor = walletKey;
+            _walletInfo = () async {
+              final wallet = await state.getWallet();
+              if (wallet == null) throw t.settings.wallet.error.nwc_connect;
+              return await wallet.getInfo();
+            }();
+          }
           return FutureBuilder(
-            future: () async {
-              final wallet = await state!.getWallet();
-              return await wallet?.getInfo();
-            }(),
+            future: _walletInfo,
             builder: (context, state) {
               return Column(
                 spacing: 8,
@@ -182,6 +204,17 @@ class _Inner extends State<SettingsWalletPage> with ProtocolListener {
                     "Wallet: ${state.data?.name ?? ""}",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
+                  if (state.hasError)
+                    Text(
+                      state.error.toString(),
+                      style: TextStyle(color: WARNING),
+                    ),
+                  if (state.connectionState != ConnectionState.done)
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(),
+                    ),
                   Text.rich(
                     TextSpan(
                       style: TextStyle(fontWeight: FontWeight.w500),

@@ -26,16 +26,21 @@ class GoalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final max = int.parse(goal.getFirstTag("amount") ?? "1");
+    // relay data: a non-numeric or zero amount must not throw or divide by 0
+    final max = switch (int.tryParse(goal.getFirstTag("amount") ?? "")) {
+      final int v when v > 0 => v,
+      _ => 1,
+    };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
       child: RxFilter<Nip01Event>(
-        Key("goal:$id:zaps"),
+        // was `$id`, the static method, so every goal shared one key
+        Key("goal:${goal.id}:zaps"),
         filters: [
           Filter(kinds: [9735], eTags: [goal.id]),
         ],
         builder: (ctx, state) {
-          final zaps = (state ?? []).map((e) => ZapReceipt.fromEvent(e));
+          final zaps = (state ?? []).map(parseZapReceipt).nonNulls;
           final totalZaps =
               zaps.fold(0, (acc, v) => acc + (v.amountSats ?? 0)) * 1000;
           final progress = totalZaps / max;

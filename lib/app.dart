@@ -28,11 +28,11 @@ Future<String?> resolveNip05(String handle, String domain) async {
   try {
     final url = "https://$domain/.well-known/nostr.json?name=$handle";
     final response = await http.get(Uri.parse(url));
-    
+
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final names = json["names"] as Map<String, dynamic>?;
-      
+
       if (names != null) {
         return names[handle] as String?;
       }
@@ -42,6 +42,12 @@ Future<String?> resolveNip05(String handle, String domain) async {
   }
   return null;
 }
+
+/// Pages share the shell's black Scaffold and paint nothing behind their own
+/// content. That is fine while a page is on top, but the pop transition fades
+/// the leaving page over the one below it, so the stream list showed through
+/// the chat on the way back. Every page gets its own opaque ground.
+Widget _page(Widget child) => ColoredBox(color: Colors.black, child: child);
 
 void runZapStream() {
   runApp(
@@ -68,26 +74,27 @@ void runZapStream() {
         routes: [
           ShellRoute(
             observers: [routeObserver],
-            builder:
-                (context, state, child) => SafeArea(
-                  child: Scaffold(body: child, backgroundColor: Colors.black),
-                ),
+            builder: (context, state, child) => SafeArea(
+              child: Scaffold(body: child, backgroundColor: Colors.black),
+            ),
             routes: [
-              GoRoute(path: "/", builder: (ctx, state) => HomePage()),
+              GoRoute(path: "/", builder: (ctx, state) => _page(HomePage())),
               ShellRoute(
                 builder: (context, state, child) {
-                  return Container(
-                    margin: EdgeInsets.only(top: 50),
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 20,
-                      children: [
-                        Center(
-                          child: Image.asset("assets/logo.png", height: 150),
-                        ),
-                        child,
-                      ],
+                  return _page(
+                    Container(
+                      margin: EdgeInsets.only(top: 50),
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 20,
+                        children: [
+                          Center(
+                            child: Image.asset("assets/logo.png", height: 150),
+                          ),
+                          child,
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -112,37 +119,44 @@ void runZapStream() {
                 path: StreamPage.path,
                 builder: (ctx, state) {
                   if (state.extra is StreamEvent) {
-                    return StreamPage(stream: state.extra as StreamEvent);
+                    return _page(
+                      StreamPage(stream: state.extra as StreamEvent),
+                    );
                   } else {
-                    return StreamPage.loader(state.pathParameters["id"]!);
+                    return _page(
+                      StreamPage.loader(state.pathParameters["id"]!),
+                    );
                   }
                 },
               ),
               GoRoute(
                 path: "/p/:id",
                 builder: (ctx, state) {
-                  return ProfilePage(pubkey: state.pathParameters["id"]!);
+                  return _page(
+                    ProfilePage(pubkey: state.pathParameters["id"]!),
+                  );
                 },
               ),
               GoRoute(
                 path: "/t/:id",
                 builder: (context, state) {
-                  return HashtagPage(tag: state.pathParameters["id"]!);
+                  return _page(HashtagPage(tag: state.pathParameters["id"]!));
                 },
               ),
               GoRoute(
                 path: "/category/:id",
                 builder: (context, state) {
-                  return CategoryPage(
-                    category: state.pathParameters["id"]!,
-                    info: state.extra as GameInfo?,
+                  return _page(
+                    CategoryPage(
+                      category: state.pathParameters["id"]!,
+                      info: state.extra as GameInfo?,
+                    ),
                   );
                 },
               ),
               ShellRoute(
-                builder:
-                    (context, state, child) =>
-                        Column(children: [HeaderWidget(), child]),
+                builder: (context, state, child) =>
+                    _page(Column(children: [HeaderWidget(), child])),
                 routes: [
                   GoRoute(
                     path: "/settings",
@@ -150,7 +164,8 @@ void runZapStream() {
                     routes: [
                       GoRoute(
                         path: "profile",
-                        builder: (context, state) => const SettingsProfilePage(),
+                        builder: (context, state) =>
+                            const SettingsProfilePage(),
                       ),
                       GoRoute(
                         path: "wallet",
@@ -162,13 +177,12 @@ void runZapStream() {
               ),
               GoRoute(
                 path: "/live",
-                builder: (context, state) => LivePage(),
+                builder: (context, state) => _page(LivePage()),
               ),
               GoRoute(
                 path: "/search",
-                builder: (context, state) => SearchPage(
-                  query: state.uri.queryParameters["q"],
-                ),
+                builder: (context, state) =>
+                    _page(SearchPage(query: state.uri.queryParameters["q"])),
               ),
               GoRoute(
                 path: "/:id",
@@ -184,14 +198,14 @@ void runZapStream() {
                   } else {
                     // Handle short URL format (handle@domain or just handle)
                     try {
-                      final handleParts = id.contains("@") 
-                          ? id.split("@") 
+                      final handleParts = id.contains("@")
+                          ? id.split("@")
                           : [id, "zap.stream"];
-                      
+
                       if (handleParts.length == 2) {
                         final handle = handleParts[0];
                         final domain = handleParts[1];
-                        
+
                         // Try to resolve NIP-05
                         final hexPubkey = await resolveNip05(handle, domain);
                         if (hexPubkey != null) {
@@ -206,7 +220,9 @@ void runZapStream() {
                       // If NIP-05 resolution fails, continue to show 404 or fallback
                     }
                   }
-                  return null;
+                  // nothing matched: go home rather than leave the router with
+                  // a route that has no page to build
+                  return "/";
                 },
               ),
             ],

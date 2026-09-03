@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
@@ -78,8 +77,15 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
           builder: (context, v, _) {
             final selectionStart = v.text.lastIndexOf("@");
             if (selectionStart == -1) {
-              _entry!.remove();
-              _entry = null;
+              // removing the entry from inside its own build marks the
+              // overlay dirty mid-build and asserts; defer it a frame
+              final entry = _entry;
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (identical(entry, _entry)) {
+                  _entry = null;
+                }
+                entry?.remove();
+              });
               return const SizedBox();
             }
             final search = v.text.substring(selectionStart + 1, v.text.length);
@@ -111,41 +117,40 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
                       }
                       return Column(
                         spacing: 4,
-                        children:
-                            (state.data ?? [])
-                                .groupListsBy((m) => m.pubKey)
-                                .entries
-                                .map(
-                                  (m) => GestureDetector(
-                                    onTap: () {
-                                      _controller
-                                          .text = _controller.text.replaceRange(
-                                        selectionStart,
-                                        _controller.text.length,
-                                        "nostr:${Nip19.encodePubKey(m.value.first.pubKey)}",
-                                      );
-                                      _entry!.remove();
-                                      _entry = null;
-                                    },
-                                    child: Row(
-                                      spacing: 4,
-                                      children: [
-                                        AvatarWidget(
-                                          profile: m.value.first,
-                                          size: 30,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            ProfileNameWidget.nameFromProfile(
-                                              m.value.first,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                        children: (state.data ?? [])
+                            .groupListsBy((m) => m.pubKey)
+                            .entries
+                            .map(
+                              (m) => GestureDetector(
+                                onTap: () {
+                                  _controller
+                                      .text = _controller.text.replaceRange(
+                                    selectionStart,
+                                    _controller.text.length,
+                                    "nostr:${Nip19.encodePubKey(m.value.first.pubKey)}",
+                                  );
+                                  _entry!.remove();
+                                  _entry = null;
+                                },
+                                child: Row(
+                                  spacing: 4,
+                                  children: [
+                                    AvatarWidget(
+                                      profile: m.value.first,
+                                      size: 30,
                                     ),
-                                  ),
-                                )
-                                .toList(),
+                                    Expanded(
+                                      child: Text(
+                                        ProfileNameWidget.nameFromProfile(
+                                          m.value.first,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                            .toList(),
                       );
                     },
                   ),
@@ -256,63 +261,60 @@ class __WriteMessageWidget extends State<WriteMessageWidget> {
           color: LAYER_2.withAlpha(200),
           borderRadius: DEFAULT_BR,
         ),
-        child:
-            canSign
-                ? Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        maxLines: 3,
-                        minLines: 1,
-                        focusNode: _focusNode,
-                        controller: _controller,
-                        onSubmitted: (_) => _sendMessage(context),
-                        onTapOutside: (event) {
-                          if (_entry == null) {
-                            _focusNode.unfocus();
-                          }
-                        },
-                        decoration: InputDecoration(
-                          labelText: t.stream.chat.write.label,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                          ),
-                          labelStyle: TextStyle(color: LAYER_4, fontSize: 14),
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        if (_entry != null) {
-                          _entry!.remove();
-                          _entry = null;
-                        } else {
-                          _showEmojiPicker();
+        child: canSign
+            ? Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      maxLines: 3,
+                      minLines: 1,
+                      focusNode: _focusNode,
+                      controller: _controller,
+                      onSubmitted: (_) => _sendMessage(context),
+                      onTapOutside: (event) {
+                        if (_entry == null) {
+                          _focusNode.unfocus();
                         }
                       },
-                      icon: const Icon(Icons.mood),
+                      decoration: InputDecoration(
+                        labelText: t.stream.chat.write.label,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 4),
+                        labelStyle: TextStyle(color: LAYER_4, fontSize: 14),
+                        border: InputBorder.none,
+                      ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        _sendMessage(context);
-                      },
-                      icon: const Icon(Icons.send),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      if (_entry != null) {
+                        _entry!.remove();
+                        _entry = null;
+                      } else {
+                        _showEmojiPicker();
+                      }
+                    },
+                    icon: const Icon(Icons.mood),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _sendMessage(context);
+                    },
+                    icon: const Icon(Icons.send),
+                  ),
+                ],
+              )
+            : Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Row(
+                  children: [
+                    Text(
+                      isLogin
+                          ? t.stream.chat.write.no_signer
+                          : t.stream.chat.write.login,
                     ),
                   ],
-                )
-                : Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Row(
-                    children: [
-                      Text(
-                        isLogin
-                            ? t.stream.chat.write.no_signer
-                            : t.stream.chat.write.login,
-                      ),
-                    ],
-                  ),
                 ),
+              ),
       ),
     );
   }

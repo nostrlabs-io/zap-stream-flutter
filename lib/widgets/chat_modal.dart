@@ -60,11 +60,10 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                 style: ButtonStyle(
                   backgroundColor: WidgetStateColor.resolveWith((_) => LAYER_3),
                 ),
-                onPressed:
-                    () => setState(() {
-                      _showTimeoutOptions = false;
-                      _showEmojiPicker = !_showEmojiPicker;
-                    }),
+                onPressed: () => setState(() {
+                  _showTimeoutOptions = false;
+                  _showEmojiPicker = !_showEmojiPicker;
+                }),
                 icon: Icon(Icons.mood),
               ),
               if (widget.profile.lud16?.isNotEmpty ?? false)
@@ -100,11 +99,10 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                       (_) => LAYER_3,
                     ),
                   ),
-                  onPressed:
-                      () => setState(() {
-                        _showEmojiPicker = false;
-                        _showTimeoutOptions = !_showTimeoutOptions;
-                      }),
+                  onPressed: () => setState(() {
+                    _showEmojiPicker = false;
+                    _showTimeoutOptions = !_showTimeoutOptions;
+                  }),
                   icon: Icon(Icons.timer_outlined),
                 ),
             ],
@@ -157,7 +155,12 @@ class _ChatModalWidget extends State<ChatModalWidget> {
                               ],
                               content: "",
                             );
-                            ndk.broadcast.broadcast(nostrEvent: timeout);
+                            // the chat subscribes on the stream's relays;
+                            // a timeout sent elsewhere never reaches viewers
+                            ndk.broadcast.broadcast(
+                              nostrEvent: timeout,
+                              specificRelays: widget.stream.info.relays,
+                            );
                             Navigator.pop(context);
                           },
                           child: Text(

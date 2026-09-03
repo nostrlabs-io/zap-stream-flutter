@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip01/bip340.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
 import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/utils.dart';
 
@@ -53,7 +52,9 @@ abstract class SimpleWallet {
 class NWCWrapper extends SimpleWallet {
   final NwcConnection _conn;
 
-  NWCWrapper({required NwcConnection conn}) : _conn = conn;
+  NWCWrapper({required NwcConnection conn}) : this._conn(conn);
+
+  NWCWrapper._conn(this._conn);
 
   @override
   Future<String> payInvoice(String pr) async {
@@ -102,15 +103,20 @@ class LoginAccount {
   });
 
   static LoginAccount nip19(String key) {
+    // anything else (note1, nevent1...) decoded to 32 bytes and was silently
+    // used as a private key, logging the user in as a random derived pubkey
+    if (!Nip19.isKey("npub", key) && !Nip19.isKey("nsec", key)) {
+      throw "Expected an npub or nsec";
+    }
     final keyData = bech32ToHex(key);
-    final pubkey =
-        Nip19.isKey("nsec", key) ? Bip340.getPublicKey(keyData) : keyData;
+    final pubkey = Nip19.isKey("nsec", key)
+        ? Bip340.getPublicKey(keyData)
+        : keyData;
     final privateKey = Nip19.isKey("npub", key) ? null : keyData;
     return LoginAccount(
-      type:
-          Nip19.isKey("npub", key)
-              ? AccountType.publicKey
-              : AccountType.privateKey,
+      type: Nip19.isKey("npub", key)
+          ? AccountType.publicKey
+          : AccountType.privateKey,
       pubkey: pubkey,
       privateKey: privateKey,
     );
@@ -149,6 +155,7 @@ class LoginAccount {
     "type": acc?.type.name,
     "pubKey": acc?.pubkey,
     "privateKey": acc?.privateKey,
+    "signerRelays": acc?.signerRelays,
     "signerPackage": acc?.signerPackage,
     "wallet": acc?.wallet?.toJson(),
     "streamEndpoint": acc?.streamEndpoint,
@@ -171,11 +178,11 @@ class LoginAccount {
         ),
         pubkey: json["pubKey"],
         privateKey: json["privateKey"],
+        signerRelays: (json["signerRelays"] as List?)?.cast<String>(),
         signerPackage: json["signerPackage"] as String?,
-        wallet:
-            json.containsKey("wallet") && json["wallet"] != null
-                ? WalletConfig.fromJson(json["wallet"])
-                : null,
+        wallet: json.containsKey("wallet") && json["wallet"] != null
+            ? WalletConfig.fromJson(json["wallet"])
+            : null,
         streamEndpoint: json["streamEndpoint"],
       );
     }
@@ -231,20 +238,26 @@ class LoginData extends ValueNotifier<LoginAccount?> {
     }
   }
 
+  /// Updates part of the stored account. Fields not passed are kept: this
+  /// used to rebuild the account without [LoginAccount.signerPackage], which
+  /// broke NIP-55 signing after a restart, and replaced the wallet with null
+  /// whenever only the stream endpoint changed.
   void configure({
     List<String>? signerRelays,
     WalletConfig? wallet,
+    bool clearWallet = false,
     String? streamEndpoint,
   }) {
-    if (value != null) {
-      value = LoginAccount(
-        type: value!.type,
-        pubkey: value!.pubkey,
-        privateKey: value!.privateKey,
-        signerRelays: signerRelays ?? value!.signerRelays,
-        wallet: wallet,
-        streamEndpoint: streamEndpoint ?? value!.streamEndpoint,
-      );
-    }
+    final current = value;
+    if (current == null) return;
+    value = LoginAccount(
+      type: current.type,
+      pubkey: current.pubkey,
+      privateKey: current.privateKey,
+      signerRelays: signerRelays ?? current.signerRelays,
+      signerPackage: current.signerPackage,
+      wallet: clearWallet ? null : (wallet ?? current.wallet),
+      streamEndpoint: streamEndpoint ?? current.streamEndpoint,
+    );
   }
 }

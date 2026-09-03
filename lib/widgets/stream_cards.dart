@@ -68,15 +68,14 @@ class StreamCardsWidget extends StatelessWidget {
             ),
           if (image?.isNotEmpty ?? false)
             Center(
-              child:
-                  link != null
-                      ? GestureDetector(
-                        onTap: () {
-                          launchUrl(Uri.parse(link));
-                        },
-                        child: Img(url: link, placeholderSize: 40),
-                      )
-                      : Img(url: link, placeholderSize: 40),
+              child: link != null
+                  ? GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse(link));
+                      },
+                      child: Img(url: image, placeholderSize: 40),
+                    )
+                  : Img(url: image, placeholderSize: 40),
             ),
           MarkdownBody(
             data: card.content,

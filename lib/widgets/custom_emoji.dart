@@ -16,15 +16,13 @@ class CustomEmoji extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cleanedEmojiName =
-        emoji.startsWith(":") && emoji.endsWith(":")
-            ? emoji.substring(1, emoji.length - 1)
-            : emoji;
+    final cleanedEmojiName = emoji.startsWith(":") && emoji.endsWith(":")
+        ? emoji.substring(1, emoji.length - 1)
+        : emoji;
 
-    final customEmoji =
-        tags.firstWhereOrNull(
-          (t) => t[0] == "emoji" && t[1] == cleanedEmojiName,
-        )?[2];
+    final customEmoji = tags.firstWhereOrNull(
+      (t) => t.length > 2 && t[0] == "emoji" && t[1] == cleanedEmojiName,
+    )?[2];
     if (customEmoji != null) {
       return Img(url: customEmoji, width: size ?? 16, height: size ?? 16);
     } else {

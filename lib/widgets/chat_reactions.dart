@@ -30,7 +30,8 @@ class ChatReactions extends StatelessWidget {
     if (filteredEvents.isEmpty) return SizedBox.shrink();
     final zaps = filteredEvents
         .where((e) => e.kind == 9735)
-        .map((e) => ZapReceipt.fromEvent(e));
+        .map(parseZapReceipt)
+        .nonNulls;
     final reactions = filteredEvents.where((e) => e.kind == 7);
 
     return Row(
