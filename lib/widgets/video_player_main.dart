@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/main.dart';
 import 'package:zap_stream_flutter/theme.dart';
 
@@ -70,11 +71,24 @@ class _MainVideoPlayerWidget extends State<MainVideoPlayerWidget> {
         // stopped from the media notification: the player is gone but the
         // page is still here, so offer a way to start it again instead of
         // an endless spinner
-        final stopped = chewie == null && owned && !mainPlayer.isLoading;
+        final stopped =
+            chewie == null &&
+            owned &&
+            !mainPlayer.isLoading &&
+            !mainPlayer.isReconnecting;
         final innerWidget = chewie != null && owned
             ? Chewie(controller: chewie)
             : Center(
-                child: state?.error != null
+                child: state?.reconnecting == true
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 12),
+                          Text(t.stream.error.reconnecting),
+                        ],
+                      )
+                    : state?.error != null
                     ? Text(
                         state!.error.toString(),
                         style: TextStyle(color: WARNING),

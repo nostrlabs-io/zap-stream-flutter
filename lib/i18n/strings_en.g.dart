@@ -428,6 +428,11 @@ class Translations$stream$error$en {
 
 	/// en: 'Failed to load stream from ${url}'
 	String load_failed({required Object url}) => 'Failed to load stream from ${url}';
+
+	/// Shown over the player while it retries a stream that stopped playing
+	///
+	/// en: 'Reconnecting…'
+	String get reconnecting => 'Reconnecting…';
 }
 
 // Path: zap.error
@@ -657,6 +662,7 @@ extension on Translations {
 			'stream.chat.raid.from' => ({required Object name}) => 'RAID FROM ${name}',
 			'stream.chat.raid.countdown' => ({required Object time}) => 'Raiding in ${time}',
 			'stream.error.load_failed' => ({required Object url}) => 'Failed to load stream from ${url}',
+			'stream.error.reconnecting' => 'Reconnecting…',
 			'stream.select_quality' => 'Select Quality',
 			'stream.quality_auto' => 'Auto',
 			'goal.title' => ({required Object amount}) => 'Goal: ${amount}',

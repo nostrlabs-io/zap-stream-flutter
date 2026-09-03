@@ -61,6 +61,9 @@ stream:
         description: Countdown timer for auto-raiding
   error:
     load_failed: Failed to load stream from ${url}
+    reconnecting: Reconnecting…
+    "@reconnecting":
+      description: Shown over the player while it retries a stream that stopped playing
   select_quality: Select Quality
   quality_auto: Auto
 goal:
