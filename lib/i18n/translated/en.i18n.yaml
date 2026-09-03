@@ -110,6 +110,7 @@ zap:
     invalid_custom_amount: Invalid custom amount
     no_wallet: No lightning wallet installed
     no_lud16: No lightning address found
+    no_invoice: Could not get an invoice from the lightning address
 profile:
   past_streams: Past Streams
 settings:
@@ -132,6 +133,7 @@ settings:
     error:
       logged_out: Cant connect wallet when logged out
       nwc_auth_event_not_found: No wallet auth event found
+      nwc_connect: Could not connect to the wallet
 login:
   username: Username
   amber: Login with Amber

@@ -16,11 +16,19 @@ class NoteEmbedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final entity = decodeBech32ToTLVEntity(link);
+    final TLVEntity entity;
+    final Filter filter;
+    try {
+      entity = decodeBech32ToTLVEntity(link);
+      filter = entity.toFilter();
+    } catch (_) {
+      // bad checksum or a bech32 that is not an event reference
+      return Text("nostr:$link", style: TextStyle(color: PRIMARY_1));
+    }
 
     return RxFilter<Nip01Event>(
       Key("embeded-note:$link"),
-      filters: [entity.toFilter()],
+      filters: [filter],
       builder: (context, data) {
         final note = data != null && data.isNotEmpty ? data.first : null;
         if (note == null) return SizedBox.shrink();

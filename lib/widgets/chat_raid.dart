@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
-import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/countdown.dart';
@@ -26,23 +25,18 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
   late final bool _isRaiding;
 
   DateTime? _raidingAt;
+  Future<Nip01Event?>? _other;
 
   @override
   void initState() {
     super.initState();
 
-    _from =
-        widget.event.tags.firstWhereOrNull(
-          (t) =>
-              t[0] == "a" && t.length > 3 && (t[3] == "from" || t[3] == "root"),
-        )?[1];
-    _to =
-        widget.event.tags.firstWhereOrNull(
-          (t) =>
-              t[0] == "a" &&
-              t.length > 3 &&
-              (t[3] == "to" || t[3] == "mention"),
-        )?[1];
+    _from = widget.event.tags.firstWhereOrNull(
+      (t) => t[0] == "a" && t.length > 3 && (t[3] == "from" || t[3] == "root"),
+    )?[1];
+    _to = widget.event.tags.firstWhereOrNull(
+      (t) => t[0] == "a" && t.length > 3 && (t[3] == "to" || t[3] == "mention"),
+    )?[1];
     _isRaiding = _from == widget.stream.aTag;
     final isAutoRaid =
         ((DateTime.now().millisecondsSinceEpoch / 1000) -
@@ -53,15 +47,15 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
       final autoRaidDelay = Duration(seconds: 5);
       _raidingAt = DateTime.now().add(autoRaidDelay);
     }
+    final otherTag = _isRaiding ? _to : _from;
+    if (otherTag != null) {
+      _other = loadEventByATag(otherTag);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     if (_from == null || _to == null) return SizedBox.shrink();
-
-    final otherTag = _isRaiding ? _to : _from;
-    final otherLink = otherTag.split(":");
-    final otherEvent = ndk.requests.query(filters: [aTagToFilter(otherTag)]);
 
     return Container(
       padding: EdgeInsets.all(8),
@@ -70,11 +64,9 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
       alignment: Alignment.center,
       decoration: BoxDecoration(borderRadius: DEFAULT_BR, color: PRIMARY_1),
       child: FutureBuilder(
-        future: otherEvent.future,
+        future: _other,
         builder: (ctx, state) {
-          final otherStream = state.data?.firstWhereOrNull(
-            (e) => e.getDtag() == otherLink[2] && e.pubKey == otherLink[1],
-          );
+          final otherStream = state.data;
           if (otherStream == null) return SizedBox.shrink();
           final otherStreamEvent = StreamEvent(otherStream);
           return Column(
@@ -92,17 +84,15 @@ class __ChatRaidMessage extends State<ChatRaidMessage>
                     return Text(
                       _isRaiding
                           ? t.stream.chat.raid.to(
-                            name:
-                                ProfileNameWidget.nameFromProfile(
-                                  otherMeta,
-                                ).toUpperCase(),
-                          )
+                              name: ProfileNameWidget.nameFromProfile(
+                                otherMeta,
+                              ).toUpperCase(),
+                            )
                           : t.stream.chat.raid.from(
-                            name:
-                                ProfileNameWidget.nameFromProfile(
-                                  otherMeta,
-                                ).toUpperCase(),
-                          ),
+                              name: ProfileNameWidget.nameFromProfile(
+                                otherMeta,
+                              ).toUpperCase(),
+                            ),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     );
                   }),

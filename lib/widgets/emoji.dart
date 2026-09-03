@@ -10,7 +10,7 @@ import 'package:zap_stream_flutter/rx_filter.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 
-class EmojiPickerCustom extends StatelessWidget {
+class EmojiPickerCustom extends StatefulWidget {
   final List<String>? customEmojiSets;
   final void Function(emoji.Emoji)? onEmojiSelected;
 
@@ -19,6 +19,32 @@ class EmojiPickerCustom extends StatelessWidget {
     this.onEmojiSelected,
     this.customEmojiSets,
   });
+
+  @override
+  State<EmojiPickerCustom> createState() => _EmojiPickerCustom();
+}
+
+class _EmojiPickerCustom extends State<EmojiPickerCustom> {
+  /// The emoji list lookup runs once per picker; it used to be a new relay
+  /// query on every rebuild.
+  Future<List<Nip01Event>>? _sets;
+
+  @override
+  void initState() {
+    super.initState();
+    final signer = ndk.accounts.getLoggedAccount()?.signer;
+    if (signer != null) {
+      final emojiPubkeys = {...?widget.customEmojiSets, signer.getPublicKey()};
+      _sets = ndk.requests
+          .query(
+            filter: Filter(
+              kinds: [Nip51List.kEmojis],
+              authors: emojiPubkeys.toList(),
+            ),
+          )
+          .future;
+    }
+  }
 
   Widget _picker(List<CustomEmojiSet> customEmojiTags) {
     return emoji.EmojiPicker(
@@ -83,44 +109,33 @@ class EmojiPickerCustom extends StatelessWidget {
         ),
       ),
       onEmojiSelected: (_, e) {
-        if (onEmojiSelected != null) {
-          onEmojiSelected!(e);
-        }
+        widget.onEmojiSelected?.call(e);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    var emojiPubkeys = customEmojiSets ?? [];
-    final signer = ndk.accounts.getLoggedAccount()?.signer;
-    if (signer == null) {
-      return SizedBox.fromSize();
+    final sets = _sets;
+    if (sets == null) {
+      // logged out: still offer the standard emoji
+      return _picker([]);
     }
-    emojiPubkeys.add(signer.getPublicKey());
 
     return FutureBuilder(
-      future:
-          ndk.requests
-              .query(
-                filters: [
-                  Filter(kinds: [Nip51List.kEmojis], authors: emojiPubkeys),
-                ],
-              )
-              .future,
+      future: sets,
       builder: (context, state) {
-        final sets =
-            state.data
-                ?.map((a) => a.tags.where((b) => b[0] == "a"))
-                .flattened
-                .map((e) => e[1])
-                .toSet();
+        final sets = state.data
+            ?.map((a) => a.tags.where((b) => b.length > 1 && b[0] == "a"))
+            .flattened
+            .map((e) => e[1])
+            .toSet();
         if (sets == null || sets.isEmpty) {
           return _picker([]);
         }
         return RxFilter<Nip01Event>(
           Key("emoji-picker"),
-          filters: sets.map(aTagToFilter).toList(),
+          filters: sets.map(tryATagToFilter).nonNulls.toList(),
           builder: (context, state) {
             return _picker(
               (state ?? []).map((e) => CustomEmojiSet(event: e)).toList(),
@@ -135,7 +150,9 @@ class EmojiPickerCustom extends StatelessWidget {
 class CustomEmojiSet {
   final Nip01Event _event;
 
-  CustomEmojiSet({required Nip01Event event}) : _event = event;
+  CustomEmojiSet({required Nip01Event event}) : this._event(event);
+
+  CustomEmojiSet._event(this._event);
 
   String get title {
     return _event.getFirstTag("title") ?? _event.getDtag()!;
@@ -143,8 +160,9 @@ class CustomEmojiSet {
 
   List<CustomEmoji> get emoji {
     return _event.tags
-        .where((t) => t[0] == "emoji")
+        .where((t) => t.length > 2 && t[0] == "emoji")
         .map(CustomEmoji.fromTag)
+        .nonNulls
         .toList();
   }
 }
@@ -155,7 +173,8 @@ class CustomEmoji {
 
   CustomEmoji({required this.name, required this.url});
 
-  static CustomEmoji fromTag(List<String> tag) {
+  static CustomEmoji? fromTag(List<String> tag) {
+    if (tag.length < 3) return null;
     return CustomEmoji(name: tag[1], url: tag[2]);
   }
 }

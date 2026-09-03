@@ -31,10 +31,23 @@ class StreamPage extends StatefulWidget {
   const StreamPage({super.key, required this.stream});
 
   static Widget loader(String id) {
-    final entity = decodeBech32ToTLVEntity(id);
+    final TLVEntity entity;
+    final Filter filter;
+    try {
+      entity = decodeBech32ToTLVEntity(id);
+      filter = entity.toFilter();
+    } catch (e) {
+      // a mistyped link used to throw out of the route builder
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(t.stream.error.load_failed(url: id)),
+        ),
+      );
+    }
     return RxFilter<Nip01Event>(
       Key("stream-loader:$id"),
-      filters: [entity.toFilter()],
+      filters: [filter],
       builder: (context, state) {
         final stream = state?.firstWhereOrNull(
           (e) => e.getDtag() == entity.specialUtf8,
@@ -62,21 +75,30 @@ class _StreamPage extends State<StreamPage> with RouteAware {
   bool _offScreen = false;
   final GlobalKey _playerKey = GlobalKey();
 
-  bool isWidgetVisible(BuildContext context) {
-    final router = GoRouter.of(context);
-    final currentConfiguration = router.routerDelegate.currentConfiguration;
-    final match = currentConfiguration.matches.lastOrNull;
-    final lastMatch = match is ShellRouteMatch
-        ? match.matches.lastOrNull
-        : match;
-    return lastMatch != null &&
-        (lastMatch.route is GoRoute &&
-            (lastMatch.route as GoRoute).path == StreamPage.path);
+  /// Keeps one chat subscription alive across the portrait and landscape
+  /// layouts. The chat sits at a different spot in each tree, so without a
+  /// global key it was torn down and re-fetched every time the player
+  /// reported its aspect ratio or the phone rotated.
+  final GlobalKey _chatKey = GlobalKey();
+
+  /// go_router key of this page, captured while the page is still current so
+  /// it can be compared against the top of the stack after a push.
+  ValueKey<String>? _pageKey;
+
+  /// Whether this page is the route on top of the navigator. A bottom sheet
+  /// pushes a modal route, not a page, so the top page stays ours and the
+  /// player keeps going; another stream page or a profile page does not.
+  bool _isTopPage() {
+    final top = GoRouter.of(
+      context,
+    ).routerDelegate.currentConfiguration.lastOrNull;
+    return top != null && top.pageKey == _pageKey;
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _pageKey ??= GoRouterState.of(context).pageKey;
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
@@ -95,44 +117,53 @@ class _StreamPage extends State<StreamPage> with RouteAware {
 
   @override
   void didPush() {
-    setState(() {
-      developer.log("STREAM: ON SCREEN");
-      _offScreen = false;
-    });
+    developer.log("STREAM: ON SCREEN");
+    _setOffScreen(false);
   }
 
+  /// Back on top: remounting the player reloads this stream, which is a
+  /// no-op when nothing else took the player over in the meantime.
   @override
   void didPopNext() {
-    setState(() {
-      developer.log("STREAM: ON SCREEN");
-      _offScreen = false;
-    });
+    developer.log("STREAM: ON SCREEN");
+    _setOffScreen(false);
   }
 
   @override
   void didPushNext() {
-    if (!isWidgetVisible(context)) {
-      setState(() {
-        developer.log("STREAM: OFF SCREEN");
-        _offScreen = true;
-      });
+    if (!_isTopPage()) {
+      developer.log("STREAM: OFF SCREEN");
+      _setOffScreen(true);
     }
+  }
+
+  void _setOffScreen(bool value) {
+    if (!value) {
+      // the wakelock is a global toggle: a stream page popped off the top of
+      // this one disabled it on the way out, so re-assert it when we return
+      WakelockPlus.enable();
+    }
+    if (_offScreen == value) return;
+    setState(() {
+      _offScreen = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return RxFilter<Nip01Event>(
+    return RxFilter<StreamEvent>(
       Key("stream:event:${widget.stream.aTag}"),
       relays: widget.stream.info.relays,
       filters: [
         Filter(
           kinds: [widget.stream.event.kind],
           authors: [widget.stream.event.pubKey],
-          dTags: [widget.stream.event.getDtag()!],
+          dTags: [widget.stream.event.getDtag() ?? ""],
         ),
       ],
+      mapper: (e) => StreamEvent(e),
       builder: (ctx, state) {
-        final stream = StreamEvent(state?.firstOrNull ?? widget.stream.event);
+        final stream = state?.firstOrNull ?? widget.stream;
         final streamWidget = _buildPlayer(ctx, stream);
         return ValueListenableBuilder(
           valueListenable: mainPlayer.state,
@@ -228,6 +259,7 @@ class _StreamPage extends State<StreamPage> with RouteAware {
                 stops: [0.0, 0.8, 1.0],
               ).createShader(rect),
               child: ChatWidget(
+                key: _chatKey,
                 stream: stream,
                 showGoals: false,
                 showTopZappers: false,
@@ -250,7 +282,9 @@ class _StreamPage extends State<StreamPage> with RouteAware {
       children: [
         child,
         ..._streamInfo(context, stream),
-        Expanded(child: ChatWidget(stream: stream)),
+        Expanded(
+          child: ChatWidget(key: _chatKey, stream: stream),
+        ),
       ],
     );
   }

@@ -28,100 +28,106 @@ class ProfilePage extends StatelessWidget {
 
     return ProfileLoaderWidget(hexPubkey, (ctx, state) {
       final profile = state.data ?? Metadata(pubKey: hexPubkey);
-      return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 16,
-          children: [
-            HeaderWidget(),
-            if (profile.banner != null)
-              SizedBox(
-                height: 140,
-                width: double.maxFinite,
-                child: Img(url: profile.banner!),
-              ),
-            Row(
-              spacing: 8,
+      return CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 16,
               children: [
-                AvatarWidget(profile: profile, size: 80),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProfileNameWidget(
-                        profile: profile,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text.rich(
-                        TextSpan(
-                          style: TextStyle(color: LAYER_5),
-                          children: textToSpans(
-                            context,
-                            profile.about ?? "",
-                            [],
-                            profile.pubKey,
+                HeaderWidget(),
+                if (profile.banner != null)
+                  SizedBox(
+                    height: 140,
+                    width: double.maxFinite,
+                    child: Img(url: profile.banner!),
+                  ),
+                Row(
+                  spacing: 8,
+                  children: [
+                    AvatarWidget(profile: profile, size: 80),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ProfileNameWidget(
+                            profile: profile,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
+                          Text.rich(
+                            TextSpan(
+                              style: TextStyle(color: LAYER_5),
+                              children: textToSpans(
+                                context,
+                                profile.about ?? "",
+                                [],
+                                profile.pubKey,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                if (isMe)
+                  Row(
+                    spacing: 8,
+                    children: [
+                      BasicButton.text(
+                        t.button.logout,
+                        onTap: (context) {
+                          loginData.logout();
+                          ndk.accounts.logout();
+                          context.go("/");
+                        },
+                      ),
+                      BasicButton.text(
+                        t.button.settings,
+                        onTap: (context) {
+                          context.push("/settings");
+                        },
                       ),
                     ],
+                  ),
+                if (!isMe)
+                  Row(
+                    spacing: 8,
+                    children: [
+                      FollowButton(pubkey: hexPubkey),
+                      NotificationsButtonWidget(pubkey: hexPubkey),
+                    ],
+                  ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    t.profile.past_streams,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
             ),
-
-            if (isMe)
-              Row(
-                spacing: 8,
-                children: [
-                  BasicButton.text(
-                    t.button.logout,
-                    onTap: (context) {
-                      loginData.logout();
-                      ndk.accounts.logout();
-                      context.go("/");
-                    },
-                  ),
-                  BasicButton.text(
-                    t.button.settings,
-                    onTap: (context) {
-                      context.push("/settings");
-                    },
-                  ),
-                ],
-              ),
-            if (!isMe)
-              Row(
-                spacing: 8,
-                children: [
-                  FollowButton(pubkey: hexPubkey),
-                  NotificationsButtonWidget(pubkey: hexPubkey),
-                ],
-              ),
-            Text(
-              t.profile.past_streams,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-
-            RxFilter<Nip01Event>(
-              Key("profile-streams:$hexPubkey"),
-              filters: [
-                Filter(kinds: [30_311], limit: 100, pTags: [hexPubkey]),
-                Filter(kinds: [30_311], limit: 100, authors: [hexPubkey]),
-              ],
-              builder: (ctx, state) {
-                return StreamGrid(
-                  events: state ?? [],
-                  showLive: true,
-                  showEnded: true,
-                  showPlanned: true,
-                );
-              },
-            ),
-          ],
-        ),
+          ),
+          RxFilter<StreamEvent>(
+            Key("profile-streams:$hexPubkey"),
+            filters: [
+              Filter(kinds: [30_311], limit: 100, pTags: [hexPubkey]),
+              Filter(kinds: [30_311], limit: 100, authors: [hexPubkey]),
+            ],
+            mapper: (e) => StreamEvent(e),
+            builder: (ctx, state) {
+              return StreamGrid(
+                events: state ?? const [],
+                showLive: true,
+                showEnded: true,
+                showPlanned: true,
+              );
+            },
+          ),
+        ],
       );
     });
   }

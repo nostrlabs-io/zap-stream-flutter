@@ -1,9 +1,7 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ndk/entities.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
 import 'package:zap_stream_flutter/widgets/img.dart';
-import 'package:zap_stream_flutter/const.dart';
 import 'package:zap_stream_flutter/theme.dart';
 import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
@@ -28,9 +26,9 @@ class ChatBadgeAwardWidget extends StatelessWidget {
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(color: LAYER_1, borderRadius: DEFAULT_BR),
       child: FutureBuilder(
-        future: ndk.requests.query(filters: [aTagToFilter(aTag)]).future,
+        future: loadEventByATag(aTag),
         builder: (context, state) {
-          final badge = state.data?.firstOrNull;
+          final badge = state.data;
           final image = badge?.getFirstTag("image");
           final name = badge?.getFirstTag("name");
           final title = badge?.getFirstTag("description");
@@ -42,8 +40,7 @@ class ChatBadgeAwardWidget extends StatelessWidget {
               Column(
                 spacing: 8,
                 children: [
-                  if (image?.isNotEmpty ?? false)
-                    Img(url: image, width: 64),
+                  if (image?.isNotEmpty ?? false) Img(url: image, width: 64),
                   if (name?.isNotEmpty ?? false)
                     Text(
                       name!,
@@ -82,11 +79,9 @@ class ChatBadgeWidget extends StatelessWidget {
 
   static Widget fromATag(String aTag, {Key? key}) {
     return FutureBuilder(
-      future: ndk.requests.query(filters: [aTagToFilter(aTag)]).future,
+      future: loadEventByATag(aTag),
       builder: (context, state) {
-        final ev = state.data?.firstWhereOrNull(
-          (e) => "${e.kind}:${e.pubKey}:${e.getDtag()}" == aTag,
-        );
+        final ev = state.data;
         if (ev == null) return SizedBox();
         return ChatBadgeWidget(badge: ev, key: key);
       },

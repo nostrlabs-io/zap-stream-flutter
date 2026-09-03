@@ -76,10 +76,16 @@ class _LivePage extends State<LivePage>
   bool _streaming = false;
 
   Future<void> _reloadAccount() async {
-    final info = await _api.getAccountInfo();
-    setState(() {
-      _account = info;
-    });
+    try {
+      final info = await _api.getAccountInfo();
+      if (!mounted) return;
+      setState(() {
+        _account = info;
+      });
+    } catch (e) {
+      // polled every 30s; a failed poll must not throw out of the page
+      developer.log("Failed to load account: $e");
+    }
   }
 
   @override
@@ -88,7 +94,10 @@ class _LivePage extends State<LivePage>
       initialAudioConfig: AudioConfig(),
       initialVideoConfig: VideoConfig.withDefaultBitrate(),
     );
-    _controller.initialize();
+    _controller.initialize().catchError((e) {
+      // a denied camera permission surfaced as an unhandled exception
+      developer.log("Failed to initialise camera: $e");
+    });
     _api = ZapStreamApi.instance();
     _reloadAccount();
     _accountTimer = Timer.periodic(Duration(seconds: 30), (_) async {
@@ -103,8 +112,13 @@ class _LivePage extends State<LivePage>
   @override
   void dispose() {
     _accountTimer.cancel();
-    _controller.stopStreaming();
-    _controller.dispose();
+    // stop before dispose, not concurrently with it, or the RTMP session
+    // can be torn down mid-stop and the future rejects unhandled
+    final controller = _controller;
+    controller
+        .stopStreaming()
+        .catchError((e) => developer.log("Failed to stop stream: $e"))
+        .whenComplete(controller.dispose);
     WakelockPlus.disable();
     super.dispose();
   }
@@ -151,6 +165,11 @@ class _LivePage extends State<LivePage>
       child: ValueListenableBuilder(
         valueListenable: loginData,
         builder: (context, state, _) {
+          final pubkey = state?.pubkey;
+          if (pubkey == null) {
+            // logging out while on this page used to null-check crash
+            return Center(child: Text(t.settings.profile.error.logged_out));
+          }
           final endpoint = _account?.endpoints.firstWhereOrNull(
             (e) => e.name == state?.streamEndpoint,
           );
@@ -159,16 +178,8 @@ class _LivePage extends State<LivePage>
           return RxFilter<Nip01Event>(
             Key("live-stream"),
             filters: [
-              Filter(
-                kinds: [30_311],
-                limit: 100,
-                pTags: [loginData.value!.pubkey],
-              ),
-              Filter(
-                kinds: [30_311],
-                limit: 100,
-                authors: [loginData.value!.pubkey],
-              ),
+              Filter(kinds: [30_311], limit: 100, pTags: [pubkey]),
+              Filter(kinds: [30_311], limit: 100, authors: [pubkey]),
             ],
             builder: (context, streamState) {
               final ev = streamState
@@ -263,6 +274,7 @@ class _LivePage extends State<LivePage>
                                           _reloadAccount();
                                         })
                                         .catchError((e) {
+                                          if (!context.mounted) return;
                                           _showError(
                                             context,
                                             e.toString(),
@@ -293,6 +305,7 @@ class _LivePage extends State<LivePage>
                               onPressed: () async {
                                 if (_streaming) {
                                   _controller.stopStreaming().catchError((e) {
+                                    if (!context.mounted) return;
                                     _showError(context, e.toString(), error: e);
                                   });
                                 } else {
@@ -302,6 +315,7 @@ class _LivePage extends State<LivePage>
                                         url: endpoint.url,
                                       )
                                       .catchError((e) {
+                                        if (!context.mounted) return;
                                         _showError(
                                           context,
                                           t.live.error.start_failed,

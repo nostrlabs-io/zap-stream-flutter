@@ -25,6 +25,7 @@ class _NewAccountPage extends State<NewAccountPage> {
     _name.dispose();
     super.dispose();
   }
+
   final FocusNode _nameFocus = FocusNode();
   String? _avatar;
   String? _error;
@@ -96,6 +97,7 @@ class _NewAccountPage extends State<NewAccountPage> {
                       }
                     })
                     .catchError((e) {
+                      if (!mounted) return;
                       setState(() {
                         _loading = false;
                         _error = e is String ? e : e.toString();

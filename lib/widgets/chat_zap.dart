@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/i18n/strings.g.dart';
@@ -7,15 +8,46 @@ import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/nostr_text.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
-class ChatZapWidget extends StatelessWidget {
+class ChatZapWidget extends StatefulWidget {
   final StreamEvent stream;
-  final Nip01Event zap;
+
+  /// Parsed once by the chat; decoding the receipt here on every rebuild
+  /// meant a JSON parse per zap row per incoming message.
+  final ZapReceipt zap;
 
   const ChatZapWidget({required this.stream, required this.zap, super.key});
 
   @override
+  State<ChatZapWidget> createState() => _ChatZapWidget();
+}
+
+class _ChatZapWidget extends State<ChatZapWidget> {
+  final List<GestureRecognizer> _recognizers = [];
+  List<InlineSpan>? _comment;
+
+  @override
+  void dispose() {
+    for (final r in _recognizers) {
+      r.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final parsed = ZapReceipt.fromEvent(zap);
+    final parsed = widget.zap;
+    final comment = parsed.comment;
+    if (comment?.isNotEmpty ?? false) {
+      _comment ??= textToSpans(
+        context,
+        comment!,
+        [],
+        parsed.sender ?? "",
+        showEmbeds: false,
+        embedMedia: false,
+        recognizers: _recognizers,
+      );
+    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       padding: EdgeInsets.all(8),
@@ -27,19 +59,7 @@ class ChatZapWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _zapperRowZap(context, parsed),
-          if (parsed.comment?.isNotEmpty ?? false)
-            RichText(
-              text: TextSpan(
-                children: textToSpans(
-                  context,
-                  parsed.comment ?? "",
-                  [],
-                  parsed.sender ?? "",
-                  showEmbeds: false,
-                  embedMedia: false,
-                ),
-              ),
-            ),
+          if (_comment != null) RichText(text: TextSpan(children: _comment)),
         ],
       ),
     );
@@ -66,7 +86,10 @@ class ChatZapWidget extends StatelessWidget {
         if (profile != null) AvatarWidget(profile: profile, size: 24),
         RichText(
           text: t.stream.chat.zap(
-            user: TextSpan(text: name, style: TextStyle(color: ZAP_1)),
+            user: TextSpan(
+              text: name,
+              style: TextStyle(color: ZAP_1),
+            ),
             amount: TextSpan(
               text: formatSats(amount),
               style: TextStyle(color: ZAP_1),

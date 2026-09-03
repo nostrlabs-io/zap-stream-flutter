@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ndk/ndk.dart';
 import 'package:ndk/shared/nips/nip19/hrps.dart';
-import 'package:ndk/shared/nips/nip19/nip19.dart';
+import 'package:zap_stream_flutter/const.dart';
 
 /// Check if a stream URL is valid (not localhost or unreachable addresses)
 bool isValidStreamUrl(String? url) {
@@ -137,13 +137,15 @@ final RegExp gameTagFormat = RegExp(
 StreamInfo extractStreamInfo(Nip01Event ev) {
   var ret = StreamInfo(host: getHost(ev));
 
+  // tags come from relays; a one-element or empty tag must not throw
   void matchTag(List<String> tag, String k, void Function(String) into) {
-    if (tag[0] == k) {
+    if (tag.length > 1 && tag[0] == k) {
       into(tag[1]);
     }
   }
 
   for (var t in ev.tags) {
+    if (t.length < 2) continue;
     matchTag(t, 'd', (v) => ret.id = v);
     matchTag(t, 'title', (v) => ret.title = v);
     matchTag(t, 'summary', (v) => ret.summary = v);
@@ -153,13 +155,12 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
     matchTag(
       t,
       'status',
-      (v) =>
-          ret.status = switch (v.toLowerCase()) {
-            'live' => StreamStatus.live,
-            'ended' => StreamStatus.ended,
-            'planned' => StreamStatus.planned,
-            _ => null,
-          },
+      (v) => ret.status = switch (v.toLowerCase()) {
+        'live' => StreamStatus.live,
+        'ended' => StreamStatus.ended,
+        'planned' => StreamStatus.planned,
+        _ => null,
+      },
     );
     if (t[0] == 'streaming') {
       ret.streams = [...ret.streams, t[1]];
@@ -210,11 +211,12 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
 ({List<String> regularTags, List<String> prefixedTags}) sortStreamTags(
   List<dynamic> tags,
 ) {
-  var plainTags =
-      tags
-          .where((a) => a is List<String> ? a[0] == 't' : true)
-          .map((a) => a is List<String> ? a[1] : a as String)
-          .toList();
+  var plainTags = tags
+      .where(
+        (a) => a is List<String> ? a.length > 1 && a[0] == 't' : a is String,
+      )
+      .map((a) => a is List<String> ? a[1] : a as String)
+      .toList();
 
   var regularTags = plainTags.where((a) => !gameTagFormat.hasMatch(a)).toList();
   var prefixedTags = plainTags.where((a) => !regularTags.contains(a)).toList();
@@ -260,7 +262,7 @@ StreamInfo extractStreamInfo(Nip01Event ev) {
 
 String getHost(Nip01Event ev) {
   return ev.tags.firstWhere(
-    (t) => t[0] == "p" && t.length > 3 && t[3] == "host",
+    (t) => t.length > 3 && t[0] == "p" && t[3] == "host",
     orElse: () => ["p", ev.pubKey], // fake p tag with event pubkey
   )[1];
 }
@@ -354,8 +356,8 @@ String formatSats(int n, {int? maxDigits}) {
 
 String zapSum(List<Nip01Event> zaps) {
   final total = zaps
-      .map((e) => ZapReceipt.fromEvent(e))
-      .fold(0, (acc, v) => acc + (v.amountSats ?? 0));
+      .map(parseZapReceipt)
+      .fold(0, (acc, v) => acc + (v?.amountSats ?? 0));
   return formatSats(total);
 }
 
@@ -592,15 +594,64 @@ TLVEntity decodeBech32ToTLVEntity(String input) {
   final decoder = Bech32Decoder();
   final data = decoder.convert(input, 10_000);
   final data8bit = Nip19.convertBits(data.data, 5, 8, false);
-  if (data.hrp != "npub" || data.hrp != "nsec" || data.hrp != "note") {
-    return TLVEntity(data.hrp, parseTLV(data8bit));
-  } else {
+  // was `!= || != || !=`, which is always true, so note1 links went through
+  // the TLV parser and threw
+  if (data.hrp == "npub" || data.hrp == "nsec" || data.hrp == "note") {
     // convert to basic type using special entry only
     return TLVEntity(data.hrp, [TLV(0, data8bit.length, data8bit)]);
   }
+  return TLVEntity(data.hrp, parseTLV(data8bit));
 }
 
 Filter aTagToFilter(String tag) {
+  final f = tryATagToFilter(tag);
+  if (f == null) throw FormatException("Invalid a tag: $tag");
+  return f;
+}
+
+/// Null for anything that is not `kind:pubkey:dtag` with a numeric kind
+Filter? tryATagToFilter(String tag) {
   final ts = tag.split(":");
-  return Filter(kinds: [int.parse(ts[0])], authors: [ts[1]], dTags: [ts[2]]);
+  if (ts.length < 3) return null;
+  final kind = int.tryParse(ts[0]);
+  if (kind == null || ts[1].length != 64) return null;
+  return Filter(
+    kinds: [kind],
+    authors: [ts[1]],
+    dTags: [ts.sublist(2).join(":")],
+  );
+}
+
+/// [ZapReceipt.fromEvent] indexes tags and decodes embedded JSON without
+/// guards; a malformed kind 9735 from a relay must not take a widget down.
+ZapReceipt? parseZapReceipt(Nip01Event ev) {
+  try {
+    return ZapReceipt.fromEvent(ev);
+  } catch (_) {
+    return null;
+  }
+}
+
+final Map<String, Future<Nip01Event?>> _aTagLookups = {};
+
+/// Resolves a replaceable event by its `a` tag, once per session.
+///
+/// Badges, raids and other chat rows used to open a fresh relay query inside
+/// build(), so each rebuild of the chat sent the same request again.
+Future<Nip01Event?> loadEventByATag(String aTag) {
+  final filter = tryATagToFilter(aTag);
+  if (filter == null) return Future.value(null);
+  return _aTagLookups.putIfAbsent(aTag, () async {
+    try {
+      final parts = aTag.split(":");
+      final events = await ndk.requests.query(filter: filter).future;
+      return events
+          .where((e) => e.pubKey == parts[1] && e.getDtag() == parts[2])
+          .sortedBy((e) => e.createdAt)
+          .lastOrNull;
+    } catch (_) {
+      _aTagLookups.remove(aTag);
+      return null;
+    }
+  });
 }

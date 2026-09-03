@@ -28,6 +28,7 @@ class _SettingsProfilePage extends State<SettingsProfilePage> {
   /// triggered a rebuild (toggling `_loading` on save is enough), so edits
   /// silently reverted to the stored profile.
   bool _seeded = false;
+  String? _error;
 
   @override
   void dispose() {
@@ -106,11 +107,16 @@ class _SettingsProfilePage extends State<SettingsProfilePage> {
                   filled: true,
                 ),
               ),
+              if (_error != null)
+                Text(_error!, style: TextStyle(color: WARNING)),
               BasicButton.text(
                 t.button.save,
-                disabled: v,
+                // saving before the profile loaded would broadcast an empty
+                // kind 0 and wipe the existing profile
+                disabled: v || !_seeded,
                 onTap: (context) async {
                   _loading.value = true;
+                  _error = null;
                   try {
                     final newMeta = Metadata(
                       pubKey: pubkey,
@@ -123,6 +129,13 @@ class _SettingsProfilePage extends State<SettingsProfilePage> {
                     await ndk.metadata.broadcastMetadata(newMeta);
                     if (context.mounted) {
                       context.pop();
+                    }
+                  } catch (e) {
+                    // used to fail silently: spinner stopped, nothing said
+                    if (mounted) {
+                      setState(() {
+                        _error = e.toString();
+                      });
                     }
                   } finally {
                     _loading.value = false;

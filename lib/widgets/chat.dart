@@ -23,11 +23,7 @@ class ChatMessageParsed {
   ChatMessageParsed(Nip01Event ev) {
     _event = ev;
     if (ev.kind == 9735) {
-      try {
-        _zap = ZapReceipt.fromEvent(ev);
-      } catch (e) {
-        _zap = null;
-      }
+      _zap = parseZapReceipt(ev);
     }
   }
 
@@ -120,75 +116,71 @@ class _ChatWidget extends State<ChatWidget> {
       builder: (ctx, state) {
         final now = DateTime.now().millisecondsSinceEpoch / 1000;
         final seenEventIds = <String>{};
-        final firstPassEvents =
-            (state ?? [])
-                .where((e) => seenEventIds.add(e.id))
-                .where(
-                  (e) => switch (e.kind) {
-                    // filter timeouts to only people allowed to mute.
-                    // `expiration` is attacker-influenced relay data: a 1314
-                    // with the tag missing or non-numeric used to throw out of
-                    // build() and take the whole chat down for every viewer.
-                    // A malformed timeout is ignored rather than applied, so a
-                    // broken event cannot mute someone indefinitely.
-                    1314 =>
-                      moderators.contains(e.pubKey) &&
-                          (_expiryOf(e) ?? 0) > now,
-                    // TODO: check other kinds are valid for this stream
-                    _ => true,
-                  },
-                )
-                .map(
-                  (e) => _parsed.putIfAbsent(e.id, () => ChatMessageParsed(e)),
-                )
-                .toList();
+        final firstPassEvents = (state ?? [])
+            .where((e) => seenEventIds.add(e.id))
+            .where(
+              (e) => switch (e.kind) {
+                // filter timeouts to only people allowed to mute.
+                // `expiration` is attacker-influenced relay data: a 1314
+                // with the tag missing or non-numeric used to throw out of
+                // build() and take the whole chat down for every viewer.
+                // A malformed timeout is ignored rather than applied, so a
+                // broken event cannot mute someone indefinitely.
+                1314 =>
+                  moderators.contains(e.pubKey) && (_expiryOf(e) ?? 0) > now,
+                // TODO: check other kinds are valid for this stream
+                _ => true,
+              },
+            )
+            .map((e) => _parsed.putIfAbsent(e.id, () => ChatMessageParsed(e)))
+            .toList();
 
         // keep the cache to the live relay window rather than letting it grow
         // for the lifetime of the stream
         if (_parsed.length > seenEventIds.length) {
           _parsed.removeWhere((id, _) => !seenEventIds.contains(id));
         }
-        final mutedPubkeys =
-            firstPassEvents
-                .where(
-                  (e) =>
-                      e.event.kind == Nip51List.kMute ||
-                      (e.event.kind == 1314 &&
-                          e.event.createdAt < now &&
-                          (_expiryOf(e.event) ?? 0) > now),
-                )
-                .map((e) => e.event.tags)
-                .expand((e) => e)
-                .where((e) => e[0] == "p")
-                .map((e) => e[1])
-                .toSet();
+        final mutedPubkeys = firstPassEvents
+            .where(
+              (e) =>
+                  e.event.kind == Nip51List.kMute ||
+                  (e.event.kind == 1314 &&
+                      e.event.createdAt < now &&
+                      (_expiryOf(e.event) ?? 0) > now),
+            )
+            .map((e) => e.event.tags)
+            .expand((e) => e)
+            .where((e) => e[0] == "p")
+            .map((e) => e[1])
+            .toSet();
 
         final isChatDisabled = mutedPubkeys.contains(myKey);
-        final filteredChat =
-            firstPassEvents
-                .where((e) {
-                  return moderators.contains(e.authorPubKey) ||
-                      !mutedPubkeys.contains(e.authorPubKey);
-                })
-                // filter events that are created before stream start time
-                .where((e) => e.event.createdAt >= (stream.info.starts ?? 0))
-                // second-resolution timestamps tie constantly in a busy chat,
-                // so the id breaks the tie: without it equal-timestamp
-                // messages reorder between rebuilds and the list jumps
-                .sorted(
-                  (a, b) => a.event.createdAt == b.event.createdAt
-                      ? a.event.id.compareTo(b.event.id)
-                      : a.event.createdAt.compareTo(b.event.createdAt),
-                )
-                .reversed
-                .toList();
+        final filteredChat = firstPassEvents
+            .where((e) {
+              return moderators.contains(e.authorPubKey) ||
+                  !mutedPubkeys.contains(e.authorPubKey);
+            })
+            // filter events that are created before stream start time
+            .where((e) => e.event.createdAt >= (stream.info.starts ?? 0))
+            // second-resolution timestamps tie constantly in a busy chat,
+            // so the id breaks the tie: without it equal-timestamp
+            // messages reorder between rebuilds and the list jumps
+            .sorted(
+              (a, b) => a.event.createdAt == b.event.createdAt
+                  ? a.event.id.compareTo(b.event.id)
+                  : a.event.createdAt.compareTo(b.event.createdAt),
+            )
+            .reversed
+            .toList();
 
         final indexOfEventId = {
           for (final (idx, e) in filteredChat.indexed) e.event.id: idx,
         };
 
-        final zaps =
-            filteredChat.where((e) => e.isZap()).map((e) => e.zap).toList();
+        final zaps = filteredChat
+            .where((e) => e.isZap())
+            .map((e) => e.zap)
+            .toList();
         // pubkey -> Set<badge a tag>
         final badgeAwards = filteredChat
             .where((e) => e.event.kind == 8)
@@ -234,15 +226,7 @@ class _ChatWidget extends State<ChatWidget> {
                       stream: stream,
                       msg: msg.event,
                       key: Key("chat-msg:${msg.event.id}"),
-                      badges:
-                          badgeAwards[msg.event.pubKey]
-                              ?.map(
-                                (a) => ChatBadgeWidget.fromATag(
-                                  a,
-                                  key: Key("${msg.event.pubKey}:$a"),
-                                ),
-                              )
-                              .toList(),
+                      badges: badgeAwards[msg.event.pubKey]?.toList(),
                     ),
                     1312 => ChatRaidMessage(
                       event: msg.event,
@@ -253,9 +237,9 @@ class _ChatWidget extends State<ChatWidget> {
                       timeout: msg.event,
                       key: Key("chat-timeout:${msg.event.id}"),
                     ),
-                    9735 => ChatZapWidget(
+                    9735 when msg.isZap() => ChatZapWidget(
                       stream: stream,
-                      zap: msg.event,
+                      zap: msg.zap,
                       key: Key("chat-zap:${msg.event.id}"),
                     ),
                     8 => ChatBadgeAwardWidget(
@@ -311,13 +295,13 @@ class _ChatWidget extends State<ChatWidget> {
             t.stream.chat.disabled,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          if (timeoutEvent != null)
+          if (timeoutEvent != null && _expiryOf(timeoutEvent.event) != null)
             CountdownTimer(
               onTrigger: () => {},
               format: (time) => t.stream.chat.disabled_timeout(time: time),
               style: TextStyle(color: LAYER_5),
               triggerAt: DateTime.fromMillisecondsSinceEpoch(
-                int.parse(timeoutEvent.event.getFirstTag("expiration")!) * 1000,
+                (_expiryOf(timeoutEvent.event)! * 1000).toInt(),
               ),
             ),
         ],
@@ -333,47 +317,45 @@ class _TopZappersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final topZaps =
-        events
-            .fold(<String, int>{}, (acc, e) {
-              if (e.sender != null) {
-                acc[e.sender!] = (acc[e.sender!] ?? 0) + e.amountSats!;
-              }
-              return acc;
-            })
-            .entries
-            .sortedBy((e) => e.value)
-            .reversed
-            .take(10)
-            .toList();
+    final topZaps = events
+        .fold(<String, int>{}, (acc, e) {
+          if (e.sender != null) {
+            acc[e.sender!] = (acc[e.sender!] ?? 0) + (e.amountSats ?? 0);
+          }
+          return acc;
+        })
+        .entries
+        .sortedBy((e) => e.value)
+        .reversed
+        .take(10)
+        .toList();
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       primary: false,
       child: Row(
         spacing: 10,
-        children:
-            topZaps
-                .map(
-                  (v) => Container(
-                    padding: EdgeInsets.only(left: 4, right: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: DEFAULT_BR,
-                      border: Border.all(color: LAYER_3),
-                    ),
-                    child: ProfileWidget.pubkey(
-                      v.key,
-                      showName: false,
-                      size: 20,
-                      spacing: 0,
-                      children: [
-                        Icon(Icons.bolt, color: ZAP_1),
-                        Text(formatSats(v.value)),
-                      ],
-                    ),
-                  ),
-                )
-                .toList(),
+        children: topZaps
+            .map(
+              (v) => Container(
+                padding: EdgeInsets.only(left: 4, right: 8),
+                decoration: BoxDecoration(
+                  borderRadius: DEFAULT_BR,
+                  border: Border.all(color: LAYER_3),
+                ),
+                child: ProfileWidget.pubkey(
+                  v.key,
+                  showName: false,
+                  size: 20,
+                  spacing: 0,
+                  children: [
+                    Icon(Icons.bolt, color: ZAP_1),
+                    Text(formatSats(v.value)),
+                  ],
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }

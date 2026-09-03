@@ -20,6 +20,15 @@ class HeaderWidget extends StatefulWidget {
 class _HeaderWidget extends State<HeaderWidget> {
   @override
   Widget build(BuildContext context) {
+    // re-render the login button and settings icon when the login changes;
+    // the header sits on pages that are never rebuilt by a login
+    return ValueListenableBuilder(
+      valueListenable: loginData,
+      builder: (context, _, _) => _header(context),
+    );
+  }
+
+  Widget _header(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 12),
       child: Row(
@@ -79,10 +88,9 @@ class LoginButtonWidget extends StatelessWidget {
           ),
 
           GestureDetector(
-            onTap:
-                () => context.push(
-                  "/p/${Nip19.encodePubKey(ndk.accounts.getPublicKey()!)}",
-                ),
+            onTap: () => context.push(
+              "/p/${Nip19.encodePubKey(ndk.accounts.getPublicKey()!)}",
+            ),
             child: AvatarWidget.pubkey(ndk.accounts.getPublicKey()!),
           ),
         ],

@@ -28,26 +28,42 @@ class _CountdownTimerState extends State<CountdownTimer>
   @override
   void initState() {
     super.initState();
+    _start();
+  }
+
+  /// A re-issued timeout or raid hands this widget a new [triggerAt]; the
+  /// controller's duration was fixed at mount, so the old time kept showing.
+  @override
+  void didUpdateWidget(covariant CountdownTimer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.triggerAt != widget.triggerAt) {
+      _controller.dispose();
+      _actionTriggered = false;
+      _start();
+    }
+  }
+
+  void _start() {
     final now = DateTime.now();
-    final countdown =
-        widget.triggerAt.isBefore(now)
-            ? Duration()
-            : widget.triggerAt.difference(now);
+    final countdown = widget.triggerAt.isBefore(now)
+        ? Duration()
+        : widget.triggerAt.difference(now);
 
     _controller = AnimationController(vsync: this, duration: countdown);
 
     // Create animation to track progress from 5 to 0
-    _animation = Tween<double>(
-      begin: countdown.inSeconds.toDouble(),
-      end: 0,
-    ).animate(_controller)..addStatusListener((status) {
-      if (status == AnimationStatus.completed && !_actionTriggered) {
-        setState(() {
-          _actionTriggered = true;
-          widget.onTrigger();
+    _animation =
+        Tween<double>(
+          begin: countdown.inSeconds.toDouble(),
+          end: 0,
+        ).animate(_controller)..addStatusListener((status) {
+          if (status == AnimationStatus.completed && !_actionTriggered) {
+            setState(() {
+              _actionTriggered = true;
+              widget.onTrigger();
+            });
+          }
         });
-      }
-    });
 
     // Start the countdown immediately when widget is mounted
     _controller.forward();

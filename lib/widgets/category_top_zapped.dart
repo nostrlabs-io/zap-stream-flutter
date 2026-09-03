@@ -9,14 +9,32 @@ import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/avatar.dart';
 import 'package:zap_stream_flutter/widgets/profile.dart';
 
-class CategoryTopZapped extends StatelessWidget {
+class CategoryTopZapped extends StatefulWidget {
   final String tag;
   final int? limit;
 
   const CategoryTopZapped({super.key, required this.tag, this.limit});
 
   @override
+  State<CategoryTopZapped> createState() => _CategoryTopZapped();
+}
+
+class _CategoryTopZapped extends State<CategoryTopZapped> {
+  /// Fetched once per mount rather than on every rebuild of the page
+  late final Future<List<Nip01Event>> _streams = ndk.requests
+      .query(
+        filter: Filter(
+          kinds: [30_311],
+          limit: 100,
+          tTags: [widget.tag.toLowerCase()],
+        ),
+      )
+      .future;
+
+  @override
   Widget build(BuildContext context) {
+    final tag = widget.tag;
+    final limit = widget.limit;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
@@ -40,31 +58,18 @@ class CategoryTopZapped extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           primary: false,
           child: FutureBuilder(
-            future:
-                ndk.requests
-                    .query(
-                      filters: [
-                        Filter(
-                          kinds: [30_311],
-                          limit: 100,
-                          tTags: [tag.toLowerCase()],
-                        ),
-                      ],
-                    )
-                    .future,
+            future: _streams,
             builder: (context, state) {
-              final aTags =
-                  (state.data ?? [])
-                      .map((e) => "30311:${e.pubKey}:${e.getDtag()}")
-                      .toList();
+              final aTags = (state.data ?? [])
+                  .map((e) => "30311:${e.pubKey}:${e.getDtag()}")
+                  .toList();
               return RxFilter<Nip01Event>(
                 Key("top-zapped:$tag:${aTags.length}"),
                 filters: [
                   Filter(kinds: [9735], aTags: aTags),
                 ],
                 builder: (context, zaps) {
-                  final parsedZaps =
-                      zaps?.map((e) => ZapReceipt.fromEvent(e)) ?? [];
+                  final parsedZaps = zaps?.map(parseZapReceipt).nonNulls ?? [];
                   final topZapped = topZapReceiver(parsedZaps).entries
                       .sortedBy((e) => e.value.sum)
                       .reversed
@@ -72,32 +77,30 @@ class CategoryTopZapped extends StatelessWidget {
 
                   return Row(
                     spacing: 16,
-                    children:
-                        topZapped
-                            .map(
-                              (e) => Row(
-                                spacing: 8,
+                    children: topZapped
+                        .map(
+                          (e) => Row(
+                            spacing: 8,
+                            children: [
+                              AvatarWidget.pubkey(e.key),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 2,
                                 children: [
-                                  AvatarWidget.pubkey(e.key),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    spacing: 2,
-                                    children: [
-                                      Text(
-                                        formatSats(e.value.sum, maxDigits: 0),
-                                        style: TextStyle(
-                                          color: ZAP_1,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      ProfileNameWidget.pubkey(e.key),
-                                    ],
+                                  Text(
+                                    formatSats(e.value.sum, maxDigits: 0),
+                                    style: TextStyle(
+                                      color: ZAP_1,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
+                                  ProfileNameWidget.pubkey(e.key),
                                 ],
                               ),
-                            )
-                            .toList(),
+                            ],
+                          ),
+                        )
+                        .toList(),
                   );
                 },
               );

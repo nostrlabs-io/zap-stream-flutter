@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ndk/ndk.dart';
 import 'package:zap_stream_flutter/rx_filter.dart';
+import 'package:zap_stream_flutter/utils.dart';
 import 'package:zap_stream_flutter/widgets/stream_grid.dart';
 
 class SearchPage extends StatefulWidget {
@@ -46,15 +47,24 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  Widget _message(String text) {
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.all(32),
+        alignment: Alignment.center,
+        child: Text(text, style: TextStyle(color: Colors.grey)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: const EdgeInsets.all(5.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(5.0),
+          sliver: SliverToBoxAdapter(
+            child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: TextField(
                 controller: _controller,
@@ -77,36 +87,26 @@ class _SearchPageState extends State<SearchPage> {
                 onSubmitted: (value) => _updateFilters(value),
               ),
             ),
-            if (_filters.isEmpty && _controller.text.isEmpty)
-              Container(
-                padding: const EdgeInsets.all(32),
-                alignment: Alignment.center,
-                child: Text(
-                  "Enter a search term to find streams",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              )
-            else if (_filters.isNotEmpty)
-              RxFilter<Nip01Event>(
-                Key("search-page:${_controller.text}"),
-                filters: _filters,
-                builder: (ctx, state) {
-                  if (state == null || state.isEmpty) {
-                    return Container(
-                      padding: const EdgeInsets.all(32),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "No streams found",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    );
-                  }
-                  return StreamGrid(events: state);
-                },
-              ),
-          ],
+          ),
         ),
-      ),
+        if (_filters.isEmpty && _controller.text.isEmpty)
+          _message("Enter a search term to find streams")
+        else if (_filters.isNotEmpty)
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            sliver: RxFilter<StreamEvent>(
+              Key("search-page:${_controller.text}"),
+              filters: _filters,
+              mapper: (e) => StreamEvent(e),
+              builder: (ctx, state) {
+                if (state == null || state.isEmpty) {
+                  return _message("No streams found");
+                }
+                return StreamGrid(events: state);
+              },
+            ),
+          ),
+      ],
     );
   }
 }

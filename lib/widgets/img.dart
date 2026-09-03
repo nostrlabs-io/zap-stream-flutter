@@ -26,7 +26,8 @@ class Img extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dpr = MediaQuery.of(context).devicePixelRatio;
+    // depend on the pixel ratio only, not every MediaQuery change
+    final dpr = MediaQuery.devicePixelRatioOf(context);
     return CachedNetworkImage(
       imageUrl: url ?? "",
       width: width,
@@ -35,15 +36,13 @@ class Img extends StatelessWidget {
       fit: BoxFit.cover,
       placeholderFadeInDuration: Duration.zero,
       fadeOutDuration: Duration.zero,
-      placeholder:
-          (ctx, url) =>
-              SvgPicture.asset("assets/svg/logo.svg", height: placeholderSize),
-      errorWidget:
-          (context, url, error) => SvgPicture.asset(
-            "assets/svg/logo.svg",
-            height: placeholderSize,
-            colorFilter: ColorFilter.mode(WARNING, BlendMode.srcATop),
-          ),
+      placeholder: (ctx, url) =>
+          SvgPicture.asset("assets/svg/logo.svg", height: placeholderSize),
+      errorWidget: (context, url, error) => SvgPicture.asset(
+        "assets/svg/logo.svg",
+        height: placeholderSize,
+        colorFilter: ColorFilter.mode(WARNING, BlendMode.srcATop),
+      ),
     );
   }
 }

@@ -46,6 +46,7 @@ class _ZapWidget extends State<ZapWidget> {
     _customAmount.dispose();
     super.dispose();
   }
+
   final FocusNode _customAmountFocus = FocusNode();
   bool _loading = false;
   String? _error;
@@ -148,13 +149,16 @@ class _ZapWidget extends State<ZapWidget> {
             });
             await _loadZap(context);
           } catch (e) {
+            if (!mounted) return;
             setState(() {
               _error = e.toString();
             });
           } finally {
-            setState(() {
-              _loading = false;
-            });
+            if (mounted) {
+              setState(() {
+                _loading = false;
+              });
+            }
           }
         },
       ),
@@ -243,8 +247,11 @@ class _ZapWidget extends State<ZapWidget> {
 
     var relays = defaultRelays;
     // if target event has relays tag, use that for zap
-    if (widget.target?.tags.any((t) => t[0] == "relays") ?? false) {
-      relays = widget.target!.tags.firstWhere((t) => t[0] == "relays").slice(1);
+    final relaysTag = widget.target?.tags.firstWhereOrNull(
+      (t) => t.length > 1 && t[0] == "relays",
+    );
+    if (relaysTag != null) {
+      relays = relaysTag.slice(1);
     }
     final amount = _amount! * 1000;
 
@@ -259,8 +266,9 @@ class _ZapWidget extends State<ZapWidget> {
       ...(widget.target != null ? [widget.target!] : []),
       ...(widget.otherTargets != null ? widget.otherTargets! : []),
     ]) {
-      if (t.kind >= 30_000 && t.kind < 40_000) {
-        tags.add(["a", "${t.kind}:${t.pubKey}:${t.getDtag()!}"]);
+      final dTag = t.getDtag();
+      if (t.kind >= 30_000 && t.kind < 40_000 && dTag != null) {
+        tags.add(["a", "${t.kind}:${t.pubKey}:$dTag"]);
       } else {
         tags.add(["e", t.id]);
       }
@@ -273,8 +281,10 @@ class _ZapWidget extends State<ZapWidget> {
       tags: tags,
       content: _comment.text,
     );
-    await signer.sign(event);
-    return event;
+    // the signer returns a signed copy; the original stayed unsigned and the
+    // zap request went out without a signature
+    final signed = await signer.sign(event);
+    return ZapRequest.nip01Event(event: signed);
   }
 
   Future<void> _loadZap(BuildContext context) async {
@@ -284,21 +294,32 @@ class _ZapWidget extends State<ZapWidget> {
     }
 
     final zapRequest = await _makeZap();
+    final lnurl = Lnurl.getLud16LinkFromLud16(profile!.lud16!);
+    if (lnurl == null) {
+      throw t.zap.error.no_lud16;
+    }
     final invoice = await ndk.zaps.fetchInvoice(
-      lud16Link: Lnurl.getLud16LinkFromLud16(profile!.lud16!)!,
+      lud16Link: lnurl,
       amountSats: _amount!,
       zapRequest: zapRequest,
     );
+    if (invoice == null) {
+      // the button used to silently do nothing when the LNURL server refused
+      throw t.zap.error.no_invoice;
+    }
+    if (!mounted) return;
 
     // auto pay with NWC
     final wallet = await loginData.value?.getWallet();
-    if (wallet != null && invoice != null) {
+    if (!mounted) return;
+    if (wallet != null) {
       try {
         final preimage = await wallet.payInvoice(invoice.invoice);
         if (widget.onPaid != null) {
           widget.onPaid!(preimage);
         }
       } catch (e) {
+        if (!mounted) return;
         setState(() {
           _error = e.toString();
           _pr = invoice.invoice;
@@ -306,20 +327,19 @@ class _ZapWidget extends State<ZapWidget> {
       }
     } else {
       setState(() {
-        _pr = invoice?.invoice;
+        _pr = invoice.invoice;
       });
     }
   }
 
   Widget _zapAmount(int n) {
     return GestureDetector(
-      onTap:
-          () => setState(() {
-            _error = null;
-            _customAmount.clear();
-            _customAmountFocus.unfocus();
-            _amount = n;
-          }),
+      onTap: () => setState(() {
+        _error = null;
+        _customAmount.clear();
+        _customAmountFocus.unfocus();
+        _amount = n;
+      }),
       child: Container(
         decoration: BoxDecoration(
           color: n == _amount ? LAYER_4 : LAYER_3,

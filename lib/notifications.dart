@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:io';
@@ -75,7 +76,15 @@ class Notepush {
         )
         .timeout(Duration(seconds: 10));
     developer.log(rsp.body);
+    _checkStatus(rsp);
     return rsp;
+  }
+
+  /// A failed call used to be reported as success by every caller
+  static void _checkStatus(http.Response rsp) {
+    if (rsp.statusCode >= 400) {
+      throw "Notification service error ${rsp.statusCode}: ${rsp.body}";
+    }
   }
 
   Future<http.Response> _sendGetRequest(String url, {Object? body}) async {
@@ -92,6 +101,7 @@ class Notepush {
         )
         .timeout(Duration(seconds: 10));
     developer.log(rsp.body);
+    _checkStatus(rsp);
     return rsp;
   }
 
@@ -109,6 +119,7 @@ class Notepush {
         )
         .timeout(Duration(seconds: 10));
     developer.log(rsp.body);
+    _checkStatus(rsp);
     return rsp;
   }
 
@@ -128,8 +139,10 @@ class Notepush {
       tags: tags,
       content: "",
     );
-    await signer.sign(authEvent);
-    return Nip01EventModel.fromEntity(authEvent).toBase64();
+    // signers return a signed copy rather than mutating the event; using the
+    // original sent an unsigned auth header and every API call was rejected
+    final signed = await signer.sign(authEvent);
+    return Nip01EventModel.fromEntity(signed).toBase64();
   }
 }
 
@@ -209,14 +222,19 @@ Future<void> _onNotification(RemoteMessage msg) async {
 
 Future<void> _handleNotification(RemoteMessage msg, DbObjectBox cache) async {
   final notification = msg.notification;
-  if (notification != null && notification.android != null) {
+  // used to require the android payload, which dropped every push on iOS
+  if (notification != null) {
     final String? json = msg.data["nostr_event"];
 
-    final event =
-        json != null
-            ? Nip01EventModel.fromJson(JsonCodec().decode(json))
-            : null;
-    await _showNotification(notification, ndkCache, event);
+    Nip01Event? event;
+    try {
+      event = json != null
+          ? Nip01EventModel.fromJson(JsonCodec().decode(json))
+          : null;
+    } catch (e) {
+      developer.log("Bad event in push payload: $e");
+    }
+    await _showNotification(notification, cache, event);
   }
 }
 
@@ -226,14 +244,14 @@ Future<void> _showNotification(
   Nip01Event? event,
 ) async {
   final stream = event != null ? StreamEvent(event) : null;
-  final hostProfile =
-      stream != null ? await cache.loadMetadata(stream.info.host) : null;
-  final newTitle =
-      hostProfile != null
-          ? t.stream.notification(
-            name: ProfileNameWidget.nameFromProfile(hostProfile),
-          )
-          : null;
+  final hostProfile = stream != null
+      ? await cache.loadMetadata(stream.info.host)
+      : null;
+  final newTitle = hostProfile != null
+      ? t.stream.notification(
+          name: ProfileNameWidget.nameFromProfile(hostProfile),
+        )
+      : null;
 
   localNotifications.show(
     id: notification.hashCode,
@@ -241,10 +259,11 @@ Future<void> _showNotification(
     body: stream?.info.title ?? notification.body,
     notificationDetails: NotificationDetails(
       android: AndroidNotificationDetails(
-        notification.android!.channelId ?? "fcm",
+        notification.android?.channelId ?? "fcm",
         "Push Notifications",
         category: AndroidNotificationCategory.social,
       ),
+      iOS: DarwinNotificationDetails(),
     ),
   );
 }
@@ -267,19 +286,50 @@ Future<void> _onOpenMessage(RemoteMessage msg) async {
 // global notifications store
 final notifications = NotificationsStore(null);
 
-Future<void> setupNotifications() async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+final _firebaseReady = Completer<void>();
+bool _listening = false;
+String? _configuredFor;
+Future<void>? _configuring;
 
-  final signer = ndk.accounts.getLoggedAccount()?.signer;
-  if (signer != null) {
-    await configureNotifications(signer);
+Future<void> setupNotifications() async {
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    _firebaseReady.complete();
+  } catch (e) {
+    _firebaseReady.completeError(e);
+    rethrow;
   }
+  // registration itself is driven by the login listener in const.dart, so a
+  // user who logs in after launch gets push as well
 }
 
-Future<void> configureNotifications(EventSigner signer) async {
-  FirebaseMessaging.onMessage.listen(_onNotification);
-  //FirebaseMessaging.onBackgroundMessage(_onBackgroundNotification);
-  FirebaseMessaging.onMessageOpenedApp.listen(_onOpenMessage);
+/// Registers the logged-in account for push. Safe to call on every login
+/// change: it waits for Firebase, attaches the message listeners once, and
+/// skips the token round trip when the same account is already registered.
+Future<void> configureNotifications(EventSigner signer) {
+  final pubkey = signer.getPublicKey();
+  if (_configuredFor == pubkey && _configuring != null) return _configuring!;
+  _configuredFor = pubkey;
+  return _configuring = _configure(signer);
+}
+
+/// Forgets the registered account so a later login registers again
+void resetNotifications() {
+  _configuredFor = null;
+  _configuring = null;
+  notifications.value = null;
+}
+
+Future<void> _configure(EventSigner signer) async {
+  await _firebaseReady.future;
+  if (!_listening) {
+    _listening = true;
+    FirebaseMessaging.onMessage.listen(_onNotification);
+    //FirebaseMessaging.onBackgroundMessage(_onBackgroundNotification);
+    FirebaseMessaging.onMessageOpenedApp.listen(_onOpenMessage);
+  }
 
   final settings = await FirebaseMessaging.instance.requestPermission(
     provisional: true,
@@ -302,8 +352,11 @@ Future<void> configureNotifications(EventSigner signer) async {
   final pusher = Notepush(dotenv.env["NOTEPUSH_URL"]!, signer: signer);
   FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
     developer.log("NEW TOKEN: $token");
-    await pusher.register(token);
-    await pusher.setNotificationSettings(token, [30_311]);
+    // register with whoever is logged in when the token rotates
+    final current = getNotificationService();
+    if (current == null) return;
+    await current.register(token);
+    await current.setNotificationSettings(token, [30_311]);
   });
 
   final fcmToken = await FirebaseMessaging.instance.getToken();

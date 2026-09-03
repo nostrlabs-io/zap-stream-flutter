@@ -42,10 +42,15 @@ class _AvatarUpload extends State<AvatarUpload> {
         serverUrls: ["https://nostr.download"],
         data: await file.readAsBytes(),
       );
-      final imgUrl = upload.first.descriptor!.url;
-      setState(() {
-        _avatar = imgUrl;
-      });
+      final imgUrl = upload.firstOrNull?.descriptor?.url;
+      if (imgUrl == null) {
+        throw upload.firstOrNull?.error ?? "Upload failed";
+      }
+      if (mounted) {
+        setState(() {
+          _avatar = imgUrl;
+        });
+      }
       return imgUrl;
     }
     return null;
@@ -85,15 +90,13 @@ class _AvatarUpload extends State<AvatarUpload> {
               borderRadius: BorderRadius.all(Radius.circular(200)),
               color: Color.fromARGB(100, 50, 50, 50),
             ),
-            child:
-                _avatar == null
-                    ? Center(
-                      child:
-                          _loading
-                              ? CircularProgressIndicator()
-                              : Text(t.upload_avatar),
-                    )
-                    : CachedNetworkImage(imageUrl: _avatar!),
+            child: _avatar == null
+                ? Center(
+                    child: _loading
+                        ? CircularProgressIndicator()
+                        : Text(t.upload_avatar),
+                  )
+                : CachedNetworkImage(imageUrl: _avatar!),
           ),
           if (_error != null)
             Text(
