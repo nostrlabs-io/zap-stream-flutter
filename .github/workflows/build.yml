@@ -59,6 +59,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build appbundle
         env:
+          CARGO_ENCODED_RUSTFLAGS: "-C\x1flink-arg=-Wl,-z,max-page-size=16384"
           KEYSTORE: ${{ secrets.KEYSTORE }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -66,6 +67,7 @@ jobs:
           KEYSTORE_SHA256: ${{ secrets.KEYSTORE_SHA256 }}
       - run: flutter build apk --split-per-abi
         env:
+          CARGO_ENCODED_RUSTFLAGS: "-C\x1flink-arg=-Wl,-z,max-page-size=16384"
           KEYSTORE: ${{ secrets.KEYSTORE }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}

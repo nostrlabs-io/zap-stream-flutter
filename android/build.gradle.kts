@@ -1,7 +1,13 @@
 allprojects {
     repositories {
+        maven { url = uri("${rootDir}/vendor") }
         google()
         mavenCentral()
+    }
+    configurations.all {
+        resolutionStrategy.dependencySubstitution {
+            substitute(module("video.api:rtmpdroid")).using(module("video.api:rtmpdroid:1.2.1-16k"))
+        }
     }
 }
 
