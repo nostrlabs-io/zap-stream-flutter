@@ -43,7 +43,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEYSTORE_SHA256: ${{ secrets.KEYSTORE_SHA256 }}
-          CARGO_ENCODED_RUSTFLAGS: "-C\x1flink-arg=-Wl,-z,max-page-size=16384"
+          ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/28.2.13676358
         run: flutter build apk --split-per-abi --release
       - uses: actions/upload-artifact@v4
         with:
